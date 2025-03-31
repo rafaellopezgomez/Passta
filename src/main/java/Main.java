@@ -10,8 +10,8 @@ public class Main {
 		
 		try {
 //			String traces = "src/main/resources/normal.json";
-			String traces = "src/main/resources/disconnection.json";
-//			String traces = "src/main/resources/at.json";
+//			String traces = "src/main/resources/disconnection.json";
+			String traces = "src/main/resources/at.json";
 //			String traces = "src/main/resources/st.json";
 //			String traces = "src/main/resources/delay.json";
 //			String traces = "src/main/resources/example.json";
@@ -25,7 +25,7 @@ public class Main {
 			a.computeProbs();
 			
 			/***** Show in browser *****/
-			Parser.show(a);
+//			Parser.show(a);
 //			Parser.show(ga);
 
 			/***** Import *****/
@@ -33,8 +33,8 @@ public class Main {
 			
 			/**** Parsing module *****/
 //			Parser.exportTo("images/st", a, Parser.Export.PNG);
-			Parser.exportTo("images/st", a, Parser.Export.PNG);
-			//Parser.exportTo("automata/delay", a, Parser.Export.UPPAAL);
+//			Parser.exportTo("images/st", a, Parser.Export.PNG);
+			Parser.exportTo("test/test", a, Parser.Export.UPPAAL);
 			
 			/**** Verification module *****/
 			Validator.nValidTraces(traces, a);

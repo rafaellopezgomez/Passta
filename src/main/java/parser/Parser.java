@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -53,11 +56,11 @@ public class Parser {
 
 		Map<String, Integer> events = new HashMap<String, Integer>();
 		int eventN = -1;
-		
+
 		Map<String, Integer> attrsList = new HashMap<String, Integer>();
 		int attrCode = -1;
 		// Add initial system attrs
-		String inititalAttrs = a.getState(0).getAttrs().stream().sorted().collect(Collectors.joining (","));
+		String inititalAttrs = a.getState(0).getAttrs().stream().sorted().collect(Collectors.joining(","));
 		attrsList.put(inititalAttrs, attrCode);
 
 		Map<Integer, Location> locations = new HashMap<Integer, Location>();
@@ -66,43 +69,48 @@ public class Parser {
 
 		Template t = doc.createTemplate(); // new TA template with defaults
 		doc.insert(t, null).setProperty("name", "Template"); // insert and set the name
-		
+
+		int x = 0;
 		int y = 0;
 
 		for (var state : a.getAllStates()) {
 			/* Only create if absent */
-			
+
 			// Create locations and set their position
-			int x = 0;
-			// Create the outcoming edges
 			ArrayList<EDRTAEdge> edges = state.getOutEdges().stream().map(eid -> a.getEdge(eid))
 					.collect(Collectors.toCollection(ArrayList::new));
-			Location sourceLocation = locations.get(state.getId());
+			Location sourceL = locations.get(state.getId());
 
-			if (sourceLocation == null) {
+			if (sourceL == null) {
 				String name = "L" + String.valueOf(state.getId());
-				sourceLocation = t.addLocation();
-				sourceLocation.setProperty("name", name).setXY(x + 30, y - 10);
-				sourceLocation.setXY(x, y);
-				
-				if(state.getId() == 0) {
-					sourceLocation.setProperty("init", true);
+				sourceL = t.addLocation();
+				sourceL.setProperty("name", name).setXY(x + 30, y - 10);
+				sourceL.setXY(x, y);
+
+				if (state.getId() == 0) {
+					sourceL.setProperty("init", true);
 				}
-				
+
 				if (edges.size() > 1) {
-					sourceLocation.setProperty("committed", true);
+					sourceL.setProperty("committed", true);
 				} else {
-					String invariant = "x<=" + edges.stream().max(Comparator.comparing(EDRTAEdge::getMax)).get().getMax();
-					sourceLocation.setProperty("invariant", invariant).setXY(x + 30, y + 10);
+					String invariant = "x<="
+							+ edges.stream().max(Comparator.comparing(EDRTAEdge::getMax)).get().getMax();
+					sourceL.setProperty("invariant", invariant).setXY(x + 30, y + 10);
 				}
-				locations.putIfAbsent(state.getId(), sourceLocation);
-				
-			} else if (sourceLocation != null && edges.size() == 1 && sourceLocation.getPropertyValue("invariant").toString().isBlank()) {
+				locations.putIfAbsent(state.getId(), sourceL);
+
+			} else if (sourceL != null && edges.size() == 1
+					&& sourceL.getPropertyValue("invariant").toString().isBlank()) {
 				String invariant = "x<=" + edges.stream().max(Comparator.comparing(EDRTAEdge::getMax)).get().getMax();
-				sourceLocation.setProperty("invariant", invariant).setXY(sourceLocation.getX() + 30, sourceLocation.getY() + 10);
+				sourceL.setProperty("invariant", invariant).setXY(sourceL.getX() + 30, sourceL.getY() + 10);
 			}
+
+			x = sourceL.getX();
+			y = sourceL.getY();
+
 			if (edges.size() == 1) {
-				
+
 				EDRTAEdge edge = edges.get(0);
 				String guard = "x>=" + edge.getMin().toString();
 				String event = edge.getEvent();
@@ -110,146 +118,215 @@ public class Parser {
 					eventN += 1;
 					events.put(event, eventN);
 				}
-				
-				Location targetLocation = locations.get(edge.getTargetId());
-				EDRTAState targetState = a.getState(edge.getTargetId());
-				if (targetLocation == null) {
-					y += 150;
-					String name = "L" + String.valueOf(targetState.getId());
-					targetLocation = t.addLocation();
-					targetLocation.setProperty("name", name).setXY(x + 30, y - 10);
-					targetLocation.setXY(x, y);
-					locations.putIfAbsent(targetState.getId(), targetLocation);
+
+				// Add edges
+				try {
+					///////////////////////////////// New
+					Location targetL = locations.get(edge.getTargetId());
+					EDRTAState targetS = a.getState(edge.getTargetId());
+					String attrsName = targetS.getAttrs().stream().sorted().collect(Collectors.joining(","));
+					if (attrsList.get(attrsName) == null) {
+						attrCode += 1;
+						attrsList.put(attrsName, attrCode);
+					}
+
+					String updateAttrs = "x=0, " + "attrs = " + attrsList.get(attrsName);
+					String eventArr = " event = " + events.get(event);
+
+					if (targetL == null) {
+						String name = "L" + String.valueOf(targetS.getId());
+						targetL = t.addLocation();
+						if (targetS.getOutEdges().size() > 1) {
+							y += 150;
+						} else {
+							y += 300;
+							targetL.setProperty("name", name).setXY(x + 30, y - 10);
+						}
+						targetL.setXY(x, y);
+						locations.putIfAbsent(targetS.getId(), targetL);
+					}
+					/////////////////////////////
+					int auxX = (sourceL.getX() + targetL.getX()) / 2;
+					int auxY = (sourceL.getY() + targetL.getY()) / 2;
+
+					if (targetS.getOutEdges().size() == 1) { // An auxiliary committed location is required
+						Location commL = t.addLocation();
+
+						commL.setProperty("committed", true);
+						commL.setXY(auxX, auxY);
+						Edge e = t.addEdge(sourceL, commL);
+						e.setProperty("guard", guard).setXY((sourceL.getX() + commL.getX()) / 2 + 30,
+								(sourceL.getY() + commL.getY()) / 2);
+						e.setProperty("assignment", eventArr).setXY((sourceL.getX() + commL.getX()) / 2 + 30,
+								((sourceL.getY() + commL.getY()) / 2) + 30);
+						e = t.addEdge(commL, targetL);
+						e.setProperty("assignment", updateAttrs).setXY((commL.getX() + targetL.getX()) / 2 + 30,
+								((commL.getY() + targetL.getY()) / 2));
+					} else { // The target location is committed already
+						Edge e = t.addEdge(sourceL, targetL);
+						e.setProperty("guard", guard).setXY((sourceL.getX() + targetL.getX()) / 2 + 30,
+								(sourceL.getY() + targetL.getY()) / 2);
+						e.setProperty("assignment", eventArr).setXY((sourceL.getX() + targetL.getX()) / 2 + 30,
+								((sourceL.getY() + targetL.getY()) / 2) + 30);
+					}
+				} catch (ModelException e) {
+					e.printStackTrace();
 				}
-				
-//	New			
-				String attrsName = targetState.getAttrs().stream().sorted().collect(Collectors.joining (","));
-				//attrsName = attrsName.isBlank() ? "Empty" : attrsName;
+			} else if (edges.size() > 1) {
+				if (sourceL.getPropertyValue("committed").toString() == "false") {
+					// Committed location that ends up in a branchpoint
+					sourceL.setProperty("committed", true);
+				}
+
+				String attrsName = state.getAttrs().stream().sorted().collect(Collectors.joining(","));
 				if (attrsList.get(attrsName) == null) {
 					attrCode += 1;
 					attrsList.put(attrsName, attrCode);
 				}
-				
-	//
-				
+
+				String updateAttrs = "x=0, " + "attrs = " + attrsList.get(attrsName);
+
+				x = sourceL.getX();
+				y = sourceL.getY();
+
+				BranchPoint bp = t.addBranchPoint();
+				x += 150;
+				y += 150;
+
+				bp.setXY(x, y);
+
 				try {
-					String update = "x=0," + " event = "+ events.get(event) + ", attrs = " + attrsList.get(attrsName); // New
-					Edge e = t.addEdge(sourceLocation, targetLocation);
-					e.setProperty("guard", guard).setXY((sourceLocation.getX() + targetLocation.getX()) / 2 + 30, (sourceLocation.getY() + targetLocation.getY()) / 2);
-					e.setProperty("assignment", update).setXY((sourceLocation.getX() + targetLocation.getX()) / 2 + 30, ((sourceLocation.getY() + targetLocation.getY()) / 2) + 30);
+					Edge e = t.addEdge(sourceL, bp);
+					e.setProperty("assignment", updateAttrs).setXY((sourceL.getX() + bp.getX()) / 2 + 30,
+							((sourceL.getY() + bp.getY()) / 2));/////////////////////////////////////////////////
 				} catch (ModelException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else if (edges.size() > 1) {
-				if (sourceLocation.getPropertyValue("committed").toString() == "false") {
-					// Quiere decir que se ha creado como target de un edge y necesita ser cambiado
-					// a committed y crear cada rama con sus probabilidad
-					sourceLocation.setProperty("committed", true);
-					
-					BranchPoint bp = t.addBranchPoint();
-					x += 150;
-					y += 150;
-					bp.setXY(x, y);
-					
-					
+
+				y += 150;
+				int branch = 1;
+				// Create outgoing branches
+				int currentX = x;
+				int currentY = y;
+				for (int edgeId : state.getOutEdges()) {
+					EDRTAEdge edge = a.getEdge(edgeId);
+					String event = edge.getEvent();
+					String invariant = "x<=" + edge.getMax();
+
+					if (events.get(event) == null) {
+						eventN += 1;
+						events.put(event, eventN);
+					}
+					String update = "x=0," + " event = " + events.get(event);
+					String guard = "x>=" + edge.getMin().toString();
+
+					// Add branch location
+					String name = "L" + String.valueOf(state.getId());
+					name += "_" + branch;
+					Location sourceBL = t.addLocation();
+					sourceBL.setProperty("name", name).setXY(currentX + 30, currentY - 10);
+					sourceBL.setProperty("invariant", invariant).setXY(currentX + 30, currentY + 10);
+					sourceBL.setXY(currentX, currentY);
+
 					try {
-						Edge e = t.addEdge(sourceLocation, bp);
+						String prob = new DecimalFormat("#########.####", new DecimalFormatSymbols(Locale.ENGLISH))
+								.format(edge.getProb());
+						t.addEdge(bp, sourceBL).setProperty("probability", prob)
+								.setXY((bp.getX() + sourceBL.getX()) / 2 + 30, (bp.getY() + sourceBL.getY()) / 2);
 					} catch (ModelException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
-					y += 150;
-					int branch = 1;
-					for (int edgeId : state.getOutEdges()) {
-						EDRTAEdge edge = a.getEdge(edgeId);
-						String event = edge.getEvent();
-						String invariant = "x<=" + edge.getMax();
 
-						if (events.get(event) == null) {
-							eventN += 1;
-							events.put(event, eventN);
-						}
-						String update = "x=0," + " event = "+ events.get(event);
-						String guard = "x>=" + edge.getMin().toString();
-						
-						// Add branch location
-						String name = "L" + String.valueOf(state.getId());
-						name += "_" + branch;
-						Location sourceBranchLocation = t.addLocation();
-						sourceBranchLocation.setProperty("name", name).setXY(x + 30, y - 10);
-						sourceBranchLocation.setProperty("invariant", invariant).setXY(x + 30, y + 10);
-						sourceBranchLocation.setXY(x, y);
-						
-						try {
-							String prob = edge.getProb().toString();
-							t.addEdge(bp, sourceBranchLocation).setProperty("probability", prob).setXY((bp.getX() + sourceBranchLocation.getX()) / 2 + 30, (bp.getY() + sourceBranchLocation.getY()) / 2);
-						} catch (ModelException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-						Location targetLocation = locations.get(edge.getTargetId());
-						EDRTAState targetState = a.getState(edge.getTargetId());
-						if (targetLocation == null) {
-							name = "L" + String.valueOf(targetState.getId());
-							targetLocation = t.addLocation();
-							targetLocation.setProperty("name", name).setXY(x + 30, (y + 150) - 10);
-							targetLocation.setXY(x, y + 150);
-							locations.putIfAbsent(targetState.getId(), targetLocation);
-						}
+					Location targetL = locations.get(edge.getTargetId());
+					EDRTAState targetS = a.getState(edge.getTargetId());
+					/////////
+					if (targetL == null) {
+						name = "L" + String.valueOf(targetS.getId());
+						targetL = t.addLocation();
+						if (targetS.getOutEdges().size() > 1) {
+							currentY += 150;
+						} else {
+							currentY += 300;
 
-//						New		
-						String attrsName = targetState.getAttrs().stream().sorted().collect(Collectors.joining (","));
-						//attrsName = attrsName.isBlank() ? "Empty" : attrsName;
-						if (attrsList.get(attrsName) == null) {
-							attrCode += 1;
-							attrsList.put(attrsName, attrCode);
+							targetL.setProperty("name", name).setXY(currentX + 30, currentY - 10);
 						}
-						
-			//
-						
-						try {
-							update = "x=0," + " event = "+ events.get(event) + ", attrs = " + attrsList.get(attrsName); // New
-							Edge e = t.addEdge(sourceBranchLocation, targetLocation);
-							e.setProperty("guard", guard).setXY((sourceBranchLocation.getX() + targetLocation.getX()) / 2 + 30, (sourceBranchLocation.getY() + targetLocation.getY()) / 2);
-							e.setProperty("assignment", update).setXY((sourceBranchLocation.getX() + targetLocation.getX()) / 2 + 30, ((sourceBranchLocation.getY() + targetLocation.getY()) / 2) + 30);
-						} catch (ModelException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						y += 150;
-						x += 300;
-						branch++;
+						targetL.setXY(currentX, currentY);
+						locations.putIfAbsent(targetS.getId(), targetL);
 					}
-				}
-			}
 
+					attrsName = targetS.getAttrs().stream().sorted().collect(Collectors.joining(","));
+					if (attrsList.get(attrsName) == null) {
+						attrCode += 1;
+						attrsList.put(attrsName, attrCode);
+					}
+
+					updateAttrs = "x=0, " + "attrs = " + attrsList.get(attrsName);
+					String eventArr = " event = " + events.get(event);
+
+					//////////////////////// New
+					int auxX = (sourceBL.getX() + targetL.getX()) / 2;
+					int auxY = (sourceBL.getY() + targetL.getY()) / 2;
+					if (targetS.getOutEdges().size() == 1) { // An auxiliary committed location is required
+						try {
+							Location commL = t.addLocation();
+
+							commL.setProperty("committed", true);
+							commL.setXY(auxX, auxY);
+							Edge e = t.addEdge(sourceBL, commL);
+							e.setProperty("guard", guard).setXY((sourceBL.getX() + commL.getX()) / 2 + 30,
+									(sourceBL.getY() + commL.getY()) / 2);
+							e.setProperty("assignment", eventArr).setXY((sourceBL.getX() + commL.getX()) / 2 + 30,
+									((sourceBL.getY() + commL.getY()) / 2) + 30);
+							e = t.addEdge(commL, targetL);
+							e.setProperty("assignment", updateAttrs).setXY((commL.getX() + targetL.getX()) / 2 + 30,
+									((commL.getY() + targetL.getY()) / 2));
+						} catch (ModelException e) {
+							e.printStackTrace();
+						}
+					} else { // The target location is committed already
+						try {
+							Edge e = t.addEdge(sourceBL, targetL);
+							e.setProperty("guard", guard).setXY((sourceBL.getX() + targetL.getX()) / 2 + 30,
+									(sourceBL.getY() + targetL.getY()) / 2);
+							e.setProperty("assignment", eventArr).setXY((sourceBL.getX() + targetL.getX()) / 2 + 30,
+									((sourceBL.getY() + targetL.getY()) / 2) + 30);
+						} catch (ModelException e) {
+
+							e.printStackTrace();
+						}
+					}
+					////////////////////////
+					currentY += 150;
+					currentX += 300;
+					branch++;
+				}
+				/////////////////// Branch
+			}
 			y += 150;
 		}
-		
-		String attrsMeaning = "";	
-		for(var kv : attrsList.entrySet()) {
+
+		String attrsMeaning = "";
+		for (var kv : attrsList.entrySet()) {
 			attrsMeaning += "System attributes " + kv.getKey() + "---> code: " + kv.getValue() + "\n";
 		}
-		
+
 		String attrsInfo = "/*\n" + attrsMeaning + "*/\n";
-		
+
 		String eventsMeaning = "No event ---> code: -1 \n";
-		for(var kv : events.entrySet()) {
+		for (var kv : events.entrySet()) {
 			eventsMeaning += "Event " + kv.getKey() + "---> code: " + kv.getValue() + "\n";
 		}
-		
+
 		String eventsInfo = "/*\n" + eventsMeaning + "*/\n";
-		
-		doc.setProperty("declaration","hybrid clock x;\nint attrs = " + attrsList.get(inititalAttrs) + ";\n" + attrsInfo + "\nint event = -1;\n" + eventsInfo); // shared global hybrid clock x
+
+		doc.setProperty("declaration", "hybrid clock x;\nint attrs = " + attrsList.get(inititalAttrs) + ";\n"
+				+ attrsInfo + "\nint event = -1;\n" + eventsInfo); // shared global hybrid clock x
 		doc.setProperty("system", "Process = Template();\n" + "system Process;");
 
 		try {
 			String pathString = Paths.get(route).getParent() == null ? "" : Paths.get(route).getParent().toString();
 			Path path = Paths.get(route).getParent();
-			if(path != null && Files.notExists(Paths.get(pathString))) {
+			if (path != null && Files.notExists(Paths.get(pathString))) {
 				Files.createDirectories(path);
 			}
 			String filename = Paths.get(route).getFileName().toString();
@@ -262,7 +339,7 @@ public class Parser {
 
 	private static void writeLayoutInFile(Path path, Graphviz g, FileType ft) {
 		try {
-			if(path != null && Files.notExists(path.getParent())) {
+			if (path != null && Files.notExists(path.getParent())) {
 				Files.createDirectories(path.getParent());
 			}
 			String filename = path.getFileName().toString() == null ? "automaton" : path.getFileName().toString();
