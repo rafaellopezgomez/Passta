@@ -1,4 +1,4 @@
-![Logo Passta](resources/passta_logo.webp)
+![Logo Passta](resources/logo.png)
 
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
