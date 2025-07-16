@@ -120,6 +120,12 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+*.jar
+!dist/*.jar
+
+dist/*
+!dist/*.jar
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -154,7 +160,6 @@ $RECYCLE.BIN/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
-/dist/
 /nbdist/
 /.nb-gradle/
 build/
