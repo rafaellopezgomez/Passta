@@ -7,6 +7,10 @@
 
 🚧 In development 🚧
 
+## Changelog 07/16/2025
+- New custom UPPAAL parser has been developed.
+- UPPAAL api dependency removed.
+
 ## Description
 
 Passta is a passive automata learning algorithm to automatically construct abstract models (Stochastic Real-Time Automata) from observations (execution traces) of real systems.
@@ -22,15 +26,12 @@ LearnTA+ depends on:
 - <a href="https://github.com/FasterXML/jackson" target="_blank">Jackson</a>
 - <a href="https://github.com/FasterXML/jackson-modules-base/tree/2.18/blackbird" target="_blank">Jackson Blackbird module</a>
 - <a href="https://github.com/jamisonjiang/graph-support" target="_blank">graph-support</a>
-- <a href="https://commons.apache.org/proper/commons-io/" target="_blank">UPPPAAL api</a>
-- <a href="https://uppaal.org/" target="_blank">UPPAAL 5.1.0 beta5</a>
-
+- <a href="https://commons.apache.org/proper/commons-io/" target="_blank">commons-io</a>
 
 ## Installation
 
 ### From source code
 Pre-requisite: Java Development Kit (JDK)  21 or higher, Maven.
-Optional: UPPAAL model parser needs model.jar and uppaal.jar. Add these files into the classpath project.
 
 ## Usage
 
