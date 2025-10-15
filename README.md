@@ -7,16 +7,21 @@
 
 🚧 In development 🚧
 
-## Changelog 07/16/2025
+## Changelogs
+
+### 07/16/2025
 - New custom UPPAAL parser has been developed.
 - UPPAAL api dependency removed.
+
+### 15/10/2025
+- Adjustments in merge algorithm to fix indeterminism as soon as possible in in-out edges of the resulting merged state
 
 ## Description
 
 Passta is a passive automata learning algorithm to automatically construct abstract models (Stochastic Real-Time Automata) from observations (execution traces) of real systems.
 
 ## Table of Contents
-- [Technologies](#Technologies)
+- [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
 

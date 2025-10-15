@@ -656,22 +656,42 @@ public class Passta {
 		return stateMerged;
 	}
 
-	private void compareAndMerge(List<List<EDRTAEdge>> edgesToCheck) {
+	/**
+	 * This method looks for duplicate in and out edges for the input state and
+	 * merge them. Duplicate edges: Same source (id), target (id), event and overlapping guards
+	 *
+	 * @param mergedState
+	 */
+	private void mergeEdges(EDRTAState mergedState) {
 
-		for (List<EDRTAEdge> comparingEdges : edgesToCheck) {
-			while (comparingEdges.size() > 1) {
+		// Checking outEdges, grouping them by the same event.
+		var outEdges = mergedState.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
+				.collect(Collectors.groupingBy(EDRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
+				.collect(Collectors.toCollection(ArrayList::new));
+		mergeEdgesAux(outEdges);
+
+		// Checking inEdges, grouping them by the same event.
+		var inEdges = mergedState.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
+				.collect(Collectors.groupingBy(EDRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
+				.collect(Collectors.toCollection(ArrayList::new));
+		mergeEdgesAux(inEdges);
+	}
+	
+	private void mergeEdgesAux(List<List<EDRTAEdge>> edgesToCheck) {
+		for (List<EDRTAEdge> possibleEqEdges : edgesToCheck) {
+			while (possibleEqEdges.size() > 1) {
 				ArrayList<EDRTAEdge> compared = new ArrayList<>();
-				EDRTAEdge currentE = comparingEdges.get(0);
-				ArrayList<EDRTAEdge> eqEdges = comparingEdges.stream().filter(e -> {
+				EDRTAEdge currentE = possibleEqEdges.get(0);
+				ArrayList<EDRTAEdge> eqEdges = possibleEqEdges.stream().filter(e -> {
 					if (e.getId() == currentE.getId())
 						return false;
 					var minVal1 = currentE.getMin();
 					var minVal2 = e.getMin();
 					var maxVal1 = currentE.getMax();
 					var maxVal2 = e.getMax();
-					var target1 = automaton.getState(currentE.getTargetId()).getAttrs();
-					var target2 = automaton.getState(e.getTargetId()).getAttrs();
-					boolean sameTarget = target1.equals(target2); // Same target state (same system attrs)
+					var target1 = automaton.getState(currentE.getTargetId());
+					var target2 = automaton.getState(e.getTargetId());
+					boolean sameTarget = target1.equals(target2); // Same target state (same id)
 					boolean overlappingGuards = ((minVal1 >= minVal2 && minVal1 <= maxVal2)
 							|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
 							|| ((minVal2 >= minVal1 && minVal2 <= maxVal1) // Overlapping guards
@@ -696,7 +716,6 @@ public class Passta {
 					mergedEdge.setMax(maxGuard);
 					compared.removeIf(e -> e.getId() == mergedEdge.getId()); // The edge is fused so another check is
 																				// required
-					//
 					var toDelete = compared.stream().filter(edge -> {
 						if (edge.getId() != mergedEdge.getId()) {
 							mergedEdge.addSamples(edge.getSamples()); // Add to the merged edge all the time samples of
@@ -710,28 +729,11 @@ public class Passta {
 					for (int edgeId : toDelete) {
 						automaton.deleteEdge(edgeId);
 					}
-					//
 				}
-				comparingEdges.removeAll(compared);
+				possibleEqEdges.removeAll(compared);
 			}
 
 		}
-	}
-
-	/**
-	 * This method looks for duplicate in and out edges for the input state and
-	 * merge them. Duplicate edges: Same source, target and event
-	 *
-	 * @param mergedState
-	 */
-	private void mergeEdges(EDRTAState mergedState) {
-
-		// Checking outEdges, grouping them by the same event.
-		var outEdges = mergedState.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
-				.collect(Collectors.groupingBy(EDRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
-				.collect(Collectors.toCollection(ArrayList::new));
-
-		compareAndMerge(outEdges);
 	}
 
 	/**
