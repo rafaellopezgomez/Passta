@@ -732,16 +732,11 @@ public class Passta {
 				.collect(Collectors.toCollection(ArrayList::new));
 
 		compareAndMerge(outEdges);
-
-		// Checking inEdges, grouping them by the same event.
-		/*var inEdges = mergedState.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
-				.collect(Collectors.groupingBy(EDRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
-				.collect(Collectors.toCollection(ArrayList::new));
-
-		compareAndMerge(inEdges);*/
-
 	}
 
+	/**
+	 * This method tries to merge leaf states
+	 */
 	private boolean mergeFinalStates() {
 		var states = automaton.getAllStates();
 		var finalStates = states.stream().filter(state -> state.getOutEdges().size() == 0)
