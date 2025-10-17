@@ -690,7 +690,7 @@ public class Passta {
 					var maxVal1 = currentE.getMax();
 					var maxVal2 = e.getMax();
 					var source1 = currentE.getSourceId();
-					var source2 = e.getTargetId();
+					var source2 = e.getSourceId();
 					var target1 = currentE.getTargetId();
 					var target2 = e.getTargetId();
 					boolean sameSource = source1 == source2; // Same source state (same id)
