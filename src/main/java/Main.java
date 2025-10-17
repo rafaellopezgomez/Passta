@@ -1,6 +1,7 @@
 import automaton.EDRTA;
 import learning_algorithm.Passta;
 import parser.Parser;
+import validator.Validator;
 
 
 public class Main {

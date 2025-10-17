@@ -689,14 +689,17 @@ public class Passta {
 					var minVal2 = e.getMin();
 					var maxVal1 = currentE.getMax();
 					var maxVal2 = e.getMax();
-					var target1 = automaton.getState(currentE.getTargetId());
-					var target2 = automaton.getState(e.getTargetId());
-					boolean sameTarget = target1.equals(target2); // Same target state (same id)
+					var source1 = currentE.getSourceId();
+					var source2 = e.getTargetId();
+					var target1 = currentE.getTargetId();
+					var target2 = e.getTargetId();
+					boolean sameSource = source1 == source2; // Same source state (same id)
+					boolean sameTarget = target1 == target2; // Same target state (same id)
 					boolean overlappingGuards = ((minVal1 >= minVal2 && minVal1 <= maxVal2)
 							|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
 							|| ((minVal2 >= minVal1 && minVal2 <= maxVal1) // Overlapping guards
 									|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
-					return sameTarget && overlappingGuards;
+					return sameSource && sameTarget && overlappingGuards;
 				}).collect(Collectors.toCollection(ArrayList::new));
 
 				compared.add(currentE); // The current edge is checked
@@ -716,19 +719,12 @@ public class Passta {
 					mergedEdge.setMax(maxGuard);
 					compared.removeIf(e -> e.getId() == mergedEdge.getId()); // The edge is fused so another check is
 																				// required
-					var toDelete = compared.stream().filter(edge -> {
-						if (edge.getId() != mergedEdge.getId()) {
+					compared.stream().forEach(edge -> {
 							mergedEdge.addSamples(edge.getSamples()); // Add to the merged edge all the time samples of
 																		// the eq edges that are going to be removed
-							return true;
-						}
-
-						return false;
-					}).map(EDRTAEdge::getId).collect(Collectors.toCollection(ArrayList::new));
-
-					for (int edgeId : toDelete) {
-						automaton.deleteEdge(edgeId);
-					}
+					});
+					
+					compared.stream().map(EDRTAEdge::getId).forEach(e -> automaton.deleteEdge(e));
 				}
 				possibleEqEdges.removeAll(compared);
 			}
