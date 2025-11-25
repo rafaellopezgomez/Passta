@@ -652,6 +652,7 @@ public class UPPAAL {
 						targetL = new Location();
 						if (targetS.getOutEdges().size() > 1) {
 							currentY += 150;
+							targetL.setCommitted(true);
 						} else {
 							currentY += 300;
 							targetL.setName(name, currentX + 30, currentY - 10);

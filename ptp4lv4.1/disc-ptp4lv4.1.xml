@@ -1,0 +1,3719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>
+hybrid clock x;
+int attrs = -1;
+/*
+System attributes ---&gt; code: 5
+System attributes Slave---&gt; code: 4
+System attributes Unknown---&gt; code: -1
+System attributes Listening---&gt; code: 1
+System attributes Uncalibrated---&gt; code: 2
+System attributes Faulty---&gt; code: 3
+System attributes Initializing---&gt; code: 0
+*/
+
+int event = -1;
+/*
+No event ---&gt; code: -1 
+Event □---&gt; code: 0
+Event Fault_detected---&gt; code: 3
+Event Master_clock_selected---&gt; code: 4
+Event Fault_cleared---&gt; code: 5
+Event Init_complete---&gt; code: 1
+Event Rs_slave---&gt; code: 2
+*/
+</declaration>
+	<template>
+		<name>Template</name>
+		<location id="id0" x="0" y="300">
+			<name x="30" y="290">L1</name>
+			<label kind="invariant" x="30" y="310">x&lt;=55988.0</label>
+		</location>
+		<location id="id1" x="0" y="0">
+			<name x="30" y="-10">L0</name>
+			<label kind="invariant" x="30" y="10">x&lt;=0.0</label>
+		</location>
+		<location id="id2" x="0" y="150">
+			<committed/>
+		</location>
+		<location id="id3" x="300" y="1950">
+			<committed/>
+		</location>
+		<location id="id4" x="600" y="2100">
+			<name x="630" y="2090">L7_1</name>
+			<label kind="invariant" x="630" y="2110">x&lt;=1.6089231E7</label>
+		</location>
+		<location id="id5" x="1350" y="3600">
+			<committed/>
+		</location>
+		<location id="id6" x="300" y="1800">
+			<name x="330" y="1790">L5_1</name>
+			<label kind="invariant" x="330" y="1810">x&lt;=2257876.0</label>
+		</location>
+		<location id="id7" x="600" y="2400">
+			<name x="630" y="2390">L8</name>
+			<label kind="invariant" x="630" y="2410">x&lt;=1.00807425E8</label>
+		</location>
+		<location id="id8" x="450" y="1650">
+			<name x="480" y="1640">L4_2</name>
+			<label kind="invariant" x="480" y="1660">x&lt;=4499603.0</label>
+		</location>
+		<location id="id9" x="750" y="2550">
+			<committed/>
+		</location>
+		<location id="id10" x="450" y="1800">
+			<committed/>
+		</location>
+		<location id="id11" x="1350" y="3450">
+			<name x="1380" y="3440">L9_2</name>
+			<label kind="invariant" x="1380" y="3460">x&lt;=7685890.0</label>
+		</location>
+		<location id="id12" x="1050" y="3000">
+			<name x="1080" y="2990">L9_1</name>
+			<label kind="invariant" x="1080" y="3010">x&lt;=3308936.0</label>
+		</location>
+		<location id="id13" x="1800" y="4200">
+			<committed/>
+		</location>
+		<location id="id14" x="750" y="2700">
+			<name x="780" y="2690">L13</name>
+			<label kind="invariant" x="780" y="2710">x&lt;=4.3987387E7</label>
+		</location>
+		<location id="id15" x="1050" y="3150">
+			<committed/>
+		</location>
+		<location id="id16" x="1050" y="3300">
+			<name x="1080" y="3290">L10</name>
+			<label kind="invariant" x="1080" y="3310">x&lt;=4303952.0</label>
+		</location>
+		<location id="id17" x="1800" y="4350">
+			<name x="1830" y="4340">L14</name>
+			<label kind="invariant" x="1830" y="4360">x&lt;=1382420.0</label>
+		</location>
+		<location id="id18" x="0" y="900">
+			<name x="30" y="890">L3</name>
+			<label kind="invariant" x="30" y="910">x&lt;=585.0</label>
+		</location>
+		<location id="id19" x="0" y="600">
+			<name x="30" y="590">L2</name>
+			<label kind="invariant" x="30" y="610">x&lt;=745.0</label>
+		</location>
+		<location id="id20" x="0" y="450">
+			<committed/>
+		</location>
+		<location id="id21" x="150" y="1350">
+			<name x="180" y="1340">L4_1</name>
+			<label kind="invariant" x="180" y="1360">x&lt;=7199724.0</label>
+		</location>
+		<location id="id22" x="750" y="2400">
+			<name x="780" y="2390">L6_2</name>
+			<label kind="invariant" x="780" y="2410">x&lt;=1.3176328E7</label>
+		</location>
+		<location id="id23" x="150" y="1500">
+			<committed/>
+		</location>
+		<location id="id24" x="450" y="2250">
+			<name x="480" y="2240">L6_1</name>
+			<label kind="invariant" x="480" y="2260">x&lt;=5.8969673E7</label>
+		</location>
+		<location id="id25" x="0" y="1050">
+			<committed/>
+		</location>
+		<location id="id26" x="1800" y="4050">
+			<name x="1830" y="4040">L11_2</name>
+			<label kind="invariant" x="1830" y="4060">x&lt;=1757392.0</label>
+		</location>
+		<location id="id27" x="0" y="750">
+			<committed/>
+		</location>
+		<location id="id28" x="1500" y="3900">
+			<name x="1530" y="3890">L11_1</name>
+			<label kind="invariant" x="1530" y="3910">x&lt;=2258295.0</label>
+		</location>
+		<location id="id29" x="600" y="2100">
+			<name x="630" y="2090">L5_2</name>
+			<label kind="invariant" x="630" y="2110">x&lt;=1011505.0</label>
+		</location>
+		<location id="id30" x="900" y="2550">
+			<name x="930" y="2540">L7_2</name>
+			<label kind="invariant" x="930" y="2560">x&lt;=1.5918685E7</label>
+		</location>
+		<location id="id31" x="900" y="2700">
+			<committed/>
+		</location>
+		<location id="id32" x="600" y="2250">
+			<committed/>
+		</location>
+		<location id="id33" x="1650" y="3750">
+			<name x="1680" y="3740">L9_3</name>
+			<label kind="invariant" x="1680" y="3760">x&lt;=4977715.0</label>
+		</location>
+		<branchpoint id="id34" x="1500" y="3750"/>
+		<branchpoint id="id35" x="300" y="1650"/>
+		<branchpoint id="id36" x="1050" y="2850"/>
+		<branchpoint id="id37" x="150" y="1200"/>
+		<branchpoint id="id38" x="450" y="2100"/>
+		<branchpoint id="id39" x="600" y="1950"/>
+		<init ref="id1"/>
+		<transition id="id40">
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="guard" x="30" y="75">x&gt;=0.0</label>
+			<label kind="assignment" x="30" y="105">event = 0</label>
+		</transition>
+		<transition id="id41">
+			<source ref="id35"/>
+			<target ref="id6"/>
+			<label kind="probability" x="330" y="1725">0.9992</label>
+		</transition>
+		<transition id="id42">
+			<source ref="id11"/>
+			<target ref="id5"/>
+			<label kind="guard" x="1380" y="3525">x&gt;=250768.0</label>
+			<label kind="assignment" x="1380" y="3555">event = 2</label>
+		</transition>
+		<transition id="id43">
+			<source ref="id8"/>
+			<target ref="id10"/>
+			<label kind="guard" x="480" y="1725">x&gt;=19.0</label>
+			<label kind="assignment" x="480" y="1755">event = 3</label>
+		</transition>
+		<transition id="id44">
+			<source ref="id10"/>
+			<target ref="id39"/>
+			<label kind="assignment" x="555" y="1875">x=0, attrs = 3</label>
+		</transition>
+		<transition id="id45">
+			<source ref="id23"/>
+			<target ref="id35"/>
+			<label kind="assignment" x="255" y="1575">x=0, attrs = 2</label>
+		</transition>
+		<transition id="id46">
+			<source ref="id39"/>
+			<target ref="id4"/>
+			<label kind="probability" x="630" y="2025">0.8819</label>
+		</transition>
+		<transition id="id47">
+			<source ref="id22"/>
+			<target ref="id9"/>
+			<label kind="guard" x="780" y="2475">x&gt;=287476.0</label>
+			<label kind="assignment" x="780" y="2505">event = 5</label>
+		</transition>
+		<transition id="id48">
+			<source ref="id15"/>
+			<target ref="id16"/>
+			<label kind="assignment" x="1080" y="3225">x=0, attrs = 5</label>
+		</transition>
+		<transition id="id49">
+			<source ref="id21"/>
+			<target ref="id23"/>
+			<label kind="guard" x="180" y="1425">x&gt;=250449.0</label>
+			<label kind="assignment" x="180" y="1455">event = 2</label>
+		</transition>
+		<transition id="id50">
+			<source ref="id12"/>
+			<target ref="id15"/>
+			<label kind="guard" x="1080" y="3075">x&gt;=116888.0</label>
+			<label kind="assignment" x="1080" y="3105">event = 5</label>
+		</transition>
+		<transition id="id51">
+			<source ref="id17"/>
+			<target ref="id3"/>
+			<label kind="guard" x="1080" y="3150">x&gt;=375151.0</label>
+			<label kind="assignment" x="1080" y="3180">event = 4</label>
+		</transition>
+		<transition id="id52">
+			<source ref="id36"/>
+			<target ref="id11"/>
+			<label kind="probability" x="1230" y="3150">0.6713</label>
+		</transition>
+		<transition id="id53">
+			<source ref="id37"/>
+			<target ref="id8"/>
+			<label kind="probability" x="330" y="1425">0.1577</label>
+		</transition>
+		<transition id="id54">
+			<source ref="id9"/>
+			<target ref="id14"/>
+			<label kind="assignment" x="780" y="2625">x=0, attrs = 5</label>
+		</transition>
+		<transition id="id55">
+			<source ref="id36"/>
+			<target ref="id12"/>
+			<label kind="probability" x="1080" y="2925">0.2727</label>
+		</transition>
+		<transition id="id56">
+			<source ref="id26"/>
+			<target ref="id13"/>
+			<label kind="guard" x="1830" y="4125">x&gt;=406.0</label>
+			<label kind="assignment" x="1830" y="4155">event = 5</label>
+		</transition>
+		<transition id="id57">
+			<source ref="id14"/>
+			<target ref="id10"/>
+			<label kind="guard" x="630" y="2250">x&gt;=959924.0</label>
+			<label kind="assignment" x="630" y="2280">event = 3</label>
+		</transition>
+		<transition id="id58">
+			<source ref="id38"/>
+			<target ref="id22"/>
+			<label kind="probability" x="630" y="2250">0.0738</label>
+		</transition>
+		<transition id="id59">
+			<source ref="id13"/>
+			<target ref="id17"/>
+			<label kind="assignment" x="1830" y="4275">x=0, attrs = 5</label>
+		</transition>
+		<transition id="id60">
+			<source ref="id34"/>
+			<target ref="id26"/>
+			<label kind="probability" x="1680" y="3900">0.0417</label>
+		</transition>
+		<transition id="id61">
+			<source ref="id20"/>
+			<target ref="id19"/>
+			<label kind="assignment" x="30" y="525">x=0, attrs = 1</label>
+		</transition>
+		<transition id="id62">
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="assignment" x="30" y="225">x=0, attrs = 0</label>
+		</transition>
+		<transition id="id63">
+			<source ref="id0"/>
+			<target ref="id20"/>
+			<label kind="guard" x="30" y="375">x&gt;=15977.0</label>
+			<label kind="assignment" x="30" y="405">event = 1</label>
+		</transition>
+		<transition id="id64">
+			<source ref="id37"/>
+			<target ref="id21"/>
+			<label kind="probability" x="180" y="1275">0.8423</label>
+		</transition>
+		<transition id="id65">
+			<source ref="id18"/>
+			<target ref="id25"/>
+			<label kind="guard" x="30" y="975">x&gt;=210.0</label>
+			<label kind="assignment" x="30" y="1005">event = 1</label>
+		</transition>
+		<transition id="id66">
+			<source ref="id3"/>
+			<target ref="id38"/>
+			<label kind="assignment" x="405" y="2025">x=0, attrs = 4</label>
+		</transition>
+		<transition id="id67">
+			<source ref="id7"/>
+			<target ref="id25"/>
+			<label kind="guard" x="330" y="1725">x&gt;=37490.0</label>
+			<label kind="assignment" x="330" y="1755">event = 1</label>
+		</transition>
+		<transition id="id68">
+			<source ref="id25"/>
+			<target ref="id37"/>
+			<label kind="assignment" x="105" y="1125">x=0, attrs = 1</label>
+		</transition>
+		<transition id="id69">
+			<source ref="id24"/>
+			<target ref="id10"/>
+			<label kind="guard" x="480" y="2025">x&gt;=241595.0</label>
+			<label kind="assignment" x="480" y="2055">event = 3</label>
+		</transition>
+		<transition id="id70">
+			<source ref="id38"/>
+			<target ref="id24"/>
+			<label kind="probability" x="480" y="2175">0.9262</label>
+		</transition>
+		<transition id="id71">
+			<source ref="id31"/>
+			<target ref="id36"/>
+			<label kind="assignment" x="1005" y="2775">x=0, attrs = 1</label>
+		</transition>
+		<transition id="id72">
+			<source ref="id35"/>
+			<target ref="id29"/>
+			<label kind="probability" x="480" y="1875">0.0008</label>
+		</transition>
+		<transition id="id73">
+			<source ref="id39"/>
+			<target ref="id30"/>
+			<label kind="probability" x="780" y="2250">0.1181</label>
+		</transition>
+		<transition id="id74">
+			<source ref="id5"/>
+			<target ref="id34"/>
+			<label kind="assignment" x="1455" y="3675">x=0, attrs = 2</label>
+		</transition>
+		<transition id="id75">
+			<source ref="id27"/>
+			<target ref="id18"/>
+			<label kind="assignment" x="30" y="825">x=0, attrs = 1</label>
+		</transition>
+		<transition id="id76">
+			<source ref="id30"/>
+			<target ref="id31"/>
+			<label kind="guard" x="930" y="2625">x&gt;=177980.0</label>
+			<label kind="assignment" x="930" y="2655">event = 1</label>
+		</transition>
+		<transition id="id77">
+			<source ref="id28"/>
+			<target ref="id3"/>
+			<label kind="guard" x="930" y="2925">x&gt;=69933.0</label>
+			<label kind="assignment" x="930" y="2955">event = 4</label>
+		</transition>
+		<transition id="id78">
+			<source ref="id19"/>
+			<target ref="id27"/>
+			<label kind="guard" x="30" y="675">x&gt;=203.0</label>
+			<label kind="assignment" x="30" y="705">event = 1</label>
+		</transition>
+		<transition id="id79">
+			<source ref="id29"/>
+			<target ref="id10"/>
+			<label kind="guard" x="555" y="1950">x&gt;=1011505.0</label>
+			<label kind="assignment" x="555" y="1980">event = 3</label>
+		</transition>
+		<transition id="id80">
+			<source ref="id34"/>
+			<target ref="id28"/>
+			<label kind="probability" x="1530" y="3825">0.9583</label>
+		</transition>
+		<transition id="id81">
+			<source ref="id33"/>
+			<target ref="id10"/>
+			<label kind="guard" x="1080" y="2775">x&gt;=132.0</label>
+			<label kind="assignment" x="1080" y="2805">event = 3</label>
+		</transition>
+		<transition id="id82">
+			<source ref="id36"/>
+			<target ref="id33"/>
+			<label kind="probability" x="1380" y="3300">0.0559</label>
+		</transition>
+		<transition id="id83">
+			<source ref="id6"/>
+			<target ref="id3"/>
+			<label kind="guard" x="330" y="1875">x&gt;=69783.0</label>
+			<label kind="assignment" x="330" y="1905">event = 4</label>
+		</transition>
+		<transition id="id84">
+			<source ref="id32"/>
+			<target ref="id7"/>
+			<label kind="assignment" x="630" y="2325">x=0, attrs = 5</label>
+		</transition>
+		<transition id="id85">
+			<source ref="id4"/>
+			<target ref="id32"/>
+			<label kind="guard" x="630" y="2175">x&gt;=1.6000276E7</label>
+			<label kind="assignment" x="630" y="2205">event = 5</label>
+		</transition>
+		<transition id="id86">
+			<source ref="id16"/>
+			<target ref="id23"/>
+			<label kind="guard" x="630" y="2400">x&gt;=402262.0</label>
+			<label kind="assignment" x="630" y="2430">event = 2</label>
+		</transition>
+	</template>
+	<system>
+Process = Template();
+system Process;
+</system>
+	<queries>
+		<option key="--alpha" value="0.01"/>
+		<option key="--beta" value="0.01"/>
+		<option key="--epsilon" value="0.01"/>
+		<query>
+			<formula>Pr ([][0,900000000]((attrs != 0 || event != 1) || ((attrs == 0 &amp;&amp; event == 1) U[0,100000000] attrs == 1)))</formula>
+			<comment>F1: From Initializing state, ptp must transit to Listening on Initialization_complete event.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:09:52 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(4047986.373065)" color="0x0000ff" encoding="csv">9.000220981041914E8,3.930124620712295E-8
+9.040700844772565E8,2.6668702783404858E-8
+9.081180708503215E8,3.0879550591310886E-8
+9.121660572233866E8,2.7136574762061083E-8
+9.162140435964518E8,1.5439775295655443E-8
+9.202620299695168E8,1.263254342371809E-8
+9.243100163425819E8,1.0293183530436963E-8
+9.28358002715647E8,1.0761055509093187E-8
+9.32405989088712E8,1.1696799466405639E-8
+9.364539754617771E8,9.357439573124512E-9
+9.405019618348422E8,9.825311551780737E-9
+9.445499482079072E8,6.550207701187158E-9
+9.485979345809723E8,5.6144637438747065E-9
+9.526459209540374E8,4.678719786562256E-9
+9.566939073271024E8,3.742975829249804E-9
+9.607418937001675E8,1.4036159359686766E-9
+9.647898800732327E8,4.21084780790603E-9
+9.688378664462976E8,1.871487914624902E-9
+9.728858528193628E8,3.275103850593579E-9
+9.769338391924279E8,4.678719786562256E-9
+9.809818255654929E8,2.8072318719373532E-9
+9.85029811938558E8,2.339359893281128E-9
+9.890777983116231E8,1.871487914624902E-9
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.245446212057865E8,0.0
+9.245446212057865E8,3.930124620712294E-8
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.048e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00022e+08, 9.93126e+08]
+Mean estimate of displayed sample: 9.24545e+08 ± 2.51735e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(4047986.373065)" color="0x0000ff" encoding="csv">9.000220981041914E8,0.1590909090909091
+9.040700844772565E8,0.10795454545454546
+9.081180708503215E8,0.125
+9.121660572233866E8,0.10984848484848485
+9.162140435964518E8,0.0625
+9.202620299695168E8,0.05113636363636364
+9.243100163425819E8,0.041666666666666664
+9.28358002715647E8,0.043560606060606064
+9.32405989088712E8,0.04734848484848485
+9.364539754617771E8,0.03787878787878788
+9.405019618348422E8,0.03977272727272727
+9.445499482079072E8,0.026515151515151516
+9.485979345809723E8,0.022727272727272728
+9.526459209540374E8,0.01893939393939394
+9.566939073271024E8,0.015151515151515152
+9.607418937001675E8,0.005681818181818182
+9.647898800732327E8,0.017045454545454544
+9.688378664462976E8,0.007575757575757576
+9.728858528193628E8,0.013257575757575758
+9.769338391924279E8,0.01893939393939394
+9.809818255654929E8,0.011363636363636364
+9.85029811938558E8,0.00946969696969697
+9.890777983116231E8,0.007575757575757576
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.245446212057865E8,0.0
+9.245446212057865E8,0.1590909090909091
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.048e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00022e+08, 9.93126e+08]
+Mean estimate of displayed sample: 9.24545e+08 ± 2.51735e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000220981041914E8,0.0
+9.040700844772565E8,0.1590909090909091
+9.081180708503215E8,0.26704545454545453
+9.121660572233866E8,0.39204545454545453
+9.162140435964518E8,0.5018939393939394
+9.202620299695168E8,0.5643939393939394
+9.243100163425819E8,0.615530303030303
+9.28358002715647E8,0.6571969696969697
+9.32405989088712E8,0.7007575757575758
+9.364539754617771E8,0.7481060606060606
+9.405019618348422E8,0.7859848484848485
+9.445499482079072E8,0.8257575757575758
+9.485979345809723E8,0.8522727272727273
+9.526459209540374E8,0.875
+9.566939073271024E8,0.8939393939393939
+9.607418937001675E8,0.9090909090909091
+9.647898800732327E8,0.9147727272727273
+9.688378664462976E8,0.9318181818181818
+9.728858528193628E8,0.9393939393939394
+9.769338391924279E8,0.9526515151515151
+9.809818255654929E8,0.9715909090909091
+9.85029811938558E8,0.9829545454545454
+9.890777983116231E8,0.9924242424242424
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.245446212057865E8,0.0
+9.245446212057865E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.048e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00022e+08, 9.93126e+08]
+Mean estimate of displayed sample: 9.24545e+08 ± 2.51735e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">9.000220981041914E8,0.009984512446168808
+9.040700844772565E8,0.20410038047570433
+9.081180708503215E8,0.31956813353390895
+9.121660572233866E8,0.4485100242304084
+9.162140435964518E8,0.5586618982853896
+9.202620299695168E8,0.6201252267222452
+9.243100163425819E8,0.6697494655755326
+9.28358002715647E8,0.7097171104721259
+9.32405989088712E8,0.7510157117001792
+9.364539754617771E8,0.7952756077061468
+9.405019618348422E8,0.8301369796871064
+9.445499482079072E8,0.8661106121828993
+9.485979345809723E8,0.8896535370625961
+9.526459209540374E8,0.9094853002220844
+9.566939073271024E8,0.9257095011161017
+9.607418937001675E8,0.9384445272919122
+9.647898800732327E8,0.9431536538233026
+9.688378664462976E8,0.957015804419931
+9.728858528193628E8,0.963023205562693
+9.769338391924279E8,0.973237735588717
+9.809818255654929E8,0.9868554855540881
+9.85029811938558E8,0.9940398700940082
+9.890777983116231E8,0.9987240658596579
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">9.000220981041914E8,0.0
+9.040700844772565E8,0.12038763526774708
+9.081180708503215E8,0.21881048298776892
+9.121660572233866E8,0.33756335142491145
+9.162140435964518E8,0.4450912185343897
+9.202620299695168E8,0.5074805306571452
+9.243100163425819E8,0.5591893859884187
+9.28358002715647E8,0.6017882577815077
+9.32405989088712E8,0.6468073703806606
+9.364539754617771E8,0.6963678187926146
+9.405019618348422E8,0.7365589684531663
+9.445499482079072E8,0.7793847842012198
+9.485979345809723E8,0.8083697843320781
+9.526459209540374E8,0.8335569886919467
+9.566939073271024E8,0.8548433760696513
+9.607418937001675E8,0.8721117893000631
+9.647898800732327E8,0.8786523874301112
+9.688378664462976E8,0.8985321572488074
+9.728858528193628E8,0.9075163639287134
+9.769338391924279E8,0.9235258916855027
+9.809818255654929E8,0.9473229125011201
+9.85029811938558E8,0.9625175281952699
+9.890777983116231E8,0.976340964539635
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000220981041914E8,0.0
+9.040700844772565E8,0.1590909090909091
+9.081180708503215E8,0.26704545454545453
+9.121660572233866E8,0.39204545454545453
+9.162140435964518E8,0.5018939393939394
+9.202620299695168E8,0.5643939393939394
+9.243100163425819E8,0.615530303030303
+9.28358002715647E8,0.6571969696969697
+9.32405989088712E8,0.7007575757575758
+9.364539754617771E8,0.7481060606060606
+9.405019618348422E8,0.7859848484848485
+9.445499482079072E8,0.8257575757575758
+9.485979345809723E8,0.8522727272727273
+9.526459209540374E8,0.875
+9.566939073271024E8,0.8939393939393939
+9.607418937001675E8,0.9090909090909091
+9.647898800732327E8,0.9147727272727273
+9.688378664462976E8,0.9318181818181818
+9.728858528193628E8,0.9393939393939394
+9.769338391924279E8,0.9526515151515151
+9.809818255654929E8,0.9715909090909091
+9.85029811938558E8,0.9829545454545454
+9.890777983116231E8,0.9924242424242424
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.245446212057865E8,0.0
+9.245446212057865E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.048e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00022e+08, 9.93126e+08]
+Mean estimate of displayed sample: 9.24545e+08 ± 2.51735e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(4047986.373065)" color="0x0000ff" encoding="csv">9.000220981041914E8,84.0
+9.040700844772565E8,57.0
+9.081180708503215E8,66.0
+9.121660572233866E8,58.0
+9.162140435964518E8,33.0
+9.202620299695168E8,27.0
+9.243100163425819E8,22.0
+9.28358002715647E8,23.0
+9.32405989088712E8,25.0
+9.364539754617771E8,20.0
+9.405019618348422E8,21.0
+9.445499482079072E8,14.0
+9.485979345809723E8,12.0
+9.526459209540374E8,10.0
+9.566939073271024E8,8.0
+9.607418937001675E8,3.0
+9.647898800732327E8,9.0
+9.688378664462976E8,4.0
+9.728858528193628E8,7.0
+9.769338391924279E8,10.0
+9.809818255654929E8,6.0
+9.85029811938558E8,5.0
+9.890777983116231E8,4.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.245446212057865E8,0.0
+9.245446212057865E8,84.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.048e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00022e+08, 9.93126e+08]
+Mean estimate of displayed sample: 9.24545e+08 ± 2.51735e+06 (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000]((attrs != 1 || event != 2) || ((attrs == 1 &amp;&amp; event == 2) U[0,300000000] attrs == 2)))</formula>
+			<comment>F2: In Listening state, ptp must transit to Uncalibrated with BMC_slave event.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:29:01 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(4233216.422760)" color="0x0000ff" encoding="csv">9.001056020167208E8,3.713416797019925E-8
+9.043388184394807E8,2.6396577231828384E-8
+9.085720348622404E8,2.550177800363081E-8
+9.128052512850003E8,2.3712179547235666E-8
+9.170384677077601E8,1.3869388037062371E-8
+9.2127168413052E8,1.834338417805023E-8
+9.255049005532798E8,1.0737590738370867E-8
+9.297381169760396E8,1.3869388037062371E-8
+9.339713333987994E8,1.1184990352469654E-8
+9.382045498215593E8,8.947992281975722E-9
+9.424377662443191E8,1.0737590738370867E-8
+9.46670982667079E8,4.921395755086647E-9
+9.509041990898387E8,4.921395755086647E-9
+9.551374155125986E8,4.473996140987861E-9
+9.593706319353584E8,5.81619498328422E-9
+9.636038483581183E8,4.026596526889076E-9
+9.678370647808781E8,1.3421988422963584E-9
+9.72070281203638E8,8.947992281975723E-10
+9.763034976263978E8,1.7895984563951447E-9
+9.805367140491576E8,3.5791969127902894E-9
+9.847699304719175E8,2.2369980704939305E-9
+9.890031468946773E8,4.4739961409878617E-10
+9.932363633174372E8,1.3421988422963584E-9
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.24861729871015E8,0.0
+9.24861729871015E8,3.713416797019925E-8
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.2332e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00106e+08, 9.9747e+08]
+Mean estimate of displayed sample: 9.24862e+08 ± 2.42837e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(4233216.422760)" color="0x0000ff" encoding="csv">9.001056020167208E8,0.1571969696969697
+9.043388184394807E8,0.11174242424242424
+9.085720348622404E8,0.10795454545454546
+9.128052512850003E8,0.10037878787878787
+9.170384677077601E8,0.058712121212121215
+9.2127168413052E8,0.07765151515151515
+9.255049005532798E8,0.045454545454545456
+9.297381169760396E8,0.058712121212121215
+9.339713333987994E8,0.04734848484848485
+9.382045498215593E8,0.03787878787878788
+9.424377662443191E8,0.045454545454545456
+9.46670982667079E8,0.020833333333333332
+9.509041990898387E8,0.020833333333333332
+9.551374155125986E8,0.01893939393939394
+9.593706319353584E8,0.02462121212121212
+9.636038483581183E8,0.017045454545454544
+9.678370647808781E8,0.005681818181818182
+9.72070281203638E8,0.003787878787878788
+9.763034976263978E8,0.007575757575757576
+9.805367140491576E8,0.015151515151515152
+9.847699304719175E8,0.00946969696969697
+9.890031468946773E8,0.001893939393939394
+9.932363633174372E8,0.005681818181818182
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.24861729871015E8,0.0
+9.24861729871015E8,0.1571969696969697
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.2332e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00106e+08, 9.9747e+08]
+Mean estimate of displayed sample: 9.24862e+08 ± 2.42837e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.001056020167208E8,0.0
+9.043388184394807E8,0.1571969696969697
+9.085720348622404E8,0.2689393939393939
+9.128052512850003E8,0.3768939393939394
+9.170384677077601E8,0.4772727272727273
+9.2127168413052E8,0.5359848484848485
+9.255049005532798E8,0.6136363636363636
+9.297381169760396E8,0.6590909090909091
+9.339713333987994E8,0.7178030303030303
+9.382045498215593E8,0.7651515151515151
+9.424377662443191E8,0.803030303030303
+9.46670982667079E8,0.8484848484848485
+9.509041990898387E8,0.8693181818181818
+9.551374155125986E8,0.8901515151515151
+9.593706319353584E8,0.9090909090909091
+9.636038483581183E8,0.9337121212121212
+9.678370647808781E8,0.9507575757575758
+9.72070281203638E8,0.9564393939393939
+9.763034976263978E8,0.9602272727272727
+9.805367140491576E8,0.9678030303030303
+9.847699304719175E8,0.9829545454545454
+9.890031468946773E8,0.9924242424242424
+9.932363633174372E8,0.9943181818181818
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.24861729871015E8,0.0
+9.24861729871015E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.2332e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00106e+08, 9.9747e+08]
+Mean estimate of displayed sample: 9.24862e+08 ± 2.42837e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">9.001056020167208E8,0.009984512446168808
+9.043388184394807E8,0.20202723704235442
+9.085720348622404E8,0.32155488166992513
+9.128052512850003E8,0.43309735504267116
+9.170384677077601E8,0.5342095292005229
+9.2127168413052E8,0.5922960347967624
+9.255049005532798E8,0.6679225570185815
+9.297381169760396E8,0.7115233457009611
+9.339713333987994E8,0.7670294963766234
+9.382045498215593E8,0.8110286545304757
+9.424377662443191E8,0.8456412406400378
+9.46670982667079E8,0.8863150703518284
+9.509041990898387E8,0.9045614161747059
+9.551374155125986E8,0.9224897262805987
+9.593706319353584E8,0.9384445272919122
+9.636038483581183E8,0.9585276509582867
+9.678370647808781E8,0.9718056846997366
+9.72070281203638E8,0.9760700145996166
+9.763034976263978E8,0.9788553813126285
+9.805367140491576E8,0.9842575925182988
+9.847699304719175E8,0.9940398700940082
+9.890031468946773E8,0.9987240658596579
+9.932363633174372E8,0.9993590976317741
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">9.001056020167208E8,0.0
+9.043388184394807E8,0.11870881772297019
+9.085720348622404E8,0.22057652429864935
+9.128052512850003E8,0.32295160231177084
+9.170384677077601E8,0.42075307823489805
+9.2127168413052E8,0.4790131477329425
+9.255049005532798E8,0.5572632410107655
+9.297381169760396E8,0.6037350109580386
+9.339713333987994E8,0.6645693801084689
+9.382045498215593E8,0.7143889178426573
+9.424377662443191E8,0.7548267795817324
+9.46670982667079E8,0.8042045897782704
+9.509041990898387E8,0.827226674058083
+9.551374155125986E8,0.8505615152063336
+9.593706319353584E8,0.8721117893000631
+9.636038483581183E8,0.9007685511950496
+9.678370647808781E8,0.9212127812375484
+9.72070281203638E8,0.9281824697101894
+9.763034976263978E8,0.9328836570830945
+9.805367140491576E8,0.9424452897152381
+9.847699304719175E8,0.9625175281952699
+9.890031468946773E8,0.976340964539635
+9.932363633174372E8,0.9793657996754759
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.001056020167208E8,0.0
+9.043388184394807E8,0.1571969696969697
+9.085720348622404E8,0.2689393939393939
+9.128052512850003E8,0.3768939393939394
+9.170384677077601E8,0.4772727272727273
+9.2127168413052E8,0.5359848484848485
+9.255049005532798E8,0.6136363636363636
+9.297381169760396E8,0.6590909090909091
+9.339713333987994E8,0.7178030303030303
+9.382045498215593E8,0.7651515151515151
+9.424377662443191E8,0.803030303030303
+9.46670982667079E8,0.8484848484848485
+9.509041990898387E8,0.8693181818181818
+9.551374155125986E8,0.8901515151515151
+9.593706319353584E8,0.9090909090909091
+9.636038483581183E8,0.9337121212121212
+9.678370647808781E8,0.9507575757575758
+9.72070281203638E8,0.9564393939393939
+9.763034976263978E8,0.9602272727272727
+9.805367140491576E8,0.9678030303030303
+9.847699304719175E8,0.9829545454545454
+9.890031468946773E8,0.9924242424242424
+9.932363633174372E8,0.9943181818181818
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.24861729871015E8,0.0
+9.24861729871015E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.2332e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00106e+08, 9.9747e+08]
+Mean estimate of displayed sample: 9.24862e+08 ± 2.42837e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(4233216.422760)" color="0x0000ff" encoding="csv">9.001056020167208E8,83.0
+9.043388184394807E8,59.0
+9.085720348622404E8,57.0
+9.128052512850003E8,53.0
+9.170384677077601E8,31.0
+9.2127168413052E8,41.0
+9.255049005532798E8,24.0
+9.297381169760396E8,31.0
+9.339713333987994E8,25.0
+9.382045498215593E8,20.0
+9.424377662443191E8,24.0
+9.46670982667079E8,11.0
+9.509041990898387E8,11.0
+9.551374155125986E8,10.0
+9.593706319353584E8,13.0
+9.636038483581183E8,9.0
+9.678370647808781E8,3.0
+9.72070281203638E8,2.0
+9.763034976263978E8,4.0
+9.805367140491576E8,8.0
+9.847699304719175E8,5.0
+9.890031468946773E8,1.0
+9.932363633174372E8,3.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.24861729871015E8,0.0
+9.24861729871015E8,83.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.2332e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00106e+08, 9.9747e+08]
+Mean estimate of displayed sample: 9.24862e+08 ± 2.42837e+06 (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000]((attrs != 2 || event != 4) || ((attrs == 2 &amp;&amp; event == 4) U[0,300000000] attrs == 4)))</formula>
+			<comment>F3: From Uncalibrated state, if the Master_clock_selected event happens there must be a transition to Slave.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:30:20 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(4157047.609135)" color="0x0000ff" encoding="csv">9.000039071374145E8,3.553658428222703E-8
+9.0416095474655E8,3.098061193835177E-8
+9.083180023556854E8,2.870262576641414E-8
+9.124750499648209E8,2.8247028532026612E-8
+9.166320975739563E8,1.4579111500400832E-8
+9.207891451830918E8,1.0478736390913098E-8
+9.249461927922273E8,1.4579111500400832E-8
+9.291032404013627E8,1.2301125328463203E-8
+9.332602880104982E8,6.378361281425364E-9
+9.374173356196337E8,9.11194468775052E-9
+9.415743832287691E8,1.0478736390913098E-8
+9.457314308379046E8,7.745152984587943E-9
+9.4988847844704E8,5.011569578262786E-9
+9.540455260561755E8,2.27798617193763E-9
+9.58202573665311E8,4.100375109487734E-9
+9.623596212744464E8,5.9227640470378385E-9
+9.665166688835819E8,1.822388937550104E-9
+9.706737164927173E8,2.27798617193763E-9
+9.748307641018528E8,5.011569578262786E-9
+9.789878117109883E8,2.27798617193763E-9
+9.831448593201237E8,1.822388937550104E-9
+9.873019069292592E8,0.0
+9.914589545383947E8,9.11194468775052E-10
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.240366716819696E8,0.0
+9.240366716819696E8,3.5536584282227026E-8
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.157e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00004e+08, 9.95616e+08]
+Mean estimate of displayed sample: 9.24037e+08 ± 2.42245e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(4157047.609135)" color="0x0000ff" encoding="csv">9.000039071374145E8,0.14772727272727273
+9.0416095474655E8,0.12878787878787878
+9.083180023556854E8,0.11931818181818182
+9.124750499648209E8,0.11742424242424243
+9.166320975739563E8,0.06060606060606061
+9.207891451830918E8,0.043560606060606064
+9.249461927922273E8,0.06060606060606061
+9.291032404013627E8,0.05113636363636364
+9.332602880104982E8,0.026515151515151516
+9.374173356196337E8,0.03787878787878788
+9.415743832287691E8,0.043560606060606064
+9.457314308379046E8,0.032196969696969696
+9.4988847844704E8,0.020833333333333332
+9.540455260561755E8,0.00946969696969697
+9.58202573665311E8,0.017045454545454544
+9.623596212744464E8,0.02462121212121212
+9.665166688835819E8,0.007575757575757576
+9.706737164927173E8,0.00946969696969697
+9.748307641018528E8,0.020833333333333332
+9.789878117109883E8,0.00946969696969697
+9.831448593201237E8,0.007575757575757576
+9.873019069292592E8,0.0
+9.914589545383947E8,0.003787878787878788
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.240366716819696E8,0.0
+9.240366716819696E8,0.14772727272727273
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.157e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00004e+08, 9.95616e+08]
+Mean estimate of displayed sample: 9.24037e+08 ± 2.42245e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000039071374145E8,0.0
+9.0416095474655E8,0.14772727272727273
+9.083180023556854E8,0.2765151515151515
+9.124750499648209E8,0.3958333333333333
+9.166320975739563E8,0.5132575757575758
+9.207891451830918E8,0.5738636363636364
+9.249461927922273E8,0.6174242424242424
+9.291032404013627E8,0.678030303030303
+9.332602880104982E8,0.7291666666666666
+9.374173356196337E8,0.7556818181818182
+9.415743832287691E8,0.7935606060606061
+9.457314308379046E8,0.8371212121212122
+9.4988847844704E8,0.8693181818181818
+9.540455260561755E8,0.8901515151515151
+9.58202573665311E8,0.8996212121212122
+9.623596212744464E8,0.9166666666666666
+9.665166688835819E8,0.9412878787878788
+9.706737164927173E8,0.9488636363636364
+9.748307641018528E8,0.9583333333333334
+9.789878117109883E8,0.9791666666666666
+9.831448593201237E8,0.9886363636363636
+9.873019069292592E8,0.9962121212121212
+9.914589545383947E8,0.9962121212121212
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.240366716819696E8,0.0
+9.240366716819696E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.157e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00004e+08, 9.95616e+08]
+Mean estimate of displayed sample: 9.24037e+08 ± 2.42245e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">9.000039071374145E8,0.009984512446168808
+9.0416095474655E8,0.19163021566792193
+9.083180023556854E8,0.32949055285975093
+9.124750499648209E8,0.45235458200797746
+9.166320975739563E8,0.5699020830879269
+9.207891451830918E8,0.629360843087119
+9.249461927922273E8,0.6715755063902175
+9.291032404013627E8,0.729533441830715
+9.332602880104982E8,0.7776562877711539
+9.374173356196337E8,0.8022896000234206
+9.415743832287691E8,0.8370428979555966
+9.457314308379046E8,0.876248628928625
+9.4988847844704E8,0.9045614161747059
+9.540455260561755E8,0.9224897262805987
+9.58202573665311E8,0.9305132708223474
+9.623596212744464E8,0.9447143612249239
+9.665166688835819E8,0.9645074371773895
+9.706737164927173E8,0.9703637951395296
+9.748307641018528E8,0.9774689348774848
+9.789878117109883E8,0.9917712028171516
+9.831448593201237E8,0.9970795881989929
+9.873019069292592E8,0.9998038209615593
+9.914589545383947E8,0.9998038209615593
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">9.000039071374145E8,0.0
+9.0416095474655E8,0.11034646293740392
+9.083180023556854E8,0.22765208053815728
+9.124750499648209E8,0.3412249198806967
+9.166320975739563E8,0.4563697328366956
+9.207891451830918E8,0.5170103878294454
+9.249461927922273E8,0.5611163964504418
+9.291032404013627E8,0.6232545936043156
+9.332602880104982E8,0.6764595097170905
+9.374173356196337E8,0.7043646501854397
+9.415743832287691E8,0.7446630017554113
+9.457314308379046E8,0.7917593541245304
+9.4988847844704E8,0.827226674058083
+9.540455260561755E8,0.8505615152063336
+9.58202573665311E8,0.861291521520909
+9.623596212744464E8,0.8808413583379001
+9.665166688835819E8,0.9097794140173823
+9.706737164927173E8,0.9189090777720681
+9.748307641018528E8,0.9305271443335853
+9.789878117109883E8,0.9573375038168367
+9.831448593201237E8,0.9706118897874896
+9.873019069292592E8,0.9825565314424298
+9.914589545383947E8,0.9825565314424298
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000039071374145E8,0.0
+9.0416095474655E8,0.14772727272727273
+9.083180023556854E8,0.2765151515151515
+9.124750499648209E8,0.3958333333333333
+9.166320975739563E8,0.5132575757575758
+9.207891451830918E8,0.5738636363636364
+9.249461927922273E8,0.6174242424242424
+9.291032404013627E8,0.678030303030303
+9.332602880104982E8,0.7291666666666666
+9.374173356196337E8,0.7556818181818182
+9.415743832287691E8,0.7935606060606061
+9.457314308379046E8,0.8371212121212122
+9.4988847844704E8,0.8693181818181818
+9.540455260561755E8,0.8901515151515151
+9.58202573665311E8,0.8996212121212122
+9.623596212744464E8,0.9166666666666666
+9.665166688835819E8,0.9412878787878788
+9.706737164927173E8,0.9488636363636364
+9.748307641018528E8,0.9583333333333334
+9.789878117109883E8,0.9791666666666666
+9.831448593201237E8,0.9886363636363636
+9.873019069292592E8,0.9962121212121212
+9.914589545383947E8,0.9962121212121212
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.240366716819696E8,0.0
+9.240366716819696E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.157e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00004e+08, 9.95616e+08]
+Mean estimate of displayed sample: 9.24037e+08 ± 2.42245e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(4157047.609135)" color="0x0000ff" encoding="csv">9.000039071374145E8,78.0
+9.0416095474655E8,68.0
+9.083180023556854E8,63.0
+9.124750499648209E8,62.0
+9.166320975739563E8,32.0
+9.207891451830918E8,23.0
+9.249461927922273E8,32.0
+9.291032404013627E8,27.0
+9.332602880104982E8,14.0
+9.374173356196337E8,20.0
+9.415743832287691E8,23.0
+9.457314308379046E8,17.0
+9.4988847844704E8,11.0
+9.540455260561755E8,5.0
+9.58202573665311E8,9.0
+9.623596212744464E8,13.0
+9.665166688835819E8,4.0
+9.706737164927173E8,5.0
+9.748307641018528E8,11.0
+9.789878117109883E8,5.0
+9.831448593201237E8,4.0
+9.873019069292592E8,0.0
+9.914589545383947E8,2.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.240366716819696E8,0.0
+9.240366716819696E8,78.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.157e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00004e+08, 9.95616e+08]
+Mean estimate of displayed sample: 9.24037e+08 ± 2.42245e+06 (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000](event != 3 || ((attrs != 0 &amp;&amp; attrs != 3 &amp;&amp; event == 3) U[0,300000000] attrs == 3)))
+</formula>
+			<comment>F5: If a fault is detected, there is a mandatory transition to Faulty state with the event Fault_detected iff ptp is not in the state Initializing.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:31:32 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(4132855.385531)" color="0x0000ff" encoding="csv">9.000435129814938E8,4.399335685799988E-8
+9.04176368367025E8,2.8412376304124924E-8
+9.083092237525563E8,3.75776589828749E-8
+9.124420791380875E8,2.4746263232624933E-8
+9.165749345236187E8,1.6039244687812456E-8
+9.2070778990915E8,1.099833921449997E-8
+9.248406452946812E8,1.2831395750249965E-8
+9.289735006802124E8,1.099833921449997E-8
+9.331063560657437E8,8.248754410874978E-9
+9.372392114512749E8,9.165282678749975E-9
+9.41372066836806E8,6.873962009062481E-9
+9.455049222223372E8,8.707018544812476E-9
+9.496377776078686E8,3.66611307149999E-9
+9.537706329933997E8,4.124377205437489E-9
+9.579034883789309E8,3.66611307149999E-9
+9.620363437644622E8,2.291320669687494E-9
+9.661691991499934E8,2.291320669687494E-9
+9.703020545355246E8,3.66611307149999E-9
+9.744349099210559E8,9.165282678749975E-10
+9.785677653065871E8,4.5826413393749875E-10
+9.827006206921183E8,4.5826413393749875E-10
+9.868334760776496E8,1.3747924018124963E-9
+9.909663314631808E8,4.5826413393749875E-10
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.212293588197902E8,0.0
+9.212293588197902E8,4.3993356857999876E-8
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1329e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00044e+08, 9.95099e+08]
+Mean estimate of displayed sample: 9.21229e+08 ± 2.19722e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(4132855.385531)" color="0x0000ff" encoding="csv">9.000435129814938E8,0.18181818181818182
+9.04176368367025E8,0.11742424242424243
+9.083092237525563E8,0.1553030303030303
+9.124420791380875E8,0.10227272727272728
+9.165749345236187E8,0.06628787878787878
+9.2070778990915E8,0.045454545454545456
+9.248406452946812E8,0.05303030303030303
+9.289735006802124E8,0.045454545454545456
+9.331063560657437E8,0.03409090909090909
+9.372392114512749E8,0.03787878787878788
+9.41372066836806E8,0.028409090909090908
+9.455049222223372E8,0.03598484848484849
+9.496377776078686E8,0.015151515151515152
+9.537706329933997E8,0.017045454545454544
+9.579034883789309E8,0.015151515151515152
+9.620363437644622E8,0.00946969696969697
+9.661691991499934E8,0.00946969696969697
+9.703020545355246E8,0.015151515151515152
+9.744349099210559E8,0.003787878787878788
+9.785677653065871E8,0.001893939393939394
+9.827006206921183E8,0.001893939393939394
+9.868334760776496E8,0.005681818181818182
+9.909663314631808E8,0.001893939393939394
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.212293588197902E8,0.0
+9.212293588197902E8,0.18181818181818182
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1329e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00044e+08, 9.95099e+08]
+Mean estimate of displayed sample: 9.21229e+08 ± 2.19722e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000435129814938E8,0.0
+9.04176368367025E8,0.18181818181818182
+9.083092237525563E8,0.29924242424242425
+9.124420791380875E8,0.45454545454545453
+9.165749345236187E8,0.5568181818181818
+9.2070778990915E8,0.6231060606060606
+9.248406452946812E8,0.6685606060606061
+9.289735006802124E8,0.7215909090909091
+9.331063560657437E8,0.7670454545454546
+9.372392114512749E8,0.8011363636363636
+9.41372066836806E8,0.8390151515151515
+9.455049222223372E8,0.8674242424242424
+9.496377776078686E8,0.9034090909090909
+9.537706329933997E8,0.9185606060606061
+9.579034883789309E8,0.9356060606060606
+9.620363437644622E8,0.9507575757575758
+9.661691991499934E8,0.9602272727272727
+9.703020545355246E8,0.9696969696969697
+9.744349099210559E8,0.9848484848484849
+9.785677653065871E8,0.9886363636363636
+9.827006206921183E8,0.990530303030303
+9.868334760776496E8,0.9924242424242424
+9.909663314631808E8,0.9981060606060606
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.212293588197902E8,0.0
+9.212293588197902E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1329e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00044e+08, 9.95099e+08]
+Mean estimate of displayed sample: 9.21229e+08 ± 2.19722e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">9.000435129814938E8,0.009984512446168808
+9.04176368367025E8,0.2288283817087798
+9.083092237525563E8,0.3531926296193394
+9.124420791380875E8,0.5115179634904702
+9.165749345236187E8,0.6127219799541136
+9.2070778990915E8,0.6770483976882292
+9.248406452946812E8,0.7205403711677429
+9.289735006802124E8,0.7705762195414634
+9.331063560657437E8,0.8127725710161234
+9.372392114512749E8,0.8439246836512035
+9.41372066836806E8,0.8779315039009513
+9.455049222223372E8,0.9029148336935061
+9.496377776078686E8,0.9336975132223999
+9.537706329933997E8,0.9462703368528219
+9.579034883789309E8,0.9600330145044127
+9.620363437644622E8,0.9718056846997366
+9.661691991499934E8,0.9788553813126285
+9.703020545355246E8,0.9855663788476445
+9.744349099210559E8,0.9951099282883932
+9.785677653065871E8,0.9970795881989929
+9.827006206921183E8,0.9979527964148687
+9.868334760776496E8,0.9987240658596579
+9.909663314631808E8,0.9999905065946393
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">9.000435129814938E8,0.0
+9.04176368367025E8,0.1406850488417406
+9.083092237525563E8,0.24898428829982083
+9.124420791380875E8,0.39840730774713684
+9.165749345236187E8,0.4998713777301597
+9.2070778990915E8,0.5669026449573288
+9.248406452946812E8,0.6134828732572438
+9.289735006802124E8,0.6685283234389187
+9.331063560657437E8,0.7163976361934609
+9.372392114512749E8,0.7527909426087903
+9.41372066836806E8,0.7938284927097581
+9.455049222223372E8,0.8251217691424207
+9.496377776078686E8,0.8656081583585948
+9.537706329933997E8,0.8830349356027456
+9.579034883789309E8,0.9030112128339445
+9.620363437644622E8,0.9212127812375484
+9.661691991499934E8,0.9328836570830945
+9.703020545355246E8,0.9448749190643876
+9.744349099210559E8,0.9651653362928961
+9.785677653065871E8,0.9706118897874896
+9.827006206921183E8,0.9734325834843971
+9.868334760776496E8,0.976340964539635
+9.909663314631808E8,0.9860131620295218
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000435129814938E8,0.0
+9.04176368367025E8,0.18181818181818182
+9.083092237525563E8,0.29924242424242425
+9.124420791380875E8,0.45454545454545453
+9.165749345236187E8,0.5568181818181818
+9.2070778990915E8,0.6231060606060606
+9.248406452946812E8,0.6685606060606061
+9.289735006802124E8,0.7215909090909091
+9.331063560657437E8,0.7670454545454546
+9.372392114512749E8,0.8011363636363636
+9.41372066836806E8,0.8390151515151515
+9.455049222223372E8,0.8674242424242424
+9.496377776078686E8,0.9034090909090909
+9.537706329933997E8,0.9185606060606061
+9.579034883789309E8,0.9356060606060606
+9.620363437644622E8,0.9507575757575758
+9.661691991499934E8,0.9602272727272727
+9.703020545355246E8,0.9696969696969697
+9.744349099210559E8,0.9848484848484849
+9.785677653065871E8,0.9886363636363636
+9.827006206921183E8,0.990530303030303
+9.868334760776496E8,0.9924242424242424
+9.909663314631808E8,0.9981060606060606
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.212293588197902E8,0.0
+9.212293588197902E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1329e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00044e+08, 9.95099e+08]
+Mean estimate of displayed sample: 9.21229e+08 ± 2.19722e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(4132855.385531)" color="0x0000ff" encoding="csv">9.000435129814938E8,96.0
+9.04176368367025E8,62.0
+9.083092237525563E8,82.0
+9.124420791380875E8,54.0
+9.165749345236187E8,35.0
+9.2070778990915E8,24.0
+9.248406452946812E8,28.0
+9.289735006802124E8,24.0
+9.331063560657437E8,18.0
+9.372392114512749E8,20.0
+9.41372066836806E8,15.0
+9.455049222223372E8,19.0
+9.496377776078686E8,8.0
+9.537706329933997E8,9.0
+9.579034883789309E8,8.0
+9.620363437644622E8,5.0
+9.661691991499934E8,5.0
+9.703020545355246E8,8.0
+9.744349099210559E8,2.0
+9.785677653065871E8,1.0
+9.827006206921183E8,1.0
+9.868334760776496E8,3.0
+9.909663314631808E8,1.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.212293588197902E8,0.0
+9.212293588197902E8,96.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1329e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00044e+08, 9.95099e+08]
+Mean estimate of displayed sample: 9.21229e+08 ± 2.19722e+06 (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000]((attrs != 3 || event != 5) || ((attrs == 3 &amp;&amp; event == 5) U[0,300000000] attrs == 0)))</formula>
+			<comment>F6:  If ptp is in Faulty state, there must be a transition to Initializing with the event Fault_cleared once the fault is fixed.</comment>
+			<result outcome="success" type="interval" value="≤ 0.00998451 (99% CI)" timestamp="2025-11-19 14:32:50 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≤ 0.00998451 (99% CI)</details>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000]((attrs != 3) || (attrs == 3 U[0,16000000] (attrs != 3))))</formula>
+			<comment>F7.1: When ptp4l is in Faulty state, it should remain in this state for no more than 16 seconds.</comment>
+			<result outcome="success" type="interval" value="≤ 0.00998451 (99% CI)" timestamp="2025-11-19 14:11:54 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≤ 0.00998451 (99% CI)</details>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000]((attrs != 3) || (attrs == 3 U[0,17000000] (attrs != 3))))</formula>
+			<comment>F7.2: When ptp4l is in Faulty state, it should remain in this state for no more than 17 seconds.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:13:26 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(3954400.575469)" color="0x0000ff" encoding="csv">9.000226770687796E8,4.0710303726822064E-8
+9.039770776442482E8,3.400507723063961E-8
+9.079314782197169E8,2.4905126985820557E-8
+9.118858787951856E8,2.34682927366386E-8
+9.158402793706542E8,1.4368342491819551E-8
+9.197946799461228E8,1.724201099018346E-8
+9.237490805215914E8,1.4368342491819551E-8
+9.277034810970601E8,1.1494673993455641E-8
+9.316578816725287E8,1.1494673993455641E-8
+9.356122822479974E8,7.1841712459097755E-9
+9.395666828234661E8,1.1494673993455641E-8
+9.435210833989347E8,8.142060745364412E-9
+9.474754839744034E8,6.226281746455139E-9
+9.514298845498719E8,3.8315579978185474E-9
+9.553842851253406E8,5.747336996727821E-9
+9.593386857008092E8,2.394723748636592E-9
+9.632930862762779E8,2.394723748636592E-9
+9.672474868517466E8,1.9157789989092737E-9
+9.712018874272152E8,1.9157789989092737E-9
+9.751562880026839E8,2.8736684983639104E-9
+9.791106885781525E8,2.394723748636592E-9
+9.830650891536212E8,1.9157789989092737E-9
+9.870194897290897E8,2.394723748636592E-9
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.233326457103174E8,0.0
+9.233326457103174E8,4.0710303726822064E-8
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=3.9544e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00023e+08, 9.90974e+08]
+Mean estimate of displayed sample: 9.23333e+08 ± 2.37138e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(3954400.575469)" color="0x0000ff" encoding="csv">9.000226770687796E8,0.16098484848484848
+9.039770776442482E8,0.13446969696969696
+9.079314782197169E8,0.09848484848484848
+9.118858787951856E8,0.0928030303030303
+9.158402793706542E8,0.056818181818181816
+9.197946799461228E8,0.06818181818181818
+9.237490805215914E8,0.056818181818181816
+9.277034810970601E8,0.045454545454545456
+9.316578816725287E8,0.045454545454545456
+9.356122822479974E8,0.028409090909090908
+9.395666828234661E8,0.045454545454545456
+9.435210833989347E8,0.032196969696969696
+9.474754839744034E8,0.02462121212121212
+9.514298845498719E8,0.015151515151515152
+9.553842851253406E8,0.022727272727272728
+9.593386857008092E8,0.00946969696969697
+9.632930862762779E8,0.00946969696969697
+9.672474868517466E8,0.007575757575757576
+9.712018874272152E8,0.007575757575757576
+9.751562880026839E8,0.011363636363636364
+9.791106885781525E8,0.00946969696969697
+9.830650891536212E8,0.007575757575757576
+9.870194897290897E8,0.00946969696969697
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.233326457103174E8,0.0
+9.233326457103174E8,0.16098484848484848
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=3.9544e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00023e+08, 9.90974e+08]
+Mean estimate of displayed sample: 9.23333e+08 ± 2.37138e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000226770687796E8,0.0
+9.039770776442482E8,0.16098484848484848
+9.079314782197169E8,0.29545454545454547
+9.118858787951856E8,0.3939393939393939
+9.158402793706542E8,0.48674242424242425
+9.197946799461228E8,0.5435606060606061
+9.237490805215914E8,0.6117424242424242
+9.277034810970601E8,0.6685606060606061
+9.316578816725287E8,0.7140151515151515
+9.356122822479974E8,0.759469696969697
+9.395666828234661E8,0.7878787878787878
+9.435210833989347E8,0.8333333333333334
+9.474754839744034E8,0.865530303030303
+9.514298845498719E8,0.8901515151515151
+9.553842851253406E8,0.9053030303030303
+9.593386857008092E8,0.928030303030303
+9.632930862762779E8,0.9375
+9.672474868517466E8,0.946969696969697
+9.712018874272152E8,0.9545454545454546
+9.751562880026839E8,0.9621212121212122
+9.791106885781525E8,0.9734848484848485
+9.830650891536212E8,0.9829545454545454
+9.870194897290897E8,0.990530303030303
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.233326457103174E8,0.0
+9.233326457103174E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=3.9544e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00023e+08, 9.90974e+08]
+Mean estimate of displayed sample: 9.23333e+08 ± 2.37138e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">9.000226770687796E8,0.009984512446168808
+9.039770776442482E8,0.2061715072902419
+9.079314782197169E8,0.3492529148201175
+9.118858787951856E8,0.45043273024030855
+9.158402793706542E8,0.5436302671633044
+9.197946799461228E8,0.5997349750223113
+9.237490805215914E8,0.6660947831123776
+9.277034810970601E8,0.7205403711677429
+9.316578816725287E8,0.7634783874714833
+9.356122822479974E8,0.8057890737757006
+9.395666828234661E8,0.8318656688308436
+9.435210833989347E8,0.872876948963948
+9.474754839744034E8,0.9012656876794196
+9.514298845498719E8,0.9224897262805987
+9.553842851253406E8,0.9352838687960022
+9.593386857008092E8,0.9539736402770281
+9.632930862762779E8,0.9615316283119972
+9.672474868517466E8,0.9689125781794333
+9.712018874272152E8,0.9746593856808473
+9.751562880026839E8,0.9802284980523086
+9.791106885781525E8,0.9881230002111795
+9.830650891536212E8,0.9940398700940082
+9.870194897290897E8,0.9979527964148687
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">9.000226770687796E8,0.0
+9.039770776442482E8,0.12206849609904863
+9.079314782197169E8,0.24541823152981057
+9.118858787951856E8,0.33939370751737363
+9.158402793706542E8,0.43009791691207316
+9.197946799461228E8,0.4865866459425814
+9.237490805215914E8,0.5553379591713952
+9.277034810970601E8,0.6134828732572438
+9.316578816725287E8,0.6606147976339248
+9.356122822479974E8,0.7083705340919644
+9.395666828234661E8,0.7385827871940669
+9.435210833989347E8,0.7876269321179613
+9.474754839744034E8,0.8230193863329816
+9.514298845498719E8,0.8505615152063336
+9.553842851253406E8,0.8677721118997973
+9.593386857008092E8,0.8940772485655069
+9.632930862762779E8,0.9052603937215459
+9.672474868517466E8,0.9166143063308457
+9.712018874272152E8,0.9258489300410807
+9.751562880026839E8,0.9352527918927755
+9.791106885781525E8,0.949790976757067
+9.830650891536212E8,0.9625175281952699
+9.870194897290897E8,0.9734325834843971
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000226770687796E8,0.0
+9.039770776442482E8,0.16098484848484848
+9.079314782197169E8,0.29545454545454547
+9.118858787951856E8,0.3939393939393939
+9.158402793706542E8,0.48674242424242425
+9.197946799461228E8,0.5435606060606061
+9.237490805215914E8,0.6117424242424242
+9.277034810970601E8,0.6685606060606061
+9.316578816725287E8,0.7140151515151515
+9.356122822479974E8,0.759469696969697
+9.395666828234661E8,0.7878787878787878
+9.435210833989347E8,0.8333333333333334
+9.474754839744034E8,0.865530303030303
+9.514298845498719E8,0.8901515151515151
+9.553842851253406E8,0.9053030303030303
+9.593386857008092E8,0.928030303030303
+9.632930862762779E8,0.9375
+9.672474868517466E8,0.946969696969697
+9.712018874272152E8,0.9545454545454546
+9.751562880026839E8,0.9621212121212122
+9.791106885781525E8,0.9734848484848485
+9.830650891536212E8,0.9829545454545454
+9.870194897290897E8,0.990530303030303
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.233326457103174E8,0.0
+9.233326457103174E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=3.9544e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00023e+08, 9.90974e+08]
+Mean estimate of displayed sample: 9.23333e+08 ± 2.37138e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(3954400.575469)" color="0x0000ff" encoding="csv">9.000226770687796E8,85.0
+9.039770776442482E8,71.0
+9.079314782197169E8,52.0
+9.118858787951856E8,49.0
+9.158402793706542E8,30.0
+9.197946799461228E8,36.0
+9.237490805215914E8,30.0
+9.277034810970601E8,24.0
+9.316578816725287E8,24.0
+9.356122822479974E8,15.0
+9.395666828234661E8,24.0
+9.435210833989347E8,17.0
+9.474754839744034E8,13.0
+9.514298845498719E8,8.0
+9.553842851253406E8,12.0
+9.593386857008092E8,5.0
+9.632930862762779E8,5.0
+9.672474868517466E8,4.0
+9.712018874272152E8,4.0
+9.751562880026839E8,6.0
+9.791106885781525E8,5.0
+9.830650891536212E8,4.0
+9.870194897290897E8,5.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.233326457103174E8,0.0
+9.233326457103174E8,85.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=3.9544e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00023e+08, 9.90974e+08]
+Mean estimate of displayed sample: 9.23333e+08 ± 2.37138e+06 (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000]((attrs != 3) || (attrs == 3 U[0,18000000] (attrs != 3))))</formula>
+			<comment>F7.3: When ptp4l is in Faulty state, it should remain in this state for no more than 18 seconds.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:13:59 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(4105272.830885)" color="0x0000ff" encoding="csv">9.000425591672349E8,3.9214165566221295E-8
+9.041478319981203E8,3.275536182590249E-8
+9.082531048290056E8,2.860327370712612E-8
+9.12358377659891E8,2.4912528712658232E-8
+9.164636504907763E8,1.568566622648852E-8
+9.205689233216617E8,1.3378950604946088E-8
+9.24674196152547E8,1.2456264356329116E-8
+9.287794689834324E8,1.2456264356329116E-8
+9.328847418143178E8,8.765519361861231E-9
+9.369900146452031E8,6.920146864627287E-9
+9.410952874760885E8,9.688205610478203E-9
+9.452005603069738E8,4.1520881187763726E-9
+9.493058331378592E8,5.0747743673933434E-9
+9.534111059687445E8,4.6134312430848584E-9
+9.575163787996299E8,6.458803740318801E-9
+9.616216516305153E8,4.1520881187763726E-9
+9.657269244614006E8,3.2294018701594005E-9
+9.69832197292286E8,2.7680587458509146E-9
+9.739374701231713E8,1.3840293729254573E-9
+9.780427429540567E8,3.2294018701594005E-9
+9.821480157849422E8,9.226862486169716E-10
+9.862532886158274E8,9.226862486169716E-10
+9.903585614467129E8,1.8453724972339432E-9
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.234331574304589E8,0.0
+9.234331574304589E8,3.9214165566221295E-8
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1053e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00043e+08, 9.94464e+08]
+Mean estimate of displayed sample: 9.23433e+08 ± 2.4163e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(4105272.830885)" color="0x0000ff" encoding="csv">9.000425591672349E8,0.16098484848484848
+9.041478319981203E8,0.13446969696969696
+9.082531048290056E8,0.11742424242424243
+9.12358377659891E8,0.10227272727272728
+9.164636504907763E8,0.06439393939393939
+9.205689233216617E8,0.054924242424242424
+9.24674196152547E8,0.05113636363636364
+9.287794689834324E8,0.05113636363636364
+9.328847418143178E8,0.03598484848484849
+9.369900146452031E8,0.028409090909090908
+9.410952874760885E8,0.03977272727272727
+9.452005603069738E8,0.017045454545454544
+9.493058331378592E8,0.020833333333333332
+9.534111059687445E8,0.01893939393939394
+9.575163787996299E8,0.026515151515151516
+9.616216516305153E8,0.017045454545454544
+9.657269244614006E8,0.013257575757575758
+9.69832197292286E8,0.011363636363636364
+9.739374701231713E8,0.005681818181818182
+9.780427429540567E8,0.013257575757575758
+9.821480157849422E8,0.003787878787878788
+9.862532886158274E8,0.003787878787878788
+9.903585614467129E8,0.007575757575757576
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.234331574304589E8,0.0
+9.234331574304589E8,0.16098484848484848
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1053e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00043e+08, 9.94464e+08]
+Mean estimate of displayed sample: 9.23433e+08 ± 2.4163e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000425591672349E8,0.0
+9.041478319981203E8,0.16098484848484848
+9.082531048290056E8,0.29545454545454547
+9.12358377659891E8,0.4128787878787879
+9.164636504907763E8,0.5151515151515151
+9.205689233216617E8,0.5795454545454546
+9.24674196152547E8,0.634469696969697
+9.287794689834324E8,0.6856060606060606
+9.328847418143178E8,0.7367424242424242
+9.369900146452031E8,0.7727272727272727
+9.410952874760885E8,0.8011363636363636
+9.452005603069738E8,0.8409090909090909
+9.493058331378592E8,0.8579545454545454
+9.534111059687445E8,0.8787878787878788
+9.575163787996299E8,0.8977272727272727
+9.616216516305153E8,0.9242424242424242
+9.657269244614006E8,0.9412878787878788
+9.69832197292286E8,0.9545454545454546
+9.739374701231713E8,0.9659090909090909
+9.780427429540567E8,0.9715909090909091
+9.821480157849422E8,0.9848484848484849
+9.862532886158274E8,0.9886363636363636
+9.903585614467129E8,0.9924242424242424
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.234331574304589E8,0.0
+9.234331574304589E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1053e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00043e+08, 9.94464e+08]
+Mean estimate of displayed sample: 9.23433e+08 ± 2.4163e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">9.000425591672349E8,0.009984512446168808
+9.041478319981203E8,0.2061715072902419
+9.082531048290056E8,0.3492529148201175
+9.12358377659891E8,0.4696131391323772
+9.164636504907763E8,0.5717726507104721
+9.205689233216617E8,0.6348923137291825
+9.24674196152547E8,0.6879704049275621
+9.287794689834324E8,0.7367102872019057
+9.328847418143178E8,0.7847181286658815
+9.369900146452031E8,0.8179963333380199
+9.410952874760885E8,0.8439246836512035
+9.452005603069738E8,0.8796123647322529
+9.493058331378592E8,0.8946443592482346
+9.534111059687445E8,0.9127541560197382
+9.575163787996299E8,0.9289155779693428
+9.616216516305153E8,0.9509083220436726
+9.657269244614006E8,0.9645074371773895
+9.69832197292286E8,0.9746593856808473
+9.739374701231713E8,0.9829307671779712
+9.780427429540567E8,0.9868554855540881
+9.821480157849422E8,0.9951099282883932
+9.862532886158274E8,0.9970795881989929
+9.903585614467129E8,0.9987240658596579
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">9.000425591672349E8,0.0
+9.041478319981203E8,0.12206849609904863
+9.082531048290056E8,0.24541823152981057
+9.12358377659891E8,0.3577440240646213
+9.164636504907763E8,0.45825228112658367
+9.205689233216617E8,0.5227381856178775
+9.24674196152547E8,0.5784988497626685
+9.287794689834324E8,0.6310895052042683
+9.328847418143178E8,0.6844088118676199
+9.369900146452031E8,0.722431715400798
+9.410952874760885E8,0.7527909426087903
+9.452005603069738E8,0.7958996195242957
+9.493058331378592E8,0.8146342120558029
+9.534111059687445E8,0.8377906961142644
+9.575163787996299E8,0.859138651980421
+9.616216516305153E8,0.8896447835081119
+9.657269244614006E8,0.9097794140173823
+9.69832197292286E8,0.9258489300410807
+9.739374701231713E8,0.9400325524789825
+9.780427429540567E8,0.9473229125011201
+9.821480157849422E8,0.9651653362928961
+9.862532886158274E8,0.9706118897874896
+9.903585614467129E8,0.976340964539635
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000425591672349E8,0.0
+9.041478319981203E8,0.16098484848484848
+9.082531048290056E8,0.29545454545454547
+9.12358377659891E8,0.4128787878787879
+9.164636504907763E8,0.5151515151515151
+9.205689233216617E8,0.5795454545454546
+9.24674196152547E8,0.634469696969697
+9.287794689834324E8,0.6856060606060606
+9.328847418143178E8,0.7367424242424242
+9.369900146452031E8,0.7727272727272727
+9.410952874760885E8,0.8011363636363636
+9.452005603069738E8,0.8409090909090909
+9.493058331378592E8,0.8579545454545454
+9.534111059687445E8,0.8787878787878788
+9.575163787996299E8,0.8977272727272727
+9.616216516305153E8,0.9242424242424242
+9.657269244614006E8,0.9412878787878788
+9.69832197292286E8,0.9545454545454546
+9.739374701231713E8,0.9659090909090909
+9.780427429540567E8,0.9715909090909091
+9.821480157849422E8,0.9848484848484849
+9.862532886158274E8,0.9886363636363636
+9.903585614467129E8,0.9924242424242424
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.234331574304589E8,0.0
+9.234331574304589E8,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1053e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00043e+08, 9.94464e+08]
+Mean estimate of displayed sample: 9.23433e+08 ± 2.4163e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(4105272.830885)" color="0x0000ff" encoding="csv">9.000425591672349E8,85.0
+9.041478319981203E8,71.0
+9.082531048290056E8,62.0
+9.12358377659891E8,54.0
+9.164636504907763E8,34.0
+9.205689233216617E8,29.0
+9.24674196152547E8,27.0
+9.287794689834324E8,27.0
+9.328847418143178E8,19.0
+9.369900146452031E8,15.0
+9.410952874760885E8,21.0
+9.452005603069738E8,9.0
+9.493058331378592E8,11.0
+9.534111059687445E8,10.0
+9.575163787996299E8,14.0
+9.616216516305153E8,9.0
+9.657269244614006E8,7.0
+9.69832197292286E8,6.0
+9.739374701231713E8,3.0
+9.780427429540567E8,7.0
+9.821480157849422E8,2.0
+9.862532886158274E8,2.0
+9.903585614467129E8,4.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.234331574304589E8,0.0
+9.234331574304589E8,85.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=4.1053e+06, bucket count=23
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [9.00043e+08, 9.94464e+08]
+Mean estimate of displayed sample: 9.23433e+08 ± 2.4163e+06 (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000](attrs != 1 || 
+(attrs == 1 U[0,900000000] 
+((attrs == 2 &amp;&amp; event == 2) || (attrs == 3 &amp;&amp; event == 3))
+)
+)
+)</formula>
+			<comment>F8:
+The only three Listening outgoing transitions are: 
+1) to Uncalibrated with BMC_slave event
+2) to Listening with Announce_receipt_timeout_expires 
+3) to Faulty with Fault_detected.</comment>
+			<result outcome="success" type="quantity" value="0.722511 ± 0.00992166 (99% CI)" timestamp="2025-11-19 14:21:09 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>0.722511 ± 0.00992166 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(992539.625871)" color="0x0000ff" encoding="csv">9.000059855166259E8,3.4872152247763144E-8
+9.009985251424973E8,3.102214817794641E-8
+9.019910647683687E8,2.7024067028521332E-8
+9.029836043942401E8,2.480291083439629E-8
+9.039761440201116E8,2.52471420732213E-8
+9.04968683645983E8,2.2359639020858746E-8
+9.059612232718544E8,1.984232866751703E-8
+9.069537628977258E8,2.036059844614621E-8
+9.079463025235972E8,1.9768290127712864E-8
+9.089388421494688E8,1.9472135968496192E-8
+9.099313817753402E8,2.102694530438372E-8
+9.109239214012116E8,1.9472135968496192E-8
+9.11916461027083E8,2.0064444286929535E-8
+9.129090006529545E8,1.954617450830036E-8
+9.139015402788259E8,1.7621172473391992E-8
+9.148940799046973E8,1.769521101319616E-8
+9.158866195305687E8,1.2438474687100229E-8
+9.168791591564401E8,1.162405074925438E-8
+9.178716987823116E8,1.2216359067687725E-8
+9.18864238408183E8,1.051347265219186E-8
+9.198567780340544E8,1.0661549731800196E-8
+9.208493176599258E8,9.254817475521003E-9
+9.218418572857972E8,9.40289455512934E-9
+9.228343969116687E8,9.699048714346012E-9
+9.238269365375401E8,1.0365395572583525E-8
+9.248194761634116E8,8.958663316304332E-9
+9.25812015789283E8,1.0661549731800196E-8
+9.268045554151545E8,8.588470617283492E-9
+9.277970950410259E8,8.810586236695996E-9
+9.287896346668973E8,7.996162298850148E-9
+9.297821742927687E8,8.070200838654315E-9
+9.307747139186401E8,9.180778935716835E-9
+9.317672535445116E8,6.885584201787627E-9
+9.32759793170383E8,8.588470617283492E-9
+9.337523327962544E8,6.515391502766787E-9
+9.347448724221258E8,6.367314423158451E-9
+9.357374120479972E8,6.5894300425709545E-9
+9.367299516738687E8,5.5528904853126025E-9
+9.377224912997401E8,6.219237343550114E-9
+9.387150309256115E8,7.107699821200131E-9
+9.397075705514829E8,5.034620706683426E-9
+9.407001101773543E8,6.367314423158451E-9
+9.416926498032259E8,5.330774865900098E-9
+9.426851894290973E8,6.811545661983459E-9
+9.436777290549687E8,5.775006104725106E-9
+9.446702686808401E8,4.738466547466754E-9
+9.456628083067116E8,5.775006104725106E-9
+9.46655347932583E8,5.034620706683426E-9
+9.476478875584544E8,5.404813405704266E-9
+9.486404271843258E8,3.7019269902084014E-9
+9.496329668101972E8,4.368273848445914E-9
+9.506255064360687E8,5.1086592464875944E-9
+9.516180460619401E8,4.368273848445914E-9
+9.526105856878115E8,3.6278884504042335E-9
+9.536031253136829E8,3.4057728309917295E-9
+9.545956649395543E8,3.998081149425074E-9
+9.555882045654258E8,3.109618671775057E-9
+9.565807441912973E8,3.2576957513833933E-9
+9.575732838171687E8,4.294235308641746E-9
+9.585658234430401E8,3.2576957513833933E-9
+9.595583630689116E8,3.109618671775057E-9
+9.60550902694783E8,2.443271813537545E-9
+9.615434423206544E8,3.3317342911875616E-9
+9.625359819465258E8,2.443271813537545E-9
+9.635285215723972E8,2.295194733929209E-9
+9.645210611982687E8,2.369233273733377E-9
+9.655136008241401E8,3.0355801319708893E-9
+9.665061404500115E8,2.369233273733377E-9
+9.674986800758829E8,1.7028864154958647E-9
+9.684912197017543E8,2.295194733929209E-9
+9.694837593276258E8,1.8509634951042007E-9
+9.704762989534972E8,2.517310353341713E-9
+9.714688385793686E8,1.8509634951042007E-9
+9.7246137820524E8,2.369233273733377E-9
+9.734539178311114E8,2.295194733929209E-9
+9.74446457456983E8,1.7769249553000328E-9
+9.754389970828544E8,1.6288478756916967E-9
+9.764315367087258E8,1.925002034908369E-9
+9.774240763345972E8,1.7028864154958647E-9
+9.784166159604686E8,1.6288478756916967E-9
+9.794091555863401E8,1.4067322562791926E-9
+9.804016952122115E8,1.8509634951042007E-9
+9.813942348380829E8,1.0365395572583524E-9
+9.823867744639543E8,1.1846166368666886E-9
+9.833793140898257E8,1.4807707960833607E-9
+9.843718537156972E8,1.1105780970625205E-9
+9.853643933415686E8,1.2586551766708564E-9
+9.8635693296744E8,7.403853980416803E-10
+9.873494725933114E8,1.3326937164750245E-9
+9.88342012219183E8,1.0365395572583524E-9
+9.893345518450544E8,5.923083184333443E-10
+9.903270914709258E8,5.923083184333443E-10
+9.913196310967972E8,5.923083184333443E-10
+9.923121707226686E8,7.403853980416803E-10
+9.933047103485401E8,6.663468582375123E-10
+9.942972499744115E8,4.442312388250082E-10
+9.952897896002829E8,5.182697786291762E-10
+9.962823292261543E8,5.182697786291762E-10
+9.972748688520257E8,2.9615415921667214E-10
+9.982674084778972E8,4.442312388250082E-10
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.237742287293018E8,0.0
+9.237742287293018E8,3.487215224776314E-8
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=9.9254e+05, bucket count=100
+Runs: 13608 in total, 9833 (72.259%) displayed, 3775 (27.741%) remaining
+Span of displayed sample: [9.00006e+08, 9.9926e+08]
+Mean estimate of displayed sample: 9.23774e+08 ± 563681 (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(992539.625871)" color="0x0000ff" encoding="csv">9.000059855166259E8,0.03461199294532628
+9.009985251424973E8,0.030790711346266902
+9.019910647683687E8,0.026822457378012934
+9.029836043942401E8,0.024617871840094063
+9.039761440201116E8,0.025058788947677837
+9.04968683645983E8,0.022192827748383305
+9.059612232718544E8,0.01969429747207525
+9.069537628977258E8,0.02020870076425632
+9.079463025235972E8,0.019620811287477953
+9.089388421494688E8,0.019326866549088773
+9.099313817753402E8,0.020870076425631982
+9.109239214012116E8,0.019326866549088773
+9.11916461027083E8,0.019914756025867137
+9.129090006529545E8,0.019400352733686066
+9.139015402788259E8,0.01748971193415638
+9.148940799046973E8,0.017563198118753676
+9.158866195305687E8,0.012345679012345678
+9.168791591564401E8,0.011537330981775427
+9.178716987823116E8,0.012125220458553791
+9.18864238408183E8,0.010435038212815991
+9.198567780340544E8,0.010582010582010581
+9.208493176599258E8,0.009185773074661964
+9.218418572857972E8,0.009332745443856556
+9.228343969116687E8,0.009626690182245738
+9.238269365375401E8,0.0102880658436214
+9.248194761634116E8,0.008891828336272781
+9.25812015789283E8,0.010582010582010581
+9.268045554151545E8,0.008524397413286302
+9.277970950410259E8,0.00874485596707819
+9.287896346668973E8,0.007936507936507936
+9.297821742927687E8,0.008009994121105233
+9.307747139186401E8,0.009112286890064668
+9.317672535445116E8,0.0068342151675485005
+9.32759793170383E8,0.008524397413286302
+9.337523327962544E8,0.006466784244562022
+9.347448724221258E8,0.006319811875367431
+9.357374120479972E8,0.006540270429159318
+9.367299516738687E8,0.005511463844797178
+9.377224912997401E8,0.006172839506172839
+9.387150309256115E8,0.007054673721340388
+9.397075705514829E8,0.0049970605526161085
+9.407001101773543E8,0.006319811875367431
+9.416926498032259E8,0.005291005291005291
+9.426851894290973E8,0.006760728982951205
+9.436777290549687E8,0.005731922398589065
+9.446702686808401E8,0.004703115814226925
+9.456628083067116E8,0.005731922398589065
+9.46655347932583E8,0.0049970605526161085
+9.476478875584544E8,0.005364491475602587
+9.486404271843258E8,0.0036743092298647854
+9.496329668101972E8,0.004335684891240447
+9.506255064360687E8,0.005070546737213404
+9.516180460619401E8,0.004335684891240447
+9.526105856878115E8,0.00360082304526749
+9.536031253136829E8,0.0033803644914756027
+9.545956649395543E8,0.003968253968253968
+9.555882045654258E8,0.0030864197530864196
+9.565807441912973E8,0.003233392122281011
+9.575732838171687E8,0.004262198706643151
+9.585658234430401E8,0.003233392122281011
+9.595583630689116E8,0.0030864197530864196
+9.60550902694783E8,0.0024250440917107582
+9.615434423206544E8,0.0033068783068783067
+9.625359819465258E8,0.0024250440917107582
+9.635285215723972E8,0.002278071722516167
+9.645210611982687E8,0.0023515579071134627
+9.655136008241401E8,0.003012933568489124
+9.665061404500115E8,0.0023515579071134627
+9.674986800758829E8,0.0016901822457378013
+9.684912197017543E8,0.002278071722516167
+9.694837593276258E8,0.0018371546149323927
+9.704762989534972E8,0.0024985302763080542
+9.714688385793686E8,0.0018371546149323927
+9.7246137820524E8,0.0023515579071134627
+9.734539178311114E8,0.002278071722516167
+9.74446457456983E8,0.001763668430335097
+9.754389970828544E8,0.0016166960611405056
+9.764315367087258E8,0.0019106407995296885
+9.774240763345972E8,0.0016901822457378013
+9.784166159604686E8,0.0016166960611405056
+9.794091555863401E8,0.0013962375073486185
+9.804016952122115E8,0.0018371546149323927
+9.813942348380829E8,0.00102880658436214
+9.823867744639543E8,0.0011757789535567313
+9.833793140898257E8,0.0014697236919459142
+9.843718537156972E8,0.0011022927689594356
+9.853643933415686E8,0.0012492651381540271
+9.8635693296744E8,7.348618459729571E-4
+9.873494725933114E8,0.0013227513227513227
+9.88342012219183E8,0.00102880658436214
+9.893345518450544E8,5.878894767783657E-4
+9.903270914709258E8,5.878894767783657E-4
+9.913196310967972E8,5.878894767783657E-4
+9.923121707226686E8,7.348618459729571E-4
+9.933047103485401E8,6.613756613756613E-4
+9.942972499744115E8,4.409171075837742E-4
+9.952897896002829E8,5.1440329218107E-4
+9.962823292261543E8,5.1440329218107E-4
+9.972748688520257E8,2.9394473838918284E-4
+9.982674084778972E8,4.409171075837742E-4
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.237742287293018E8,0.0
+9.237742287293018E8,0.03461199294532628
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=9.9254e+05, bucket count=100
+Runs: 13608 in total, 9833 (72.259%) displayed, 3775 (27.741%) remaining
+Span of displayed sample: [9.00006e+08, 9.9926e+08]
+Mean estimate of displayed sample: 9.23774e+08 ± 563681 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000059855166259E8,0.0
+9.009985251424973E8,0.03461199294532628
+9.019910647683687E8,0.06540270429159319
+9.029836043942401E8,0.09222516166960612
+9.039761440201116E8,0.11684303350970017
+9.04968683645983E8,0.141901822457378
+9.059612232718544E8,0.1640946502057613
+9.069537628977258E8,0.18378894767783657
+9.079463025235972E8,0.2039976484420929
+9.089388421494688E8,0.22361845972957084
+9.099313817753402E8,0.2429453262786596
+9.109239214012116E8,0.2638154027042916
+9.11916461027083E8,0.2831422692533804
+9.129090006529545E8,0.3030570252792475
+9.139015402788259E8,0.32245737801293356
+9.148940799046973E8,0.33994708994708994
+9.158866195305687E8,0.3575102880658436
+9.168791591564401E8,0.3698559670781893
+9.178716987823116E8,0.38139329805996475
+9.18864238408183E8,0.39351851851851855
+9.198567780340544E8,0.4039535567313345
+9.208493176599258E8,0.41453556731334507
+9.218418572857972E8,0.4237213403880071
+9.228343969116687E8,0.4330540858318636
+9.238269365375401E8,0.4426807760141093
+9.248194761634116E8,0.45296884185773073
+9.25812015789283E8,0.4618606701940035
+9.268045554151545E8,0.4724426807760141
+9.277970950410259E8,0.4809670781893004
+9.287896346668973E8,0.4897119341563786
+9.297821742927687E8,0.49764844209288656
+9.307747139186401E8,0.5056584362139918
+9.317672535445116E8,0.5147707231040565
+9.32759793170383E8,0.5216049382716049
+9.337523327962544E8,0.5301293356848913
+9.347448724221258E8,0.5365961199294532
+9.357374120479972E8,0.5429159318048207
+9.367299516738687E8,0.5494562022339801
+9.377224912997401E8,0.5549676660787772
+9.387150309256115E8,0.56114050558495
+9.397075705514829E8,0.5681951793062904
+9.407001101773543E8,0.5731922398589065
+9.416926498032259E8,0.579512051734274
+9.426851894290973E8,0.5848030570252792
+9.436777290549687E8,0.5915637860082305
+9.446702686808401E8,0.5972957084068196
+9.456628083067116E8,0.6019988242210464
+9.46655347932583E8,0.6077307466196356
+9.476478875584544E8,0.6127278071722516
+9.486404271843258E8,0.6180922986478542
+9.496329668101972E8,0.621766607877719
+9.506255064360687E8,0.6261022927689595
+9.516180460619401E8,0.6311728395061729
+9.526105856878115E8,0.6355085243974132
+9.536031253136829E8,0.6391093474426808
+9.545956649395543E8,0.6424897119341564
+9.555882045654258E8,0.6464579659024103
+9.565807441912973E8,0.6495443856554968
+9.575732838171687E8,0.6527777777777778
+9.585658234430401E8,0.6570399764844209
+9.595583630689116E8,0.6602733686067019
+9.60550902694783E8,0.6633597883597884
+9.615434423206544E8,0.6657848324514991
+9.625359819465258E8,0.6690917107583775
+9.635285215723972E8,0.6715167548500882
+9.645210611982687E8,0.6737948265726044
+9.655136008241401E8,0.6761463844797179
+9.665061404500115E8,0.679159318048207
+9.674986800758829E8,0.6815108759553204
+9.684912197017543E8,0.6832010582010583
+9.694837593276258E8,0.6854791299235744
+9.704762989534972E8,0.6873162845385068
+9.714688385793686E8,0.6898148148148148
+9.7246137820524E8,0.6916519694297472
+9.734539178311114E8,0.6940035273368607
+9.74446457456983E8,0.6962815990593768
+9.754389970828544E8,0.698045267489712
+9.764315367087258E8,0.6996619635508524
+9.774240763345972E8,0.7015726043503822
+9.784166159604686E8,0.70326278659612
+9.794091555863401E8,0.7048794826572604
+9.804016952122115E8,0.706275720164609
+9.813942348380829E8,0.7081128747795414
+9.823867744639543E8,0.7091416813639035
+9.833793140898257E8,0.7103174603174603
+9.843718537156972E8,0.7117871840094062
+9.853643933415686E8,0.7128894767783657
+9.8635693296744E8,0.7141387419165197
+9.873494725933114E8,0.7148736037624926
+9.88342012219183E8,0.7161963550852439
+9.893345518450544E8,0.7172251616696061
+9.903270914709258E8,0.7178130511463845
+9.913196310967972E8,0.7184009406231628
+9.923121707226686E8,0.7189888300999412
+9.933047103485401E8,0.7197236919459141
+9.942972499744115E8,0.7203850676072898
+9.952897896002829E8,0.7208259847148736
+9.962823292261543E8,0.7213403880070547
+9.972748688520257E8,0.7218547912992358
+9.982674084778972E8,0.722148736037625
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.237742287293018E8,0.0
+9.237742287293018E8,0.7225896531452087
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=9.9254e+05, bucket count=100
+Runs: 13608 in total, 9833 (72.259%) displayed, 3775 (27.741%) remaining
+Span of displayed sample: [9.00006e+08, 9.9926e+08]
+Mean estimate of displayed sample: 9.23774e+08 ± 563681 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">9.000059855166259E8,3.892773399604737E-4
+9.009985251424973E8,0.0388509899835492
+9.019910647683687E8,0.07105236800996864
+9.029836043942401E8,0.09879454766799942
+9.039761440201116E8,0.12410751747912631
+9.04968683645983E8,0.14976919456778062
+9.059612232718544E8,0.17242680660245538
+9.069537628977258E8,0.19248830951185963
+9.079463025235972E8,0.21303545493984358
+9.089388421494688E8,0.23295181025365277
+9.099313817753402E8,0.2525410241344045
+9.109239214012116E8,0.2736650732279821
+9.11916461027083E8,0.2932020128278167
+9.129090006529545E8,0.3133096449365879
+9.139015402788259E8,0.3328761835059883
+9.148940799046973E8,0.350498244061766
+9.158866195305687E8,0.36817835805002447
+9.168791591564401E8,0.38059693255385335
+9.178716987823116E8,0.39219562454098983
+9.18864238408183E8,0.40437842545578867
+9.198567780340544E8,0.41485744145187897
+9.208493176599258E8,0.425478854744974
+9.218418572857972E8,0.43469463848270684
+9.228343969116687E8,0.44405392236938507
+9.238269365375401E8,0.4537038470587669
+9.248194761634116E8,0.4640121305801719
+9.25812015789283E8,0.472917616203372
+9.268045554151545E8,0.48351129188720887
+9.277970950410259E8,0.4920414732767999
+9.287896346668973E8,0.5007889216996549
+9.297821742927687E8,0.5087248577784804
+9.307747139186401E8,0.5167314548275961
+9.317672535445116E8,0.5258364319587291
+9.32759793170383E8,0.5326627560437881
+9.337523327962544E8,0.5411744119693642
+9.347448724221258E8,0.5476293788869736
+9.357374120479972E8,0.553935843672265
+9.367299516738687E8,0.5604604238410544
+9.377224912997401E8,0.5659571777190322
+9.387150309256115E8,0.5721119202665262
+9.397075705514829E8,0.5791438041222814
+9.407001101773543E8,0.5841233551435192
+9.416926498032259E8,0.590419390912972
+9.426851894290973E8,0.5956890817622953
+9.436777290549687E8,0.6024206953932247
+9.446702686808401E8,0.6081262698528938
+9.456628083067116E8,0.6128066192895449
+9.46655347932583E8,0.6185093871611236
+9.476478875584544E8,0.6234797602938565
+9.486404271843258E8,0.6288142748149961
+9.496329668101972E8,0.6324672534468497
+9.506255064360687E8,0.636776927623135
+9.516180460619401E8,0.6418158925675123
+9.526105856878115E8,0.6461235711733272
+9.536031253136829E8,0.6497004276787393
+9.545956649395543E8,0.6530577051477823
+9.555882045654258E8,0.6569981257025577
+9.565807441912973E8,0.6600623476372978
+9.575732838171687E8,0.6632719656497125
+9.585658234430401E8,0.6675020081918442
+9.595583630689116E8,0.6707103811817252
+9.60550902694783E8,0.6737724124275879
+9.615434423206544E8,0.6761779447864382
+9.625359819465258E8,0.6794577175273739
+9.635285215723972E8,0.6818625162644762
+9.645210611982687E8,0.684121284268778
+9.655136008241401E8,0.6864526241913983
+9.665061404500115E8,0.6894392179512578
+9.674986800758829E8,0.691769875903924
+9.684912197017543E8,0.6934448499924097
+9.694837593276258E8,0.6957021758950481
+9.704762989534972E8,0.6975223916824547
+9.714688385793686E8,0.6999975849341674
+9.7246137820524E8,0.7018173580211867
+9.734539178311114E8,0.704146391462294
+9.74446457456983E8,0.7064023452314846
+9.754389970828544E8,0.7081486879074678
+9.764315367087258E8,0.7097493462040494
+9.774240763345972E8,0.711640840157116
+9.784166159604686E8,0.7133139095349257
+9.794091555863401E8,0.7149140820198483
+9.804016952122115E8,0.7162959268391912
+9.813942348380829E8,0.7181139701417489
+9.823867744639543E8,0.7191319878718597
+9.833793140898257E8,0.7202953603344464
+9.843718537156972E8,0.7217494609252172
+9.853643933415686E8,0.7228399521998747
+9.8635693296744E8,0.7240757547507237
+9.873494725933114E8,0.7248026538291521
+9.88342012219183E8,0.7261109905028177
+9.893345518450544E8,0.7271285128623121
+9.903270914709258E8,0.7277099255085758
+9.913196310967972E8,0.7282913172312377
+9.923121707226686E8,0.728872687990497
+9.933047103485401E8,0.7295993718987724
+9.942972499744115E8,0.7302533592918818
+9.952897896002829E8,0.730689336055303
+9.962823292261543E8,0.7311979605892587
+9.972748688520257E8,0.7317065689180364
+9.982674084778972E8,0.7319971949623526
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">9.000059855166259E8,0.0
+9.009985251424973E8,0.03070235969888658
+9.019910647683687E8,0.060059634632148896
+9.029836043942401E8,0.08594306605646328
+9.039761440201116E8,0.10984828644388406
+9.04968683645983E8,0.13428640494657934
+9.059612232718544E8,0.15599874483116594
+9.069537628977258E8,0.1753119256097101
+9.079463025235972E8,0.19516792471982322
+9.089388421494688E8,0.21447936290486141
+9.099313817753402E8,0.23353027022132283
+9.109239214012116E8,0.25413168410864984
+9.11916461027083E8,0.2732348806492781
+9.129090006529545E8,0.2929427555313028
+9.139015402788259E8,0.3121632835460006
+9.148940799046973E8,0.3295083543112606
+9.158866195305687E8,0.3469422948522177
+9.168791591564401E8,0.35920640430509754
+9.178716987823116E8,0.37067426898386496
+9.18864238408183E8,0.38273339143568386
+9.198567780340544E8,0.39311712215545086
+9.208493176599258E8,0.40365229753295623
+9.218418572857972E8,0.4128016084512621
+9.228343969116687E8,0.4221012610042335
+9.238269365375401E8,0.43169795603781685
+9.248194761634116E8,0.44195857932344446
+9.25812015789283E8,0.4508305061716497
+9.268045554151545E8,0.46139342068772193
+9.277970950410259E8,0.46990604815960474
+9.287896346668973E8,0.47864217095171646
+9.297821742927687E8,0.48657367768317555
+9.307747139186401E8,0.49458144421683203
+9.317672535445116E8,0.5036946421525706
+9.32759793170383E8,0.5105319493381953
+9.337523327962544E8,0.5190631022532083
+9.347448724221258E8,0.5255371626764513
+9.357374120479972E8,0.5318658836438945
+9.367299516738687E8,0.538417251450602
+9.377224912997401E8,0.5439395547909827
+9.387150309256115E8,0.5501261562490136
+9.397075705514829E8,0.5571986654277523
+9.407001101773543E8,0.562209726057308
+9.416926498032259E8,0.5685488755038018
+9.426851894290973E8,0.5738574791540926
+9.436777290549687E8,0.5806425750174984
+9.446702686808401E8,0.5863968193400672
+9.456628083067116E8,0.5911193980341822
+9.46655347932583E8,0.5968764486908259
+9.476478875584544E8,0.6018966864578343
+9.486404271843258E8,0.6072873864414591
+9.496329668101972E8,0.6109804450550352
+9.506255064360687E8,0.6153390947333007
+9.516180460619401E8,0.6204376609396685
+9.526105856878115E8,0.6247983059487161
+9.536031253136829E8,0.6284205655758636
+9.545956649395543E8,0.6318216419499755
+9.555882045654258E8,0.6358149410251157
+9.565807441912973E8,0.6389213898370861
+9.575732838171687E8,0.6421762839611593
+9.585658234430401E8,0.6464676436603728
+9.595583630689116E8,0.6497237826210394
+9.60550902694783E8,0.6528324217946008
+9.615434423206544E8,0.6552752732811524
+9.625359819465258E8,0.658606932975567
+9.635285215723972E8,0.6610505179633154
+9.645210611982687E8,0.6633462921976849
+9.655136008241401E8,0.6657164151808913
+9.665061404500115E8,0.6687535706926988
+9.674986800758829E8,0.6711243755250607
+9.684912197017543E8,0.6728285777794377
+9.694837593276258E8,0.6751257938583844
+9.704762989534972E8,0.6769785957590762
+9.714688385793686E8,0.6794987065061102
+9.7246137820524E8,0.6813519510224232
+9.734539178311114E8,0.6837243800594919
+9.74446457456983E8,0.6860229680068959
+9.754389970828544E8,0.6878027221029542
+9.764315367087258E8,0.6894343191488808
+9.774240763345972E8,0.6913627632878947
+9.784166159604686E8,0.6930688698779022
+9.794091555863401E8,0.6947009526337389
+9.804016952122115E8,0.6961106009506582
+9.813942348380829E8,0.6979655748950526
+9.823867744639543E8,0.6990044468043083
+9.833793140898257E8,0.7001918053412798
+9.843718537156972E8,0.7016761184743593
+9.853643933415686E8,0.7027894374736935
+9.8635693296744E8,0.7040512865468743
+9.873494725933114E8,0.704793594296169
+9.88342012219183E8,0.7061298298936443
+9.893345518450544E8,0.7071691970615231
+9.903270914709258E8,0.7077631498527893
+9.913196310967972E8,0.7083571235627611
+9.923121707226686E8,0.7089511182312109
+9.933047103485401E8,0.709693641100602
+9.942972499744115E8,0.7103619398007273
+9.952897896002829E8,0.7108074870959333
+9.962823292261543E8,0.7113273072934546
+9.972748688520257E8,0.7118471436922711
+9.982674084778972E8,0.7121442003476863
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000059855166259E8,0.0
+9.009985251424973E8,0.03461199294532628
+9.019910647683687E8,0.06540270429159319
+9.029836043942401E8,0.09222516166960612
+9.039761440201116E8,0.11684303350970017
+9.04968683645983E8,0.141901822457378
+9.059612232718544E8,0.1640946502057613
+9.069537628977258E8,0.18378894767783657
+9.079463025235972E8,0.2039976484420929
+9.089388421494688E8,0.22361845972957084
+9.099313817753402E8,0.2429453262786596
+9.109239214012116E8,0.2638154027042916
+9.11916461027083E8,0.2831422692533804
+9.129090006529545E8,0.3030570252792475
+9.139015402788259E8,0.32245737801293356
+9.148940799046973E8,0.33994708994708994
+9.158866195305687E8,0.3575102880658436
+9.168791591564401E8,0.3698559670781893
+9.178716987823116E8,0.38139329805996475
+9.18864238408183E8,0.39351851851851855
+9.198567780340544E8,0.4039535567313345
+9.208493176599258E8,0.41453556731334507
+9.218418572857972E8,0.4237213403880071
+9.228343969116687E8,0.4330540858318636
+9.238269365375401E8,0.4426807760141093
+9.248194761634116E8,0.45296884185773073
+9.25812015789283E8,0.4618606701940035
+9.268045554151545E8,0.4724426807760141
+9.277970950410259E8,0.4809670781893004
+9.287896346668973E8,0.4897119341563786
+9.297821742927687E8,0.49764844209288656
+9.307747139186401E8,0.5056584362139918
+9.317672535445116E8,0.5147707231040565
+9.32759793170383E8,0.5216049382716049
+9.337523327962544E8,0.5301293356848913
+9.347448724221258E8,0.5365961199294532
+9.357374120479972E8,0.5429159318048207
+9.367299516738687E8,0.5494562022339801
+9.377224912997401E8,0.5549676660787772
+9.387150309256115E8,0.56114050558495
+9.397075705514829E8,0.5681951793062904
+9.407001101773543E8,0.5731922398589065
+9.416926498032259E8,0.579512051734274
+9.426851894290973E8,0.5848030570252792
+9.436777290549687E8,0.5915637860082305
+9.446702686808401E8,0.5972957084068196
+9.456628083067116E8,0.6019988242210464
+9.46655347932583E8,0.6077307466196356
+9.476478875584544E8,0.6127278071722516
+9.486404271843258E8,0.6180922986478542
+9.496329668101972E8,0.621766607877719
+9.506255064360687E8,0.6261022927689595
+9.516180460619401E8,0.6311728395061729
+9.526105856878115E8,0.6355085243974132
+9.536031253136829E8,0.6391093474426808
+9.545956649395543E8,0.6424897119341564
+9.555882045654258E8,0.6464579659024103
+9.565807441912973E8,0.6495443856554968
+9.575732838171687E8,0.6527777777777778
+9.585658234430401E8,0.6570399764844209
+9.595583630689116E8,0.6602733686067019
+9.60550902694783E8,0.6633597883597884
+9.615434423206544E8,0.6657848324514991
+9.625359819465258E8,0.6690917107583775
+9.635285215723972E8,0.6715167548500882
+9.645210611982687E8,0.6737948265726044
+9.655136008241401E8,0.6761463844797179
+9.665061404500115E8,0.679159318048207
+9.674986800758829E8,0.6815108759553204
+9.684912197017543E8,0.6832010582010583
+9.694837593276258E8,0.6854791299235744
+9.704762989534972E8,0.6873162845385068
+9.714688385793686E8,0.6898148148148148
+9.7246137820524E8,0.6916519694297472
+9.734539178311114E8,0.6940035273368607
+9.74446457456983E8,0.6962815990593768
+9.754389970828544E8,0.698045267489712
+9.764315367087258E8,0.6996619635508524
+9.774240763345972E8,0.7015726043503822
+9.784166159604686E8,0.70326278659612
+9.794091555863401E8,0.7048794826572604
+9.804016952122115E8,0.706275720164609
+9.813942348380829E8,0.7081128747795414
+9.823867744639543E8,0.7091416813639035
+9.833793140898257E8,0.7103174603174603
+9.843718537156972E8,0.7117871840094062
+9.853643933415686E8,0.7128894767783657
+9.8635693296744E8,0.7141387419165197
+9.873494725933114E8,0.7148736037624926
+9.88342012219183E8,0.7161963550852439
+9.893345518450544E8,0.7172251616696061
+9.903270914709258E8,0.7178130511463845
+9.913196310967972E8,0.7184009406231628
+9.923121707226686E8,0.7189888300999412
+9.933047103485401E8,0.7197236919459141
+9.942972499744115E8,0.7203850676072898
+9.952897896002829E8,0.7208259847148736
+9.962823292261543E8,0.7213403880070547
+9.972748688520257E8,0.7218547912992358
+9.982674084778972E8,0.722148736037625
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.237742287293018E8,0.0
+9.237742287293018E8,0.7225896531452087
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=9.9254e+05, bucket count=100
+Runs: 13608 in total, 9833 (72.259%) displayed, 3775 (27.741%) remaining
+Span of displayed sample: [9.00006e+08, 9.9926e+08]
+Mean estimate of displayed sample: 9.23774e+08 ± 563681 (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(992539.625871)" color="0x0000ff" encoding="csv">9.000059855166259E8,471.0
+9.009985251424973E8,419.0
+9.019910647683687E8,365.0
+9.029836043942401E8,335.0
+9.039761440201116E8,341.0
+9.04968683645983E8,302.0
+9.059612232718544E8,268.0
+9.069537628977258E8,275.0
+9.079463025235972E8,267.0
+9.089388421494688E8,263.0
+9.099313817753402E8,284.0
+9.109239214012116E8,263.0
+9.11916461027083E8,271.0
+9.129090006529545E8,264.0
+9.139015402788259E8,238.0
+9.148940799046973E8,239.0
+9.158866195305687E8,168.0
+9.168791591564401E8,157.0
+9.178716987823116E8,165.0
+9.18864238408183E8,142.0
+9.198567780340544E8,144.0
+9.208493176599258E8,125.0
+9.218418572857972E8,127.0
+9.228343969116687E8,131.0
+9.238269365375401E8,140.0
+9.248194761634116E8,121.0
+9.25812015789283E8,144.0
+9.268045554151545E8,116.0
+9.277970950410259E8,119.0
+9.287896346668973E8,108.0
+9.297821742927687E8,109.0
+9.307747139186401E8,124.0
+9.317672535445116E8,93.0
+9.32759793170383E8,116.0
+9.337523327962544E8,88.0
+9.347448724221258E8,86.0
+9.357374120479972E8,89.0
+9.367299516738687E8,75.0
+9.377224912997401E8,84.0
+9.387150309256115E8,96.0
+9.397075705514829E8,68.0
+9.407001101773543E8,86.0
+9.416926498032259E8,72.0
+9.426851894290973E8,92.0
+9.436777290549687E8,78.0
+9.446702686808401E8,64.0
+9.456628083067116E8,78.0
+9.46655347932583E8,68.0
+9.476478875584544E8,73.0
+9.486404271843258E8,50.0
+9.496329668101972E8,59.0
+9.506255064360687E8,69.0
+9.516180460619401E8,59.0
+9.526105856878115E8,49.0
+9.536031253136829E8,46.0
+9.545956649395543E8,54.0
+9.555882045654258E8,42.0
+9.565807441912973E8,44.0
+9.575732838171687E8,58.0
+9.585658234430401E8,44.0
+9.595583630689116E8,42.0
+9.60550902694783E8,33.0
+9.615434423206544E8,45.0
+9.625359819465258E8,33.0
+9.635285215723972E8,31.0
+9.645210611982687E8,32.0
+9.655136008241401E8,41.0
+9.665061404500115E8,32.0
+9.674986800758829E8,23.0
+9.684912197017543E8,31.0
+9.694837593276258E8,25.0
+9.704762989534972E8,34.0
+9.714688385793686E8,25.0
+9.7246137820524E8,32.0
+9.734539178311114E8,31.0
+9.74446457456983E8,24.0
+9.754389970828544E8,22.0
+9.764315367087258E8,26.0
+9.774240763345972E8,23.0
+9.784166159604686E8,22.0
+9.794091555863401E8,19.0
+9.804016952122115E8,25.0
+9.813942348380829E8,14.0
+9.823867744639543E8,16.0
+9.833793140898257E8,20.0
+9.843718537156972E8,15.0
+9.853643933415686E8,17.0
+9.8635693296744E8,10.0
+9.873494725933114E8,18.0
+9.88342012219183E8,14.0
+9.893345518450544E8,8.0
+9.903270914709258E8,8.0
+9.913196310967972E8,8.0
+9.923121707226686E8,10.0
+9.933047103485401E8,9.0
+9.942972499744115E8,6.0
+9.952897896002829E8,7.0
+9.962823292261543E8,7.0
+9.972748688520257E8,4.0
+9.982674084778972E8,6.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.237742287293018E8,0.0
+9.237742287293018E8,471.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=9.9254e+05, bucket count=100
+Runs: 13608 in total, 9833 (72.259%) displayed, 3775 (27.741%) remaining
+Span of displayed sample: [9.00006e+08, 9.9926e+08]
+Mean estimate of displayed sample: 9.23774e+08 ± 563681 (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000](attrs != 2 || 
+(attrs == 2 U[0,900000000] 
+((attrs == 4 &amp;&amp; event == 4) || (attrs == 3 &amp;&amp; event == 3))
+)
+)
+)</formula>
+			<comment>F9:
+The only three Uncalibrated outgoing transitions are: 
+1) to Slave with Master_clock_selected event
+2) to Listening with Announce_receipt_timeout_expires
+3) to Faulty with Fault_detected.</comment>
+			<result outcome="success" type="quantity" value="0.96401 ± 0.00918297 (99% CI)" timestamp="2025-11-19 14:22:58 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>0.96401 ± 0.00918297 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(1928030.894996)" color="0x0000ff" encoding="csv">9.000077965827901E8,4.3749466495949576E-8
+9.019358274777863E8,3.853676410494282E-8
+9.038638583727825E8,2.9042199035609083E-8
+9.057918892677786E8,2.960070286321695E-8
+9.077199201627748E8,3.034537463336077E-8
+9.09647951057771E8,2.606351195503379E-8
+9.115759819527671E8,2.699435166771357E-8
+9.135040128477633E8,2.196781721924277E-8
+9.154320437427595E8,2.010613779388321E-8
+9.173600746377556E8,1.4707267460340496E-8
+9.192881055327518E8,1.5265771287948363E-8
+9.21216136427748E8,1.0611572724549472E-8
+9.231441673227441E8,1.3031755977516896E-8
+9.250721982177403E8,1.0797740667085428E-8
+9.270002291127365E8,1.1914748322301162E-8
+9.289282600077326E8,1.3217923920052852E-8
+9.308562909027288E8,1.0053068896941605E-8
+9.32784321797725E8,9.494565069333738E-9
+9.347123526927211E8,9.866900954405649E-9
+9.366403835877173E8,7.819053586510138E-9
+9.385684144827135E8,8.191389471582048E-9
+9.404964453777096E8,6.888213873830359E-9
+9.424244762727058E8,8.56372535665396E-9
+9.44352507167702E8,7.819053586510138E-9
+9.462805380626981E8,5.5850382760786694E-9
+9.482085689576943E8,6.3297100462224924E-9
+9.501365998526905E8,6.143542103686536E-9
+9.520646307476866E8,7.074381816366315E-9
+9.539926616426828E8,5.0265344484708026E-9
+9.55920692537679E8,3.723358850719113E-9
+9.578487234326751E8,3.351022965647202E-9
+9.597767543276713E8,4.654198563398891E-9
+9.617047852226675E8,5.398870333542714E-9
+9.636328161176636E8,3.1648550231112462E-9
+9.655608470126598E8,1.8616794253595565E-9
+9.67488877907656E8,3.351022965647202E-9
+9.694169088026521E8,2.234015310431468E-9
+9.713449396976482E8,2.234015310431468E-9
+9.732729705926443E8,2.4201832529674236E-9
+9.752010014876405E8,2.047847367895512E-9
+9.771290323826367E8,1.4893435402876452E-9
+9.790570632776328E8,3.351022965647202E-9
+9.80985094172629E8,3.723358850719113E-10
+9.829131250676252E8,1.117007655215734E-9
+9.848411559626213E8,9.308397126797783E-10
+9.867691868576175E8,1.3031755977516897E-9
+9.886972177526137E8,1.8616794253595565E-10
+9.906252486476098E8,5.58503827607867E-10
+9.92553279542606E8,3.723358850719113E-10
+9.944813104376022E8,5.58503827607867E-10
+9.964093413325983E8,5.58503827607867E-10
+9.983373722275945E8,3.723358850719113E-10
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.229847312713478E8,0.0
+9.229847312713478E8,4.374946649594958E-8
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.928e+06, bucket count=52
+Runs: 2786 in total, 2688 (96.482%) displayed, 98 (3.5176%) remaining
+Span of displayed sample: [9.00008e+08, 1.00027e+09]
+Mean estimate of displayed sample: 9.22985e+08 ± 1.03905e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(1928030.894996)" color="0x0000ff" encoding="csv">9.000077965827901E8,0.08435032304379038
+9.019358274777863E8,0.07430007178750897
+9.038638583727825E8,0.05599425699928212
+9.057918892677786E8,0.057071069633883705
+9.077199201627748E8,0.05850681981335248
+9.09647951057771E8,0.05025125628140704
+9.115759819527671E8,0.052045944005743
+9.135040128477633E8,0.04235463029432879
+9.154320437427595E8,0.038765254845656856
+9.173600746377556E8,0.028356066044508254
+9.192881055327518E8,0.029432878679109833
+9.21216136427748E8,0.020459440057430008
+9.231441673227441E8,0.02512562814070352
+9.250721982177403E8,0.0208183776022972
+9.270002291127365E8,0.02297200287150036
+9.289282600077326E8,0.025484565685570712
+9.308562909027288E8,0.019382627422828428
+9.32784321797725E8,0.01830581478822685
+9.347123526927211E8,0.019023689877961235
+9.366403835877173E8,0.01507537688442211
+9.385684144827135E8,0.015793251974156496
+9.404964453777096E8,0.013280689160086146
+9.424244762727058E8,0.016511127063890883
+9.44352507167702E8,0.01507537688442211
+9.462805380626981E8,0.010768126346015794
+9.482085689576943E8,0.012203876525484566
+9.501365998526905E8,0.011844938980617373
+9.520646307476866E8,0.013639626704953339
+9.539926616426828E8,0.009691313711414214
+9.55920692537679E8,0.007178750897343862
+9.578487234326751E8,0.006460875807609476
+9.597767543276713E8,0.008973438621679828
+9.617047852226675E8,0.0104091888011486
+9.636328161176636E8,0.006101938262742283
+9.655608470126598E8,0.003589375448671931
+9.67488877907656E8,0.006460875807609476
+9.694169088026521E8,0.004307250538406317
+9.713449396976482E8,0.004307250538406317
+9.732729705926443E8,0.00466618808327351
+9.752010014876405E8,0.003948312993539124
+9.771290323826367E8,0.002871500358937545
+9.790570632776328E8,0.006460875807609476
+9.80985094172629E8,7.178750897343862E-4
+9.829131250676252E8,0.0021536252692031586
+9.848411559626213E8,0.0017946877243359654
+9.867691868576175E8,0.002512562814070352
+9.886972177526137E8,3.589375448671931E-4
+9.906252486476098E8,0.0010768126346015793
+9.92553279542606E8,7.178750897343862E-4
+9.944813104376022E8,0.0010768126346015793
+9.964093413325983E8,0.0010768126346015793
+9.983373722275945E8,7.178750897343862E-4
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.229847312713478E8,0.0
+9.229847312713478E8,0.08435032304379038
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.928e+06, bucket count=52
+Runs: 2786 in total, 2688 (96.482%) displayed, 98 (3.5176%) remaining
+Span of displayed sample: [9.00008e+08, 1.00027e+09]
+Mean estimate of displayed sample: 9.22985e+08 ± 1.03905e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000077965827901E8,0.0
+9.019358274777863E8,0.08435032304379038
+9.038638583727825E8,0.15865039483129936
+9.057918892677786E8,0.21464465183058148
+9.077199201627748E8,0.2717157214644652
+9.09647951057771E8,0.33022254127781764
+9.115759819527671E8,0.38047379755922467
+9.135040128477633E8,0.4325197415649677
+9.154320437427595E8,0.4748743718592965
+9.173600746377556E8,0.5136396267049533
+9.192881055327518E8,0.5419956927494616
+9.21216136427748E8,0.5714285714285714
+9.231441673227441E8,0.5918880114860015
+9.250721982177403E8,0.617013639626705
+9.270002291127365E8,0.6378320172290022
+9.289282600077326E8,0.6608040201005025
+9.308562909027288E8,0.6862885857860732
+9.32784321797725E8,0.7056712132089017
+9.347123526927211E8,0.7239770279971285
+9.366403835877173E8,0.7430007178750897
+9.385684144827135E8,0.7580760947595119
+9.404964453777096E8,0.7738693467336684
+9.424244762727058E8,0.7871500358937545
+9.44352507167702E8,0.8036611629576453
+9.462805380626981E8,0.8187365398420675
+9.482085689576943E8,0.8295046661880833
+9.501365998526905E8,0.8417085427135679
+9.520646307476866E8,0.8535534816941852
+9.539926616426828E8,0.8671931083991385
+9.55920692537679E8,0.8768844221105527
+9.578487234326751E8,0.8840631730078966
+9.597767543276713E8,0.8905240488155061
+9.617047852226675E8,0.8994974874371859
+9.636328161176636E8,0.9099066762383345
+9.655608470126598E8,0.9160086145010768
+9.67488877907656E8,0.9195979899497487
+9.694169088026521E8,0.9260588657573582
+9.713449396976482E8,0.9303661162957645
+9.732729705926443E8,0.9346733668341709
+9.752010014876405E8,0.9393395549174444
+9.771290323826367E8,0.9432878679109835
+9.790570632776328E8,0.9461593682699211
+9.80985094172629E8,0.9526202440775305
+9.829131250676252E8,0.9533381191672649
+9.848411559626213E8,0.955491744436468
+9.867691868576175E8,0.957286432160804
+9.886972177526137E8,0.9597989949748744
+9.906252486476098E8,0.9601579325197416
+9.92553279542606E8,0.9612347451543432
+9.944813104376022E8,0.9619526202440776
+9.964093413325983E8,0.9630294328786791
+9.983373722275945E8,0.9641062455132807
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.229847312713478E8,0.0
+9.229847312713478E8,0.964824120603015
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.928e+06, bucket count=52
+Runs: 2786 in total, 2688 (96.482%) displayed, 98 (3.5176%) remaining
+Span of displayed sample: [9.00008e+08, 1.00027e+09]
+Mean estimate of displayed sample: 9.22985e+08 ± 1.03905e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">9.000077965827901E8,0.0018999578181767833
+9.019358274777863E8,0.09881486676375431
+9.038638583727825E8,0.17724242822331066
+9.057918892677786E8,0.2353426311028674
+9.077199201627748E8,0.29398459660854903
+9.09647951057771E8,0.35363043477893175
+9.115759819527671E8,0.4045361983887991
+9.135040128477633E8,0.4569759391956584
+9.154320437427595E8,0.49944971758039586
+9.173600746377556E8,0.5381698848478303
+9.192881055327518E8,0.5664000500682477
+9.21216136427748E8,0.5956183755880229
+9.231441673227441E8,0.6158774553092896
+9.250721982177403E8,0.6406981047207865
+9.270002291127365E8,0.66121312443521
+9.289282600077326E8,0.6837950688133596
+9.308562909027288E8,0.7087758026849552
+9.32784321797725E8,0.7277224106953185
+9.347123526927211E8,0.745572024630967
+9.366403835877173E8,0.7640730943277664
+9.385684144827135E8,0.778696928763911
+9.404964453777096E8,0.7939792366028872
+9.424244762727058E8,0.8067982208843034
+9.44352507167702E8,0.8226913311310586
+9.462805380626981E8,0.8371561899407028
+9.482085689576943E8,0.8474588037549798
+9.501365998526905E8,0.85910283152941
+9.520646307476866E8,0.8703686725460918
+9.539926616426828E8,0.8832931854433655
+9.55920692537679E8,0.8924415045810332
+9.578487234326751E8,0.8991973856650735
+9.597767543276713E8,0.9052613405451548
+9.617047852226675E8,0.9136554506926975
+9.636328161176636E8,0.9233469743082743
+9.655608470126598E8,0.9290025460439889
+9.67488877907656E8,0.9323195431418594
+9.694169088026521E8,0.9382701058787435
+9.713449396976482E8,0.9422215582985755
+9.732729705926443E8,0.9461592827033409
+9.752010014876405E8,0.9504081719541793
+9.771290323826367E8,0.9539882090924914
+9.790570632776328E8,0.9565823030369361
+9.80985094172629E8,0.962385944162832
+9.829131250676252E8,0.9630276920871208
+9.848411559626213E8,0.9649488587721773
+9.867691868576175E8,0.9665449237687852
+9.886972177526137E8,0.9687713687461247
+9.906252486476098E8,0.9690886241863529
+9.92553279542606E8,0.9700391204410287
+9.944813104376022E8,0.970671697950536
+9.964093413325983E8,0.9716188746699098
+9.983373722275945E8,0.9725639476922396
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">9.000077965827901E8,0.0
+9.019358274777863E8,0.07132956564746432
+9.038638583727825E8,0.14123912348171044
+9.057918892677786E8,0.19493228802209325
+9.077199201627748E8,0.2502346109753484
+9.09647951057771E8,0.3074001651631656
+9.115759819527671E8,0.3568234751457394
+9.135040128477633E8,0.4082961413215438
+9.154320437427595E8,0.45038562471513266
+9.173600746377556E8,0.48906235832164113
+9.192881055327518E8,0.5174465888252633
+9.21216136427748E8,0.5469925577071316
+9.231441673227441E8,0.5675818139290252
+9.250721982177403E8,0.5929257635975723
+9.270002291127365E8,0.6139756713844425
+9.289282600077326E8,0.637258439693191
+9.308562909027288E8,0.66315881749463
+9.32784321797725E8,0.6829104724720935
+9.347123526927211E8,0.7016091720442769
+9.366403835877173E8,0.7210896259866872
+9.385684144827135E8,0.7365643081072882
+9.404964453777096E8,0.7528137237057595
+9.424244762727058E8,0.7665100002685848
+9.44352507167702E8,0.7835817296819424
+9.462805380626981E8,0.7992151103364549
+9.482085689576943E8,0.8104111739919585
+9.501365998526905E8,0.8231322357190586
+9.520646307476866E8,0.8355147690746104
+9.539926616426828E8,0.8498215754993516
+9.55920692537679E8,0.8600217118160924
+9.578487234326751E8,0.8675979463328376
+9.597767543276713E8,0.8744328327672815
+9.617047852226675E8,0.8839536637150531
+9.636328161176636E8,0.8950432638717635
+9.655608470126598E8,0.9015696014015696
+9.67488877907656E8,0.9054183799349561
+9.694169088026521E8,0.9123660964201307
+9.713449396976482E8,0.9170133995799027
+9.732729705926443E8,0.9216743386649121
+9.752010014876405E8,0.9267405461672189
+9.771290323826367E8,0.9310423968851035
+9.790570632776328E8,0.9341805061386161
+9.80985094172629E8,0.9412740256252875
+9.829131250676252E8,0.9420652658465176
+9.848411559626213E8,0.9444430219885249
+9.867691868576175E8,0.9464293408315756
+9.886972177526137E8,0.9492181438898732
+9.906252486476098E8,0.9496173431467382
+9.92553279542606E8,0.9508161958792728
+9.944813104376022E8,0.9516165045346808
+9.964093413325983E8,0.9528186360915085
+9.983373722275945E8,0.954022844564625
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000077965827901E8,0.0
+9.019358274777863E8,0.08435032304379038
+9.038638583727825E8,0.15865039483129936
+9.057918892677786E8,0.21464465183058148
+9.077199201627748E8,0.2717157214644652
+9.09647951057771E8,0.33022254127781764
+9.115759819527671E8,0.38047379755922467
+9.135040128477633E8,0.4325197415649677
+9.154320437427595E8,0.4748743718592965
+9.173600746377556E8,0.5136396267049533
+9.192881055327518E8,0.5419956927494616
+9.21216136427748E8,0.5714285714285714
+9.231441673227441E8,0.5918880114860015
+9.250721982177403E8,0.617013639626705
+9.270002291127365E8,0.6378320172290022
+9.289282600077326E8,0.6608040201005025
+9.308562909027288E8,0.6862885857860732
+9.32784321797725E8,0.7056712132089017
+9.347123526927211E8,0.7239770279971285
+9.366403835877173E8,0.7430007178750897
+9.385684144827135E8,0.7580760947595119
+9.404964453777096E8,0.7738693467336684
+9.424244762727058E8,0.7871500358937545
+9.44352507167702E8,0.8036611629576453
+9.462805380626981E8,0.8187365398420675
+9.482085689576943E8,0.8295046661880833
+9.501365998526905E8,0.8417085427135679
+9.520646307476866E8,0.8535534816941852
+9.539926616426828E8,0.8671931083991385
+9.55920692537679E8,0.8768844221105527
+9.578487234326751E8,0.8840631730078966
+9.597767543276713E8,0.8905240488155061
+9.617047852226675E8,0.8994974874371859
+9.636328161176636E8,0.9099066762383345
+9.655608470126598E8,0.9160086145010768
+9.67488877907656E8,0.9195979899497487
+9.694169088026521E8,0.9260588657573582
+9.713449396976482E8,0.9303661162957645
+9.732729705926443E8,0.9346733668341709
+9.752010014876405E8,0.9393395549174444
+9.771290323826367E8,0.9432878679109835
+9.790570632776328E8,0.9461593682699211
+9.80985094172629E8,0.9526202440775305
+9.829131250676252E8,0.9533381191672649
+9.848411559626213E8,0.955491744436468
+9.867691868576175E8,0.957286432160804
+9.886972177526137E8,0.9597989949748744
+9.906252486476098E8,0.9601579325197416
+9.92553279542606E8,0.9612347451543432
+9.944813104376022E8,0.9619526202440776
+9.964093413325983E8,0.9630294328786791
+9.983373722275945E8,0.9641062455132807
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.229847312713478E8,0.0
+9.229847312713478E8,0.964824120603015
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.928e+06, bucket count=52
+Runs: 2786 in total, 2688 (96.482%) displayed, 98 (3.5176%) remaining
+Span of displayed sample: [9.00008e+08, 1.00027e+09]
+Mean estimate of displayed sample: 9.22985e+08 ± 1.03905e+06 (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(1928030.894996)" color="0x0000ff" encoding="csv">9.000077965827901E8,235.0
+9.019358274777863E8,207.0
+9.038638583727825E8,156.0
+9.057918892677786E8,159.0
+9.077199201627748E8,163.0
+9.09647951057771E8,140.0
+9.115759819527671E8,145.0
+9.135040128477633E8,118.0
+9.154320437427595E8,108.0
+9.173600746377556E8,79.0
+9.192881055327518E8,82.0
+9.21216136427748E8,57.0
+9.231441673227441E8,70.0
+9.250721982177403E8,58.0
+9.270002291127365E8,64.0
+9.289282600077326E8,71.0
+9.308562909027288E8,54.0
+9.32784321797725E8,51.0
+9.347123526927211E8,53.0
+9.366403835877173E8,42.0
+9.385684144827135E8,44.0
+9.404964453777096E8,37.0
+9.424244762727058E8,46.0
+9.44352507167702E8,42.0
+9.462805380626981E8,30.0
+9.482085689576943E8,34.0
+9.501365998526905E8,33.0
+9.520646307476866E8,38.0
+9.539926616426828E8,27.0
+9.55920692537679E8,20.0
+9.578487234326751E8,18.0
+9.597767543276713E8,25.0
+9.617047852226675E8,29.0
+9.636328161176636E8,17.0
+9.655608470126598E8,10.0
+9.67488877907656E8,18.0
+9.694169088026521E8,12.0
+9.713449396976482E8,12.0
+9.732729705926443E8,13.0
+9.752010014876405E8,11.0
+9.771290323826367E8,8.0
+9.790570632776328E8,18.0
+9.80985094172629E8,2.0
+9.829131250676252E8,6.0
+9.848411559626213E8,5.0
+9.867691868576175E8,7.0
+9.886972177526137E8,1.0
+9.906252486476098E8,3.0
+9.92553279542606E8,2.0
+9.944813104376022E8,3.0
+9.964093413325983E8,3.0
+9.983373722275945E8,2.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.229847312713478E8,0.0
+9.229847312713478E8,235.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.928e+06, bucket count=52
+Runs: 2786 in total, 2688 (96.482%) displayed, 98 (3.5176%) remaining
+Span of displayed sample: [9.00008e+08, 1.00027e+09]
+Mean estimate of displayed sample: 9.22985e+08 ± 1.03905e+06 (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000](attrs != 4 || 
+(attrs == 4 U[0,900000000] 
+(attrs == 3 &amp;&amp; event == 3)
+)
+)
+)</formula>
+			<comment>F10:
+
+The only three Slave outgoing transitions are: 
+1) to Uncalibrated with Synchronization_fault event
+2) to Listening with Announce_receipt_timeout_expires and 
+3) to Faulty with Fault_detected. </comment>
+			<result outcome="success" type="quantity" value="0.494998 ± 0.00999838 (99% CI)" timestamp="2025-11-19 14:25:12 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>0.494998 ± 0.00999838 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(1094250.312763)" color="0x0000ff" encoding="csv">9.000001585333441E8,2.4863422360751767E-8
+9.010944088461072E8,2.059173305648164E-8
+9.021886591588702E8,2.020837632404714E-8
+9.032829094716333E8,1.6210513257230227E-8
+9.043771597843964E8,1.6977226722099223E-8
+9.054714100971594E8,1.4403260090039018E-8
+9.065656604099225E8,1.3253189892735523E-8
+9.076599107226856E8,1.2869833160301025E-8
+9.087541610354486E8,1.423896434756709E-8
+9.098484113482116E8,1.2212650190413312E-8
+9.109426616609747E8,1.1007814745619173E-8
+9.120369119737377E8,1.3472250882698093E-8
+9.131311622865008E8,1.2705537417829097E-8
+9.142254125992639E8,1.3034128902772952E-8
+9.153196629120269E8,1.051492751820339E-8
+9.1641391322479E8,7.448073658727402E-9
+9.175081635375531E8,7.00995167880226E-9
+9.18602413850316E8,7.119482173783545E-9
+9.196966641630791E8,7.0647169262929026E-9
+9.207909144758422E8,5.914646728989407E-9
+9.218851647886052E8,6.352768708914548E-9
+9.229794151013683E8,7.174247421274188E-9
+9.240736654141314E8,6.298003461423906E-9
+9.251679157268944E8,6.2432382139332626E-9
+9.262621660396575E8,5.914646728989407E-9
+9.273564163524206E8,6.626594946367762E-9
+9.284506666651835E8,5.914646728989407E-9
+9.295449169779466E8,6.1337077189519776E-9
+9.306391672907097E8,6.0241772239706926E-9
+9.317334176034727E8,5.750350986517479E-9
+9.328276679162358E8,5.805116234008122E-9
+9.339219182289989E8,4.764576531685911E-9
+9.350161685417619E8,5.3122290065923375E-9
+9.36110418854525E8,4.3812197992514125E-9
+9.372046691672881E8,4.32645455176077E-9
+9.38298919480051E8,4.600280789213983E-9
+9.393931697928141E8,4.874107026667197E-9
+9.404874201055772E8,4.655046036704626E-9
+9.415816704183402E8,4.874107026667197E-9
+9.426759207311033E8,4.655046036704626E-9
+9.437701710438664E8,4.052628314307557E-9
+9.448644213566295E8,3.669271581873058E-9
+9.459586716693925E8,3.2859148494385596E-9
+9.470529219821556E8,2.9573233644947034E-9
+9.481471722949187E8,2.573966632060205E-9
+9.492414226076816E8,2.738262374532133E-9
+9.503356729204447E8,2.7930276220227754E-9
+9.514299232332078E8,3.0668538594759888E-9
+9.525241735459708E8,2.8477928695134184E-9
+9.536184238587339E8,3.1216191069666313E-9
+9.54712674171497E8,2.0263141571537784E-9
+9.5580692448426E8,2.6287318795508475E-9
+9.56901174797023E8,2.4644361370789196E-9
+9.579954251097862E8,2.354905642097634E-9
+9.590896754225491E8,2.081079404644421E-9
+9.601839257353122E8,1.971548909663136E-9
+9.612781760480753E8,2.354905642097634E-9
+9.623724263608383E8,2.2453751471163488E-9
+9.634666766736014E8,1.2048354447941386E-9
+9.645609269863645E8,1.6429574247192798E-9
+9.656551772991275E8,1.752487919700565E-9
+9.667494276118906E8,1.3691311872660665E-9
+9.678436779246536E8,1.6429574247192798E-9
+9.689379282374166E8,1.916783662172493E-9
+9.700321785501797E8,1.6429574247192798E-9
+9.711264288629428E8,1.2048354447941386E-9
+9.722206791757058E8,1.0405397023222104E-9
+9.733149294884689E8,9.85774454831568E-10
+9.74409179801232E8,1.6977226722099223E-9
+9.75503430113995E8,1.6429574247192798E-9
+9.76597680426758E8,1.0405397023222104E-9
+9.776919307395211E8,8.214787123596399E-10
+9.787861810522841E8,1.4786616822473517E-9
+9.798804313650472E8,9.310092073409252E-10
+9.809746816778103E8,9.310092073409252E-10
+9.820689319905733E8,9.85774454831568E-10
+9.831631823033364E8,7.119482173783546E-10
+9.842574326160995E8,1.0405397023222104E-9
+9.853516829288625E8,9.310092073409252E-10
+9.864459332416255E8,5.476524749064266E-10
+9.875401835543886E8,7.119482173783546E-10
+9.886344338671516E8,4.3812197992514125E-10
+9.897286841799147E8,4.92887227415784E-10
+9.908229344926778E8,3.833567324344986E-10
+9.919171848054409E8,6.024177223970693E-10
+9.930114351182039E8,4.92887227415784E-10
+9.94105685430967E8,4.3812197992514125E-10
+9.951999357437301E8,1.0953049498128531E-10
+9.96294186056493E8,2.738262374532133E-10
+9.973884363692561E8,5.4765247490642657E-11
+9.984826866820192E8,1.6429574247192797E-10
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.238892444499223E8,0.0
+9.238892444499223E8,2.4863422360751764E-8
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.0943e+06, bucket count=91
+Runs: 16687 in total, 8260 (49.5%) displayed, 8427 (50.5%) remaining
+Span of displayed sample: [9e+08, 9.99577e+08]
+Mean estimate of displayed sample: 9.23889e+08 ± 614344 (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(1094250.312763)" color="0x0000ff" encoding="csv">9.000001585333441E8,0.027206807694612572
+9.010944088461072E8,0.022532510337388387
+9.021886591588702E8,0.022113022113022112
+9.032829094716333E8,0.017738359201773836
+9.043771597843964E8,0.018577335650506382
+9.054714100971594E8,0.015760771858332835
+9.065656604099225E8,0.014502307185234015
+9.076599107226856E8,0.014082818960867742
+9.087541610354486E8,0.015580991190747288
+9.098484113482116E8,0.013363696290525558
+9.109426616609747E8,0.012045304728231558
+9.120369119737377E8,0.014742014742014743
+9.131311622865008E8,0.013903038293282195
+9.142254125992639E8,0.014262599628453287
+9.153196629120269E8,0.011505962725474921
+9.1641391322479E8,0.008150056930544736
+9.175081635375531E8,0.00767064181698328
+9.18602413850316E8,0.007790495595373644
+9.196966641630791E8,0.007730568706178462
+9.207909144758422E8,0.0064721040330796425
+9.218851647886052E8,0.0069515191466410975
+9.229794151013683E8,0.007850422484568825
+9.240736654141314E8,0.006891592257445916
+9.251679157268944E8,0.006831665368250734
+9.262621660396575E8,0.0064721040330796425
+9.273564163524206E8,0.007251153592617007
+9.284506666651835E8,0.0064721040330796425
+9.295449169779466E8,0.0067118115898603704
+9.306391672907097E8,0.0065919578114700065
+9.317334176034727E8,0.0062923233654940975
+9.328276679162358E8,0.0063522502546892795
+9.339219182289989E8,0.005213639359980824
+9.350161685417619E8,0.005812908251932643
+9.36110418854525E8,0.00479415113561455
+9.372046691672881E8,0.004734224246419368
+9.38298919480051E8,0.005033858692395278
+9.393931697928141E8,0.005333493138371187
+9.404874201055772E8,0.00509378558159046
+9.415816704183402E8,0.005333493138371187
+9.426759207311033E8,0.00509378558159046
+9.437701710438664E8,0.004434589800443459
+9.448644213566295E8,0.004015101576077186
+9.459586716693925E8,0.0035956133517109127
+9.470529219821556E8,0.0032360520165398213
+9.481471722949187E8,0.0028165637921735483
+9.492414226076816E8,0.002996344459759094
+9.503356729204447E8,0.003056271348954276
+9.514299232332078E8,0.0033559057949301852
+9.525241735459708E8,0.0031161982381494578
+9.536184238587339E8,0.003415832684125367
+9.54712674171497E8,0.0022172949002217295
+9.5580692448426E8,0.0028764906813687303
+9.56901174797023E8,0.0026967100137831844
+9.579954251097862E8,0.002576856235392821
+9.590896754225491E8,0.0022772217894169115
+9.601839257353122E8,0.0021573680110265475
+9.612781760480753E8,0.002576856235392821
+9.623724263608383E8,0.002457002457002457
+9.634666766736014E8,0.0013183915622940012
+9.645609269863645E8,0.0017978066758554563
+9.656551772991275E8,0.00191766045424582
+9.667494276118906E8,0.001498172229879547
+9.678436779246536E8,0.0017978066758554563
+9.689379282374166E8,0.0020974411218313655
+9.700321785501797E8,0.0017978066758554563
+9.711264288629428E8,0.0013183915622940012
+9.722206791757058E8,0.0011386108947084557
+9.733149294884689E8,0.0010786840055132738
+9.74409179801232E8,0.0018577335650506383
+9.75503430113995E8,0.0017978066758554563
+9.76597680426758E8,0.0011386108947084557
+9.776919307395211E8,8.989033379277282E-4
+9.787861810522841E8,0.0016180260082699106
+9.798804313650472E8,0.001018757116318092
+9.809746816778103E8,0.001018757116318092
+9.820689319905733E8,0.0010786840055132738
+9.831631823033364E8,7.790495595373644E-4
+9.842574326160995E8,0.0011386108947084557
+9.853516829288625E8,0.001018757116318092
+9.864459332416255E8,5.992688919518187E-4
+9.875401835543886E8,7.790495595373644E-4
+9.886344338671516E8,4.79415113561455E-4
+9.897286841799147E8,5.393420027566369E-4
+9.908229344926778E8,4.1948822436627315E-4
+9.919171848054409E8,6.591957811470006E-4
+9.930114351182039E8,5.393420027566369E-4
+9.94105685430967E8,4.79415113561455E-4
+9.951999357437301E8,1.1985377839036375E-4
+9.96294186056493E8,2.9963444597590937E-4
+9.973884363692561E8,5.992688919518188E-5
+9.984826866820192E8,1.7978066758554564E-4
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.238892444499223E8,0.0
+9.238892444499223E8,0.027206807694612572
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.0943e+06, bucket count=91
+Runs: 16687 in total, 8260 (49.5%) displayed, 8427 (50.5%) remaining
+Span of displayed sample: [9e+08, 9.99577e+08]
+Mean estimate of displayed sample: 9.23889e+08 ± 614344 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000001585333441E8,0.0
+9.010944088461072E8,0.027206807694612572
+9.021886591588702E8,0.04973931803200096
+9.032829094716333E8,0.07185234014502308
+9.043771597843964E8,0.0895906993467969
+9.054714100971594E8,0.10816803499730329
+9.065656604099225E8,0.12392880685563612
+9.076599107226856E8,0.13843111404087013
+9.087541610354486E8,0.15251393300173788
+9.098484113482116E8,0.16809492419248517
+9.109426616609747E8,0.18145862048301073
+9.120369119737377E8,0.1935039252112423
+9.131311622865008E8,0.20824593995325702
+9.142254125992639E8,0.22214897824653923
+9.153196629120269E8,0.2364115778749925
+9.1641391322479E8,0.24791754060046742
+9.175081635375531E8,0.25606759753101216
+9.18602413850316E8,0.26373823934799545
+9.196966641630791E8,0.2715287349433691
+9.207909144758422E8,0.27925930364954754
+9.218851647886052E8,0.28573140768262717
+9.229794151013683E8,0.2926829268292683
+9.240736654141314E8,0.30053334931383713
+9.251679157268944E8,0.30742494157128303
+9.262621660396575E8,0.3142566069395338
+9.273564163524206E8,0.3207287109726134
+9.284506666651835E8,0.32797986456523043
+9.295449169779466E8,0.33445196859831006
+9.306391672907097E8,0.34116378018817045
+9.317334176034727E8,0.34775573799964044
+9.328276679162358E8,0.35404806136513456
+9.339219182289989E8,0.36040031161982383
+9.350161685417619E8,0.36561395097980465
+9.36110418854525E8,0.3714268592317373
+9.372046691672881E8,0.37622101036735184
+9.38298919480051E8,0.3809552346137712
+9.393931697928141E8,0.3859890933061665
+9.404874201055772E8,0.39132258644453766
+9.415816704183402E8,0.3964163720261281
+9.426759207311033E8,0.4017498651644993
+9.437701710438664E8,0.40684365074608975
+9.448644213566295E8,0.4112782405465332
+9.459586716693925E8,0.41529334212261043
+9.470529219821556E8,0.4188889554743213
+9.481471722949187E8,0.4221250074908611
+9.492414226076816E8,0.4249415712830347
+9.503356729204447E8,0.4279379157427938
+9.514299232332078E8,0.4309941870917481
+9.525241735459708E8,0.43435009288667825
+9.536184238587339E8,0.4374662911248277
+9.54712674171497E8,0.4408821238089531
+9.5580692448426E8,0.4430994187091748
+9.56901174797023E8,0.44597590939054355
+9.579954251097862E8,0.44867261940432673
+9.590896754225491E8,0.45124947563971957
+9.601839257353122E8,0.4535266974291364
+9.612781760480753E8,0.455684065440163
+9.623724263608383E8,0.4582609216755558
+9.634666766736014E8,0.4607179241325583
+9.645609269863645E8,0.46203631569485226
+9.656551772991275E8,0.46383412237070776
+9.667494276118906E8,0.46575178282495355
+9.678436779246536E8,0.4672499550548331
+9.689379282374166E8,0.4690477617306886
+9.700321785501797E8,0.47114520285251993
+9.711264288629428E8,0.47294300952837537
+9.722206791757058E8,0.4742614010906694
+9.733149294884689E8,0.47540001198537785
+9.74409179801232E8,0.4764786959908911
+9.75503430113995E8,0.47833642955594174
+9.76597680426758E8,0.4801342362317972
+9.776919307395211E8,0.48127284712650564
+9.787861810522841E8,0.4821717504644334
+9.798804313650472E8,0.4837897764727033
+9.809746816778103E8,0.4848085335890214
+9.820689319905733E8,0.4858272907053395
+9.831631823033364E8,0.4869059747108528
+9.842574326160995E8,0.4876850242703901
+9.853516829288625E8,0.4888236351650986
+9.864459332416255E8,0.4898423922814167
+9.875401835543886E8,0.4904416611733685
+9.886344338671516E8,0.49122071073290585
+9.897286841799147E8,0.49170012584646733
+9.908229344926778E8,0.49223946784922396
+9.919171848054409E8,0.4926589560735902
+9.930114351182039E8,0.4933181518547372
+9.94105685430967E8,0.49385749385749383
+9.951999357437301E8,0.4943369089710553
+9.96294186056493E8,0.49445676274944567
+9.973884363692561E8,0.4947563971954216
+9.984826866820192E8,0.4948163240846168
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.238892444499223E8,0.0
+9.238892444499223E8,0.49499610475220235
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.0943e+06, bucket count=91
+Runs: 16687 in total, 8260 (49.5%) displayed, 8427 (50.5%) remaining
+Span of displayed sample: [9e+08, 9.99577e+08]
+Mean estimate of displayed sample: 9.23889e+08 ± 614344 (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">9.000001585333441E8,3.1746127624777536E-4
+9.010944088461072E8,0.030618398543415346
+9.021886591588702E8,0.0542344997014974
+9.032829094716333E8,0.07715493135401266
+9.043771597843964E8,0.09543329183215932
+9.054714100971594E8,0.11450352701140828
+9.065656604099225E8,0.13063664213015327
+9.076599107226856E8,0.14545074881432676
+9.087541610354486E8,0.15981190559191108
+9.098484113482116E8,0.17567610949062118
+9.109426616609747E8,0.18926415637879798
+9.120369119737377E8,0.2014983051822624
+9.131311622865008E8,0.21645555084610474
+9.142254125992639E8,0.23054671274292304
+9.153196629120269E8,0.2449883631934617
+9.1641391322479E8,0.2566290936562854
+9.175081635375531E8,0.26486962921776896
+9.18602413850316E8,0.27262178783249935
+9.196966641630791E8,0.28049156651611146
+9.207909144758422E8,0.28829740928259096
+9.218851647886052E8,0.2948299932235267
+9.229794151013683E8,0.3018439514990384
+9.240736654141314E8,0.30976181566567645
+9.251679157268944E8,0.3167099832466078
+9.262621660396575E8,0.3235953538593189
+9.273564163524206E8,0.33011619109215357
+9.284506666651835E8,0.33741950694406436
+9.295449169779466E8,0.34393602880019286
+9.306391672907097E8,0.3506918040313612
+9.317334176034727E8,0.35732488948674396
+9.328276679162358E8,0.36365460051987597
+9.339219182289989E8,0.3700427644942718
+9.350161685417619E8,0.375284521548715
+9.36110418854525E8,0.3811273500339367
+9.372046691672881E8,0.38594505372769633
+9.38298919480051E8,0.39070154734971885
+9.393931697928141E8,0.3957580151291583
+9.404874201055772E8,0.4011142690858574
+9.415816704183402E8,0.406228653829921
+9.426759207311033E8,0.41158253154186336
+9.437701710438664E8,0.4166946621461177
+9.448644213566295E8,0.42114433448274796
+9.459586716693925E8,0.4251723821821943
+9.470529219821556E8,0.42877901910643756
+9.481471722949187E8,0.43202453357732834
+9.492414226076816E8,0.4348489805648744
+9.503356729204447E8,0.4378533521265393
+9.514299232332078E8,0.4409174305610188
+9.525241735459708E8,0.44428146734523916
+9.536184238587339E8,0.447404803074239
+9.54712674171497E8,0.4508280041343862
+9.5580692448426E8,0.4530498276306827
+9.56901174797023E8,0.4559318954294492
+9.579954251097862E8,0.4586335290408556
+9.590896754225491E8,0.46121481479597193
+9.601839257353122E8,0.4634957274904207
+9.612781760480753E8,0.46565639892371563
+9.623724263608383E8,0.46823695483842076
+9.634666766736014E8,0.47069723572702343
+9.645609269863645E8,0.4720172862767454
+9.656551772991275E8,0.47381724255956853
+9.667494276118906E8,0.47573705276891426
+9.678436779246536E8,0.47723680174752736
+9.689379282374166E8,0.47903638163459733
+9.700321785501797E8,0.4811357276949267
+9.711264288629428E8,0.4829350268642392
+9.722206791757058E8,0.48425443065437557
+9.733149294884689E8,0.48539385975174765
+9.74409179801232E8,0.4864732710419972
+9.75503430113995E8,0.48833214804958075
+9.76597680426758E8,0.4901309298973047
+9.776919307395211E8,0.4912700915862752
+9.787861810522841E8,0.49216939317183467
+9.798804313650472E8,0.49378805468861514
+9.809746816778103E8,0.49480715830179156
+9.820689319905733E8,0.49582622047691816
+9.831631823033364E8,0.49690518232808134
+9.842574326160995E8,0.49768440367181277
+9.853516829288625E8,0.49882322206834223
+9.864459332416255E8,0.4998421209961775
+9.875401835543886E8,0.5004414539642583
+9.886344338671516E8,0.5012205654048659
+9.897286841799147E8,0.5017000065657699
+9.908229344926778E8,0.5022393669135492
+9.919171848054409E8,0.5026588613849202
+9.930114351182039E8,0.5033180528028819
+9.94105685430967E8,0.5038573783455151
+9.951999357437301E8,0.5043367690889802
+9.96294186056493E8,0.5044566153426978
+9.973884363692561E8,0.5047562284707826
+9.984826866820192E8,0.5048161506667681
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">9.000001585333441E8,0.0
+9.010944088461072E8,0.024068138518427006
+9.021886591588702E8,0.04550324138335246
+9.032829094716333E8,0.06679576471224014
+9.043771597843964E8,0.08398375158771539
+9.054714100971594E8,0.10205739143343127
+9.065656604099225E8,0.11743669416168542
+9.076599107226856E8,0.1316188237182343
+9.087541610354486E8,0.14541518225829664
+9.098484113482116E8,0.16070398580170067
+9.109426616609747E8,0.17383564163221424
+9.120369119737377E8,0.18568517617527924
+9.131311622865008E8,0.20020348877484856
+9.142254125992639E8,0.21391041902998473
+9.153196629120269E8,0.22798578088992072
+9.1641391322479E8,0.23935037381051102
+9.175081635375531E8,0.2474052768517054
+9.18602413850316E8,0.25499000245685766
+9.196966641630791E8,0.2626967475673656
+9.207909144758422E8,0.2703476098792408
+9.218851647886052E8,0.2767555237098726
+9.229794151013683E8,0.2836406190664251
+9.240736654141314E8,0.2914191004956266
+9.251679157268944E8,0.2982501680427179
+9.262621660396575E8,0.3050242135047285
+9.273564163524206E8,0.3114438760402882
+9.284506666651835E8,0.318638713062707
+9.295449169779466E8,0.3250626915904751
+9.306391672907097E8,0.3317266948127939
+9.317334176034727E8,0.3382737491678824
+9.328276679162358E8,0.3445250809046789
+9.339219182289989E8,0.3508377793629434
+9.350161685417619E8,0.3560203152067147
+9.36110418854525E8,0.3617999743528309
+9.372046691672881E8,0.36656782757890094
+9.38298919480051E8,0.3712770715080364
+9.393931697928141E8,0.3762854386891311
+9.404874201055772E8,0.3815931171141765
+9.415816704183402E8,0.38666338698454905
+9.426759207311033E8,0.39197344184240407
+9.437701710438664E8,0.39704596602145314
+9.448644213566295E8,0.40146293438089814
+9.459586716693925E8,0.40546279114183126
+9.470529219821556E8,0.4090453224265151
+9.481471722949187E8,0.4122700593709112
+9.492414226076816E8,0.4150771275241549
+9.503356729204447E8,0.4180637295361485
+9.514299232332078E8,0.42111044416673565
+9.525241735459708E8,0.42445629782898286
+9.536184238587339E8,0.42756357467707307
+9.54712674171497E8,0.4309700835777644
+9.5580692448426E8,0.4331815805932987
+9.56901174797023E8,0.43605084752475953
+9.579954251097862E8,0.4387410902348244
+9.590896754225491E8,0.44131204186373363
+9.601839257353122E8,0.44358426919092636
+9.612781760480753E8,0.44573709883722096
+9.623724263608383E8,0.4483087803309385
+9.634666766736014E8,0.45076109790899455
+9.645609269863645E8,0.4520770758076438
+9.656551772991275E8,0.4538717037756494
+9.667494276118906E8,0.4557861167708898
+9.678436779246536E8,0.45728185467338756
+9.689379282374166E8,0.45907685904642653
+9.700321785501797E8,0.46117119462650363
+9.711264288629428E8,0.46296647972329935
+9.722206791757058E8,0.4642831043965749
+9.733149294884689E8,0.46542024533681725
+9.74409179801232E8,0.4664975846093592
+9.75503430113995E8,0.46835311135061664
+9.76597680426758E8,0.47014891377799717
+9.776919307395211E8,0.4712863221308834
+9.787861810522841E8,0.4721843126841226
+9.798804313650472E8,0.47380077701819967
+9.809746816778103E8,0.4748186044969314
+9.820689319905733E8,0.4758364734141617
+9.831631823033364E8,0.4769142621318318
+9.842574326160995E8,0.4776926939769738
+9.853516829288625E8,0.47883044562609933
+9.864459332416255E8,0.4798484777920954
+9.875401835543886E8,0.48044733958523367
+9.886344338671516E8,0.48122588133435573
+9.897286841799147E8,0.4817049959825924
+9.908229344926778E8,0.4822440109201608
+9.919171848054409E8,0.4826632527818827
+9.930114351182039E8,0.4833220756017117
+9.94105685430967E8,0.4838611253446052
+9.951999357437301E8,0.48434029041054
+9.96294186056493E8,0.4844600831091782
+9.973884363692561E8,0.48475956736199294
+9.984826866820192E8,0.48481946464218895
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">9.000001585333441E8,0.0
+9.010944088461072E8,0.027206807694612572
+9.021886591588702E8,0.04973931803200096
+9.032829094716333E8,0.07185234014502308
+9.043771597843964E8,0.0895906993467969
+9.054714100971594E8,0.10816803499730329
+9.065656604099225E8,0.12392880685563612
+9.076599107226856E8,0.13843111404087013
+9.087541610354486E8,0.15251393300173788
+9.098484113482116E8,0.16809492419248517
+9.109426616609747E8,0.18145862048301073
+9.120369119737377E8,0.1935039252112423
+9.131311622865008E8,0.20824593995325702
+9.142254125992639E8,0.22214897824653923
+9.153196629120269E8,0.2364115778749925
+9.1641391322479E8,0.24791754060046742
+9.175081635375531E8,0.25606759753101216
+9.18602413850316E8,0.26373823934799545
+9.196966641630791E8,0.2715287349433691
+9.207909144758422E8,0.27925930364954754
+9.218851647886052E8,0.28573140768262717
+9.229794151013683E8,0.2926829268292683
+9.240736654141314E8,0.30053334931383713
+9.251679157268944E8,0.30742494157128303
+9.262621660396575E8,0.3142566069395338
+9.273564163524206E8,0.3207287109726134
+9.284506666651835E8,0.32797986456523043
+9.295449169779466E8,0.33445196859831006
+9.306391672907097E8,0.34116378018817045
+9.317334176034727E8,0.34775573799964044
+9.328276679162358E8,0.35404806136513456
+9.339219182289989E8,0.36040031161982383
+9.350161685417619E8,0.36561395097980465
+9.36110418854525E8,0.3714268592317373
+9.372046691672881E8,0.37622101036735184
+9.38298919480051E8,0.3809552346137712
+9.393931697928141E8,0.3859890933061665
+9.404874201055772E8,0.39132258644453766
+9.415816704183402E8,0.3964163720261281
+9.426759207311033E8,0.4017498651644993
+9.437701710438664E8,0.40684365074608975
+9.448644213566295E8,0.4112782405465332
+9.459586716693925E8,0.41529334212261043
+9.470529219821556E8,0.4188889554743213
+9.481471722949187E8,0.4221250074908611
+9.492414226076816E8,0.4249415712830347
+9.503356729204447E8,0.4279379157427938
+9.514299232332078E8,0.4309941870917481
+9.525241735459708E8,0.43435009288667825
+9.536184238587339E8,0.4374662911248277
+9.54712674171497E8,0.4408821238089531
+9.5580692448426E8,0.4430994187091748
+9.56901174797023E8,0.44597590939054355
+9.579954251097862E8,0.44867261940432673
+9.590896754225491E8,0.45124947563971957
+9.601839257353122E8,0.4535266974291364
+9.612781760480753E8,0.455684065440163
+9.623724263608383E8,0.4582609216755558
+9.634666766736014E8,0.4607179241325583
+9.645609269863645E8,0.46203631569485226
+9.656551772991275E8,0.46383412237070776
+9.667494276118906E8,0.46575178282495355
+9.678436779246536E8,0.4672499550548331
+9.689379282374166E8,0.4690477617306886
+9.700321785501797E8,0.47114520285251993
+9.711264288629428E8,0.47294300952837537
+9.722206791757058E8,0.4742614010906694
+9.733149294884689E8,0.47540001198537785
+9.74409179801232E8,0.4764786959908911
+9.75503430113995E8,0.47833642955594174
+9.76597680426758E8,0.4801342362317972
+9.776919307395211E8,0.48127284712650564
+9.787861810522841E8,0.4821717504644334
+9.798804313650472E8,0.4837897764727033
+9.809746816778103E8,0.4848085335890214
+9.820689319905733E8,0.4858272907053395
+9.831631823033364E8,0.4869059747108528
+9.842574326160995E8,0.4876850242703901
+9.853516829288625E8,0.4888236351650986
+9.864459332416255E8,0.4898423922814167
+9.875401835543886E8,0.4904416611733685
+9.886344338671516E8,0.49122071073290585
+9.897286841799147E8,0.49170012584646733
+9.908229344926778E8,0.49223946784922396
+9.919171848054409E8,0.4926589560735902
+9.930114351182039E8,0.4933181518547372
+9.94105685430967E8,0.49385749385749383
+9.951999357437301E8,0.4943369089710553
+9.96294186056493E8,0.49445676274944567
+9.973884363692561E8,0.4947563971954216
+9.984826866820192E8,0.4948163240846168
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.238892444499223E8,0.0
+9.238892444499223E8,0.49499610475220235
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.0943e+06, bucket count=91
+Runs: 16687 in total, 8260 (49.5%) displayed, 8427 (50.5%) remaining
+Span of displayed sample: [9e+08, 9.99577e+08]
+Mean estimate of displayed sample: 9.23889e+08 ± 614344 (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(1094250.312763)" color="0x0000ff" encoding="csv">9.000001585333441E8,454.0
+9.010944088461072E8,376.0
+9.021886591588702E8,369.0
+9.032829094716333E8,296.0
+9.043771597843964E8,310.0
+9.054714100971594E8,263.0
+9.065656604099225E8,242.0
+9.076599107226856E8,235.0
+9.087541610354486E8,260.0
+9.098484113482116E8,223.0
+9.109426616609747E8,201.0
+9.120369119737377E8,246.0
+9.131311622865008E8,232.0
+9.142254125992639E8,238.0
+9.153196629120269E8,192.0
+9.1641391322479E8,136.0
+9.175081635375531E8,128.0
+9.18602413850316E8,130.0
+9.196966641630791E8,129.0
+9.207909144758422E8,108.0
+9.218851647886052E8,116.0
+9.229794151013683E8,131.0
+9.240736654141314E8,115.0
+9.251679157268944E8,114.0
+9.262621660396575E8,108.0
+9.273564163524206E8,121.0
+9.284506666651835E8,108.0
+9.295449169779466E8,112.0
+9.306391672907097E8,110.0
+9.317334176034727E8,105.0
+9.328276679162358E8,106.0
+9.339219182289989E8,87.0
+9.350161685417619E8,97.0
+9.36110418854525E8,80.0
+9.372046691672881E8,79.0
+9.38298919480051E8,84.0
+9.393931697928141E8,89.0
+9.404874201055772E8,85.0
+9.415816704183402E8,89.0
+9.426759207311033E8,85.0
+9.437701710438664E8,74.0
+9.448644213566295E8,67.0
+9.459586716693925E8,60.0
+9.470529219821556E8,54.0
+9.481471722949187E8,47.0
+9.492414226076816E8,50.0
+9.503356729204447E8,51.0
+9.514299232332078E8,56.0
+9.525241735459708E8,52.0
+9.536184238587339E8,57.0
+9.54712674171497E8,37.0
+9.5580692448426E8,48.0
+9.56901174797023E8,45.0
+9.579954251097862E8,43.0
+9.590896754225491E8,38.0
+9.601839257353122E8,36.0
+9.612781760480753E8,43.0
+9.623724263608383E8,41.0
+9.634666766736014E8,22.0
+9.645609269863645E8,30.0
+9.656551772991275E8,32.0
+9.667494276118906E8,25.0
+9.678436779246536E8,30.0
+9.689379282374166E8,35.0
+9.700321785501797E8,30.0
+9.711264288629428E8,22.0
+9.722206791757058E8,19.0
+9.733149294884689E8,18.0
+9.74409179801232E8,31.0
+9.75503430113995E8,30.0
+9.76597680426758E8,19.0
+9.776919307395211E8,15.0
+9.787861810522841E8,27.0
+9.798804313650472E8,17.0
+9.809746816778103E8,17.0
+9.820689319905733E8,18.0
+9.831631823033364E8,13.0
+9.842574326160995E8,19.0
+9.853516829288625E8,17.0
+9.864459332416255E8,10.0
+9.875401835543886E8,13.0
+9.886344338671516E8,8.0
+9.897286841799147E8,9.0
+9.908229344926778E8,7.0
+9.919171848054409E8,11.0
+9.930114351182039E8,9.0
+9.94105685430967E8,8.0
+9.951999357437301E8,2.0
+9.96294186056493E8,5.0
+9.973884363692561E8,1.0
+9.984826866820192E8,3.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">9.238892444499223E8,0.0
+9.238892444499223E8,454.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=1.0943e+06, bucket count=91
+Runs: 16687 in total, 8260 (49.5%) displayed, 8427 (50.5%) remaining
+Span of displayed sample: [9e+08, 9.99577e+08]
+Mean estimate of displayed sample: 9.23889e+08 ± 614344 (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000](attrs != 3 || 
+(attrs == 3 U[0,900000000] 
+((attrs == 0 &amp;&amp; event == 5) || (attrs == 3 &amp;&amp; event == 3))
+)
+)
+)</formula>
+			<comment>F11:
+
+The only two Faulty outgoing transitions are:
+1) to Initializing with Fault_cleared event
+2) to Faulty with Fault_detected.</comment>
+			<result outcome="success" type="interval" value="≤ 0.00998451 (99% CI)" timestamp="2025-11-19 14:27:23 +0100">
+				<option key="--alpha" value="0.01"/>
+				<option key="--beta" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≤ 0.00998451 (99% CI)</details>
+			</result>
+		</query>
+	</queries>
+</nta>

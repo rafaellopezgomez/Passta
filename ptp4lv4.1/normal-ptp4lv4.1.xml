@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>
+hybrid clock x;
+int attrs = -1;
+/*
+System attributes Slave---&gt; code: 3
+System attributes Unknown---&gt; code: -1
+System attributes Listening---&gt; code: 1
+System attributes Uncalibrated---&gt; code: 2
+System attributes Initializing---&gt; code: 0
+*/
+
+int event = -1;
+/*
+No event ---&gt; code: -1 
+Event □---&gt; code: 0
+Event Master_clock_selected---&gt; code: 3
+Event Init_complete---&gt; code: 1
+Event Rs_slave---&gt; code: 2
+*/
+</declaration>
+	<template>
+		<name>Template</name>
+		<location id="id0" x="0" y="1500">
+			<name x="30" y="1490">L5</name>
+			<label kind="invariant" x="30" y="1510">x&lt;=2195300.0</label>
+		</location>
+		<location id="id1" x="0" y="1350">
+			<committed/>
+		</location>
+		<location id="id2" x="0" y="1200">
+			<name x="30" y="1190">L4</name>
+			<label kind="invariant" x="30" y="1210">x&lt;=373918.0</label>
+		</location>
+		<location id="id3" x="0" y="1050">
+			<committed/>
+		</location>
+		<location id="id4" x="0" y="450">
+			<committed/>
+		</location>
+		<location id="id5" x="0" y="600">
+			<name x="30" y="590">L2</name>
+			<label kind="invariant" x="30" y="610">x&lt;=678.0</label>
+		</location>
+		<location id="id6" x="0" y="0">
+			<name x="30" y="-10">L0</name>
+			<label kind="invariant" x="30" y="10">x&lt;=0.0</label>
+		</location>
+		<location id="id7" x="0" y="150">
+			<committed/>
+		</location>
+		<location id="id8" x="0" y="300">
+			<name x="30" y="290">L1</name>
+			<label kind="invariant" x="30" y="310">x&lt;=53249.0</label>
+		</location>
+		<location id="id9" x="0" y="900">
+			<name x="30" y="890">L3</name>
+			<label kind="invariant" x="30" y="910">x&lt;=593.0</label>
+		</location>
+		<location id="id10" x="0" y="1650">
+			<committed/>
+		</location>
+		<location id="id11" x="0" y="750">
+			<committed/>
+		</location>
+		<location id="id12" x="0" y="1800">
+			<name x="30" y="1790">L6</name>
+		</location>
+		<init ref="id6"/>
+		<transition id="id13">
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="assignment" x="30" y="1125">x=0, attrs = 1</label>
+		</transition>
+		<transition id="id14">
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="guard" x="30" y="1275">x&gt;=249328.0</label>
+			<label kind="assignment" x="30" y="1305">event = 2</label>
+		</transition>
+		<transition id="id15">
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="assignment" x="30" y="525">x=0, attrs = 1</label>
+		</transition>
+		<transition id="id16">
+			<source ref="id10"/>
+			<target ref="id12"/>
+			<label kind="assignment" x="30" y="1725">x=0, attrs = 3</label>
+		</transition>
+		<transition id="id17">
+			<source ref="id8"/>
+			<target ref="id4"/>
+			<label kind="guard" x="30" y="375">x&gt;=16125.0</label>
+			<label kind="assignment" x="30" y="405">event = 1</label>
+		</transition>
+		<transition id="id18">
+			<source ref="id11"/>
+			<target ref="id9"/>
+			<label kind="assignment" x="30" y="825">x=0, attrs = 1</label>
+		</transition>
+		<transition id="id19">
+			<source ref="id0"/>
+			<target ref="id10"/>
+			<label kind="guard" x="30" y="1575">x&gt;=257426.0</label>
+			<label kind="assignment" x="30" y="1605">event = 3</label>
+		</transition>
+		<transition id="id20">
+			<source ref="id9"/>
+			<target ref="id3"/>
+			<label kind="guard" x="30" y="975">x&gt;=220.0</label>
+			<label kind="assignment" x="30" y="1005">event = 1</label>
+		</transition>
+		<transition id="id21">
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="assignment" x="30" y="225">x=0, attrs = 0</label>
+		</transition>
+		<transition id="id22">
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="assignment" x="30" y="1425">x=0, attrs = 2</label>
+		</transition>
+		<transition id="id23">
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="guard" x="30" y="75">x&gt;=0.0</label>
+			<label kind="assignment" x="30" y="105">event = 0</label>
+		</transition>
+		<transition id="id24">
+			<source ref="id5"/>
+			<target ref="id11"/>
+			<label kind="guard" x="30" y="675">x&gt;=229.0</label>
+			<label kind="assignment" x="30" y="705">event = 1</label>
+		</transition>
+	</template>
+	<system>
+Process = Template();
+system Process;
+</system>
+	<queries>
+		<option key="--beta" value="0.01"/>
+		<option key="--alpha" value="0.01"/>
+		<option key="--epsilon" value="0.01"/>
+		<query>
+			<formula>Pr ([][0,100000000]((attrs != 0 || event != 1) || ((attrs == 0 &amp;&amp; event == 1) U[0,100000000] attrs == 1)))</formula>
+			<comment>F1: From Initializing state, PTP must transit to Listening on Initialization_complete event.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 13:54:57 +0100">
+				<option key="--beta" value="0.01"/>
+				<option key="--alpha" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,4.503599627370496E15
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,4.503599627370496E15
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,1.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">1.7976931348623157E308,0.009984512446168808
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,528.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,528.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,300000000]((attrs != 1 || event != 2) || ((attrs == 1 &amp;&amp; event == 2) U[0,300000000] attrs == 2)))</formula>
+			<comment>F2: In Listening state, ptp must transit to Uncalibrated with BMC_slave event.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:03:34 +0100">
+				<option key="--beta" value="0.01"/>
+				<option key="--alpha" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,4.503599627370496E15
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,4.503599627370496E15
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,1.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">1.7976931348623157E308,0.009984512446168808
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,528.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,528.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,100000000]((attrs != 2 || event != 3) || ((attrs == 2 &amp;&amp; event == 3) U[0,300000000] attrs == 3)))</formula>
+			<comment>F3: From Uncalibrated state, if the Master_clock_selected event happens there must be a transition to Slave.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:04:39 +0100">
+				<option key="--beta" value="0.01"/>
+				<option key="--alpha" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,4.503599627370496E15
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,4.503599627370496E15
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,1.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">1.7976931348623157E308,0.009984512446168808
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,528.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,528.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000](attrs != 1 || 
+(attrs == 1 U[0,900000000] 
+((attrs == 2 &amp;&amp; event == 2))
+)
+)
+)</formula>
+			<comment>F8: The only three Listening outgoing transitions are: 
+1) to Uncalibrated with BMC_slave event 
+2) to Listening with Announce_receipt_timeout_expires 
+3) to Faulty with Fault_detected.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:05:04 +0100">
+				<option key="--beta" value="0.01"/>
+				<option key="--alpha" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,4.503599627370496E15
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,4.503599627370496E15
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,1.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">1.7976931348623157E308,0.009984512446168808
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,528.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,528.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+		<query>
+			<formula>Pr ([][0,900000000](attrs != 2 || 
+(attrs == 2 U[0,900000000] 
+((attrs == 3 &amp;&amp; event == 3))
+)
+)
+)</formula>
+			<comment>F9: The only three Uncalibrated outgoing transitions are: 
+1) to Slave with Master_clock_selected event
+2) to Listening with Announce_receipt_timeout_expires
+3) to Faulty with Fault_detected.</comment>
+			<result outcome="success" type="interval" value="≥ 0.990015 (99% CI)" timestamp="2025-11-19 14:05:32 +0100">
+				<option key="--beta" value="0.01"/>
+				<option key="--alpha" value="0.01"/>
+				<option key="--epsilon" value="0.01"/>
+				<details>≥ 0.990015 (99% CI)</details>
+				<plot title="Probability Density Distribution" xaxis="run duration in time" yaxis="probability density">
+					<series title="density" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,4.503599627370496E15
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,4.503599627370496E15
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="probability" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,1.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Distribution" xaxis="run duration in time" yaxis="probability">
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Cumulative Probability Confidence Intervals" xaxis="run duration in time" yaxis="probability">
+					<series title="upper limit" type="k" color="0x0000dd" encoding="csv">1.7976931348623157E308,0.009984512446168808
+					</series>
+					<series title="lower limit" type="k" color="0xdd0000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="cumulative" type="l" color="0x000000" encoding="csv">1.7976931348623157E308,0.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,1.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+				<plot title="Frequency Histogram" xaxis="run duration in time" yaxis="count">
+					<series title="count" type="b(0.000000)" color="0x0000ff" encoding="csv">1.7976931348623157E308,528.0
+					</series>
+					<series title="average" type="pl" color="0x00dd00" encoding="csv">Infinity,0.0
+Infinity,528.0
+					</series>
+					<comment>Parameters: α=0.01, ε=0.01, bucket width=2.2204e-16, bucket count=1
+Runs: 528 in total, 528 (100%) displayed, 0 (0%) remaining
+Span of displayed sample: [1.79769313486232e+308, 1.79769313486232e+308]
+Mean estimate of displayed sample: nan ± nan (99% CI)</comment>
+				</plot>
+			</result>
+		</query>
+	</queries>
+</nta>

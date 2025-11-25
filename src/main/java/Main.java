@@ -1,3 +1,5 @@
+import java.nio.file.Paths;
+
 import automaton.EDRTA;
 import learning_algorithm.Passta;
 import parser.Parser;
@@ -9,30 +11,29 @@ public class Main {
 	public static void main(String[] args) {
 		
 		try {
-//			String traces = "ptp/traces/normal.json";
-//			String traces = "ptp/traces/disconnection.json";
-//			String traces = "ptp/traces/at.json";
-//			String traces = "ptp/traces/st.json";
-			String traces = "ptp/traces/delay.json";
+//			String directoryPath = "ptp4lv3.1.1"; 
+			 String directoryPath = "ptp4lv4.1";
+			String scenario = "delay";
+			String traces = directoryPath + "/" + scenario + "5training.json";
+			String testPath = directoryPath + "/" + scenario + "5validation.json";
 			
 			/***** Create new LearnTA class *****/
 			Passta la = new Passta(traces, 2);
 			
 			/**** Get automaton *****/
 			EDRTA a = la.getEDRTA();
-//			Parser.show(a);
 			a.computeProbs();
 			
 			/***** Show in browser *****/
 			Parser.show(a);
 			
 			/**** Parsing module *****/
-//			Parser.exportTo("images/st", a, Parser.Export.PNG);
-//			Parser.exportTo("images/st", a, Parser.Export.PNG);
-			Parser.exportTo("test/delay", a, Parser.Export.UPPAAL);
+			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.PNG);
+			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.UPPAAL);
 			
-			/**** Verification module *****/
-//			Validator.nValidTraces(traces, a);
+			/**** Validation module *****/
+			var testTraces = Passta.readTraces(Paths.get(testPath).toFile());
+			System.out.println(Validator.nValidTraces(testTraces, a));
 
 		} catch (Exception e) {
 			e.printStackTrace();
