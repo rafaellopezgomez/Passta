@@ -40,16 +40,11 @@ Pre-requisite: Java Development Kit (JDK)  21 or higher, Maven.
 
 ### JAR Files
 
-The compiled JAR files are located in the `dist/` directory:
+The compiled JAR file is located in the `dist/` directory:
 
 - **`Passta-0.2.jar`**  
   This is the shaded (fat) JAR, which includes all project dependencies.  
   Use this if you want to run or include the library without managing dependencies manually.
-
-- **`original-Passta-0.2.jar`**  
-  This JAR contains only the compiled project classes, without bundled dependencies.  
-  Use this if you're managing dependencies through Maven, Gradle, or another build tool.
-
 
 ## Usage
 
