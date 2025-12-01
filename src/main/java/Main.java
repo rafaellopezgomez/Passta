@@ -11,9 +11,9 @@ public class Main {
 	public static void main(String[] args) {
 		
 		try {
-//			String directoryPath = "ptp4lv3.1.1"; 
-			 String directoryPath = "ptp4lv4.1";
-			String scenario = "delay";
+//			String directoryPath = "ptp4lv4"; 
+			String directoryPath = "ptp4lv3";
+			String scenario = "st";
 			String traces = directoryPath + "/" + scenario + "5training.json";
 			String testPath = directoryPath + "/" + scenario + "5validation.json";
 			
@@ -28,8 +28,8 @@ public class Main {
 			Parser.show(a);
 			
 			/**** Parsing module *****/
-			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.PNG);
-			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.UPPAAL);
+//			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.PNG);
+//			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.UPPAAL);
 			
 			/**** Validation module *****/
 			var testTraces = Passta.readTraces(Paths.get(testPath).toFile());
