@@ -1,0 +1,289 @@
+[ {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 27799.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 28114.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 28387.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 349762.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2232523.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 6.2020416E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 7.8051594E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 7.8087887E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening", "Error: the automaton recognizes the event but not the time delta 36293.0. Guards of outgoing edges from state State 8 [ attributes=[], Out edges id [8] ], that have the same event: [10186.0, 26033.0]" ]
+  }, {
+    "time" : 7.8349472E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 7.8357028E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 34432.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 34717.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 34968.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 369815.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1002167.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.55060799E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.71100221E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "", "Error: the automaton recognizes the event but not the time delta 1.6039422E7. Guards of outgoing edges from state State 7 [ attributes=[Faulty], Out edges id [7] ], that have the same event: [1.601732E7, 1.6038427E7]" ]
+  }, {
+    "time" : 1.71112667E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.7136927E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.71377099E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 40524.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 40809.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 41074.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 337075.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1844649.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.27081763E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.43123385E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "", "Error: the automaton recognizes the event but not the time delta 1.6041622E7. Guards of outgoing edges from state State 7 [ attributes=[Faulty], Out edges id [7] ], that have the same event: [1.601732E7, 1.6038427E7]" ]
+  }, {
+    "time" : 2.43141666E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.43461616E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.43469432E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 41244.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 41683.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 42260.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening", "Error: the automaton recognizes the event but not the time delta 577.0. Guards of outgoing edges from state State 3 [ attributes=[Listening], Out edges id [3] ], that have the same event: [209.0, 571.0]" ]
+  }, {
+    "time" : 394998.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2152721.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 30764.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 31073.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 31341.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 405336.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated", "Error: the automaton recognizes the event but not the time delta 373995.0. Guards of outgoing edges from state State 4 [ attributes=[Listening], Out edges id [4] ], that have the same event: [112979.0, 373923.0]" ]
+  }, {
+    "time" : 1912967.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 34754.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 35005.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 35246.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 409693.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated", "Error: the automaton recognizes the event but not the time delta 374447.0. Guards of outgoing edges from state State 4 [ attributes=[Listening], Out edges id [4] ], that have the same event: [112979.0, 373923.0]" ]
+  }, {
+    "time" : 1792322.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 33461.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 34060.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 34589.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 336788.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 969926.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.37081914E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty", "Error: the automaton recognizes the event but not the time delta 2.36111988E8. Guards of outgoing edges from state State 6 [ attributes=[Slave], Out edges id [6] ], that have the same event: [3.5835649E7, 2.35600733E8]" ]
+  }, {
+    "time" : 2.5311127E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.53131665E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.53460894E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.534686E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 33011.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 33609.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 34183.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening", "Error: the automaton recognizes the event but not the time delta 574.0. Guards of outgoing edges from state State 3 [ attributes=[Listening], Out edges id [3] ], that have the same event: [209.0, 571.0]" ]
+  }, {
+    "time" : 359329.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1929618.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+} ]

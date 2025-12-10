@@ -1,0 +1,1269 @@
+[ {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 24637.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 26205.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 26357.0,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.6040124E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 8.6076318E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 8.6076751E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 8.9079487E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 9.1831715E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 9.3829155E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.02098913E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.42096532E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.58116836E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.61124461E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening", "Error: the automaton recognizes the event but not the time delta 3007625.0. Guards of outgoing edges from state State 7 [ attributes=[], Out edges id [7] ], that have the same event: [3010335.0, 1.07003444E8]" ]
+  }, {
+    "time" : 1.63766361E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.65189202E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.74139622E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.16173384E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.32210345E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.37219449E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.39864504E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.41433949E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.50227666E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.81260184E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.94416473E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 18176.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 19458.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 19577.0,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.6035771E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 8.4046989E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 9.0647909E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 9.2651763E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 9.704907E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "", "Error: the automaton recognizes the event but not the time delta 4397307.0. Guards of outgoing edges from state State 5 [ attributes=[Slave], Out edges id [5, 8] ], that have the same event: [4447941.0, 1.0693463E7]" ]
+  }, {
+    "time" : 1.08093607E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.24122659E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.60172002E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.62522735E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.64350354E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.73126452E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.92161079E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.08185718E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.49204987E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.54505327E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.55575904E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.62214018E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 35525.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 37362.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1021965.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 3001616.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.7029336E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 3.3054297E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 4.0188549E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 4.4961266E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 4.7053476E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 5.3075217E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 9.7121909E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty", "Error: the automaton recognizes the event but not the time delta 4.4046692E7. Guards of outgoing edges from state State 8 [ attributes=[], Out edges id [9] ], that have the same event: [27859.0, 4.4046334E7]" ]
+  }, {
+    "time" : 1.13137171E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.59152533E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.61045248E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.6215378E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.72163699E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.83209472E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.99223116E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.11284553E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.17005677E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.17433418E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.24251683E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.67297806E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.83315078E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.92619539E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.96987457E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.97377268E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 27213.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 28324.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 28446.0,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.6042804E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 7.8083031E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 8.3733254E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 8.4358994E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 9.1050181E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.32096564E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.4810565E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.80139188E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.83693028E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.85766996E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.93139221E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.27740654E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.43197807E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "", "Error: the automaton recognizes the event but not the time delta 1.5457153E7. Guards of outgoing edges from state State 6 [ attributes=[Faulty], Out edges id [6, 11] ], that have the same event: [1.5812852E7, 1.605247E7]" ]
+  }, {
+    "time" : 2.48221018E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.51723975E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.52528004E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.61226231E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.75272695E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.91296605E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 31163.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 32156.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 381463.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2704692.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave", "Error: the automaton recognizes the event but not the time delta 2323229.0. Guards of outgoing edges from state State 4 [ attributes=[Uncalibrated], Out edges id [4, 12] ], that have the same event: [59854.0, 2317406.0]" ]
+  }, {
+    "time" : 4.8035839E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 6.4054793E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 7.0091218E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 7.2376002E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 7.267593E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 8.3078405E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.18124511E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.34138784E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.66157303E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.7231587E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.73647517E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.79166503E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.21212569E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.38303285E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.4426059E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.45962311E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.5028786E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.6631706E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.91355215E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.96317492E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.97436075E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 25012.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 26134.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 389500.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1367020.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.4035624E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 4.005878E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 4.8073995E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 5.325476E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 5.3548988E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 6.107709E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 8.8121475E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.04142796E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.3817601E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.41333737E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.4188333E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.51164216E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.57266704E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.73226581E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.15253053E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.17301994E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.1739556E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.28252104E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "", "Error: the automaton recognizes the event but not the time delta 1.0856544E7. Guards of outgoing edges from state State 5 [ attributes=[Slave], Out edges id [5, 8] ], that have the same event: [4447941.0, 1.0693463E7]" ]
+  }, {
+    "time" : 2.54297367E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.70322876E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.87335073E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.89316573E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.90067135E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 24024.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 25355.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 25507.0,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.6041522E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 8.8042824E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 9.0953196E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 9.3226058E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.01048945E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.39086966E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.55114486E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.89150827E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.91062732E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.91950417E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.02136122E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.46182457E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty", "Error: the automaton recognizes the event but not the time delta 4.4046335E7. Guards of outgoing edges from state State 8 [ attributes=[], Out edges id [9] ], that have the same event: [27859.0, 4.4046334E7]" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 22960.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 24129.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 285773.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1969020.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.2037317E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 3.8054698E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 4.9115938E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 5.4988031E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 5.5401951E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 6.2080039E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 7.1126381E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 8.7149644E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 9.8161948E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.02961428E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.04653474E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.11169204E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.40215361E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.56228577E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.89284971E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.95003728E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.96304781E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty", "Error: the automaton recognizes the event but not the time delta 1301053.0. Guards of outgoing edges from state State 4 [ attributes=[Uncalibrated], Out edges id [4, 12] ], that have the same event: [799700.0, 1106418.0]" ]
+  }, {
+    "time" : 2.12322598E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.49340958E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.5502757E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.56721431E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.62347032E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 18199.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 19567.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 19685.0,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.6035719E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 7.7159002E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 8.1001942E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 8.1466605E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 9.0051287E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.09097521E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.23150996E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.2508136E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.25350138E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.36140139E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "", "Error: the automaton recognizes the event but not the time delta 1.0790001E7. Guards of outgoing edges from state State 5 [ attributes=[Slave], Out edges id [5, 8] ], that have the same event: [4447941.0, 1.0693463E7]" ]
+  }, {
+    "time" : 1.42183345E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.5820687E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.90220159E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.93102285E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.95122263E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.03223227E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.40268183E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.56294802E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.79329116E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.85015016E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.85663846E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.92310135E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 36452.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 37989.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 38143.0,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.6056911E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 3.6036305E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 3.9682091E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 4.1971771E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 4.9048497E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 5.6093796E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 7.2111848E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.12166276E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.15670313E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.16979473E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.25136471E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.63173899E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.79192943E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.0628722E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.11636571E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.11992457E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.1922437E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.3825236E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.54291037E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.57297279E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening", "Error: the automaton recognizes the event but not the time delta 3006242.0. Guards of outgoing edges from state State 7 [ attributes=[], Out edges id [7] ], that have the same event: [3010335.0, 1.07003444E8]" ]
+  }, {
+    "time" : 2.59619658E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.60720033E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.70311447E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 31548.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 32909.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 33042.0,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.6054131E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 6.5060378E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 6.8485922E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 7.061437E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 7.8050626E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.01096791E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.17097149E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.32260363E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.36516837E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.38670404E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.45139494E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.46185641E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.62202193E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.66332378E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.68545568E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.6987456E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.79229905E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.83264913E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.99300087E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.15308358E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.2057213E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.21166502E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.27365152E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.43377975E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.54441359E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.56524574E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.56682949E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.67406504E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "", "Error: the automaton recognizes the event but not the time delta 1.0723555E7. Guards of outgoing edges from state State 5 [ attributes=[Slave], Out edges id [5, 8] ], that have the same event: [4447941.0, 1.0693463E7]" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 25645.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 26737.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 345380.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2133524.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 3.3032952E7,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 4.9044394E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 7.4304647E7,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 7.8949357E7,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 7.9597226E7,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 8.707891E7,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.02115303E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.18142477E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.31176664E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 1.34899753E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 1.36050371E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 1.44158212E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 1.44201404E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 1.60218391E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.02237653E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.06894368E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.08618401E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.15246888E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.1829199E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  }, {
+    "time" : 2.34301302E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.6234959E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.62350241E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty", "Error: the automaton recognizes the event but not the time delta 651.0. Guards of outgoing edges from state State 3 [ attributes=[Listening], Out edges id [3, 10] ], that have the same event: [76.0, 518.0]" ]
+  }, {
+    "time" : 2.65334675E8,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 2.70881873E8,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2.72366771E8,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  }, {
+    "time" : 2.78365232E8,
+    "event" : "Fault_cleared",
+    "variables" : [ "" ]
+  }, {
+    "time" : 2.96376225E8,
+    "event" : "Fault_detected",
+    "variables" : [ "Faulty" ]
+  } ]
+} ]

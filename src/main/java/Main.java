@@ -12,7 +12,7 @@ public class Main {
 		
 		try {
 //			String directoryPath = "ptp4lv4"; 
-			String directoryPath = "ptp4lv3";
+			String directoryPath = "ptp4lv4";
 			String scenario = "st";
 			String traces = directoryPath + "/" + scenario + "5training.json";
 			String testPath = directoryPath + "/" + scenario + "5validation.json";
@@ -25,7 +25,7 @@ public class Main {
 			a.computeProbs();
 			
 			/***** Show in browser *****/
-			Parser.show(a);
+//			Parser.show(a);
 			
 			/**** Parsing module *****/
 //			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.PNG);
@@ -33,7 +33,7 @@ public class Main {
 			
 			/**** Validation module *****/
 			var testTraces = Passta.readTraces(Paths.get(testPath).toFile());
-			System.out.println(Validator.nValidTraces(testTraces, a));
+			System.out.println(Validator.nValidTraces(testTraces, a, directoryPath + "/" + scenario + "Rejected/"));
 
 		} catch (Exception e) {
 			e.printStackTrace();

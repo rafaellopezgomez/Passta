@@ -1,0 +1,67 @@
+[ {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 33253.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 36291.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening", "Error: the automaton recognizes the event but not the time delta 3038.0. Guards of outgoing edges from state State 2 [ attributes=[Listening], Out edges id [2] ], that have the same event: [891.0, 2605.0]" ]
+  }, {
+    "time" : 381251.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2156019.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 31396.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 32436.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 381999.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 608085.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave", "Error: the automaton recognizes the event but not the time delta 226086.0. Guards of outgoing edges from state State 4 [ attributes=[Uncalibrated], Out edges id [4] ], that have the same event: [229933.0, 2209328.0]" ]
+  } ]
+}, {
+  "obs" : [ {
+    "time" : 0.0,
+    "event" : "",
+    "variables" : [ "Initializing" ]
+  }, {
+    "time" : 24168.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 25272.0,
+    "event" : "Init_complete",
+    "variables" : [ "Listening" ]
+  }, {
+    "time" : 403996.0,
+    "event" : "Rs_slave",
+    "variables" : [ "Uncalibrated" ]
+  }, {
+    "time" : 2645693.0,
+    "event" : "Master_clock_selected",
+    "variables" : [ "Slave", "Error: the automaton recognizes the event but not the time delta 2241697.0. Guards of outgoing edges from state State 4 [ attributes=[Uncalibrated], Out edges id [4] ], that have the same event: [229933.0, 2209328.0]" ]
+  } ]
+} ]
