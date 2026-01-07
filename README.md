@@ -121,6 +121,8 @@ import validator.Validator;
 // Check if traces are recognized by the automaton
 Validator.nValidTraces(String "path to traces", a);
 Validator.nValidTraces(ArrayList<Trace> traces, a);
+Validator.nValidTraces(String "path to traces", a, String "path to save rejected traces");
+Validator.nValidTraces(ArrayList<Trace> traces, a, String "path to save rejected traces");
 ```
 
 ### Create a list of traces from JSON
