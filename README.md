@@ -16,9 +16,13 @@
 ### 15/10/2025
 - Adjustments in merge algorithm to fix indeterminism as soon as possible in in-out edges of the resulting merged state
 
+### 12/01/2026
+- Parser show() method improved to work with all operating systems and browsers.
+- The validation module has been extended with two additional methods that save rejected traces along with the reason for their rejection.
+
 ## Description
 
-Passta is a passive automata learning algorithm to automatically construct abstract models (Stochastic Real-Time Automata) from observations (execution traces) of real systems.
+Passta is a tool that integrates an automata learning algorithm to automatically construct abstract models—Stochastic Real-Time Automata (SRTA)—from observations of real systems, such as execution traces.
 
 ## Table of Contents
 - [Technologies](#technologies)
@@ -79,6 +83,15 @@ The input traces of LearnTA have the form of:
 
 There are more examples of traces in "src/main/resources".
 
+### Trace processing module
+Create a list of traces from JSON
+```java
+import learning_algorithm.Passta;
+// Import traces
+ArrayList<Trace> newTraces = Passta.readTraces("src/main/resources/"+traces);
+```
+
+
 ### Learning module
 Create a Passta class using the two possible constructors. And learn an automaton from the traces.
 ```java
@@ -115,7 +128,7 @@ Parser.exportTo("export path", a, Parser.Export.UPPAAL);
 
 ```
 
-### Verification module
+### Validation module
 ```java
 import validator.Validator;
 // Check if traces are recognized by the automaton
@@ -123,12 +136,4 @@ Validator.nValidTraces(String "path to traces", a);
 Validator.nValidTraces(ArrayList<Trace> traces, a);
 Validator.nValidTraces(String "path to traces", a, String "path to save rejected traces");
 Validator.nValidTraces(ArrayList<Trace> traces, a, String "path to save rejected traces");
-```
-
-### Create a list of traces from JSON
-
-```java
-import learning_algorithm.Passta;
-// Import traces
-ArrayList<Trace> newTraces = Passta.readTraces("src/main/resources/"+traces);
 ```

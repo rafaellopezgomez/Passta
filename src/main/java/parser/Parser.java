@@ -1,7 +1,6 @@
 package parser;
 
 import java.awt.Desktop;
-import java.awt.Font;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

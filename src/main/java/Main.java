@@ -20,20 +20,24 @@ public class Main {
 			/***** Create new LearnTA class *****/
 			Passta la = new Passta(traces, 2);
 			
-			/**** Get automaton *****/
+			/***** Get automaton *****/
 			EDRTA a = la.getEDRTA();
 			a.computeProbs();
 			
 			/***** Show in browser *****/
 			Parser.show(a);
 			
-			/**** Parsing module *****/
+			/***** Parsing module *****/
 //			Parser.exportTo(directoryPath + "/test", a, Parser.Export.PNG);
 //			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.UPPAAL);
 			
-			/**** Validation module *****/
+			/***** Validation module *****/
 			var testTraces = Passta.readTraces(Paths.get(testPath).toFile());
 			System.out.println(Validator.nValidTraces(testTraces, a, directoryPath + "/" + scenario + "Rejected/"));
+			
+			/***** Trace processing module *****/
+			var otherTraces = Passta.readTraces(Paths.get(testPath).toFile());
+			otherTraces = Passta.compressTraces(otherTraces);
 
 		} catch (Exception e) {
 			e.printStackTrace();
