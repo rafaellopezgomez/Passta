@@ -169,7 +169,8 @@ public class EDRTA {
 			getAllStates().stream().forEach(state -> {
 				var id = String.valueOf(state.getId());
 				var variables = state.getAttrs().toString();
-				var node = Node.builder().label(id + " " + variables).build();
+				var invariant = state.getInvariant().toString();
+				var node = Node.builder().label(id + " " + variables + "\n" + "<=" + invariant).build();
 				nodes.put(id, node);
 				g.addNode(node);
 			});

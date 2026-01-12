@@ -25,10 +25,10 @@ public class Main {
 			a.computeProbs();
 			
 			/***** Show in browser *****/
-//			Parser.show(a);
+			Parser.show(a);
 			
 			/**** Parsing module *****/
-//			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.PNG);
+//			Parser.exportTo(directoryPath + "/test", a, Parser.Export.PNG);
 //			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.UPPAAL);
 			
 			/**** Validation module *****/

@@ -7,12 +7,14 @@ public class EDRTAState {
 	private ArrayList<String> attrs;
 	private ArrayList<Integer> inEdges;
 	private ArrayList<Integer> outEdges;
+	Double invariant;
 	
 	public EDRTAState(int id, ArrayList<String> attrs) {
 		this.id = id;
 		this.attrs = attrs;
 		inEdges = new ArrayList<>();
 		outEdges = new ArrayList<>();
+		invariant = -1.0;
 	}
 	
 	public int getId() {
@@ -49,6 +51,14 @@ public class EDRTAState {
 
 	public void addInEdge(int idE) {
 		inEdges.add(idE);
+	}
+	
+	public Double getInvariant() {
+		return invariant;
+	}
+	
+	public void setInvariant(Double invariant) {
+		this.invariant = invariant;
 	}
 
 	@Override

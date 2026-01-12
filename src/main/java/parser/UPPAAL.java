@@ -486,6 +486,7 @@ public class UPPAAL {
 			ArrayList<EDRTAEdge> edges = state.getOutEdges().stream().map(eid -> a.getEdge(eid))
 					.collect(Collectors.toCollection(ArrayList::new));
 			Location sourceL = locations.get(state.getId());
+			String invariant = "x<=" + state.getInvariant();
 
 			if (sourceL == null) { // First location to be created (not has to be initial)
 				String name = "L" + String.valueOf(state.getId());
@@ -495,8 +496,7 @@ public class UPPAAL {
 					sourceL.setCommitted(true);
 					sourceL.setName("", x + 30, y - 10);
 				} else { // Otherwise, the invariant is computed
-					String invariant = "x<="
-							+ edges.stream().max(Comparator.comparing(EDRTAEdge::getMax)).get().getMax();
+					
 					sourceL.setInvariant(invariant, x + 30, y + 10);
 				}
 				locations.putIfAbsent(state.getId(), sourceL);
@@ -504,8 +504,6 @@ public class UPPAAL {
 
 			} else if (edges.size() == 1 && sourceL.getInvariant().isBlank()) { // If there is only 1 outgoing
 																				// transition and there is not
-																				// invariant, it is computed
-				String invariant = "x<=" + edges.stream().max(Comparator.comparing(EDRTAEdge::getMax)).get().getMax();
 				sourceL.setInvariant(invariant, sourceL.getX() + 30, sourceL.getY() + 10);
 			}
 
@@ -621,7 +619,7 @@ public class UPPAAL {
 
 					EDRTAEdge edge = a.getEdge(edgeId);
 					String event = edge.getEvent();
-					String invariant = "x<=" + edge.getMax();
+					invariant = "x<=" + edge.getMax();
 
 					if (events.get(event) == null) {
 						eventN += 1;

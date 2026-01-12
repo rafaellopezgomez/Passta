@@ -1,7 +1,6 @@
 package validator;
 
 import automaton.EDRTA;
-import edge.EDRTAEdge;
 import learning_algorithm.Passta;
 import state.EDRTAState;
 import trace.Observation;
@@ -15,12 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.graphper.draw.ExecuteException;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;

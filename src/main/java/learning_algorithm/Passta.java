@@ -54,6 +54,7 @@ public class Passta {
 		this.traces = compressTraces(traces);
 		phase1();
 		phase2();
+		computeInvariants();
 	}
 
 	/*
@@ -92,7 +93,7 @@ public class Passta {
 
 	/**
 	 * Method to perform a compressing operation in the input traces. The
-	 * compression operations are: 1. If consecutive observations havent an event
+	 * compression operations are: 1. If consecutive observations have not an event
 	 * and all have the same variable parameters, then they are fused as one that
 	 * compress all the information. 2. If there is an event observation and the
 	 * observations that come consecutively later haven´t an event and they have the
@@ -127,7 +128,7 @@ public class Passta {
 	}
 
 	/**
-	 * Method to compare two obsevations
+	 * Method to compare two observations
 	 *
 	 * @param ob1
 	 * @param ob2
@@ -167,8 +168,6 @@ public class Passta {
 		int i = 1;
 		EDRTAState qo = automaton.isEmpty() ? null : automaton.getState(0); // Last visited state
 		EDRTAState qt = null; // Target state from qo
-
-		///////////////////////////////////////////////////////////////////////////////
 
 		if (qo == null) { // If the automata is empty, create the first state
 			qo = automaton.addState(new ArrayList<String>(Arrays.asList("Unknown")));
@@ -237,8 +236,6 @@ public class Passta {
 		qo = qt; // Check
 		lastTime = currentTime;
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 		while (i < trace.getObs().size()) {
 			ob = obs.get(i);
 			String event = ob.event().isEmpty() ? "□" : ob.event();
@@ -288,7 +285,7 @@ public class Passta {
 	 * merge operation" with the first k future equal state found (only perform the
 	 * merge operation between two states in each call).
 	 *
-	 * @param obsWindow (curent observation and its k future observations)
+	 * @param obsWindow (current observation and its k future observations)
 	 * @param qo        Last visited state
 	 * @param lastTime
 	 * @return Last state in fast merge or null if can not be performed
@@ -358,7 +355,7 @@ public class Passta {
 	 * Method to obtain the k futures of a given state
 	 *
 	 * @param qo
-	 * @return futures, a list of all posible future paths with the form [edge,
+	 * @return futures, a list of all possible future paths with the form [edge,
 	 *         state, edge...state]. For example: 3 Futures (future of depth 3) of
 	 *         "S0" could be [[edge0, S1, edge2, S2, edge4, S4],[edge1, S2, edge3,
 	 *         S3, edge5, S5]]
@@ -376,12 +373,12 @@ public class Passta {
 	}
 
 	/**
-	 * Auxiliar method to perform recursion in order to discover all posible k
+	 * Auxiliary method to perform recursion in order to discover all possible k
 	 * future path
 	 *
 	 * @param currentPath, Current future path
 	 * @param level,       level of recursion
-	 * @return futures, a list of all posible future paths with the form [edge,
+	 * @return futures, a list of all possible future paths with the form [edge,
 	 *         state, edge...state]. For example: 3 Futures (future of depth 3) of
 	 *         "S0" could be [[edge0, S1, edge2, S2, edge4, S4],[edge1, S2, edge3,
 	 *         S3, edge5, S5]]
@@ -774,4 +771,14 @@ public class Passta {
 		}
 		return false;
 	}
+	
+    private void computeInvariants() {
+        automaton.getAllStates().stream().forEach(state -> {
+            if (!state.getOutEdges().isEmpty()) {
+                EDRTAEdge edge = state.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge)).max(Comparator.comparing(EDRTAEdge::getMax)).get();
+                Double invariant = edge.getMax();
+                state.setInvariant(invariant);
+            }
+        });
+    }
 }
