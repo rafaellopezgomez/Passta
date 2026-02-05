@@ -187,7 +187,7 @@ public class Passta {
 			} else {
 				qt = automaton.searchStateFromSource(qo, ob.event(), ob.variables());
 			}
-			
+
 			if (ob.event().isEmpty()) {
 				/*
 				 * Check if variables are equal. If not, trace without event will have priority
@@ -240,7 +240,6 @@ public class Passta {
 			ob = obs.get(i);
 			String event = ob.event().isEmpty() ? "□" : ob.event();
 			qt = qo != null ? automaton.searchStateFromSource(qo, event, ob.variables()) : null;
-			
 
 			if (qt != null) { // If there is an existing state, update the guards
 				currentTime = ob.time();
@@ -436,29 +435,40 @@ public class Passta {
 	}
 
 	private void phase2() {
-		boolean merged = true;
-		boolean indet;
+		boolean merged = false;
+		boolean indet = false;
 		boolean fixed = true;
 		do {
-			while (merged) {
-				merged = lookForMerge();
-			}
-			var indetEdges = indetEdges();
-			indet = indetEdges != null;
-			if (indet) {
-				fixed = fixIndet(indetEdges);
-				if (fixed)
-					merged = true;
-			}
+
+			var simStates = findSim();
+
+			simStates.ifPresent(list -> {
+				EDRTAState first = list.get(0);
+				EDRTAState second = list.get(1);
+				merge(first, second);
+
+			});
+			
+			merged = simStates.isPresent() ? true : false;
+			
+			do {
+				var indetEdges = indetEdges();
+				indet = indetEdges.isPresent();
+				if (indet) {
+					fixed = fixIndet(indetEdges.get());
+					if (fixed) {
+						merged = true;
+					} else {
+						try {
+							Parser.show(automaton);
+						} catch (ExecuteException e) {
+							e.printStackTrace();
+						}
+						throw new RuntimeException("Indeterministic automaton");
+					}
+				}
+			} while (indet);
 		} while (merged);
-		if (!fixed) {
-			try {
-				Parser.show(automaton);
-			} catch (ExecuteException e) {
-				e.printStackTrace();
-			}
-			throw new RuntimeException("Indeterministic automaton");
-		}
 		merged = true;
 		while (merged) {
 			merged = mergeFinalStates();
@@ -466,78 +476,18 @@ public class Passta {
 	}
 
 	/**
-	 * Method used to search inconsistencies in the out edges of every state.
-	 * Inconsistencies checked 1.If there are two or more edges with the same event
-	 * and overlapping guards.
+	 * Method used to search and merge similar states based on the comparison of
+	 * their k-futures
 	 *
-	 * @return indeterministic edges or null otherwise
+	 * @return Some List<EDRTAState> if two similar states were found, empty
+	 *         otherwise
 	 */
-	private ArrayList<EDRTAEdge> indetEdges() {
-		var states = automaton.getAllStates();
-
-		for (EDRTAState state : states) {
-			for (var idEdge : state.getOutEdges()) {
-				var edge = automaton.getEdge(idEdge);
-				var event = edge.getEvent();
-				var dupEdges = state.getOutEdges().stream().map(automaton::getEdge).filter(e -> { // Check for
-																									// inconsistencies
-					if (e.getId() == edge.getId())
-						return false;
-					if (e.getEvent().equals(event)) {
-						// boolean targetSameAttrs =
-						// automaton.getState(e.getTargetId()).getAttrs().equals(automaton.getState(edge.getTargetId()).getAttrs());
-						// // Same target state
-						var minVal1 = edge.getMin();
-						var minVal2 = e.getMin();
-						var maxVal1 = edge.getMax();
-						var maxVal2 = e.getMax();
-						boolean overlappingGuards = ((minVal1 >= minVal2 && minVal1 <= maxVal2)
-								|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
-								|| ((minVal2 >= minVal1 && minVal2 <= maxVal1) // Overlapping guards
-										|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
-						return overlappingGuards; // If two edges have overlapping guards and the same
-													// target state there is an inconsistency
-					}
-					return false;
-				}).collect(Collectors.toCollection(ArrayList::new));
-				if (!dupEdges.isEmpty()) {
-					dupEdges.add(edge);
-					return dupEdges;
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Method used to merge the target states of the indeterministic edges if
-	 * possible All edges have the same source state.
-	 *
-	 * @param indetEdges
-	 * @return boolean
-	 */
-	private boolean fixIndet(ArrayList<EDRTAEdge> indetEdges) {
-		var variables = automaton.getState(indetEdges.get(0).getTargetId()).getAttrs();
-		var eqStates = indetEdges.stream().map(e -> automaton.getState(e.getTargetId()))
-				.filter(s -> s.getAttrs().equals(variables)).distinct()
-				.collect(Collectors.toCollection(ArrayList::new));
-		if (eqStates.size() > 1) {
-			var newState = eqStates.get(0);
-			for (int i = 1; i < eqStates.size(); i++) {
-				newState = mergeStates(newState, eqStates.get(i));
-				mergeEdges(newState);
-			}
-			return true;
-		}
-		return false;
-	}
-
-	private boolean lookForMerge() {
+	private Optional<List<EDRTAState>> findSim() {
 		var states = automaton.getAllStates();
 
 		for (EDRTAState state : states) {
 			var kFutures1 = getKFutures(state);
-			var possibleEquivalentState = states.stream().filter(state2 -> {
+			var optionSimState = states.stream().filter(state2 -> {
 				if (state.getAttrs().equals(state2.getAttrs()) && !state.equals(state2)) {
 					var kFutures2 = getKFutures(state2);
 					if (!kFutures1.isEmpty() && !kFutures2.isEmpty()) {
@@ -547,14 +497,12 @@ public class Passta {
 				return false;
 			}).findFirst();
 
-			if (possibleEquivalentState.isPresent()) {
-				var equivalentState = possibleEquivalentState.get();
-				var mergedState = mergeStates(state, equivalentState);
-				mergeEdges(mergedState);
-				return true;
+			if (optionSimState.isPresent()) {
+				var simState = optionSimState.get();
+				return Optional.of(List.of(state, simState)); // Immutable list
 			}
 		}
-		return false;
+		return Optional.empty();
 	}
 
 	/**
@@ -567,20 +515,35 @@ public class Passta {
 	private boolean compareKFutures(ArrayList<ArrayList<Object>> fs1, ArrayList<ArrayList<Object>> fs2) {
 		var nFut1 = fs1.size();
 		var nFut2 = fs2.size();
-
-		if (nFut1 > nFut2) {
-			return fs2.stream().allMatch(f2 -> {
-				return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "c2"));
+		
+		boolean mutualWeakTimeInclusion = false;
+		boolean oneSidedStrongTimeInclusion = false;
+		
+		boolean mutualWeakTimeKF1 = fs1.stream().allMatch(f1 -> {
+			return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "weak"));
+		});
+		
+		boolean mutualWeakTimeKF2 = fs2.stream().allMatch(f2 -> {
+			return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "weak"));
+		});
+		
+		mutualWeakTimeInclusion = mutualWeakTimeKF1 && mutualWeakTimeKF2;
+		
+		if(!mutualWeakTimeInclusion) {
+			boolean oneSidedStrongTimeInclusionKF1 = fs1.stream().allMatch(f1 -> {
+				return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "weak"));
 			});
-		} else if (nFut2 > nFut1) {
-			return fs1.stream().allMatch(f1 -> {
-				return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "c2"));
+			
+			boolean oneSidedStrongTimeInclusionKF2 = fs2.stream().allMatch(f2 -> {
+				return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "weak"));
 			});
-		} else {
-			return fs2.stream().allMatch(f2 -> {
-				return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "c1"));
-			});
+			
+			oneSidedStrongTimeInclusion = oneSidedStrongTimeInclusionKF1 || oneSidedStrongTimeInclusionKF2;
 		}
+
+		boolean timeInclusion = mutualWeakTimeInclusion || oneSidedStrongTimeInclusion;
+		
+		return timeInclusion;
 	}
 
 	/**
@@ -588,7 +551,7 @@ public class Passta {
 	 *
 	 * @param f1
 	 * @param f2
-	 * @param crit
+	 * @param crit: weak or strong
 	 * @return true if both futures are equivalent (same events, variables and
 	 *         length), false otherwise
 	 */
@@ -610,12 +573,12 @@ public class Passta {
 					var minVal2 = edge2.getMin();
 					var maxVal1 = edge1.getMax();
 					var maxVal2 = edge2.getMax();
-					if (crit.equals("c1")) {
+					if (crit.equals("weak")) { // Weak time similarity
 						return ((minVal1 >= minVal2 && minVal1 <= maxVal2)
 								|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
 								|| ((minVal2 >= minVal1 && minVal2 <= maxVal1)
 										|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
-					} else {
+					} else if(crit.equals("strong")){ // Strong time similarity
 						return (minVal1 >= minVal2 && minVal1 <= maxVal2) && (maxVal1 >= minVal2 && maxVal1 <= maxVal2)
 								|| (minVal2 >= minVal1 && minVal2 <= maxVal1)
 										&& (maxVal2 >= minVal1 && maxVal2 <= maxVal1);
@@ -634,7 +597,7 @@ public class Passta {
 	 * @param s2
 	 * @return resulting state
 	 */
-	private EDRTAState mergeStates(EDRTAState s1, EDRTAState s2) {
+	private EDRTAState merge(EDRTAState s1, EDRTAState s2) {
 		var stateMerged = automaton.getState(Math.min(s1.getId(), s2.getId()));
 		var stateAux = automaton.getState(Math.max(s1.getId(), s2.getId()));
 
@@ -655,7 +618,8 @@ public class Passta {
 
 	/**
 	 * This method looks for duplicate in and out edges for the input state and
-	 * merge them. Duplicate edges: Same source (id), target (id), event and overlapping guards
+	 * merge them. Duplicate edges: Same source (id), target (id), event and
+	 * overlapping guards
 	 *
 	 * @param mergedState
 	 */
@@ -673,7 +637,7 @@ public class Passta {
 				.collect(Collectors.toCollection(ArrayList::new));
 		mergeEdgesAux(inEdges);
 	}
-	
+
 	private void mergeEdgesAux(List<List<EDRTAEdge>> edgesToCheck) {
 		for (List<EDRTAEdge> possibleEqEdges : edgesToCheck) {
 			while (possibleEqEdges.size() > 1) {
@@ -717,16 +681,82 @@ public class Passta {
 					compared.removeIf(e -> e.getId() == mergedEdge.getId()); // The edge is fused so another check is
 																				// required
 					compared.stream().forEach(edge -> {
-							mergedEdge.addSamples(edge.getSamples()); // Add to the merged edge all the time samples of
-																		// the eq edges that are going to be removed
+						mergedEdge.addSamples(edge.getSamples()); // Add to the merged edge all the time samples of
+																	// the eq edges that are going to be removed
 					});
-					
+
 					compared.stream().map(EDRTAEdge::getId).forEach(e -> automaton.deleteEdge(e));
 				}
 				possibleEqEdges.removeAll(compared);
 			}
 
 		}
+	}
+
+	/**
+	 * Method used to search inconsistencies in the out edges of every state.
+	 * Inconsistencies checked: If there are two or more edges with the same event,
+	 * overlapping guard and they go to different states.
+	 *
+	 * @return Indeterministic edges or empty otherwise
+	 */
+	private Optional<List<EDRTAEdge>> indetEdges() {
+		var states = automaton.getAllStates();
+
+		for (EDRTAState state : states) {
+			for (var idEdge : state.getOutEdges()) {
+				var edge = automaton.getEdge(idEdge);
+				var event = edge.getEvent();
+				var dupEdges = state.getOutEdges().stream().map(automaton::getEdge).filter(e -> { // Check for
+																									// inconsistencies
+					if (e.getId() == edge.getId())
+						return false;
+					if (e.getEvent().equals(event)) {
+//						boolean targetSameAttrs = automaton.getState(e.getTargetId()).getAttrs()
+//								.equals(automaton.getState(edge.getTargetId()).getAttrs());
+						// // Same target state
+						var minVal1 = edge.getMin();
+						var minVal2 = e.getMin();
+						var maxVal1 = edge.getMax();
+						var maxVal2 = e.getMax();
+						boolean overlappingGuards = ((minVal1 >= minVal2 && minVal1 <= maxVal2)
+								|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
+								|| ((minVal2 >= minVal1 && minVal2 <= maxVal1) // Overlapping guards
+										|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
+						return overlappingGuards; // If two edges have overlapping guards and the same event with different target states
+					}
+					return false;
+				}).collect(Collectors.toCollection(ArrayList::new));
+				if (!dupEdges.isEmpty()) {
+					dupEdges.add(edge);
+					return Optional.of(dupEdges);
+				}
+			}
+		}
+		return Optional.empty();
+	}
+
+	/**
+	 * Method used to merge the target states of the indeterministic edges if
+	 * possible all edges have the same source state. If simStates if 0 means that it is impossible to fix because the target states have different system attributes
+	 *
+	 * @param indetEdges
+	 * @return boolean
+	 */
+	private boolean fixIndet(List<EDRTAEdge> indetEdges) {
+		var variables = automaton.getState(indetEdges.get(0).getTargetId()).getAttrs();
+		var simStates = indetEdges.stream().map(e -> automaton.getState(e.getTargetId()))
+				.filter(s -> s.getAttrs().equals(variables)).distinct()
+				.collect(Collectors.toCollection(ArrayList::new));
+		if (simStates.size() > 1) {
+			var newState = simStates.get(0);
+			for (int i = 1; i < simStates.size(); i++) {
+				newState = merge(newState, simStates.get(i));
+				mergeEdges(newState);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -764,21 +794,22 @@ public class Passta {
 
 			if (possibleEquivalentLeave.isPresent()) {
 				var equivalentLeave = possibleEquivalentLeave.get();
-				var mergedLeave = mergeStates(finalS, equivalentLeave);
+				var mergedLeave = merge(finalS, equivalentLeave);
 				mergeEdges(mergedLeave);
 				return true;
 			}
 		}
 		return false;
 	}
-	
-    private void computeInvariants() {
-        automaton.getAllStates().stream().forEach(state -> {
-            if (!state.getOutEdges().isEmpty()) {
-                EDRTAEdge edge = state.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge)).max(Comparator.comparing(EDRTAEdge::getMax)).get();
-                Double invariant = edge.getMax();
-                state.setInvariant(invariant);
-            }
-        });
-    }
+
+	private void computeInvariants() {
+		automaton.getAllStates().stream().forEach(state -> {
+			if (!state.getOutEdges().isEmpty()) {
+				EDRTAEdge edge = state.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
+						.max(Comparator.comparing(EDRTAEdge::getMax)).get();
+				Double invariant = edge.getMax();
+				state.setInvariant(invariant);
+			}
+		});
+	}
 }
