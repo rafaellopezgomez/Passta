@@ -513,35 +513,33 @@ public class Passta {
 	 * @return true if both k-futures are equivalent, false otherwise
 	 */
 	private boolean compareKFutures(ArrayList<ArrayList<Object>> fs1, ArrayList<ArrayList<Object>> fs2) {
-		var nFut1 = fs1.size();
-		var nFut2 = fs2.size();
 		
-		boolean mutualWeakTimeInclusion = false;
-		boolean oneSidedStrongTimeInclusion = false;
+		boolean weakTimeEq = false;
+		boolean strongTimeInc = false;
 		
-		boolean mutualWeakTimeKF1 = fs1.stream().allMatch(f1 -> {
+		boolean weakTimeEqF1 = fs1.stream().allMatch(f1 -> {
 			return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "weak"));
 		});
 		
-		boolean mutualWeakTimeKF2 = fs2.stream().allMatch(f2 -> {
+		boolean weakTimeEqF2 = fs2.stream().allMatch(f2 -> {
 			return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "weak"));
 		});
 		
-		mutualWeakTimeInclusion = mutualWeakTimeKF1 && mutualWeakTimeKF2;
+		weakTimeEq = weakTimeEqF1 && weakTimeEqF2;
 		
-		if(!mutualWeakTimeInclusion) {
-			boolean oneSidedStrongTimeInclusionKF1 = fs1.stream().allMatch(f1 -> {
+		if(!weakTimeEq) {
+			boolean strongTimeIncF1 = fs1.stream().allMatch(f1 -> {
 				return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "weak"));
 			});
 			
-			boolean oneSidedStrongTimeInclusionKF2 = fs2.stream().allMatch(f2 -> {
+			boolean strongTimeIncF2 = fs2.stream().allMatch(f2 -> {
 				return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "weak"));
 			});
 			
-			oneSidedStrongTimeInclusion = oneSidedStrongTimeInclusionKF1 || oneSidedStrongTimeInclusionKF2;
+			strongTimeInc = strongTimeIncF1 || strongTimeIncF2;
 		}
 
-		boolean timeInclusion = mutualWeakTimeInclusion || oneSidedStrongTimeInclusion;
+		boolean timeInclusion = weakTimeEq || strongTimeInc;
 		
 		return timeInclusion;
 	}
