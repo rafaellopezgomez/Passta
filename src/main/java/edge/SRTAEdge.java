@@ -3,7 +3,7 @@ package edge;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EDRTAEdge {
+public class SRTAEdge {
 	private int id;
 	private int sourceId;
 	private int targetId;
@@ -12,7 +12,7 @@ public class EDRTAEdge {
 	private List<Double> samples; // new
 	private Double prob;
 	
-	public EDRTAEdge(int id, int sourceId, int targetId, double min, double max, String event) {
+	public SRTAEdge(int id, int sourceId, int targetId, double min, double max, String event) {
 		this.id = id;
 		this.sourceId = sourceId;
 		this.targetId = targetId;

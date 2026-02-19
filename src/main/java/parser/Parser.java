@@ -17,7 +17,7 @@ import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import automaton.EDRTA;
+import automaton.SRTA;
 
 public class Parser {
 
@@ -25,7 +25,7 @@ public class Parser {
 		PNG, SVG, UPPAAL, DOT
 	}
 
-	public static void exportTo(String route, EDRTA a, Export option) {
+	public static void exportTo(String route, SRTA a, Export option) {
 
 		switch (option) {
 		case PNG:
@@ -60,7 +60,7 @@ public class Parser {
 	 * 
 	 * @throws ExecuteException
 	 */
-	public static void show(EDRTA a) throws ExecuteException {
+	public static void show(SRTA a) throws ExecuteException {
 		var g = a.toDOTLayout();
 		layoutInBrowser(g);
 	}

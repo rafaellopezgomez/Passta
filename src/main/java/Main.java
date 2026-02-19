@@ -1,6 +1,6 @@
 import java.nio.file.Paths;
 
-import automaton.EDRTA;
+import automaton.SRTA;
 import learning_algorithm.Passta;
 import parser.Parser;
 import validator.Validator;
@@ -21,7 +21,7 @@ public class Main {
 			Passta la = new Passta(traces, 2);
 			
 			/***** Get automaton *****/
-			EDRTA a = la.getEDRTA();
+			SRTA a = la.getAutomaton();
 			a.computeProbs();
 			
 			/***** Show in browser *****/

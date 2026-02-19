@@ -2,14 +2,14 @@ package state;
 
 import java.util.ArrayList;
 
-public class EDRTAState {
+public class SRTAState {
 	private int id;
 	private ArrayList<String> attrs;
 	private ArrayList<Integer> inEdges;
 	private ArrayList<Integer> outEdges;
 	Double invariant;
 	
-	public EDRTAState(int id, ArrayList<String> attrs) {
+	public SRTAState(int id, ArrayList<String> attrs) {
 		this.id = id;
 		this.attrs = attrs;
 		inEdges = new ArrayList<>();

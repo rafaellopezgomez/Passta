@@ -1,8 +1,8 @@
 package validator;
 
-import automaton.EDRTA;
+import automaton.SRTA;
 import learning_algorithm.Passta;
-import state.EDRTAState;
+import state.SRTAState;
 import trace.Observation;
 import trace.Trace;
 
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 
 public class Validator {
-	public static int nValidTraces(ArrayList<Trace> traces, EDRTA a, String dst) {
+	public static int nValidTraces(ArrayList<Trace> traces, SRTA a, String dst) {
 		if(traces == null) throw new RuntimeException("Null traces");
 		var compTraces = Passta.compressTraces(traces);
 		int nAccepted = 0;
@@ -40,11 +40,11 @@ public class Validator {
 		return nAccepted;
 	}
 	
-	public static int nValidTraces(ArrayList<Trace> traces, EDRTA a) {
+	public static int nValidTraces(ArrayList<Trace> traces, SRTA a) {
 		return nValidTraces(traces, a, "");
 	}
 	
-	public static int nValidTraces(String src, EDRTA a, String dst) {
+	public static int nValidTraces(String src, SRTA a, String dst) {
 		if(src == null || src.isBlank()) throw new RuntimeException("Source path is null or undefined");
 		File resourcesFile = new File(src);
 		var traces = Passta.readTraces(resourcesFile.getAbsoluteFile());
@@ -53,7 +53,7 @@ public class Validator {
 	}
 	
 	
-	public static int nValidTraces(String src, EDRTA a) {
+	public static int nValidTraces(String src, SRTA a) {
 		if(src == null || src.isBlank()) throw new RuntimeException("Source path is null or undefined");
 		File resourcesFile = new File(src);
 		var traces = Passta.readTraces(resourcesFile.getAbsoluteFile());
@@ -61,8 +61,8 @@ public class Validator {
 		return nValidTraces(traces, a, "");
 	}
 
-	public static boolean checkTrace(Trace t, EDRTA automaton) {
-		EDRTAState lastState = null;
+	public static boolean checkTrace(Trace t, SRTA automaton) {
+		SRTAState lastState = null;
 		double lastTimeStamp = (float) 0;
 		for (Observation obs : t.getObs()) {
 			String event = obs.event().isEmpty() ? "□" : obs.event();
@@ -85,7 +85,7 @@ public class Validator {
 				var hasEvent = lastState.getOutEdges().stream().map(automaton::getEdge).filter(e -> {
 					return e.getEvent().equals(event);
 				}).collect(Collectors.toList());
-				if(hasEvent.size() > 00) { 
+				if(hasEvent.size() > 0) { 
 					var systemAttrs = hasEvent.stream().map(e -> automaton.getState(e.getTargetId()).getAttrs()).collect(Collectors.toList());
 					var guards = hasEvent.stream().map(e -> e.getGuard()).collect(Collectors.toList());
 					

@@ -1,7 +1,7 @@
 package learning_algorithm;
 
-import automaton.EDRTA;
-import edge.EDRTAEdge;
+import automaton.SRTA;
+import edge.SRTAEdge;
 import parser.Parser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 
-import state.EDRTAState;
+import state.SRTAState;
 import trace.Observation;
 import trace.Trace;
 
@@ -24,7 +24,7 @@ import org.graphper.draw.ExecuteException;
 
 public class Passta {
 	private List<Trace> traces;
-	private EDRTA automaton;
+	private SRTA automaton;
 	private final int k;
 	boolean initVars; // Flag used to indicate that the variables of the initial state are correct
 
@@ -66,7 +66,7 @@ public class Passta {
 	 * public void stopLearning() { phase2(); }
 	 */
 
-	public EDRTA getEDRTA() {
+	public SRTA getAutomaton() {
 		return automaton;
 	}
 
@@ -152,7 +152,7 @@ public class Passta {
 	 */
 	private void phase1() {
 		if (automaton == null)
-			automaton = new EDRTA();
+			automaton = new SRTA();
 
 		for (var trace : traces) {
 			processTrace(trace);
@@ -166,8 +166,8 @@ public class Passta {
 		double lastTime = (double) 0;
 		double delta = currentTime == 0 ? 0 : getDelta(currentTime, lastTime);
 		int i = 1;
-		EDRTAState qo = automaton.isEmpty() ? null : automaton.getState(0); // Last visited state
-		EDRTAState qt = null; // Target state from qo
+		SRTAState qo = automaton.isEmpty() ? null : automaton.getState(0); // Last visited state
+		SRTAState qt = null; // Target state from qo
 
 		if (qo == null) { // If the automata is empty, create the first state
 			qo = automaton.addState(new ArrayList<String>(Arrays.asList("Unknown")));
@@ -289,9 +289,9 @@ public class Passta {
 	 * @param lastTime
 	 * @return Last state in fast merge or null if can not be performed
 	 */
-	private EDRTAState fastMatching(List<Observation> obsWindow, EDRTAState qo, double lastTime) {
+	private SRTAState fastMatching(List<Observation> obsWindow, SRTAState qo, double lastTime) {
 		// List of all states that are possible candidates to perform a merge operation
-		ArrayList<EDRTAState> pEqStates = automaton.getAllStates().stream().filter(state -> {
+		ArrayList<SRTAState> pEqStates = automaton.getAllStates().stream().filter(state -> {
 			var vars = state.getAttrs();
 			return obsWindow.get(0).variables().equals(vars);
 		}).collect(Collectors.toCollection(ArrayList::new));
@@ -311,14 +311,14 @@ public class Passta {
 			double auxTimeDelta = getDelta(lastObservation.time(), auxLastTime);
 			auxLastTime = lastObservation.time();
 			String event = lastObservation.event().isEmpty() ? "□" : lastObservation.event();
-			var edge = new EDRTAEdge(-1, -1, -1, auxTimeDelta, auxTimeDelta, event);
-			var state = new EDRTAState(-1, lastObservation.variables());
+			var edge = new SRTAEdge(-1, -1, -1, auxTimeDelta, auxTimeDelta, event);
+			var state = new SRTAState(-1, lastObservation.variables());
 			obFut.add(edge);
 			obFut.add(state);
 		}
 
 		// Loop through all candidates to try to perform a merge operation
-		for (EDRTAState currentEqState : pEqStates) {
+		for (SRTAState currentEqState : pEqStates) {
 			var futuresOfCandidate = getKFutures(currentEqState);
 
 			// Search for a future that is equal to the observation future
@@ -334,14 +334,14 @@ public class Passta {
 				while (itSameFuture.hasNext()) {
 					var stateOrEdge1 = itSameFuture.next();
 					var stateOrEdge2 = itObservationFuture.next();
-					if (stateOrEdge1 instanceof EDRTAEdge edge1 && stateOrEdge2 instanceof EDRTAEdge edge2) {
+					if (stateOrEdge1 instanceof SRTAEdge edge1 && stateOrEdge2 instanceof SRTAEdge edge2) {
 						// Update the guards of every edge in the equivalent future given the source and
 						// the target states and the time delta of the current observation k futures
 						e = automaton.updateGuard(automaton.getState(edge1.getSourceId()),
 								automaton.getState(edge1.getTargetId()), edge2.getGuard().get(0), edge1.getEvent());
 						e.addSample(edge2.getGuard().get(0)); // New
 					} else {
-						qo = (EDRTAState) stateOrEdge1;
+						qo = (SRTAState) stateOrEdge1;
 					}
 				}
 				return qo; // Return the new merged state
@@ -359,7 +359,7 @@ public class Passta {
 	 *         "S0" could be [[edge0, S1, edge2, S2, edge4, S4],[edge1, S2, edge3,
 	 *         S3, edge5, S5]]
 	 */
-	private ArrayList<ArrayList<Object>> getKFutures(EDRTAState qo) {
+	private ArrayList<ArrayList<Object>> getKFutures(SRTAState qo) {
 		ArrayList<ArrayList<Object>> futures = new ArrayList<>();
 
 		for (int idEdge : qo.getOutEdges()) {
@@ -385,10 +385,10 @@ public class Passta {
 	private ArrayList<ArrayList<Object>> getKFuturesAux(ArrayList<Object> currentPath, int level) {
 		ArrayList<ArrayList<Object>> futures = new ArrayList<>();
 		if (level <= k) {
-			if (((EDRTAState) currentPath.get(currentPath.size() - 1)).getOutEdges().isEmpty()) {
+			if (((SRTAState) currentPath.get(currentPath.size() - 1)).getOutEdges().isEmpty()) {
 				futures.add(currentPath);
 			} else {
-				for (int idEdge : ((EDRTAState) currentPath.get(currentPath.size() - 1)).getOutEdges()) {
+				for (int idEdge : ((SRTAState) currentPath.get(currentPath.size() - 1)).getOutEdges()) {
 					int idOutState = automaton.getEdge(idEdge).getTargetId();
 					var edge = automaton.getEdge(idEdge);
 					var outState = automaton.getState(idOutState);
@@ -421,11 +421,11 @@ public class Passta {
 
 			return future1.stream().allMatch(stateOrEdge1 -> {
 				var stateOrEdge2 = it2.next();
-				if (stateOrEdge1 instanceof EDRTAState state1 && stateOrEdge2 instanceof EDRTAState state2) {
+				if (stateOrEdge1 instanceof SRTAState state1 && stateOrEdge2 instanceof SRTAState state2) {
 
 					return state1.getAttrs().equals(state2.getAttrs());
 
-				} else if (stateOrEdge1 instanceof EDRTAEdge edge1 && stateOrEdge2 instanceof EDRTAEdge edge2) {
+				} else if (stateOrEdge1 instanceof SRTAEdge edge1 && stateOrEdge2 instanceof SRTAEdge edge2) {
 					return edge1.getEvent().equals(edge2.getEvent());
 				}
 				return false;
@@ -443,8 +443,8 @@ public class Passta {
 			var simStates = findSim();
 
 			simStates.ifPresent(list -> {
-				EDRTAState first = list.get(0);
-				EDRTAState second = list.get(1);
+				SRTAState first = list.get(0);
+				SRTAState second = list.get(1);
 				merge(first, second);
 
 			});
@@ -482,10 +482,10 @@ public class Passta {
 	 * @return Some List<EDRTAState> if two similar states were found, empty
 	 *         otherwise
 	 */
-	private Optional<List<EDRTAState>> findSim() {
+	private Optional<List<SRTAState>> findSim() {
 		var states = automaton.getAllStates();
 
-		for (EDRTAState state : states) {
+		for (SRTAState state : states) {
 			var kFutures1 = getKFutures(state);
 			var optionSimState = states.stream().filter(state2 -> {
 				if (state.getAttrs().equals(state2.getAttrs()) && !state.equals(state2)) {
@@ -561,10 +561,10 @@ public class Passta {
 
 			return f1.stream().allMatch(stateOrEdge1 -> {
 				var stateOrEdge2 = it2.next();
-				if (stateOrEdge1 instanceof EDRTAState state1 && stateOrEdge2 instanceof EDRTAState state2) { // States
+				if (stateOrEdge1 instanceof SRTAState state1 && stateOrEdge2 instanceof SRTAState state2) { // States
 					return state1.getAttrs().equals(state2.getAttrs());
 
-				} else if (stateOrEdge1 instanceof EDRTAEdge edge1 && stateOrEdge2 instanceof EDRTAEdge edge2) { // Edges
+				} else if (stateOrEdge1 instanceof SRTAEdge edge1 && stateOrEdge2 instanceof SRTAEdge edge2) { // Edges
 					if (!edge1.getEvent().equals(edge2.getEvent()))
 						return false;
 					var minVal1 = edge1.getMin();
@@ -595,7 +595,7 @@ public class Passta {
 	 * @param s2
 	 * @return resulting state
 	 */
-	private EDRTAState merge(EDRTAState s1, EDRTAState s2) {
+	private SRTAState merge(SRTAState s1, SRTAState s2) {
 		var stateMerged = automaton.getState(Math.min(s1.getId(), s2.getId()));
 		var stateAux = automaton.getState(Math.max(s1.getId(), s2.getId()));
 
@@ -621,27 +621,27 @@ public class Passta {
 	 *
 	 * @param mergedState
 	 */
-	private void mergeEdges(EDRTAState mergedState) {
+	private void mergeEdges(SRTAState mergedState) {
 
 		// Checking outEdges, grouping them by the same event.
 		var outEdges = mergedState.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
-				.collect(Collectors.groupingBy(EDRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
+				.collect(Collectors.groupingBy(SRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
 				.collect(Collectors.toCollection(ArrayList::new));
 		mergeEdgesAux(outEdges);
 
 		// Checking inEdges, grouping them by the same event.
 		var inEdges = mergedState.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
-				.collect(Collectors.groupingBy(EDRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
+				.collect(Collectors.groupingBy(SRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
 				.collect(Collectors.toCollection(ArrayList::new));
 		mergeEdgesAux(inEdges);
 	}
 
-	private void mergeEdgesAux(List<List<EDRTAEdge>> edgesToCheck) {
-		for (List<EDRTAEdge> possibleEqEdges : edgesToCheck) {
+	private void mergeEdgesAux(List<List<SRTAEdge>> edgesToCheck) {
+		for (List<SRTAEdge> possibleEqEdges : edgesToCheck) {
 			while (possibleEqEdges.size() > 1) {
-				ArrayList<EDRTAEdge> compared = new ArrayList<>();
-				EDRTAEdge currentE = possibleEqEdges.get(0);
-				ArrayList<EDRTAEdge> eqEdges = possibleEqEdges.stream().filter(e -> {
+				ArrayList<SRTAEdge> compared = new ArrayList<>();
+				SRTAEdge currentE = possibleEqEdges.get(0);
+				ArrayList<SRTAEdge> eqEdges = possibleEqEdges.stream().filter(e -> {
 					if (e.getId() == currentE.getId())
 						return false;
 					var minVal1 = currentE.getMin();
@@ -665,15 +665,15 @@ public class Passta {
 
 				if (!eqEdges.isEmpty()) { // If there is equivalent edges
 					compared.addAll(eqEdges); // Add the other equivalent edges checked
-					var mergedEdge = compared.stream().min(Comparator.comparing(EDRTAEdge::getId)).get(); // Only the
+					var mergedEdge = compared.stream().min(Comparator.comparing(SRTAEdge::getId)).get(); // Only the
 																											// edge with
 																											// the
 																											// lowest id
 																											// (oldest)
 																											// will
 																											// remain
-					var minGuard = compared.stream().min(Comparator.comparing(EDRTAEdge::getMin)).get().getMin();
-					var maxGuard = compared.stream().max(Comparator.comparing(EDRTAEdge::getMax)).get().getMax();
+					var minGuard = compared.stream().min(Comparator.comparing(SRTAEdge::getMin)).get().getMin();
+					var maxGuard = compared.stream().max(Comparator.comparing(SRTAEdge::getMax)).get().getMax();
 					mergedEdge.setMin(minGuard);
 					mergedEdge.setMax(maxGuard);
 					compared.removeIf(e -> e.getId() == mergedEdge.getId()); // The edge is fused so another check is
@@ -683,7 +683,7 @@ public class Passta {
 																	// the eq edges that are going to be removed
 					});
 
-					compared.stream().map(EDRTAEdge::getId).forEach(e -> automaton.deleteEdge(e));
+					compared.stream().map(SRTAEdge::getId).forEach(e -> automaton.deleteEdge(e));
 				}
 				possibleEqEdges.removeAll(compared);
 			}
@@ -698,10 +698,10 @@ public class Passta {
 	 *
 	 * @return Indeterministic edges or empty otherwise
 	 */
-	private Optional<List<EDRTAEdge>> indetEdges() {
+	private Optional<List<SRTAEdge>> indetEdges() {
 		var states = automaton.getAllStates();
 
-		for (EDRTAState state : states) {
+		for (SRTAState state : states) {
 			for (var idEdge : state.getOutEdges()) {
 				var edge = automaton.getEdge(idEdge);
 				var event = edge.getEvent();
@@ -741,7 +741,7 @@ public class Passta {
 	 * @param indetEdges
 	 * @return boolean
 	 */
-	private boolean fixIndet(List<EDRTAEdge> indetEdges) {
+	private boolean fixIndet(List<SRTAEdge> indetEdges) {
 		var variables = automaton.getState(indetEdges.get(0).getTargetId()).getAttrs();
 		var simStates = indetEdges.stream().map(e -> automaton.getState(e.getTargetId()))
 				.filter(s -> s.getAttrs().equals(variables)).distinct()
@@ -765,7 +765,7 @@ public class Passta {
 		var finalStates = states.stream().filter(state -> state.getOutEdges().size() == 0)
 				.collect(Collectors.toCollection(ArrayList::new));
 
-		for (EDRTAState finalS : finalStates) {
+		for (SRTAState finalS : finalStates) {
 			var possibleEquivalentLeave = finalStates.stream().filter(leave2 -> {
 				if (!finalS.equals(leave2) && finalS.getAttrs().equals(leave2.getAttrs())) {
 					var edgesInLeave1 = finalS.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
@@ -803,8 +803,8 @@ public class Passta {
 	private void computeInvariants() {
 		automaton.getAllStates().stream().forEach(state -> {
 			if (!state.getOutEdges().isEmpty()) {
-				EDRTAEdge edge = state.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
-						.max(Comparator.comparing(EDRTAEdge::getMax)).get();
+				SRTAEdge edge = state.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
+						.max(Comparator.comparing(SRTAEdge::getMax)).get();
 				Double invariant = edge.getMax();
 				state.setInvariant(invariant);
 			}

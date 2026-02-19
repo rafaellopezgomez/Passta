@@ -53,7 +53,7 @@ The compiled JAR file is located in the `dist/` directory:
 ## Usage
 
 ### Traces format
-The input traces of LearnTA have the form of:
+The input traces of Passta have the form of:
 ```json
 [ {
   "obs" : [ // Every trace starts is a list of observations
@@ -103,11 +103,11 @@ Passta la = new Passta(ArrayList<Trace> traces, int k);
 
 ### Get and visualize the automaton
 ```java
-import automaton.EDRTA;
+import automaton.SRTA;
 import parser.Parser;
 
 //Get automaton
-EDRTA a = la.getEDRTA();
+SRTA a = la.getAutomaton();
 // Compute probabilities
 a.computeProbs();
 
@@ -117,7 +117,7 @@ Parser.show(a);
 
 ### Parsing module
 ```java
-import automaton.EDRTA;
+import automaton.SRTA;
 import parser.Parser;
 
 // Export to an image format (available formats: PNG, SVG)

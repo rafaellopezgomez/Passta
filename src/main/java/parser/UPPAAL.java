@@ -32,9 +32,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import automaton.EDRTA;
-import edge.EDRTAEdge;
-import state.EDRTAState;
+import automaton.SRTA;
+import edge.SRTAEdge;
+import state.SRTAState;
 
 public class UPPAAL {
 	private DocumentBuilderFactory factory;
@@ -46,7 +46,7 @@ public class UPPAAL {
 	private Element system;
 	private Element queries;
 	String route;
-	EDRTA a;
+	SRTA a;
 
 	private int uppaalId = 0;
 
@@ -343,7 +343,7 @@ public class UPPAAL {
 
 	}
 
-	public UPPAAL(String route, EDRTA a) {
+	public UPPAAL(String route, SRTA a) {
 		if (!a.hasProbs()) {
 			throw new RuntimeException("First you need to compute probabilities");
 		}
@@ -482,7 +482,7 @@ public class UPPAAL {
 			/* Only create if absent */
 
 			// Create locations and set their position
-			ArrayList<EDRTAEdge> edges = state.getOutEdges().stream().map(eid -> a.getEdge(eid))
+			ArrayList<SRTAEdge> edges = state.getOutEdges().stream().map(eid -> a.getEdge(eid))
 					.collect(Collectors.toCollection(ArrayList::new));
 			Location sourceL = locations.get(state.getId());
 			String invariant = "x<=" + state.getInvariant();
@@ -513,7 +513,7 @@ public class UPPAAL {
 			if (edges.size() == 1) { // If there is only one outgoing transition, the transformation is source
 										// location -> committed location -> target location
 
-				EDRTAEdge edge = edges.get(0);
+				SRTAEdge edge = edges.get(0);
 				String guard = "x>=" + edge.getMin().toString();
 				String event = edge.getEvent();
 				if (events.get(event) == null) {
@@ -522,7 +522,7 @@ public class UPPAAL {
 				}
 
 				Location targetL = locations.get(edge.getTargetId());
-				EDRTAState targetS = a.getState(edge.getTargetId());
+				SRTAState targetS = a.getState(edge.getTargetId());
 
 				String attrsName = targetS.getAttrs().stream().sorted().collect(Collectors.joining(","));
 
@@ -616,7 +616,7 @@ public class UPPAAL {
 
 				for (int edgeId : state.getOutEdges()) {
 
-					EDRTAEdge edge = a.getEdge(edgeId);
+					SRTAEdge edge = a.getEdge(edgeId);
 					String event = edge.getEvent();
 					invariant = "x<=" + edge.getMax();
 
@@ -642,7 +642,7 @@ public class UPPAAL {
 					edgeSet.add(eAux);
 
 					Location targetL = locations.get(edge.getTargetId());
-					EDRTAState targetS = a.getState(edge.getTargetId());
+					SRTAState targetS = a.getState(edge.getTargetId());
 
 					if (targetL == null) {
 						name = "L" + String.valueOf(targetS.getId());

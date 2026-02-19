@@ -9,8 +9,8 @@ import org.graphper.api.Graphviz;
 import org.graphper.api.Line;
 import org.graphper.api.Node;
 
-import edge.EDRTAEdge;
-import state.EDRTAState;
+import edge.SRTAEdge;
+import state.SRTAState;
 
 import org.graphper.api.Graphviz.GraphvizBuilder;
 
@@ -22,9 +22,9 @@ import org.graphper.api.Graphviz.GraphvizBuilder;
  *
  */
 
-public class EDRTA {
-	private Map<Integer, EDRTAState> states;
-	private Map<Integer, EDRTAEdge> edges;
+public class SRTA {
+	private Map<Integer, SRTAState> states;
+	private Map<Integer, SRTAEdge> edges;
 	private int stateId; // Incremental value to identify states. Default 0
 	private int edgeId; // Incremental value to identify edges. Default 0
 	private boolean prob;
@@ -32,9 +32,9 @@ public class EDRTA {
 	/**
 	 * Constructor that initializes an empty automata
 	 */
-	public EDRTA() {
-		states = new TreeMap<Integer, EDRTAState>();
-		edges = new TreeMap<Integer, EDRTAEdge>();
+	public SRTA() {
+		states = new TreeMap<Integer, SRTAState>();
+		edges = new TreeMap<Integer, SRTAEdge>();
 		prob = false;
 	}
 	
@@ -46,11 +46,11 @@ public class EDRTA {
 		return states.isEmpty();
 	}
 
-	public EDRTAState getState(int stateId) {
+	public SRTAState getState(int stateId) {
 		return states.get(stateId);
 	}
 
-	public Collection<EDRTAState> getAllStates() {
+	public Collection<SRTAState> getAllStates() {
 		return states.values();
 	}
 
@@ -60,11 +60,11 @@ public class EDRTA {
 	 * @param edgeId id of the edge
 	 * @return the edge with the given id or null otherwise
 	 */
-	public EDRTAEdge getEdge(int edgeId) {
+	public SRTAEdge getEdge(int edgeId) {
 		return edges.get(edgeId);
 	}
 
-	public Collection<EDRTAEdge> getAllEdges() {
+	public Collection<SRTAEdge> getAllEdges() {
 		return edges.values();
 	}
 
@@ -74,8 +74,8 @@ public class EDRTA {
 	 * @param vars variables of the current observation
 	 * @return the new state
 	 */
-	public EDRTAState addState(ArrayList<String> vars) {
-		var newState = new EDRTAState(stateId, vars);
+	public SRTAState addState(ArrayList<String> vars) {
+		var newState = new SRTAState(stateId, vars);
 		states.put(stateId, newState);
 		stateId++;
 		return newState;
@@ -93,8 +93,8 @@ public class EDRTA {
 	 * @param event
 	 * @return the new edge
 	 */
-	public EDRTAEdge addEdge(EDRTAState sourceState, EDRTAState targetState, double min, double max, String event) {
-		var newEdge = new EDRTAEdge(edgeId, sourceState.getId(), targetState.getId(), min, max, event);
+	public SRTAEdge addEdge(SRTAState sourceState, SRTAState targetState, double min, double max, String event) {
+		var newEdge = new SRTAEdge(edgeId, sourceState.getId(), targetState.getId(), min, max, event);
 		sourceState.addOutEdge(edgeId);
 		targetState.addInEdge(edgeId);
 		edges.put(edgeId, newEdge);
@@ -115,8 +115,8 @@ public class EDRTA {
 		edges.remove(edgeId);
 	}
 
-	public EDRTAState searchStateFromSource(EDRTAState sourceState, String event, ArrayList<String> vars) {
-		Optional<EDRTAState> searchedState = sourceState.getOutEdges().stream().parallel().filter(indexEdge -> {
+	public SRTAState searchStateFromSource(SRTAState sourceState, String event, ArrayList<String> vars) {
+		Optional<SRTAState> searchedState = sourceState.getOutEdges().stream().parallel().filter(indexEdge -> {
 			var edge = edges.get(indexEdge);
 			if (edge.getEvent().equals(event)) {
 				var targetState = states.get(edge.getTargetId());
@@ -127,16 +127,16 @@ public class EDRTA {
 		return searchedState.orElse(null);
 	}
 
-	public Optional<EDRTAEdge> searchEdge(EDRTAState sourceState, EDRTAState nextState, String event) {
+	public Optional<SRTAEdge> searchEdge(SRTAState sourceState, SRTAState nextState, String event) {
         return sourceState.getOutEdges().stream().parallel()
 				.map(indexEdge -> edges.get(indexEdge)).filter(e -> {
 					return e.getTargetId() == nextState.getId() && e.getEvent().equals(event);
 				}).findFirst();
 	}
 
-	public EDRTAEdge updateGuard(EDRTAState sourceState, EDRTAState nextState, double timeDelta, String event) {
-		Optional<EDRTAEdge> searchedEdge = searchEdge(sourceState, nextState, event);
-		EDRTAEdge edge = null;
+	public SRTAEdge updateGuard(SRTAState sourceState, SRTAState nextState, double timeDelta, String event) {
+		Optional<SRTAEdge> searchedEdge = searchEdge(sourceState, nextState, event);
+		SRTAEdge edge = null;
 		if (searchedEdge.isPresent()) {
 			edge = searchedEdge.get();
 
