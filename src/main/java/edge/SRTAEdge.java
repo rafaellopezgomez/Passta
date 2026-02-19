@@ -102,7 +102,7 @@ public class SRTAEdge {
 
 	@Override
 	public String toString() {
-		return "Edge " + id + " [ sourceStateId=" + sourceId + ", targetStateId=" + targetId
+		return "Edge " + id + " [ sourceLocationId=" + sourceId + ", targetLocationId=" + targetId
 				+ ", interval=" + guard.toString() + ", event=" + event + " ]";
 	}
 	

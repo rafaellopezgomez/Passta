@@ -2,7 +2,7 @@ package validator;
 
 import automaton.SRTA;
 import learning_algorithm.Passta;
-import state.SRTAState;
+import location.SRTALocation;
 import trace.Observation;
 import trace.Trace;
 
@@ -62,23 +62,23 @@ public class Validator {
 	}
 
 	public static boolean checkTrace(Trace t, SRTA automaton) {
-		SRTAState lastState = null;
+		SRTALocation lastState = null;
 		double lastTimeStamp = (float) 0;
 		for (Observation obs : t.getObs()) {
 			String event = obs.event().isEmpty() ? "□" : obs.event();
 			double timeDelta = obs.time() - lastTimeStamp;
-			ArrayList<String> variables = obs.variables();
+			ArrayList<String> variables = obs.systemAttrs();
 			
 			// First state
 			if (lastState == null) {
-				lastState = automaton.getState(0);
+				lastState = automaton.getLocation(0);
 			}
 
 			// Theoretically there is only one possible edge, if the automaton follows the
 			// rules
 			var pEdge = lastState.getOutEdges().stream().map(automaton::getEdge).filter(e -> {
 				return e.getEvent().equals(event) && (timeDelta >= e.getMin() && timeDelta <= e.getMax()
-						&& automaton.getState(e.getTargetId()).getAttrs().equals(variables));
+						&& automaton.getLocation(e.getTargetId()).getAttrs().equals(variables));
 			}).findFirst();
 
 			if (pEdge.isEmpty()) {
@@ -86,27 +86,27 @@ public class Validator {
 					return e.getEvent().equals(event);
 				}).collect(Collectors.toList());
 				if(hasEvent.size() > 0) { 
-					var systemAttrs = hasEvent.stream().map(e -> automaton.getState(e.getTargetId()).getAttrs()).collect(Collectors.toList());
+					var systemAttrs = hasEvent.stream().map(e -> automaton.getLocation(e.getTargetId()).getAttrs()).collect(Collectors.toList());
 					var guards = hasEvent.stream().map(e -> e.getGuard()).collect(Collectors.toList());
 					
 					if (!systemAttrs.stream().anyMatch(s -> s.equals(variables))) { // There is not target state with the same system attributes
 						var systemAttrsString = systemAttrs.stream().map(sa -> sa.toString()).collect(Collectors.joining(", "));
-						obs.variables().add("Error: the automaton recognizes the event but not the system attributes. Available system attributes of target states from state " + lastState.toString() + ": " + systemAttrsString);
+						obs.systemAttrs().add("Error: the automaton recognizes the event but not the system attributes. Available system attributes of target states from state " + lastState.toString() + ": " + systemAttrsString);
 					}
 					
 					if (!guards.stream().anyMatch(g -> (timeDelta >= g.getFirst() && timeDelta <= g.getLast()))) { // Time is the problem
 						String guardsString = guards.stream().map(g -> g.toString()).collect(Collectors.joining(", "));
-						obs.variables().add("Error: the automaton recognizes the event but not the time delta " + timeDelta + ". Guards of outgoing edges from state " + lastState.toString() + ", that have the same event: " + guardsString);
+						obs.systemAttrs().add("Error: the automaton recognizes the event but not the time delta " + timeDelta + ". Guards of outgoing edges from state " + lastState.toString() + ", that have the same event: " + guardsString);
 					}
 					
 				} else { // Event is the problem
 					String events = lastState.getOutEdges().stream().map(automaton::getEdge).map(e -> e.getEvent()).collect(Collectors.joining(", "));
-					obs.variables().add("Error: the automaton does not recognize the event. Events available from state " + lastState.toString() + ": " + events);
+					obs.systemAttrs().add("Error: the automaton does not recognize the event. Events available from state " + lastState.toString() + ": " + events);
 				}
 				return false;
 			}
 			var edge = pEdge.get();
-			var targetState = automaton.getState(edge.getTargetId());
+			var targetState = automaton.getLocation(edge.getTargetId());
 
 			lastTimeStamp = obs.time();
 			lastState = targetState;

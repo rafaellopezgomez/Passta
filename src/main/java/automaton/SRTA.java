@@ -10,7 +10,7 @@ import org.graphper.api.Line;
 import org.graphper.api.Node;
 
 import edge.SRTAEdge;
-import state.SRTAState;
+import location.SRTALocation;
 
 import org.graphper.api.Graphviz.GraphvizBuilder;
 
@@ -23,9 +23,9 @@ import org.graphper.api.Graphviz.GraphvizBuilder;
  */
 
 public class SRTA {
-	private Map<Integer, SRTAState> states;
+	private Map<Integer, SRTALocation> locations;
 	private Map<Integer, SRTAEdge> edges;
-	private int stateId; // Incremental value to identify states. Default 0
+	private int locId; // Incremental value to identify locations. Default 0
 	private int edgeId; // Incremental value to identify edges. Default 0
 	private boolean prob;
 
@@ -33,7 +33,7 @@ public class SRTA {
 	 * Constructor that initializes an empty automata
 	 */
 	public SRTA() {
-		states = new TreeMap<Integer, SRTAState>();
+		locations = new TreeMap<Integer, SRTALocation>();
 		edges = new TreeMap<Integer, SRTAEdge>();
 		prob = false;
 	}
@@ -43,25 +43,25 @@ public class SRTA {
 	}
 
 	public boolean isEmpty() {
-		return states.isEmpty();
+		return locations.isEmpty();
 	}
 
-	public SRTAState getState(int stateId) {
-		return states.get(stateId);
+	public SRTALocation getLocation(int id) {
+		return locations.get(id);
 	}
 
-	public Collection<SRTAState> getAllStates() {
-		return states.values();
+	public Collection<SRTALocation> getAllLocations() {
+		return locations.values();
 	}
 
 	/**
 	 * Method that returns the edge that match with the id of the input argument
 	 * 
-	 * @param edgeId id of the edge
+	 * @param id identification of the edge
 	 * @return the edge with the given id or null otherwise
 	 */
-	public SRTAEdge getEdge(int edgeId) {
-		return edges.get(edgeId);
+	public SRTAEdge getEdge(int id) {
+		return edges.get(id);
 	}
 
 	public Collection<SRTAEdge> getAllEdges() {
@@ -69,73 +69,73 @@ public class SRTA {
 	}
 
 	/**
-	 * Method to add a new state in the automata given the observation variables
+	 * Method to add a new location in the automaton given the system attributes
 	 * 
-	 * @param vars variables of the current observation
-	 * @return the new state
+	 * @param vars observable system attributes of the current observation
+	 * @return the new location
 	 */
-	public SRTAState addState(ArrayList<String> vars) {
-		var newState = new SRTAState(stateId, vars);
-		states.put(stateId, newState);
-		stateId++;
+	public SRTALocation addLocation(ArrayList<String> vars) {
+		var newState = new SRTALocation(locId, vars);
+		locations.put(locId, newState);
+		locId++;
 		return newState;
 	}
 
 
 	/**
-	 * Method to add a new Edge in the automata given the source and target states,
-	 * the time passed in the source state and the event ocurred
+	 * Method to add a new Edge in the automata given the source and target locations,
+	 * the time passed in the source location and the event occurred
 	 * 
-	 * @param sourceState
-	 * @param targetState
+	 * @param srcLoc
+	 * @param targLoc
 	 * @param min
 	 * @param max
 	 * @param event
 	 * @return the new edge
 	 */
-	public SRTAEdge addEdge(SRTAState sourceState, SRTAState targetState, double min, double max, String event) {
-		var newEdge = new SRTAEdge(edgeId, sourceState.getId(), targetState.getId(), min, max, event);
-		sourceState.addOutEdge(edgeId);
-		targetState.addInEdge(edgeId);
+	public SRTAEdge addEdge(SRTALocation srcLoc, SRTALocation targLoc, double min, double max, String event) {
+		var newEdge = new SRTAEdge(edgeId, srcLoc.getId(), targLoc.getId(), min, max, event);
+		srcLoc.addOutEdge(edgeId);
+		targLoc.addInEdge(edgeId);
 		edges.put(edgeId, newEdge);
 		edgeId++;
 		return newEdge;
 	}
 
-	public void deleteState(int stateId) {
-		states.remove(stateId);
+	public void deleteLocation(int id) {
+		locations.remove(id);
 	}
 
-	public void deleteEdge(int edgeId) {
-		var deletingEdge = edges.get(edgeId);
-		var sourceState = states.get(deletingEdge.getSourceId());
-		var targetState = states.get(deletingEdge.getTargetId());
-		sourceState.getOutEdges().removeIf(e -> edgeId == e);
-		targetState.getInEdges().removeIf(e -> edgeId == e);
-		edges.remove(edgeId);
+	public void deleteEdge(int id) {
+		var deletingEdge = edges.get(id);
+		var sourceState = locations.get(deletingEdge.getSourceId());
+		var targetState = locations.get(deletingEdge.getTargetId());
+		sourceState.getOutEdges().removeIf(e -> id == e);
+		targetState.getInEdges().removeIf(e -> id == e);
+		edges.remove(id);
 	}
 
-	public SRTAState searchStateFromSource(SRTAState sourceState, String event, ArrayList<String> vars) {
-		Optional<SRTAState> searchedState = sourceState.getOutEdges().stream().parallel().filter(indexEdge -> {
+	public SRTALocation searchLocationFromSource(SRTALocation srcLoc, String event, ArrayList<String> attrs) {
+		Optional<SRTALocation> searchedLoc = srcLoc.getOutEdges().stream().parallel().filter(indexEdge -> {
 			var edge = edges.get(indexEdge);
 			if (edge.getEvent().equals(event)) {
-				var targetState = states.get(edge.getTargetId());
-				return targetState.getAttrs().equals(vars);
+				var targLoc = locations.get(edge.getTargetId());
+				return targLoc.getAttrs().equals(attrs);
 			}
 			return false;
-		}).map(indexEdge -> states.get(edges.get(indexEdge).getTargetId())).findFirst();
-		return searchedState.orElse(null);
+		}).map(indexEdge -> locations.get(edges.get(indexEdge).getTargetId())).findFirst();
+		return searchedLoc.orElse(null);
 	}
 
-	public Optional<SRTAEdge> searchEdge(SRTAState sourceState, SRTAState nextState, String event) {
-        return sourceState.getOutEdges().stream().parallel()
+	public Optional<SRTAEdge> searchEdge(SRTALocation srcLoc, SRTALocation nextLoc, String event) {
+        return srcLoc.getOutEdges().stream().parallel()
 				.map(indexEdge -> edges.get(indexEdge)).filter(e -> {
-					return e.getTargetId() == nextState.getId() && e.getEvent().equals(event);
+					return e.getTargetId() == nextLoc.getId() && e.getEvent().equals(event);
 				}).findFirst();
 	}
 
-	public SRTAEdge updateGuard(SRTAState sourceState, SRTAState nextState, double timeDelta, String event) {
-		Optional<SRTAEdge> searchedEdge = searchEdge(sourceState, nextState, event);
+	public SRTAEdge updateGuard(SRTALocation srcLoc, SRTALocation nextLoc, double timeDelta, String event) {
+		Optional<SRTAEdge> searchedEdge = searchEdge(srcLoc, nextLoc, event);
 		SRTAEdge edge = null;
 		if (searchedEdge.isPresent()) {
 			edge = searchedEdge.get();
@@ -153,8 +153,8 @@ public class SRTA {
 	 * Method that prints the automata in console
 	 */
 	public void print() {
-		String output = "\n ############### States ############### \n";
-		output += states.values().stream().map(Object::toString).collect(Collectors.joining("\n"));
+		String output = "\n ############### Locations ############### \n";
+		output += locations.values().stream().map(Object::toString).collect(Collectors.joining("\n"));
 		output += "\n ############### Edges ############### \n";
 		output += edges.values().stream().map(Object::toString).collect(Collectors.joining("\n"));
 		System.out.println(output);
@@ -166,11 +166,11 @@ public class SRTA {
 		try {
 			Map<String, Node> nodes = new TreeMap<String, Node>();
 
-			getAllStates().stream().forEach(state -> {
-				var id = String.valueOf(state.getId());
-				var variables = state.getAttrs().toString();
-				var invariant = state.getInvariant().toString();
-				var node = Node.builder().label(id + " " + variables + "\n" + "<=" + invariant).build();
+			getAllLocations().stream().forEach(loc -> {
+				var id = String.valueOf(loc.getId());
+				var attrs = loc.getAttrs().toString();
+				var invariant = loc.getInvariant().toString();
+				var node = Node.builder().label(id + " " + attrs + "\n" + "<=" + invariant).build();
 				nodes.put(id, node);
 				g.addNode(node);
 			});
@@ -193,9 +193,9 @@ public class SRTA {
 	
 	public void computeProbs() {
 		if (!prob) {
-			for(var state : states.values()) {
-				var accumSamples = state.getOutEdges().stream().mapToDouble(e -> edges.get(e).getSamples().size()).sum();  // Already casted to double
-				state.getOutEdges().stream().map(e -> edges.get(e)).forEach(e -> e.setProb(((double) e.getSamples().size()) / accumSamples));
+			for(var loc : locations.values()) {
+				var accumSamples = loc.getOutEdges().stream().mapToDouble(e -> edges.get(e).getSamples().size()).sum();  // Already casted to double
+				loc.getOutEdges().stream().map(e -> edges.get(e)).forEach(e -> e.setProb(((double) e.getSamples().size()) / accumSamples));
 			}
 			prob = true;
 		}

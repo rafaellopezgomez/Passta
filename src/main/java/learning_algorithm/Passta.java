@@ -2,6 +2,7 @@ package learning_algorithm;
 
 import automaton.SRTA;
 import edge.SRTAEdge;
+import location.SRTALocation;
 import parser.Parser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -11,7 +12,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 
-import state.SRTAState;
 import trace.Observation;
 import trace.Trace;
 
@@ -139,8 +139,8 @@ public class Passta {
 		var futureEvent = ob2.event();
 		if ((currentEvent.isEmpty() && currentEvent.equals(futureEvent)) || // Both observation haven´t an event
 				(!currentEvent.isEmpty() && futureEvent.isEmpty())) { // First observation has an event but second not
-			var currentVariables = ob1.variables();
-			var futureVariables = ob2.variables();
+			var currentVariables = ob1.systemAttrs();
+			var futureVariables = ob2.systemAttrs();
 			return currentVariables.size() == futureVariables.size() // Both Observations have the same variables
 					&& currentVariables.containsAll(futureVariables);
 		}
@@ -148,7 +148,7 @@ public class Passta {
 	}
 
 	/**
-	 * Construct the barebone of the automata
+	 * Construct the barebone of the automaton
 	 */
 	private void phase1() {
 		if (automaton == null)
@@ -166,55 +166,55 @@ public class Passta {
 		double lastTime = (double) 0;
 		double delta = currentTime == 0 ? 0 : getDelta(currentTime, lastTime);
 		int i = 1;
-		SRTAState qo = automaton.isEmpty() ? null : automaton.getState(0); // Last visited state
-		SRTAState qt = null; // Target state from qo
+		SRTALocation qo = automaton.isEmpty() ? null : automaton.getLocation(0); // Last visited location
+		SRTALocation qt = null; // Target state from qo
 
-		if (qo == null) { // If the automata is empty, create the first state
-			qo = automaton.addState(new ArrayList<String>(Arrays.asList("Unknown")));
+		if (qo == null) { // If the automata is empty, create the first location
+			qo = automaton.addLocation(new ArrayList<String>(Arrays.asList("Unknown")));
 			if (ob.event().isEmpty()) {
-				qt = automaton.addState(ob.variables());
+				qt = automaton.addLocation(ob.systemAttrs());
 				initVars = true;
 				var e = automaton.addEdge(qo, qt, 0.0, 0.0, "□"); // New
 				e.addSample(0); // New
 			} else { // If there is an event in the first observation
-				qt = automaton.addState(ob.variables());
+				qt = automaton.addLocation(ob.systemAttrs());
 				var e = automaton.addEdge(qo, qt, delta, delta, ob.event()); // New
 				e.addSample(delta); // New
 			}
-		} else { // In an existing automata, new traces start in the first state
+		} else { // In an existing automata, new traces start in the first location
 			if (ob.event().isEmpty()) {
-				qt = automaton.searchStateFromSource(qo, "□", ob.variables());
+				qt = automaton.searchLocationFromSource(qo, "□", ob.systemAttrs());
 			} else {
-				qt = automaton.searchStateFromSource(qo, ob.event(), ob.variables());
+				qt = automaton.searchLocationFromSource(qo, ob.event(), ob.systemAttrs());
 			}
 
 			if (ob.event().isEmpty()) {
 				/*
-				 * Check if variables are equal. If not, trace without event will have priority
-				 * to correct the variables assumption from another trace starting with an event
-				 * (both initial state and its consecutive will have the same variables).
+				 * Check if the system attributes are equal. If not, a trace without event will have priority
+				 * to correct the attributes assumption from another trace starting with an event
+				 * (both initial location and its consecutive will have the same attributes).
 				 *
-				 * If there was a previous observation without event in the initial state and
-				 * the initial state variables differ with the current observation, a
+				 * If there was a previous observation without event in the initial location and
+				 * its initial system attributes differ with the current observation, a
 				 * consistency error is raised
 				 *
 				 */
 				if (qt != null) {
-					if (initVars && !qt.getAttrs().equals(ob.variables())) {
+					if (initVars && !qt.getAttrs().equals(ob.systemAttrs())) {
 						throw new RuntimeException(qt.toString() + "\n" + "Have an inconsistency between attributes \n"
 								+ "Current attributes: " + qt.getAttrs().toString() + "\n" + "Observation attributes: "
-								+ ob.variables().toString());
+								+ ob.systemAttrs().toString());
 					} else if (!initVars) {
-						qo.setAttrs(ob.variables());
+						qo.setAttrs(ob.systemAttrs());
 						initVars = true;
 					}
 				} else {
-					throw new RuntimeException("System attributes does not match");
+					throw new RuntimeException("System attributes do not match");
 				}
-			} else { // If there is an event in the initial ob, two states are considered
-				qt = automaton.searchStateFromSource(qo, ob.event(), ob.variables());
+			} else { // If there is an event in the initial ob, two locations are considered
+				qt = automaton.searchLocationFromSource(qo, ob.event(), ob.systemAttrs());
 
-				if (qt != null) { // If there is an existing state, update the guards
+				if (qt != null) { // If there is an existing location, update the guards
 					var e = automaton.updateGuard(qo, qt, delta, ob.event());
 					e.addSample(delta); // New
 				} else { // In other case, create a new state and an edge
@@ -226,7 +226,7 @@ public class Passta {
 					if (qt != null) {
 						i += k;
 					} else {
-						qt = automaton.addState(ob.variables());
+						qt = automaton.addLocation(ob.systemAttrs());
 						var e = automaton.addEdge(qo, qt, delta, delta, ob.event()); // New
 						e.addSample(delta); // New
 					}
@@ -239,14 +239,14 @@ public class Passta {
 		while (i < trace.getObs().size()) {
 			ob = obs.get(i);
 			String event = ob.event().isEmpty() ? "□" : ob.event();
-			qt = qo != null ? automaton.searchStateFromSource(qo, event, ob.variables()) : null;
+			qt = qo != null ? automaton.searchLocationFromSource(qo, event, ob.systemAttrs()) : null;
 
-			if (qt != null) { // If there is an existing state, update the guards
+			if (qt != null) { // If there is an existing location, update the guards
 				currentTime = ob.time();
 				delta = getDelta(currentTime, lastTime);
 				var e = automaton.updateGuard(qo, qt, delta, event);
 				e.addSample(delta); // New
-			} else { // In other case, create a new state and an edge
+			} else { // In other case, create a new location and an edge
 				// k + 1 because arrays skip last explicit index
 				int futureIdx = Math.min(i + (k + 1), trace.getObs().size());
 				qt = (futureIdx - i) == (k + 1) ? fastMatching(trace.getObs().subList(i, futureIdx), qo, lastTime)
@@ -256,7 +256,7 @@ public class Passta {
 					ob = obs.get(i);
 					currentTime = ob.time();
 				} else {
-					qt = automaton.addState(ob.variables());
+					qt = automaton.addLocation(ob.systemAttrs());
 					currentTime = ob.time();
 					delta = getDelta(currentTime, lastTime);
 					var e = automaton.addEdge(qo, qt, delta, delta, event); // New
@@ -280,23 +280,22 @@ public class Passta {
 	 * Method that tries to compute a merge operation given the last observation and
 	 * the future k observations, this merge "on the fly" tries to reduce the space
 	 * and time cost of the learning process. The method compares the observation
-	 * and all existing states in the automaton in order to perform a "equivalence
-	 * merge operation" with the first k future equal state found (only perform the
-	 * merge operation between two states in each call).
+	 * and all existing locations in the automaton in order to perform a "equivalence
+	 * merge operation".
 	 *
 	 * @param obsWindow (current observation and its k future observations)
-	 * @param qo        Last visited state
+	 * @param qo        Last visited location
 	 * @param lastTime
-	 * @return Last state in fast merge or null if can not be performed
+	 * @return Last location in fast merge or null if can not be performed
 	 */
-	private SRTAState fastMatching(List<Observation> obsWindow, SRTAState qo, double lastTime) {
+	private SRTALocation fastMatching(List<Observation> obsWindow, SRTALocation qo, double lastTime) {
 		// List of all states that are possible candidates to perform a merge operation
-		ArrayList<SRTAState> pEqStates = automaton.getAllStates().stream().filter(state -> {
-			var vars = state.getAttrs();
-			return obsWindow.get(0).variables().equals(vars);
+		ArrayList<SRTALocation> pEqLocs = automaton.getAllLocations().stream().filter(state -> {
+			var attrs = state.getAttrs();
+			return obsWindow.get(0).systemAttrs().equals(attrs);
 		}).collect(Collectors.toCollection(ArrayList::new));
 
-		if (pEqStates.isEmpty())
+		if (pEqLocs.isEmpty())
 			return null;
 
 		// Build the k future of the current observation given an observation window of
@@ -312,14 +311,14 @@ public class Passta {
 			auxLastTime = lastObservation.time();
 			String event = lastObservation.event().isEmpty() ? "□" : lastObservation.event();
 			var edge = new SRTAEdge(-1, -1, -1, auxTimeDelta, auxTimeDelta, event);
-			var state = new SRTAState(-1, lastObservation.variables());
+			var state = new SRTALocation(-1, lastObservation.systemAttrs());
 			obFut.add(edge);
 			obFut.add(state);
 		}
 
 		// Loop through all candidates to try to perform a merge operation
-		for (SRTAState currentEqState : pEqStates) {
-			var futuresOfCandidate = getKFutures(currentEqState);
+		for (SRTALocation currentEqLoc : pEqLocs) {
+			var futuresOfCandidate = getKFutures(currentEqLoc);
 
 			// Search for a future that is equal to the observation future
 			Optional<ArrayList<Object>> sameFuture = futuresOfCandidate.stream().filter(future -> {
@@ -327,7 +326,7 @@ public class Passta {
 			}).findFirst();
 
 			if (sameFuture.isPresent()) { // If there is an equivalent future
-				var e = automaton.addEdge(qo, currentEqState, delta, delta, obsWindow.get(0).event());
+				var e = automaton.addEdge(qo, currentEqLoc, delta, delta, obsWindow.get(0).event());
 				e.addSample(delta); // New
 				Iterator<Object> itSameFuture = sameFuture.get().iterator();
 				Iterator<Object> itObservationFuture = obFut.iterator();
@@ -337,11 +336,11 @@ public class Passta {
 					if (stateOrEdge1 instanceof SRTAEdge edge1 && stateOrEdge2 instanceof SRTAEdge edge2) {
 						// Update the guards of every edge in the equivalent future given the source and
 						// the target states and the time delta of the current observation k futures
-						e = automaton.updateGuard(automaton.getState(edge1.getSourceId()),
-								automaton.getState(edge1.getTargetId()), edge2.getGuard().get(0), edge1.getEvent());
+						e = automaton.updateGuard(automaton.getLocation(edge1.getSourceId()),
+								automaton.getLocation(edge1.getTargetId()), edge2.getGuard().get(0), edge1.getEvent());
 						e.addSample(edge2.getGuard().get(0)); // New
 					} else {
-						qo = (SRTAState) stateOrEdge1;
+						qo = (SRTALocation) stateOrEdge1;
 					}
 				}
 				return qo; // Return the new merged state
@@ -359,13 +358,13 @@ public class Passta {
 	 *         "S0" could be [[edge0, S1, edge2, S2, edge4, S4],[edge1, S2, edge3,
 	 *         S3, edge5, S5]]
 	 */
-	private ArrayList<ArrayList<Object>> getKFutures(SRTAState qo) {
+	private ArrayList<ArrayList<Object>> getKFutures(SRTALocation qo) {
 		ArrayList<ArrayList<Object>> futures = new ArrayList<>();
 
 		for (int idEdge : qo.getOutEdges()) {
 			int idQt = automaton.getEdge(idEdge).getTargetId();
 			var edge = automaton.getEdge(idEdge);
-			var qt = automaton.getState(idQt);
+			var qt = automaton.getLocation(idQt);
 			futures.addAll(getKFuturesAux(new ArrayList<Object>(Arrays.asList(edge, qt)), 2));
 		}
 		return futures;
@@ -385,13 +384,13 @@ public class Passta {
 	private ArrayList<ArrayList<Object>> getKFuturesAux(ArrayList<Object> currentPath, int level) {
 		ArrayList<ArrayList<Object>> futures = new ArrayList<>();
 		if (level <= k) {
-			if (((SRTAState) currentPath.get(currentPath.size() - 1)).getOutEdges().isEmpty()) {
+			if (((SRTALocation) currentPath.get(currentPath.size() - 1)).getOutEdges().isEmpty()) {
 				futures.add(currentPath);
 			} else {
-				for (int idEdge : ((SRTAState) currentPath.get(currentPath.size() - 1)).getOutEdges()) {
+				for (int idEdge : ((SRTALocation) currentPath.get(currentPath.size() - 1)).getOutEdges()) {
 					int idOutState = automaton.getEdge(idEdge).getTargetId();
 					var edge = automaton.getEdge(idEdge);
-					var outState = automaton.getState(idOutState);
+					var outState = automaton.getLocation(idOutState);
 					var newPath = new ArrayList<Object>(currentPath);
 					newPath.add(edge);
 					newPath.add(outState);
@@ -419,13 +418,13 @@ public class Passta {
 		if (size1 == size2) {
 			Iterator<Object> it2 = future2.iterator();
 
-			return future1.stream().allMatch(stateOrEdge1 -> {
-				var stateOrEdge2 = it2.next();
-				if (stateOrEdge1 instanceof SRTAState state1 && stateOrEdge2 instanceof SRTAState state2) {
+			return future1.stream().allMatch(locOrEdge1 -> {
+				var locOrEdge2 = it2.next();
+				if (locOrEdge1 instanceof SRTALocation state1 && locOrEdge2 instanceof SRTALocation state2) {
 
 					return state1.getAttrs().equals(state2.getAttrs());
 
-				} else if (stateOrEdge1 instanceof SRTAEdge edge1 && stateOrEdge2 instanceof SRTAEdge edge2) {
+				} else if (locOrEdge1 instanceof SRTAEdge edge1 && locOrEdge2 instanceof SRTAEdge edge2) {
 					return edge1.getEvent().equals(edge2.getEvent());
 				}
 				return false;
@@ -440,16 +439,16 @@ public class Passta {
 		boolean fixed = true;
 		do {
 
-			var simStates = findSim();
+			var simLocs = findSim();
 
-			simStates.ifPresent(list -> {
-				SRTAState first = list.get(0);
-				SRTAState second = list.get(1);
+			simLocs.ifPresent(list -> {
+				SRTALocation first = list.get(0);
+				SRTALocation second = list.get(1);
 				merge(first, second);
 
 			});
 			
-			merged = simStates.isPresent() ? true : false;
+			merged = simLocs.isPresent() ? true : false;
 			
 			do {
 				var indetEdges = indetEdges();
@@ -471,24 +470,24 @@ public class Passta {
 		} while (merged);
 		merged = true;
 		while (merged) {
-			merged = mergeFinalStates();
+			merged = mergeFinalLocations();
 		}
 	}
 
 	/**
-	 * Method used to search and merge similar states based on the comparison of
+	 * Method used to search and merge similar locations based on the comparison of
 	 * their k-futures
 	 *
-	 * @return Some List<EDRTAState> if two similar states were found, empty
+	 * @return Some List<SRTALocation> if two similar locations were found, empty
 	 *         otherwise
 	 */
-	private Optional<List<SRTAState>> findSim() {
-		var states = automaton.getAllStates();
+	private Optional<List<SRTALocation>> findSim() {
+		var locs = automaton.getAllLocations();
 
-		for (SRTAState state : states) {
-			var kFutures1 = getKFutures(state);
-			var optionSimState = states.stream().filter(state2 -> {
-				if (state.getAttrs().equals(state2.getAttrs()) && !state.equals(state2)) {
+		for (SRTALocation loc : locs) {
+			var kFutures1 = getKFutures(loc);
+			var possSimLoc = locs.stream().filter(state2 -> {
+				if (loc.getAttrs().equals(state2.getAttrs()) && !loc.equals(state2)) {
 					var kFutures2 = getKFutures(state2);
 					if (!kFutures1.isEmpty() && !kFutures2.isEmpty()) {
 						return compareKFutures(kFutures1, kFutures2);
@@ -497,9 +496,9 @@ public class Passta {
 				return false;
 			}).findFirst();
 
-			if (optionSimState.isPresent()) {
-				var simState = optionSimState.get();
-				return Optional.of(List.of(state, simState)); // Immutable list
+			if (possSimLoc.isPresent()) {
+				var simLoc = possSimLoc.get();
+				return Optional.of(List.of(loc, simLoc)); // Immutable list
 			}
 		}
 		return Optional.empty();
@@ -550,7 +549,7 @@ public class Passta {
 	 * @param f1
 	 * @param f2
 	 * @param crit: weak or strong
-	 * @return true if both futures are equivalent (same events, variables and
+	 * @return true if both futures are equivalent (same events, attributes and
 	 *         length), false otherwise
 	 */
 	private boolean compareFutures(ArrayList<Object> f1, ArrayList<Object> f2, String crit) {
@@ -559,12 +558,12 @@ public class Passta {
 		if (size1 == size2) {
 			Iterator<Object> it2 = f2.iterator();
 
-			return f1.stream().allMatch(stateOrEdge1 -> {
-				var stateOrEdge2 = it2.next();
-				if (stateOrEdge1 instanceof SRTAState state1 && stateOrEdge2 instanceof SRTAState state2) { // States
-					return state1.getAttrs().equals(state2.getAttrs());
+			return f1.stream().allMatch(locOrEdge1 -> {
+				var locOrEdge2 = it2.next();
+				if (locOrEdge1 instanceof SRTALocation loc1 && locOrEdge2 instanceof SRTALocation loc2) { // States
+					return loc1.getAttrs().equals(loc2.getAttrs());
 
-				} else if (stateOrEdge1 instanceof SRTAEdge edge1 && stateOrEdge2 instanceof SRTAEdge edge2) { // Edges
+				} else if (locOrEdge1 instanceof SRTAEdge edge1 && locOrEdge2 instanceof SRTAEdge edge2) { // Edges
 					if (!edge1.getEvent().equals(edge2.getEvent()))
 						return false;
 					var minVal1 = edge1.getMin();
@@ -589,48 +588,48 @@ public class Passta {
 	}
 
 	/**
-	 * Method used to merge two equivalent states
+	 * Method used to merge two equivalent locations
 	 *
-	 * @param s1
-	 * @param s2
-	 * @return resulting state
+	 * @param loc1
+	 * @param loc2
+	 * @return merged location
 	 */
-	private SRTAState merge(SRTAState s1, SRTAState s2) {
-		var stateMerged = automaton.getState(Math.min(s1.getId(), s2.getId()));
-		var stateAux = automaton.getState(Math.max(s1.getId(), s2.getId()));
+	private SRTALocation merge(SRTALocation loc1, SRTALocation loc2) {
+		var mergedLoc = automaton.getLocation(Math.min(loc1.getId(), loc2.getId()));
+		var auxLoc = automaton.getLocation(Math.max(loc1.getId(), loc2.getId()));
 
-		stateAux.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge)).forEach(edge -> {
-			edge.setSourceId(stateMerged.getId());
-			stateMerged.addOutEdge(edge.getId());
+		auxLoc.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge)).forEach(edge -> {
+			edge.setSourceId(mergedLoc.getId());
+			mergedLoc.addOutEdge(edge.getId());
 		});
 
-		stateAux.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge)).forEach(edge -> {
-			edge.setTargetId(stateMerged.getId());
-			stateMerged.addInEdge(edge.getId());
+		auxLoc.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge)).forEach(edge -> {
+			edge.setTargetId(mergedLoc.getId());
+			mergedLoc.addInEdge(edge.getId());
 		});
 
-		automaton.deleteState(stateAux.getId());
+		automaton.deleteLocation(auxLoc.getId());
 
-		return stateMerged;
+		return mergedLoc;
 	}
 
 	/**
-	 * This method looks for duplicate in and out edges for the input state and
+	 * This method looks for duplicate in and out edges for the input location and
 	 * merge them. Duplicate edges: Same source (id), target (id), event and
 	 * overlapping guards
 	 *
-	 * @param mergedState
+	 * @param location
 	 */
-	private void mergeEdges(SRTAState mergedState) {
+	private void mergeEdges(SRTALocation loc) {
 
 		// Checking outEdges, grouping them by the same event.
-		var outEdges = mergedState.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
+		var outEdges = loc.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
 				.collect(Collectors.groupingBy(SRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
 				.collect(Collectors.toCollection(ArrayList::new));
 		mergeEdgesAux(outEdges);
 
 		// Checking inEdges, grouping them by the same event.
-		var inEdges = mergedState.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
+		var inEdges = loc.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
 				.collect(Collectors.groupingBy(SRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
 				.collect(Collectors.toCollection(ArrayList::new));
 		mergeEdgesAux(inEdges);
@@ -699,13 +698,13 @@ public class Passta {
 	 * @return Indeterministic edges or empty otherwise
 	 */
 	private Optional<List<SRTAEdge>> indetEdges() {
-		var states = automaton.getAllStates();
+		var locs = automaton.getAllLocations();
 
-		for (SRTAState state : states) {
-			for (var idEdge : state.getOutEdges()) {
+		for (SRTALocation loc : locs) {
+			for (var idEdge : loc.getOutEdges()) {
 				var edge = automaton.getEdge(idEdge);
 				var event = edge.getEvent();
-				var dupEdges = state.getOutEdges().stream().map(automaton::getEdge).filter(e -> { // Check for
+				var dupEdges = loc.getOutEdges().stream().map(automaton::getEdge).filter(e -> { // Check for
 																									// inconsistencies
 					if (e.getId() == edge.getId())
 						return false;
@@ -735,22 +734,22 @@ public class Passta {
 	}
 
 	/**
-	 * Method used to merge the target states of the indeterministic edges if
-	 * possible all edges have the same source state. If simStates if 0 means that it is impossible to fix because the target states have different system attributes
+	 * Method used to merge the target locations of the indeterministic edges if
+	 * possible all edges have the same source location. If simStates if 0 means that it is impossible to fix because the target locations have different system attributes
 	 *
 	 * @param indetEdges
 	 * @return boolean
 	 */
 	private boolean fixIndet(List<SRTAEdge> indetEdges) {
-		var variables = automaton.getState(indetEdges.get(0).getTargetId()).getAttrs();
-		var simStates = indetEdges.stream().map(e -> automaton.getState(e.getTargetId()))
-				.filter(s -> s.getAttrs().equals(variables)).distinct()
+		var attrs = automaton.getLocation(indetEdges.get(0).getTargetId()).getAttrs();
+		var simLocs = indetEdges.stream().map(e -> automaton.getLocation(e.getTargetId()))
+				.filter(s -> s.getAttrs().equals(attrs)).distinct()
 				.collect(Collectors.toCollection(ArrayList::new));
-		if (simStates.size() > 1) {
-			var newState = simStates.get(0);
-			for (int i = 1; i < simStates.size(); i++) {
-				newState = merge(newState, simStates.get(i));
-				mergeEdges(newState);
+		if (simLocs.size() > 1) {
+			var newLoc = simLocs.get(0);
+			for (int i = 1; i < simLocs.size(); i++) {
+				newLoc = merge(newLoc, simLocs.get(i));
+				mergeEdges(newLoc);
 			}
 			return true;
 		}
@@ -760,15 +759,15 @@ public class Passta {
 	/**
 	 * This method tries to merge leaf states
 	 */
-	private boolean mergeFinalStates() {
-		var states = automaton.getAllStates();
-		var finalStates = states.stream().filter(state -> state.getOutEdges().size() == 0)
+	private boolean mergeFinalLocations() {
+		var locations = automaton.getAllLocations();
+		var finalLocs = locations.stream().filter(loc -> loc.getOutEdges().size() == 0)
 				.collect(Collectors.toCollection(ArrayList::new));
 
-		for (SRTAState finalS : finalStates) {
-			var possibleEquivalentLeave = finalStates.stream().filter(leave2 -> {
-				if (!finalS.equals(leave2) && finalS.getAttrs().equals(leave2.getAttrs())) {
-					var edgesInLeave1 = finalS.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
+		for (SRTALocation leaf : finalLocs) {
+			var possEqLeaf = finalLocs.stream().filter(leave2 -> {
+				if (!leaf.equals(leave2) && leaf.getAttrs().equals(leave2.getAttrs())) {
+					var edgesInLeave1 = leaf.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
 							.collect(Collectors.toCollection(ArrayList::new));
 					var edgesInLeave2 = leave2.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
 							.collect(Collectors.toCollection(ArrayList::new));
@@ -790,10 +789,10 @@ public class Passta {
 				return false;
 			}).findFirst();
 
-			if (possibleEquivalentLeave.isPresent()) {
-				var equivalentLeave = possibleEquivalentLeave.get();
-				var mergedLeave = merge(finalS, equivalentLeave);
-				mergeEdges(mergedLeave);
+			if (possEqLeaf.isPresent()) {
+				var equivalentLeaf = possEqLeaf.get();
+				var mergedLeaf = merge(leaf, equivalentLeaf);
+				mergeEdges(mergedLeaf);
 				return true;
 			}
 		}
@@ -801,12 +800,12 @@ public class Passta {
 	}
 
 	private void computeInvariants() {
-		automaton.getAllStates().stream().forEach(state -> {
-			if (!state.getOutEdges().isEmpty()) {
-				SRTAEdge edge = state.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
+		automaton.getAllLocations().stream().forEach(loc -> {
+			if (!loc.getOutEdges().isEmpty()) {
+				SRTAEdge edge = loc.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
 						.max(Comparator.comparing(SRTAEdge::getMax)).get();
 				Double invariant = edge.getMax();
-				state.setInvariant(invariant);
+				loc.setInvariant(invariant);
 			}
 		});
 	}

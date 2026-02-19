@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
 
 import automaton.SRTA;
 import edge.SRTAEdge;
-import state.SRTAState;
+import location.SRTALocation;
 
 public class UPPAAL {
 	private DocumentBuilderFactory factory;
@@ -466,7 +466,7 @@ public class UPPAAL {
 		int attrCode = -1;
 
 		// Add initial system attrs
-		String inititalAttrs = a.getState(0).getAttrs().stream().sorted().collect(Collectors.joining(","));
+		String inititalAttrs = a.getLocation(0).getAttrs().stream().sorted().collect(Collectors.joining(","));
 		attrsList.put(inititalAttrs, attrCode);
 
 		Map<Integer, Location> locations = new HashMap<Integer, Location>(); // Map that stores main locations (mapped
@@ -478,7 +478,7 @@ public class UPPAAL {
 		int x = 0;
 		int y = 0;
 
-		for (var state : a.getAllStates()) {
+		for (var state : a.getAllLocations()) {
 			/* Only create if absent */
 
 			// Create locations and set their position
@@ -522,7 +522,7 @@ public class UPPAAL {
 				}
 
 				Location targetL = locations.get(edge.getTargetId());
-				SRTAState targetS = a.getState(edge.getTargetId());
+				SRTALocation targetS = a.getLocation(edge.getTargetId());
 
 				String attrsName = targetS.getAttrs().stream().sorted().collect(Collectors.joining(","));
 
@@ -642,7 +642,7 @@ public class UPPAAL {
 					edgeSet.add(eAux);
 
 					Location targetL = locations.get(edge.getTargetId());
-					SRTAState targetS = a.getState(edge.getTargetId());
+					SRTALocation targetS = a.getLocation(edge.getTargetId());
 
 					if (targetL == null) {
 						name = "L" + String.valueOf(targetS.getId());

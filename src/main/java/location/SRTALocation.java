@@ -1,15 +1,15 @@
-package state;
+package location;
 
 import java.util.ArrayList;
 
-public class SRTAState {
+public class SRTALocation {
 	private int id;
 	private ArrayList<String> attrs;
 	private ArrayList<Integer> inEdges;
 	private ArrayList<Integer> outEdges;
 	Double invariant;
 	
-	public SRTAState(int id, ArrayList<String> attrs) {
+	public SRTALocation(int id, ArrayList<String> attrs) {
 		this.id = id;
 		this.attrs = attrs;
 		inEdges = new ArrayList<>();
