@@ -54,7 +54,7 @@ public class Passta {
 		this.traces = compressTraces(traces);
 		phase1();
 		phase2();
-		computeInvariants();
+		phase3();
 	}
 
 	/*
@@ -793,6 +793,12 @@ public class Passta {
 		}
 		return false;
 	}
+	
+	private void phase3() {
+		computeProbs();
+		computeInvariants();
+		
+	}
 
 	private void computeInvariants() {
 		automaton.getAllLocations().stream().forEach(loc -> {
@@ -803,5 +809,15 @@ public class Passta {
 				loc.setInvariant(invariant);
 			}
 		});
+	}
+	
+	private void computeProbs() {
+		if (!automaton.hasProbs()) {
+			for(var loc : automaton.getAllLocations()) {
+				var accumSamples = loc.getOutEdges().stream().mapToDouble(e -> automaton.getEdge(e).getSamples().size()).sum();  // Already casted to double
+				loc.getOutEdges().stream().map(e ->  automaton.getEdge(e)).forEach(e -> e.setProb(((double) e.getSamples().size()) / accumSamples));
+			}
+			automaton.setProb(true);
+		}
 	}
 }

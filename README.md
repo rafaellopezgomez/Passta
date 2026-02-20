@@ -108,8 +108,6 @@ import parser.Parser;
 
 //Get automaton
 SRTA a = la.getAutomaton();
-// Compute probabilities
-a.computeProbs();
 
 // Visualize the automaton in web browser
 Parser.show(a);

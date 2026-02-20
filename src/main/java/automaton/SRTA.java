@@ -41,6 +41,10 @@ public class SRTA {
 	public boolean hasProbs() {
 		return prob;
 	}
+	
+	public void setProb(boolean hasProbs) {
+		prob = hasProbs;
+	}
 
 	public boolean isEmpty() {
 		return locations.isEmpty();
@@ -189,15 +193,5 @@ public class SRTA {
 		}
 
 		return g.build();
-	}
-	
-	public void computeProbs() {
-		if (!prob) {
-			for(var loc : locations.values()) {
-				var accumSamples = loc.getOutEdges().stream().mapToDouble(e -> edges.get(e).getSamples().size()).sum();  // Already casted to double
-				loc.getOutEdges().stream().map(e -> edges.get(e)).forEach(e -> e.setProb(((double) e.getSamples().size()) / accumSamples));
-			}
-			prob = true;
-		}
 	}
 }
