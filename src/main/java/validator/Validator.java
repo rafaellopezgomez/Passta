@@ -67,7 +67,7 @@ public class Validator {
 		for (Observation obs : t.getObs()) {
 			String event = obs.event().isEmpty() ? "□" : obs.event();
 			double timeDelta = obs.time() - lastTimeStamp;
-			ArrayList<String> variables = obs.systemAttrs();
+			ArrayList<String> variables = obs.variables();
 			
 			// First state
 			if (lastState == null) {
@@ -91,17 +91,17 @@ public class Validator {
 					
 					if (!systemAttrs.stream().anyMatch(s -> s.equals(variables))) { // There is not target state with the same system attributes
 						var systemAttrsString = systemAttrs.stream().map(sa -> sa.toString()).collect(Collectors.joining(", "));
-						obs.systemAttrs().add("Error: the automaton recognizes the event but not the system attributes. Available system attributes of target states from state " + lastState.toString() + ": " + systemAttrsString);
+						obs.variables().add("Error: the automaton recognizes the event but not the system attributes. Available system attributes of target states from state " + lastState.toString() + ": " + systemAttrsString);
 					}
 					
 					if (!guards.stream().anyMatch(g -> (timeDelta >= g.getFirst() && timeDelta <= g.getLast()))) { // Time is the problem
 						String guardsString = guards.stream().map(g -> g.toString()).collect(Collectors.joining(", "));
-						obs.systemAttrs().add("Error: the automaton recognizes the event but not the time delta " + timeDelta + ". Guards of outgoing edges from state " + lastState.toString() + ", that have the same event: " + guardsString);
+						obs.variables().add("Error: the automaton recognizes the event but not the time delta " + timeDelta + ". Guards of outgoing edges from state " + lastState.toString() + ", that have the same event: " + guardsString);
 					}
 					
 				} else { // Event is the problem
 					String events = lastState.getOutEdges().stream().map(automaton::getEdge).map(e -> e.getEvent()).collect(Collectors.joining(", "));
-					obs.systemAttrs().add("Error: the automaton does not recognize the event. Events available from state " + lastState.toString() + ": " + events);
+					obs.variables().add("Error: the automaton does not recognize the event. Events available from state " + lastState.toString() + ": " + events);
 				}
 				return false;
 			}

@@ -139,8 +139,8 @@ public class Passta {
 		var futureEvent = ob2.event();
 		if ((currentEvent.isEmpty() && currentEvent.equals(futureEvent)) || // Both observation haven´t an event
 				(!currentEvent.isEmpty() && futureEvent.isEmpty())) { // First observation has an event but second not
-			var currentVariables = ob1.systemAttrs();
-			var futureVariables = ob2.systemAttrs();
+			var currentVariables = ob1.variables();
+			var futureVariables = ob2.variables();
 			return currentVariables.size() == futureVariables.size() // Both Observations have the same variables
 					&& currentVariables.containsAll(futureVariables);
 		}
@@ -172,20 +172,20 @@ public class Passta {
 		if (qo == null) { // If the automata is empty, create the first location
 			qo = automaton.addLocation(new ArrayList<String>(Arrays.asList("Unknown")));
 			if (ob.event().isEmpty()) {
-				qt = automaton.addLocation(ob.systemAttrs());
+				qt = automaton.addLocation(ob.variables());
 				initVars = true;
 				var e = automaton.addEdge(qo, qt, 0.0, 0.0, "□"); // New
 				e.addSample(0); // New
 			} else { // If there is an event in the first observation
-				qt = automaton.addLocation(ob.systemAttrs());
+				qt = automaton.addLocation(ob.variables());
 				var e = automaton.addEdge(qo, qt, delta, delta, ob.event()); // New
 				e.addSample(delta); // New
 			}
 		} else { // In an existing automata, new traces start in the first location
 			if (ob.event().isEmpty()) {
-				qt = automaton.searchLocationFromSource(qo, "□", ob.systemAttrs());
+				qt = automaton.searchLocationFromSource(qo, "□", ob.variables());
 			} else {
-				qt = automaton.searchLocationFromSource(qo, ob.event(), ob.systemAttrs());
+				qt = automaton.searchLocationFromSource(qo, ob.event(), ob.variables());
 			}
 
 			if (ob.event().isEmpty()) {
@@ -200,19 +200,19 @@ public class Passta {
 				 *
 				 */
 				if (qt != null) {
-					if (initVars && !qt.getAttrs().equals(ob.systemAttrs())) {
+					if (initVars && !qt.getAttrs().equals(ob.variables())) {
 						throw new RuntimeException(qt.toString() + "\n" + "Have an inconsistency between attributes \n"
 								+ "Current attributes: " + qt.getAttrs().toString() + "\n" + "Observation attributes: "
-								+ ob.systemAttrs().toString());
+								+ ob.variables().toString());
 					} else if (!initVars) {
-						qo.setAttrs(ob.systemAttrs());
+						qo.setAttrs(ob.variables());
 						initVars = true;
 					}
 				} else {
 					throw new RuntimeException("System attributes do not match");
 				}
 			} else { // If there is an event in the initial ob, two locations are considered
-				qt = automaton.searchLocationFromSource(qo, ob.event(), ob.systemAttrs());
+				qt = automaton.searchLocationFromSource(qo, ob.event(), ob.variables());
 
 				if (qt != null) { // If there is an existing location, update the guards
 					var e = automaton.updateGuard(qo, qt, delta, ob.event());
@@ -226,7 +226,7 @@ public class Passta {
 					if (qt != null) {
 						i += k;
 					} else {
-						qt = automaton.addLocation(ob.systemAttrs());
+						qt = automaton.addLocation(ob.variables());
 						var e = automaton.addEdge(qo, qt, delta, delta, ob.event()); // New
 						e.addSample(delta); // New
 					}
@@ -239,7 +239,7 @@ public class Passta {
 		while (i < trace.getObs().size()) {
 			ob = obs.get(i);
 			String event = ob.event().isEmpty() ? "□" : ob.event();
-			qt = qo != null ? automaton.searchLocationFromSource(qo, event, ob.systemAttrs()) : null;
+			qt = qo != null ? automaton.searchLocationFromSource(qo, event, ob.variables()) : null;
 
 			if (qt != null) { // If there is an existing location, update the guards
 				currentTime = ob.time();
@@ -256,7 +256,7 @@ public class Passta {
 					ob = obs.get(i);
 					currentTime = ob.time();
 				} else {
-					qt = automaton.addLocation(ob.systemAttrs());
+					qt = automaton.addLocation(ob.variables());
 					currentTime = ob.time();
 					delta = getDelta(currentTime, lastTime);
 					var e = automaton.addEdge(qo, qt, delta, delta, event); // New
@@ -292,7 +292,7 @@ public class Passta {
 		// List of all states that are possible candidates to perform a merge operation
 		ArrayList<SRTALocation> pEqLocs = automaton.getAllLocations().stream().filter(state -> {
 			var attrs = state.getAttrs();
-			return obsWindow.get(0).systemAttrs().equals(attrs);
+			return obsWindow.get(0).variables().equals(attrs);
 		}).collect(Collectors.toCollection(ArrayList::new));
 
 		if (pEqLocs.isEmpty())
@@ -311,7 +311,7 @@ public class Passta {
 			auxLastTime = lastObservation.time();
 			String event = lastObservation.event().isEmpty() ? "□" : lastObservation.event();
 			var edge = new SRTAEdge(-1, -1, -1, auxTimeDelta, auxTimeDelta, event);
-			var state = new SRTALocation(-1, lastObservation.systemAttrs());
+			var state = new SRTALocation(-1, lastObservation.variables());
 			obFut.add(edge);
 			obFut.add(state);
 		}
@@ -722,7 +722,7 @@ public class Passta {
 						return overlappingGuards; // If two edges have overlapping guards and the same event
 					}
 					return false;
-				}).toList();
+				}).collect(Collectors.toCollection(ArrayList::new));
 				if (!dupEdges.isEmpty()) {
 					dupEdges.add(edge);
 					return Optional.of(dupEdges);
