@@ -625,13 +625,13 @@ public class Passta {
 		// Checking outEdges, grouping them by the same event.
 		var outEdges = loc.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
 				.collect(Collectors.groupingBy(SRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
-				.collect(Collectors.toCollection(ArrayList::new));
+				.toList();
 		mergeEdgesAux(outEdges);
 
 		// Checking inEdges, grouping them by the same event.
 		var inEdges = loc.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
 				.collect(Collectors.groupingBy(SRTAEdge::getEvent)).values().stream().filter(v -> v.size() > 1)
-				.collect(Collectors.toCollection(ArrayList::new));
+				.toList();
 		mergeEdgesAux(inEdges);
 	}
 
@@ -640,7 +640,7 @@ public class Passta {
 			while (possibleEqEdges.size() > 1) {
 				ArrayList<SRTAEdge> compared = new ArrayList<>();
 				SRTAEdge currentE = possibleEqEdges.get(0);
-				ArrayList<SRTAEdge> eqEdges = possibleEqEdges.stream().filter(e -> {
+				List<SRTAEdge> eqEdges = possibleEqEdges.stream().filter(e -> {
 					if (e.getId() == currentE.getId())
 						return false;
 					var minVal1 = currentE.getMin();
@@ -658,7 +658,7 @@ public class Passta {
 							|| ((minVal2 >= minVal1 && minVal2 <= maxVal1) // Overlapping guards
 									|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
 					return sameSource && sameTarget && overlappingGuards;
-				}).collect(Collectors.toCollection(ArrayList::new));
+				}).toList();
 
 				compared.add(currentE); // The current edge is checked
 
@@ -709,9 +709,8 @@ public class Passta {
 					if (e.getId() == edge.getId())
 						return false;
 					if (e.getEvent().equals(event)) {
-//						boolean targetSameAttrs = automaton.getState(e.getTargetId()).getAttrs()
-//								.equals(automaton.getState(edge.getTargetId()).getAttrs());
-						// // Same target state
+
+						// // Same target location
 						var minVal1 = edge.getMin();
 						var minVal2 = e.getMin();
 						var maxVal1 = edge.getMax();
@@ -720,10 +719,10 @@ public class Passta {
 								|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
 								|| ((minVal2 >= minVal1 && minVal2 <= maxVal1) // Overlapping guards
 										|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
-						return overlappingGuards; // If two edges have overlapping guards and the same event with different target states
+						return overlappingGuards; // If two edges have overlapping guards and the same event
 					}
 					return false;
-				}).collect(Collectors.toCollection(ArrayList::new));
+				}).toList();
 				if (!dupEdges.isEmpty()) {
 					dupEdges.add(edge);
 					return Optional.of(dupEdges);
@@ -743,8 +742,7 @@ public class Passta {
 	private boolean fixIndet(List<SRTAEdge> indetEdges) {
 		var attrs = automaton.getLocation(indetEdges.get(0).getTargetId()).getAttrs();
 		var simLocs = indetEdges.stream().map(e -> automaton.getLocation(e.getTargetId()))
-				.filter(s -> s.getAttrs().equals(attrs)).distinct()
-				.collect(Collectors.toCollection(ArrayList::new));
+				.filter(s -> s.getAttrs().equals(attrs)).distinct().toList();
 		if (simLocs.size() > 1) {
 			var newLoc = simLocs.get(0);
 			for (int i = 1; i < simLocs.size(); i++) {
@@ -761,26 +759,23 @@ public class Passta {
 	 */
 	private boolean mergeFinalLocations() {
 		var locations = automaton.getAllLocations();
-		var finalLocs = locations.stream().filter(loc -> loc.getOutEdges().size() == 0)
-				.collect(Collectors.toCollection(ArrayList::new));
+		var finalLocs = locations.stream().filter(loc -> loc.getOutEdges().size() == 0).toList();
 
 		for (SRTALocation leaf : finalLocs) {
-			var possEqLeaf = finalLocs.stream().filter(leave2 -> {
-				if (!leaf.equals(leave2) && leaf.getAttrs().equals(leave2.getAttrs())) {
-					var edgesInLeave1 = leaf.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
-							.collect(Collectors.toCollection(ArrayList::new));
-					var edgesInLeave2 = leave2.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
-							.collect(Collectors.toCollection(ArrayList::new));
+			var possEqLeaf = finalLocs.stream().filter(leaf2 -> {
+				if (!leaf.equals(leaf2) && leaf.getAttrs().equals(leaf2.getAttrs())) {
+					var edgesInLeaf1 = leaf.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge)).toList();
+					var edgesInLeaf2 = leaf2.getInEdges().stream().map(idEdge -> automaton.getEdge(idEdge)).toList();
 
-					if (!edgesInLeave1.isEmpty() && !edgesInLeave2.isEmpty()) {
-						if (edgesInLeave1.size() > edgesInLeave2.size()) {
-							return edgesInLeave2.stream().allMatch(edge2 -> {
-								return edgesInLeave1.stream()
+					if (!edgesInLeaf1.isEmpty() && !edgesInLeaf2.isEmpty()) {
+						if (edgesInLeaf1.size() > edgesInLeaf2.size()) {
+							return edgesInLeaf2.stream().allMatch(edge2 -> {
+								return edgesInLeaf1.stream()
 										.anyMatch(edge -> edge.getEvent().equals(edge2.getEvent()));
 							});
 						} else {
-							return edgesInLeave1.stream().allMatch(edge -> {
-								return edgesInLeave2.stream()
+							return edgesInLeaf1.stream().allMatch(edge -> {
+								return edgesInLeaf2.stream()
 										.anyMatch(edge2 -> edge2.getEvent().equals(edge.getEvent()));
 							});
 						}
