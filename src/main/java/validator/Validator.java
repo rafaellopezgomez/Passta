@@ -22,9 +22,9 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 
 public class Validator {
-	public static int nValidTraces(ArrayList<Trace> traces, SRTA a, String dst) {
-		if(traces == null) throw new RuntimeException("Null traces");
-		var compTraces = Passta.compressTraces(traces);
+	public static int nValidTraces(List<Trace> testTraces, SRTA a, String dst) {
+		if(testTraces == null) throw new RuntimeException("Null traces");
+		var compTraces = Passta.compressTraces(testTraces);
 		int nAccepted = 0;
 		ArrayList<Trace> rejectedT = new ArrayList<>(); //
 		for (Trace t : compTraces) {

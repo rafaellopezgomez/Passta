@@ -29,6 +29,7 @@ public class Main {
 			/***** Parsing module *****/
 			Parser.exportSRTA(directoryPath + "/test", a, Parser.Export.PNG);
 			Parser.exportSRTA(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.UPPAAL);
+			Parser.writeTraces("./learning.json", Passta.readTraces(Paths.get(traces).toFile()));
 			
 			/***** Validation module *****/
 			var testTraces = Passta.readTraces(Paths.get(testPath).toFile());

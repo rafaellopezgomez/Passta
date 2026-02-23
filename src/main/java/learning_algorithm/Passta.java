@@ -3,6 +3,7 @@ package learning_algorithm;
 import automaton.SRTA;
 import edge.SRTAEdge;
 import location.SRTALocation;
+import parser.JsonSupport;
 import parser.Parser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -27,7 +28,9 @@ public class Passta {
 	private SRTA automaton;
 	private final int k;
 	boolean initVars; // Flag used to indicate that the variables of the initial state are correct
-
+	private static final TypeReference<List<Trace>> TRACE_LIST_TYPE = new TypeReference<>() {};
+	
+	
 	/**
 	 * Default constructor of the learning algorithm class
 	 *
@@ -49,9 +52,9 @@ public class Passta {
 	 * public LearningAlgorithm(int k) { this.k = k; initVars = false; // learn(); }
 	 */
 
-	private void learn(ArrayList<Trace> traces) {
+	private void learn(List<Trace> traces2) {
 		initVars = false;
-		this.traces = compressTraces(traces);
+		this.traces = compressTraces(traces2);
 		phase1();
 		phase2();
 		phase3();
@@ -76,19 +79,19 @@ public class Passta {
 	 * @param source source, file in JSON format where the traces are stored
 	 * @return A list of the processed traces
 	 */
-	public static ArrayList<Trace> readTraces(File source) {
+	public static List<Trace> readTraces(File source) {
+		if (source == null) {
+			throw new IllegalArgumentException("Source file is null");
+		}
+		if (!source.isFile()) {
+			throw new IllegalArgumentException("Source is not a file: " + source.getAbsolutePath());
+		}
 
 		try {
-			ObjectMapper mapper = JsonMapper.builder().addModule(new BlackbirdModule()).build()
-					.enable(SerializationFeature.INDENT_OUTPUT)
-					.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-
-			return mapper.readValue(source, new TypeReference<ArrayList<Trace>>() {
-			});
+			return JsonSupport.tracesReader().readValue(source);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Cannot read traces from: " + source.getAbsolutePath(), e);
 		}
-		return null;
 	}
 
 	/**
@@ -102,8 +105,8 @@ public class Passta {
 	 *
 	 * @return traces
 	 */
-	public static ArrayList<Trace> compressTraces(ArrayList<Trace> traces) {
-		for (Trace trace : traces) {
+	public static List<Trace> compressTraces(List<Trace> traces2) {
+		for (Trace trace : traces2) {
 			var obs = trace.getObs();
 			ArrayList<Observation> newObs = new ArrayList<Observation>();
 			for (int i = 0; i < obs.size(); i++) {
@@ -124,7 +127,7 @@ public class Passta {
 			}
 			trace.setObs(newObs);
 		}
-		return traces;
+		return traces2;
 	}
 
 	/**
