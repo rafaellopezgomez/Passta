@@ -27,8 +27,8 @@ public class Main {
 			Parser.show(a);
 			
 			/***** Parsing module *****/
-			Parser.exportTo(directoryPath + "/test", a, Parser.Export.PNG);
-			Parser.exportTo(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.UPPAAL);
+			Parser.exportSRTA(directoryPath + "/test", a, Parser.Export.PNG);
+			Parser.exportSRTA(directoryPath + "/" + scenario + "-" + directoryPath, a, Parser.Export.UPPAAL);
 			
 			/***** Validation module *****/
 			var testTraces = Passta.readTraces(Paths.get(testPath).toFile());

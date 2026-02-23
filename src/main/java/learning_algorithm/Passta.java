@@ -190,9 +190,10 @@ public class Passta {
 
 			if (ob.event().isEmpty()) {
 				/*
-				 * Check if the system attributes are equal. If not, a trace without event will have priority
-				 * to correct the attributes assumption from another trace starting with an event
-				 * (both initial location and its consecutive will have the same attributes).
+				 * Check if the system attributes are equal. If not, a trace without event will
+				 * have priority to correct the attributes assumption from another trace
+				 * starting with an event (both initial location and its consecutive will have
+				 * the same attributes).
 				 *
 				 * If there was a previous observation without event in the initial location and
 				 * its initial system attributes differ with the current observation, a
@@ -280,8 +281,8 @@ public class Passta {
 	 * Method that tries to compute a merge operation given the last observation and
 	 * the future k observations, this merge "on the fly" tries to reduce the space
 	 * and time cost of the learning process. The method compares the observation
-	 * and all existing locations in the automaton in order to perform a "equivalence
-	 * merge operation".
+	 * and all existing locations in the automaton in order to perform a
+	 * "equivalence merge operation".
 	 *
 	 * @param obsWindow (current observation and its k future observations)
 	 * @param qo        Last visited location
@@ -447,9 +448,9 @@ public class Passta {
 				merge(first, second);
 
 			});
-			
+
 			merged = simLocs.isPresent() ? true : false;
-			
+
 			do {
 				var indetEdges = indetEdges();
 				indet = indetEdges.isPresent();
@@ -512,34 +513,34 @@ public class Passta {
 	 * @return true if both k-futures are equivalent, false otherwise
 	 */
 	private boolean compareKFutures(ArrayList<ArrayList<Object>> fs1, ArrayList<ArrayList<Object>> fs2) {
-		
+
 		boolean weakTimeEq = false;
 		boolean strongTimeInc = false;
-		
+
 		boolean weakTimeEqF1 = fs1.stream().allMatch(f1 -> {
 			return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "weak"));
 		});
-		
+
 		boolean weakTimeEqF2 = fs2.stream().allMatch(f2 -> {
 			return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "weak"));
 		});
-		
+
 		weakTimeEq = weakTimeEqF1 && weakTimeEqF2;
-		
-		if(!weakTimeEq) {
+
+		if (!weakTimeEq) {
 			boolean strongTimeIncF1 = fs1.stream().allMatch(f1 -> {
 				return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "weak"));
 			});
-			
+
 			boolean strongTimeIncF2 = fs2.stream().allMatch(f2 -> {
 				return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "weak"));
 			});
-			
+
 			strongTimeInc = strongTimeIncF1 || strongTimeIncF2;
 		}
 
 		boolean timeInclusion = weakTimeEq || strongTimeInc;
-		
+
 		return timeInclusion;
 	}
 
@@ -575,7 +576,7 @@ public class Passta {
 								|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
 								|| ((minVal2 >= minVal1 && minVal2 <= maxVal1)
 										|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
-					} else if(crit.equals("strong")){ // Strong time similarity
+					} else if (crit.equals("strong")) { // Strong time similarity
 						return (minVal1 >= minVal2 && minVal1 <= maxVal2) && (maxVal1 >= minVal2 && maxVal1 <= maxVal2)
 								|| (minVal2 >= minVal1 && minVal2 <= maxVal1)
 										&& (maxVal2 >= minVal1 && maxVal2 <= maxVal1);
@@ -705,7 +706,7 @@ public class Passta {
 				var edge = automaton.getEdge(idEdge);
 				var event = edge.getEvent();
 				var dupEdges = loc.getOutEdges().stream().map(automaton::getEdge).filter(e -> { // Check for
-																									// inconsistencies
+																								// inconsistencies
 					if (e.getId() == edge.getId())
 						return false;
 					if (e.getEvent().equals(event)) {
@@ -734,7 +735,9 @@ public class Passta {
 
 	/**
 	 * Method used to merge the target locations of the indeterministic edges if
-	 * possible all edges have the same source location. If simStates if 0 means that it is impossible to fix because the target locations have different system attributes
+	 * possible all edges have the same source location. If simStates if 0 means
+	 * that it is impossible to fix because the target locations have different
+	 * system attributes
 	 *
 	 * @param indetEdges
 	 * @return boolean
@@ -770,8 +773,7 @@ public class Passta {
 					if (!edgesInLeaf1.isEmpty() && !edgesInLeaf2.isEmpty()) {
 						if (edgesInLeaf1.size() > edgesInLeaf2.size()) {
 							return edgesInLeaf2.stream().allMatch(edge2 -> {
-								return edgesInLeaf1.stream()
-										.anyMatch(edge -> edge.getEvent().equals(edge2.getEvent()));
+								return edgesInLeaf1.stream().anyMatch(edge -> edge.getEvent().equals(edge2.getEvent()));
 							});
 						} else {
 							return edgesInLeaf1.stream().allMatch(edge -> {
@@ -793,11 +795,11 @@ public class Passta {
 		}
 		return false;
 	}
-	
+
 	private void phase3() {
 		computeProbs();
 		computeInvariants();
-		
+
 	}
 
 	private void computeInvariants() {
@@ -810,14 +812,14 @@ public class Passta {
 			}
 		});
 	}
-	
+
 	private void computeProbs() {
-		if (!automaton.hasProbs()) {
-			for(var loc : automaton.getAllLocations()) {
-				var accumSamples = loc.getOutEdges().stream().mapToDouble(e -> automaton.getEdge(e).getSamples().size()).sum();  // Already casted to double
-				loc.getOutEdges().stream().map(e ->  automaton.getEdge(e)).forEach(e -> e.setProb(((double) e.getSamples().size()) / accumSamples));
-			}
-			automaton.setProb(true);
+
+		for (var loc : automaton.getAllLocations()) {
+			var accumSamples = loc.getOutEdges().stream().mapToDouble(e -> automaton.getEdge(e).getSamples().size())
+					.sum(); // Already casted to double
+			loc.getOutEdges().stream().map(e -> automaton.getEdge(e))
+					.forEach(e -> e.setProb(((double) e.getSamples().size()) / accumSamples));
 		}
 	}
 }

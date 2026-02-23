@@ -344,9 +344,6 @@ public class UPPAAL {
 	}
 
 	public UPPAAL(String route, SRTA a) {
-		if (!a.hasProbs()) {
-			throw new RuntimeException("First you need to compute probabilities");
-		}
 		this.route = route;
 		this.a = a;
 		initialize();

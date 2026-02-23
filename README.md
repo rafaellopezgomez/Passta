@@ -119,10 +119,10 @@ import automaton.SRTA;
 import parser.Parser;
 
 // Export to an image format (available formats: PNG, SVG)
-Parser.exportTo("export path", a, Parser.Export.PNG);
+Parser.exportSRTA("export path", a, Parser.Export.PNG);
 
 // Export to UPPAAL model checker format (STA)
-Parser.exportTo("export path", a, Parser.Export.UPPAAL);
+Parser.exportSRTA("export path", a, Parser.Export.UPPAAL);
 
 ```
 

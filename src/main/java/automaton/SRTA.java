@@ -27,7 +27,6 @@ public class SRTA {
 	private Map<Integer, SRTAEdge> edges;
 	private int locId; // Incremental value to identify locations. Default 0
 	private int edgeId; // Incremental value to identify edges. Default 0
-	private boolean prob;
 
 	/**
 	 * Constructor that initializes an empty automata
@@ -35,15 +34,6 @@ public class SRTA {
 	public SRTA() {
 		locations = new TreeMap<Integer, SRTALocation>();
 		edges = new TreeMap<Integer, SRTAEdge>();
-		prob = false;
-	}
-	
-	public boolean hasProbs() {
-		return prob;
-	}
-	
-	public void setProb(boolean hasProbs) {
-		prob = hasProbs;
 	}
 
 	public boolean isEmpty() {

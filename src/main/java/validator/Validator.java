@@ -3,6 +3,7 @@ package validator;
 import automaton.SRTA;
 import learning_algorithm.Passta;
 import location.SRTALocation;
+import parser.Parser;
 import trace.Observation;
 import trace.Trace;
 
@@ -34,7 +35,7 @@ public class Validator {
 			}
 		}
 		if(dst != null && !dst.isBlank()) {
-			writeTraces(dst, rejectedT);
+			Parser.writeTraces(dst, rejectedT);
 		}
 		
 		return nAccepted;
@@ -112,24 +113,5 @@ public class Validator {
 			lastState = targetState;
 		}
 		return true;
-	}
-	
-	private static void writeTraces(String dst, List<Trace> traces) {
-		if(dst == null | dst.isBlank()) throw new RuntimeException("Destination path is null or undefined");
-		Path path = Paths.get(dst.toString());
-		try {
-			if (Files.notExists(path)) {
-				Files.createDirectories(path);
-			}
-			String filename = Files.isRegularFile(path) ? path.toString() : Paths.get(path.toString(), "rejected.json").toString();
-			System.out.println(filename);
-			if(!filename.endsWith(".json")) throw new RuntimeException("Destination filename must have .json extension");
-			ObjectMapper mapper = JsonMapper.builder().addModule(new BlackbirdModule()).build()
-					.enable(SerializationFeature.INDENT_OUTPUT)
-					.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-			mapper.writeValue(new File(filename), traces);
-		} catch (IOException e) {
-			e.printStackTrace(System.err);
-		}
 	}
 }
