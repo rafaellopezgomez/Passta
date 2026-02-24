@@ -1,3 +1,4 @@
+package example;
 import java.nio.file.Paths;
 
 import automaton.SRTA;

@@ -68,11 +68,11 @@ public class SRTA {
 	 * @param vars observable system attributes of the current observation
 	 * @return the new location
 	 */
-	public SRTALocation addLocation(ArrayList<String> vars) {
-		var newState = new SRTALocation(locId, vars);
-		locations.put(locId, newState);
+	public SRTALocation addLocation(List<String> attrs) {
+		var newLoc = new SRTALocation(locId, attrs);
+		locations.put(locId, newLoc);
 		locId++;
-		return newState;
+		return newLoc;
 	}
 
 

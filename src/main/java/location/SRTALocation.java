@@ -1,15 +1,16 @@
 package location;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SRTALocation {
 	private int id;
-	private ArrayList<String> attrs;
+	private List<String> attrs;
 	private ArrayList<Integer> inEdges;
 	private ArrayList<Integer> outEdges;
 	Double invariant;
 	
-	public SRTALocation(int id, ArrayList<String> attrs) {
+	public SRTALocation(int id, List<String> attrs) {
 		this.id = id;
 		this.attrs = attrs;
 		inEdges = new ArrayList<>();
@@ -21,11 +22,11 @@ public class SRTALocation {
 		return id;
 	}
 	
-	public ArrayList<String> getAttrs() {
+	public List<String> getAttrs() {
 		return attrs;
 	}
 	
-	public void setAttrs(ArrayList<String> attrs) {
+	public void setAttrs(List<String> attrs) {
 		this.attrs = attrs;
 	}
 	

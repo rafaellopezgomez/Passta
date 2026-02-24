@@ -28,7 +28,6 @@ public class Passta {
 	private SRTA automaton;
 	private final int k;
 	boolean initVars; // Flag used to indicate that the variables of the initial state are correct
-	private static final TypeReference<List<Trace>> TRACE_LIST_TYPE = new TypeReference<>() {};
 	
 	
 	/**
@@ -43,7 +42,7 @@ public class Passta {
 		learn(traces);
 	}
 
-	public Passta(ArrayList<Trace> traces, int k) {
+	public Passta(List<Trace> traces, int k) {
 		this.k = k;
 		learn(traces);
 	}
