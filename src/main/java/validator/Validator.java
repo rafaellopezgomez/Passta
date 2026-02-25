@@ -34,14 +34,15 @@ public class Validator {
 				rejectedT.add(t);
 			}
 		}
-		if(dst != null && !dst.isBlank()) {
+		
+		if(dst != null && !dst.isBlank() && !rejectedT.isEmpty()) {
 			Parser.writeTraces(dst, rejectedT);
 		}
 		
 		return nAccepted;
 	}
 	
-	public static int nValidTraces(ArrayList<Trace> traces, SRTA a) {
+	public static int nValidTraces(List<Trace> traces, SRTA a) {
 		return nValidTraces(traces, a, "");
 	}
 	

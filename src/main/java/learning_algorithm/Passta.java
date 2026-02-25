@@ -612,7 +612,7 @@ public class Passta {
 		});
 
 		automaton.deleteLocation(auxLoc.getId());
-
+		mergeEdges(mergedLoc);
 		return mergedLoc;
 	}
 
