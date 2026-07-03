@@ -1,64 +1,151 @@
 <p align="center">
-  resources/logo.png
+  <img src="resources/logo.png" alt="PASSTA logo" width="650" />
+</p>
+
+<h1 align="center">PASSTA</h1>
+
+<p align="center">
+  Learning Stochastic Real-Time Automata from execution traces.
 </p>
 
 <p align="center">
-  https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white
-  https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white
-  https://img.shields.io/badge/Licence-Affero_GPL3-blue
+  <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
+  <img src="https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white" alt="Apache Maven" />
+  <img src="https://img.shields.io/badge/version-0.3-red?style=for-the-badge" alt="Version 0.3" />
+  <img src="https://img.shields.io/badge/status-in%20development-orange?style=for-the-badge" alt="In development" />
+  <img src="https://img.shields.io/badge/platform-cross--platform-lightgrey?style=for-the-badge" alt="Cross-platform" />
+  <img src="https://img.shields.io/badge/Licence-Affero_GPL3-blue?style=for-the-badge" alt="AGPL-3.0 License" />
 </p>
 
 <p align="center">
   🚧 In development 🚧
 </p>
 
+## Status
+
+PASSTA is currently under active development. APIs, command-line options, and internal packages may change between versions.
+
+## Quick start
+
+Build the project:
+
+```bash
+mvn clean package
+```
+
+Visualize an automaton in the browser:
+
+```bash
+java -jar dist/Passta-0.3.jar view data/traces.json 2
+```
+
+Export an automaton to SVG:
+
+```bash
+java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.svg
+```
+
+Export an automaton to UPPAAL:
+
+```bash
+java -jar dist/Passta-0.3.jar export data/traces.json 2 out/model.xml
+```
+
+## Features
+
+- Learns **Stochastic Real-Time Automata (SRTA)** from JSON execution traces.
+- Processes large JSON trace files using streaming.
+- Provides a command-line interface for direct usage.
+- Opens learned automata in an interactive browser viewer with zooming and panning.
+- Exports learned automata to `SVG`, `PNG`, and `UPPAAL` XML.
+- Supports trace validation against learned automata.
+- Can save rejected traces together with the reason for their rejection.
+
 ## Changelog
 
-### 16/07/2025
-- New custom UPPAAL parser has been developed.
-- UPPAAL API dependency removed.
+### 2026-07-03 - Version 0.3
 
-### 15/10/2025
-- Adjustments in the merge algorithm to fix indeterminism as soon as possible in the in-out edges of the resulting merged state.
-
-### 12/01/2026
-- Parser `show()` method improved to work with all operating systems and browsers.
-- The validation module has been extended with two additional methods that save rejected traces along with the reason for their rejection.
-
-### 03/07/2026 - Version 0.3
-- Project refactored into clearer core, I/O, automaton, trace, and CLI packages.
+- Project refactored into clearer core, I/O, automaton, trace, validation, and CLI packages.
 - JSON trace processing is now performed using streaming, reducing memory usage for large trace files.
 - Edge labels in the browser-based automaton visualization have been improved.
 - Command-line interface mode added.
+- Browser visualization command added.
 - Location legend added to the UPPAAL export.
+
+### 2026-01-12
+
+- Parser `show()` method improved to work with all operating systems and browsers.
+- The validation module has been extended with two additional methods that save rejected traces along with the reason for their rejection.
+
+### 2025-10-15
+
+- Adjustments in the merge algorithm to fix indeterminism as soon as possible in the in-out edges of the resulting merged state.
+
+### 2025-07-16
+
+- New custom UPPAAL parser has been developed.
+- UPPAAL API dependency removed.
 
 ## Description
 
-Passta is a tool that integrates an automata learning algorithm to automatically construct abstract models — Stochastic Real-Time Automata (SRTA) — from observations of real systems, such as execution traces.
+PASSTA is a tool that integrates an automata learning algorithm to automatically construct abstract models — **Stochastic Real-Time Automata (SRTA)** — from observations of real systems, such as execution traces.
 
-The tool can be used both:
+PASSTA can be used in two ways:
 
-- programmatically as a Java library;
-- from the command line through the provided CLI.
+- as a **command-line tool** through the provided CLI;
+- as a **Java API** from another Java program.
 
-## Table of Contents
+## Architecture overview
 
+```text
+JSON traces
+    │
+    ▼
+TraceReader
+    │
+    ▼
+PASSTA learning algorithm
+    │
+    ▼
+SRTA automaton
+    │
+    ├── Browser visualization
+    ├── SVG / PNG export
+    ├── UPPAAL export
+    └── Trace validation
+```
+
+## Table of contents
+
+- [Status](#status)
+- [Quick start](#quick-start)
+- [Features](#features)
+- [Changelog](#changelog)
+- [Description](#description)
+- [Architecture overview](#architecture-overview)
 - [Technologies](#technologies)
 - [Installation](#installation)
-- [Usage](#usage)
-  - [Traces format](#traces-format)
-  - [Command-line interface](#command-line-interface)
-  - [Trace processing module](#trace-processing-module)
-  - [Learning module](#learning-module)
-  - [Automaton visualization](#automaton-visualization)
-  - [Automaton export](#automaton-export)
-  - [Validation module](#validation-module)
+- [Command-line usage](#command-line-usage)
+- [CLI examples](#cli-examples)
+- [Input traces format](#input-traces-format)
+- [Output formats](#output-formats)
+- [Example output](#example-output)
+- [Java API usage](#java-api-usage)
+- [Trace processing](#trace-processing)
+- [Learning](#learning)
+- [Visualization](#visualization)
+- [Exporting automata](#exporting-automata)
+- [Validation](#validation)
+- [Project structure](#project-structure)
+- [Citation](#citation)
+- [License](#license)
 
 ## Technologies
 
-Passta depends on:
+PASSTA depends on:
 
 - <a href="https://www.java.com/" target="_blank">Java JDK 21 or higher</a>
+- <a href="https://maven.apache.org/" target="_blank">Apache Maven</a>
 - <a href="https://github.com/FasterXML/jackson" target="_blank">Jackson</a>
 - <a href="https://github.com/FasterXML/jackson-modules-base/tree/2.18/blackbird" target="_blank">Jackson Blackbird module</a>
 - <a href="https://github.com/jamisonjiang/graph-support" target="_blank">graph-support</a>
@@ -67,12 +154,13 @@ Passta depends on:
 
 ## Installation
 
-### From source code
+### Requirements
 
-Prerequisites:
-
-- Java Development Kit, JDK 21 or higher;
+- Java Development Kit, JDK 21 or higher.
 - Apache Maven.
+- A modern web browser for interactive visualization.
+
+### From source code
 
 Build the project with:
 
@@ -80,35 +168,150 @@ Build the project with:
 mvn clean package
 ```
 
-The compiled JAR file is generated in the `dist/` directory.
+The compiled JAR is generated in the `dist/` directory.
 
 ### JAR file
 
 The compiled JAR file is located in the `dist/` directory:
 
-- **`Passta-0.3.jar`**
+```text
+dist/Passta-0.3.jar
+```
 
-This is a shaded, or fat, JAR that includes all project dependencies.
+This is a shaded, or fat, JAR that includes all project dependencies. It can be used directly as a command-line tool:
 
-It can be used directly as a command-line tool:
+```bash
+java -jar dist/Passta-0.3.jar --help
+```
+
+It can also be manually included in another Java project if required.
+
+## Command-line usage
+
+PASSTA 0.3 provides a command-line interface.
+
+### General syntax
+
+```bash
+java -jar dist/Passta-0.3.jar <command> [options]
+```
+
+### Available commands
+
+- `view`: learns an automaton and opens it in the default web browser.
+- `export`: learns an automaton and exports it to a file.
+- `--help`: shows CLI help.
+- `--version`: shows the current version.
+
+### Show help
+
+```bash
+java -jar dist/Passta-0.3.jar --help
+```
+
+### Show version
+
+```bash
+java -jar dist/Passta-0.3.jar --version
+```
+
+### View an automaton in the browser
 
 ```bash
 java -jar dist/Passta-0.3.jar view data/traces.json 2
 ```
 
-or included manually in another Java project if required.
+Named options are also supported:
 
-## Usage
+```bash
+java -jar dist/Passta-0.3.jar view   --input data/traces.json   --k 2
+```
 
-### Traces format
+The browser viewer provides an interactive SVG view with zooming and panning.
 
-The input traces of Passta are JSON files containing a list of traces.
+### Export an automaton
 
-Each trace contains a list of observations. Each observation has:
+Default export format is inferred from the output file extension.
 
-- `time`: elapsed time from the start of the execution;
-- `event`: event name, or an empty string if no event occurred;
-- `variables`: list of system attributes observed at that time.
+```bash
+java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.svg
+```
+
+The following shorthand form is also supported:
+
+```bash
+java -jar dist/Passta-0.3.jar data/traces.json 2 out/automaton.svg
+```
+
+If no output file is provided, PASSTA exports to:
+
+```text
+automaton.svg
+```
+
+Example:
+
+```bash
+java -jar dist/Passta-0.3.jar data/traces.json 2
+```
+
+### Export as PNG
+
+```bash
+java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.png
+```
+
+or using named options:
+
+```bash
+java -jar dist/Passta-0.3.jar export   --input data/traces.json   --k 2   --output out/automaton.png
+```
+
+### Export to UPPAAL
+
+```bash
+java -jar dist/Passta-0.3.jar export data/traces.json 2 out/model.xml
+```
+
+or explicitly:
+
+```bash
+java -jar dist/Passta-0.3.jar export   --input data/traces.json   --k 2   --format UPPAAL   --output out/model.xml
+```
+
+### Verbose mode
+
+Use `--verbose` to print additional execution information:
+
+```bash
+java -jar dist/Passta-0.3.jar view data/traces.json 2 --verbose
+```
+
+## CLI examples
+
+```bash
+# Visualize the learned automaton in the browser
+java -jar dist/Passta-0.3.jar view data/traces.json 2
+
+# Export to SVG
+java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.svg
+
+# Export to PNG
+java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.png
+
+# Export to UPPAAL
+java -jar dist/Passta-0.3.jar export data/traces.json 2 out/model.xml
+```
+
+## Input traces format
+
+PASSTA expects a JSON file containing an array of traces. Each trace contains a list of observations.
+
+Each observation has:
+
+- `time`: elapsed time from the beginning of the trace;
+- `event`: event name, or an empty string when no event occurs;
+- `variables`: list of observed system attributes.
 
 Example:
 
@@ -152,110 +355,62 @@ More examples of traces can be found in:
 src/main/resources
 ```
 
----
+## Output formats
 
-## Command-line interface
+PASSTA can generate the following outputs:
 
-Passta 0.3 adds a command-line interface.
+- browser visualization;
+- `SVG` image;
+- `PNG` image;
+- `UPPAAL` XML model.
 
-### Show help
+Supported export formats are:
 
-```bash
-java -jar dist/Passta-0.3.jar --help
-```
+- `SVG`: scalable vector graphics representation.
+- `PNG`: raster image representation.
+- `UPPAAL`: XML model for UPPAAL-style timed automata workflows.
 
-### Show version
+## Example output
 
-```bash
-java -jar dist/Passta-0.3.jar --version
-```
-
-### Learn and export an automaton
-
-Default export format is inferred from the output file extension.
-
-```bash
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.svg
-```
-
-The following shorthand form is also supported:
-
-```bash
-java -jar dist/Passta-0.3.jar data/traces.json 2 out/automaton.svg
-```
-
-If no output file is provided, Passta exports to:
+Depending on the selected command and export format, PASSTA can generate files such as:
 
 ```text
-automaton.svg
+out/
+├── automaton.svg      Graphical representation of the learned SRTA
+├── automaton.png      Raster image of the learned SRTA
+└── model.xml          UPPAAL-compatible XML model
 ```
 
-Example:
+## Java API usage
 
-```bash
-java -jar dist/Passta-0.3.jar data/traces.json 2
+PASSTA can also be used programmatically from Java.
+
+A minimal example that learns an automaton and exports it to SVG:
+
+```java
+import java.nio.file.Path;
+
+import es.uma.morse.passta.core.Passta;
+import es.uma.morse.passta.core.automaton.SRTA;
+import es.uma.morse.passta.io.AutomatonExportFormat;
+import es.uma.morse.passta.io.AutomatonExporter;
+
+public class Example {
+
+    public static void main(String[] args) {
+        Passta passta = new Passta(Path.of("data/traces.json"), 2);
+        SRTA automaton = passta.getAutomaton();
+
+        AutomatonExporter.export(
+            automaton,
+            Path.of("out/automaton.svg"),
+            AutomatonExportFormat.SVG
+        );
+    }
+}
 ```
 
-### Export as PNG
-
-```bash
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.png
-```
-
-or using named options:
-
-```bash
-java -jar dist/Passta-0.3.jar export \
-  --input data/traces.json \
-  --k 2 \
-  --output out/automaton.png
-```
-
-### Export to UPPAAL
-
-```bash
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/model.xml
-```
-
-or explicitly:
-
-```bash
-java -jar dist/Passta-0.3.jar export \
-  --input data/traces.json \
-  --k 2 \
-  --format UPPAAL \
-  --output out/model.xml
-```
-
-### Visualize in browser
-
-The `view` command learns the automaton and opens an interactive SVG viewer in the default browser.
-
-```bash
-java -jar dist/Passta-0.3.jar view data/traces.json 2
-```
-
-or:
-
-```bash
-java -jar dist/Passta-0.3.jar view \
-  --input data/traces.json \
-  --k 2
-```
-
-The browser viewer supports zooming and panning.
-
-### Verbose mode
-
-Use `--verbose` to print additional execution information:
-
-```bash
-java -jar dist/Passta-0.3.jar view data/traces.json 2 --verbose
-```
-
----
-
-## Trace processing module
+## Trace processing
 
 Traces can be read from JSON using `TraceReader`.
 
@@ -278,7 +433,7 @@ public class TraceReaderExample {
 }
 ```
 
-For large trace files, Passta also supports streaming traces without loading the whole file into memory:
+For large trace files, PASSTA supports streaming traces without loading the whole file into memory:
 
 ```java
 import java.nio.file.Path;
@@ -303,9 +458,30 @@ public class TraceStreamingExample {
 }
 ```
 
----
+Traces can be written using `TraceWriter`:
 
-## Learning module
+```java
+import java.nio.file.Path;
+import java.util.List;
+
+import es.uma.morse.passta.core.trace.Trace;
+import es.uma.morse.passta.io.TraceReader;
+import es.uma.morse.passta.io.TraceWriter;
+
+public class TraceWriterExample {
+
+    public static void main(String[] args) {
+        List<Trace> traces = TraceReader.readTraces(Path.of("src/main/resources/traces.json"));
+
+        TraceWriter.writeTraces(
+            Path.of("out/traces-copy.json"),
+            traces
+        );
+    }
+}
+```
+
+## Learning
 
 Create a `Passta` instance from a JSON traces file and a value for `k`.
 
@@ -346,9 +522,7 @@ public class LearningFromStringExample {
 }
 ```
 
----
-
-## Automaton visualization
+## Visualization
 
 Automata can be visualized in the default web browser using `AutomatonViewer`.
 
@@ -370,19 +544,9 @@ public class BrowserVisualizationExample {
 }
 ```
 
-The browser visualization provides an interactive SVG view with zooming and panning.
-
----
-
-## Automaton export
+## Exporting automata
 
 Automata can be exported using `AutomatonExporter`.
-
-Supported export formats are:
-
-- `SVG`
-- `PNG`
-- `UPPAAL`
 
 ### Export to SVG
 
@@ -459,18 +623,19 @@ public class UppaalExportExample {
 }
 ```
 
----
-
-## Validation module
+## Validation
 
 The validation module can be used to check whether traces are accepted by a learned automaton.
 
 ```java
 import java.nio.file.Path;
+import java.util.List;
 
 import es.uma.morse.passta.core.Passta;
 import es.uma.morse.passta.core.automaton.SRTA;
-import es.uma.morse.passta.validator.Validator;
+import es.uma.morse.passta.core.trace.Trace;
+import es.uma.morse.passta.io.TraceReader;
+import es.uma.morse.passta.validation.Validator;
 
 public class ValidationExample {
 
@@ -481,7 +646,11 @@ public class ValidationExample {
         Passta passta = new Passta(trainingTraces, 2);
         SRTA automaton = passta.getAutomaton();
 
-        Validator.nValidTraces(validationTraces.toString(), automaton);
+        List<Trace> testTraces = TraceReader.readTraces(validationTraces);
+
+        System.out.println(
+            Validator.nValidTraces(testTraces, automaton)
+        );
     }
 }
 ```
@@ -490,27 +659,70 @@ Rejected traces can also be saved together with the reason for their rejection:
 
 ```java
 import java.nio.file.Path;
+import java.util.List;
 
 import es.uma.morse.passta.core.Passta;
 import es.uma.morse.passta.core.automaton.SRTA;
-import es.uma.morse.passta.validator.Validator;
+import es.uma.morse.passta.core.trace.Trace;
+import es.uma.morse.passta.io.TraceReader;
+import es.uma.morse.passta.validation.Validator;
 
 public class ValidationWithRejectedTracesExample {
 
     public static void main(String[] args) {
         Path trainingTraces = Path.of("src/main/resources/training-traces.json");
         Path validationTraces = Path.of("src/main/resources/validation-traces.json");
-        Path rejectedOutput = Path.of("out/rejected-traces.json");
+        Path rejectedOutput = Path.of("out/rejected-traces");
 
         Passta passta = new Passta(trainingTraces, 2);
         SRTA automaton = passta.getAutomaton();
 
-        Validator.nValidTraces(
-            validationTraces.toString(),
-            automaton,
-            rejectedOutput.toString()
+        List<Trace> testTraces = TraceReader.readTraces(validationTraces);
+
+        System.out.println(
+            Validator.nValidTraces(
+                testTraces,
+                automaton,
+                rejectedOutput.toString()
+            )
         );
     }
 }
 ```
 
+## Project structure
+
+```text
+src/main/java/es/uma/morse/passta
+├── cli          Command-line interface
+├── core         PASSTA learning algorithm and core model
+├── core/automaton
+├── core/trace
+├── io           Readers, writers, exporters, UPPAAL output, and visualization
+└── validation   Trace validation utilities
+```
+
+## Citation
+
+If you use PASSTA in academic work, please cite the following article:
+
+```bibtex
+@article{LOPEZGOMEZ2026101142,
+  title = {Towards a formal digital twin of the PTP protocol using automata learning},
+  journal = {Journal of Logical and Algebraic Methods in Programming},
+  volume = {151},
+  pages = {101142},
+  year = {2026},
+  issn = {2352-2208},
+  doi = {https://doi.org/10.1016/j.jlamp.2026.101142},
+  url = {https://www.sciencedirect.com/science/article/pii/S2352220826000349},
+  author = {Rafael López-Gómez and Delia Rico and Laura Panizo and María-del-Mar Gallardo},
+  keywords = {Time-Sensitive Systems, Formal Digital Twin, Formal Verification}
+}
+```
+
+## License
+
+This project is licensed under the GNU Affero General Public License v3.0.
+
+See the `LICENSE` file for details.
