@@ -150,7 +150,7 @@ SRTA automaton
 
 PASSTA depends on:
 
-- <a href="https://www.java.com/" target="_blank">Java JDK 21 or higher</a>
+- <a href="https://openjdk.org/" target="_blank">OpenJDK 21 or higher</a>
 - <a href="https://maven.apache.org/" target="_blank">Apache Maven</a>
 - <a href="https://github.com/FasterXML/jackson" target="_blank">Jackson</a>
 - <a href="https://github.com/FasterXML/jackson-modules-base/tree/2.18/blackbird" target="_blank">Jackson Blackbird module</a>
