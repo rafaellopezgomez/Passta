@@ -27,28 +27,34 @@ PASSTA is currently under active development. APIs, command-line options, and in
 
 ## Quick start
 
-Build the project:
+The executable JAR is available in the `dist/` directory:
+
+```text
+dist/Passta-0.3.jar
+```
+
+Move into the `dist/` directory:
 
 ```bash
-mvn clean package
+cd dist
 ```
 
 Visualize an automaton in the browser:
 
 ```bash
-java -jar dist/Passta-0.3.jar view data/traces.json 2
+java -jar Passta-0.3.jar view data/traces.json 2
 ```
 
 Export an automaton to SVG:
 
 ```bash
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.svg
+java -jar Passta-0.3.jar export data/traces.json 2 out/automaton.svg
 ```
 
 Export an automaton to UPPAAL:
 
 ```bash
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/model.xml
+java -jar Passta-0.3.jar export data/traces.json 2 out/model.xml
 ```
 
 ## Features
@@ -157,34 +163,40 @@ PASSTA depends on:
 ### Requirements
 
 - Java Development Kit, JDK 21 or higher.
-- Apache Maven.
+- Apache Maven, only required if building from source.
 - A modern web browser for interactive visualization.
-
-### From source code
-
-Build the project with:
-
-```bash
-mvn clean package
-```
-
-The compiled JAR is generated in the `dist/` directory.
 
 ### JAR file
 
-The compiled JAR file is located in the `dist/` directory:
+The executable JAR file is located in the `dist/` directory:
 
 ```text
 dist/Passta-0.3.jar
 ```
 
-This is a shaded, or fat, JAR that includes all project dependencies. It can be used directly as a command-line tool:
+This is a shaded, or fat, JAR that includes all project dependencies.
+
+To run the README examples as written, first move into the `dist/` directory:
 
 ```bash
-java -jar dist/Passta-0.3.jar --help
+cd dist
 ```
 
-It can also be manually included in another Java project if required.
+Then execute PASSTA with:
+
+```bash
+java -jar Passta-0.3.jar --help
+```
+
+### From source code
+
+If you want to rebuild the project from source, use Maven from the project root:
+
+```bash
+mvn package
+```
+
+The compiled JAR is generated in the `dist/` directory.
 
 ## Command-line usage
 
@@ -193,7 +205,7 @@ PASSTA 0.3 provides a command-line interface.
 ### General syntax
 
 ```bash
-java -jar dist/Passta-0.3.jar <command> [options]
+java -jar Passta-0.3.jar <command> [options]
 ```
 
 ### Available commands
@@ -206,25 +218,25 @@ java -jar dist/Passta-0.3.jar <command> [options]
 ### Show help
 
 ```bash
-java -jar dist/Passta-0.3.jar --help
+java -jar Passta-0.3.jar --help
 ```
 
 ### Show version
 
 ```bash
-java -jar dist/Passta-0.3.jar --version
+java -jar Passta-0.3.jar --version
 ```
 
 ### View an automaton in the browser
 
 ```bash
-java -jar dist/Passta-0.3.jar view data/traces.json 2
+java -jar Passta-0.3.jar view data/traces.json 2
 ```
 
 Named options are also supported:
 
 ```bash
-java -jar dist/Passta-0.3.jar view   --input data/traces.json   --k 2
+java -jar Passta-0.3.jar view   --input data/traces.json   --k 2
 ```
 
 The browser viewer provides an interactive SVG view with zooming and panning.
@@ -234,13 +246,13 @@ The browser viewer provides an interactive SVG view with zooming and panning.
 Default export format is inferred from the output file extension.
 
 ```bash
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.svg
+java -jar Passta-0.3.jar export data/traces.json 2 out/automaton.svg
 ```
 
 The following shorthand form is also supported:
 
 ```bash
-java -jar dist/Passta-0.3.jar data/traces.json 2 out/automaton.svg
+java -jar Passta-0.3.jar data/traces.json 2 out/automaton.svg
 ```
 
 If no output file is provided, PASSTA exports to:
@@ -252,31 +264,31 @@ automaton.svg
 Example:
 
 ```bash
-java -jar dist/Passta-0.3.jar data/traces.json 2
+java -jar Passta-0.3.jar data/traces.json 2
 ```
 
 ### Export as PNG
 
 ```bash
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.png
+java -jar Passta-0.3.jar export data/traces.json 2 out/automaton.png
 ```
 
 or using named options:
 
 ```bash
-java -jar dist/Passta-0.3.jar export   --input data/traces.json   --k 2   --output out/automaton.png
+java -jar Passta-0.3.jar export   --input data/traces.json   --k 2   --output out/automaton.png
 ```
 
 ### Export to UPPAAL
 
 ```bash
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/model.xml
+java -jar Passta-0.3.jar export data/traces.json 2 out/model.xml
 ```
 
 or explicitly:
 
 ```bash
-java -jar dist/Passta-0.3.jar export   --input data/traces.json   --k 2   --format UPPAAL   --output out/model.xml
+java -jar Passta-0.3.jar export   --input data/traces.json   --k 2   --format UPPAAL   --output out/model.xml
 ```
 
 ### Verbose mode
@@ -284,23 +296,23 @@ java -jar dist/Passta-0.3.jar export   --input data/traces.json   --k 2   --form
 Use `--verbose` to print additional execution information:
 
 ```bash
-java -jar dist/Passta-0.3.jar view data/traces.json 2 --verbose
+java -jar Passta-0.3.jar view data/traces.json 2 --verbose
 ```
 
 ## CLI examples
 
 ```bash
 # Visualize the learned automaton in the browser
-java -jar dist/Passta-0.3.jar view data/traces.json 2
+java -jar Passta-0.3.jar view data/traces.json 2
 
 # Export to SVG
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.svg
+java -jar Passta-0.3.jar export data/traces.json 2 out/automaton.svg
 
 # Export to PNG
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/automaton.png
+java -jar Passta-0.3.jar export data/traces.json 2 out/automaton.png
 
 # Export to UPPAAL
-java -jar dist/Passta-0.3.jar export data/traces.json 2 out/model.xml
+java -jar Passta-0.3.jar export data/traces.json 2 out/model.xml
 ```
 
 ## Input traces format
