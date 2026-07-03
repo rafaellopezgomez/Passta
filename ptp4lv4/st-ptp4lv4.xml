@@ -23,6 +23,28 @@ Event Announce_receipt_timeout_expires---&gt; code: 3
 </declaration>
   <template>
     <name>Template</name>
+    <location id="id0" x="0" y="0">
+      <name x="30" y="-10">L0</name>
+      <label kind="invariant" x="30" y="10">x&lt;=0.0</label>
+    </location>
+    <location id="id2" x="0" y="150">
+      <committed/>
+    </location>
+    <location id="id1" x="0" y="300">
+      <name x="30" y="290">L1</name>
+      <label kind="invariant" x="30" y="310">x&lt;=50018.0</label>
+    </location>
+    <location id="id6" x="0" y="450">
+      <committed/>
+    </location>
+    <location id="id5" x="0" y="600">
+      <name x="30" y="590">L2</name>
+      <label kind="invariant" x="30" y="610">x&lt;=691.0</label>
+    </location>
+    <location id="id9" x="0" y="900">
+      <name x="30" y="890">L3</name>
+      <label kind="invariant" x="30" y="910">x&lt;=592.0</label>
+    </location>
     <location id="id10" x="0" y="750">
       <committed/>
     </location>
@@ -33,21 +55,18 @@ Event Announce_receipt_timeout_expires---&gt; code: 3
     <location id="id32" x="225" y="1650">
       <committed/>
     </location>
-    <location id="id23" x="75" y="1425">
-      <committed/>
-    </location>
-    <location id="id14" x="0" y="1050">
-      <committed/>
-    </location>
     <location id="id13" x="0" y="1200">
       <name x="30" y="1190">L4</name>
       <label kind="invariant" x="30" y="1210">x&lt;=428674.0</label>
+    </location>
+    <location id="id23" x="75" y="1425">
+      <committed/>
     </location>
     <location id="id26" x="450" y="1800">
       <name x="480" y="1790">L5_2</name>
       <label kind="invariant" x="480" y="1810">x&lt;=507757.0</label>
     </location>
-    <location id="id29" x="450" y="1950">
+    <location id="id14" x="0" y="1050">
       <committed/>
     </location>
     <location id="id17" x="0" y="1350">
@@ -57,35 +76,32 @@ Event Announce_receipt_timeout_expires---&gt; code: 3
       <name x="480" y="2090">L8</name>
       <label kind="invariant" x="480" y="2110">x&lt;=875448.0</label>
     </location>
-    <location id="id1" x="0" y="300">
-      <name x="30" y="290">L1</name>
-      <label kind="invariant" x="30" y="310">x&lt;=50018.0</label>
-    </location>
-    <location id="id0" x="0" y="0">
-      <name x="30" y="-10">L0</name>
-      <label kind="invariant" x="30" y="10">x&lt;=0.0</label>
-    </location>
-    <location id="id2" x="0" y="150">
+    <location id="id29" x="450" y="1950">
       <committed/>
-    </location>
-    <location id="id5" x="0" y="600">
-      <name x="30" y="590">L2</name>
-      <label kind="invariant" x="30" y="610">x&lt;=691.0</label>
-    </location>
-    <location id="id6" x="0" y="450">
-      <committed/>
-    </location>
-    <location id="id9" x="0" y="900">
-      <name x="30" y="890">L3</name>
-      <label kind="invariant" x="30" y="910">x&lt;=592.0</label>
     </location>
     <branchpoint id="id19" x="150" y="1500"/>
     <init ref="id0"/>
-    <transition id="id30">
-      <source ref="id26"/>
-      <target ref="id29"/>
-      <label kind="guard" x="480" y="1875">x&gt;=133.0</label>
-      <label kind="assignment" x="480" y="1905"> event = 4</label>
+    <transition id="id4">
+      <source ref="id2"/>
+      <target ref="id1"/>
+      <label kind="assignment" x="30" y="225">x=0, attrs = 0</label>
+    </transition>
+    <transition id="id3">
+      <source ref="id0"/>
+      <target ref="id2"/>
+      <label kind="guard" x="30" y="75">x&gt;=0.0</label>
+      <label kind="assignment" x="30" y="105">event = 0</label>
+    </transition>
+    <transition id="id8">
+      <source ref="id6"/>
+      <target ref="id5"/>
+      <label kind="assignment" x="30" y="525">x=0, attrs = 1</label>
+    </transition>
+    <transition id="id7">
+      <source ref="id1"/>
+      <target ref="id6"/>
+      <label kind="guard" x="30" y="375">x&gt;=15055.0</label>
+      <label kind="assignment" x="30" y="405">event = 1</label>
     </transition>
     <transition id="id20">
       <source ref="id17"/>
@@ -97,15 +113,11 @@ Event Announce_receipt_timeout_expires---&gt; code: 3
       <target ref="id28"/>
       <label kind="assignment" x="480" y="2025">x=0, attrs = 3</label>
     </transition>
-    <transition id="id12">
-      <source ref="id10"/>
-      <target ref="id9"/>
-      <label kind="assignment" x="30" y="825">x=0, attrs = 1</label>
-    </transition>
-    <transition id="id34">
-      <source ref="id32"/>
-      <target ref="id13"/>
-      <label kind="assignment" x="142" y="1425">x=0, attrs = 1</label>
+    <transition id="id30">
+      <source ref="id26"/>
+      <target ref="id29"/>
+      <label kind="guard" x="480" y="1875">x&gt;=133.0</label>
+      <label kind="assignment" x="480" y="1905"> event = 4</label>
     </transition>
     <transition id="id11">
       <source ref="id5"/>
@@ -124,16 +136,32 @@ Event Announce_receipt_timeout_expires---&gt; code: 3
       <label kind="guard" x="367" y="1875">x&gt;=16.0</label>
       <label kind="assignment" x="367" y="1905">event = 3</label>
     </transition>
-    <transition id="id25">
-      <source ref="id23"/>
-      <target ref="id13"/>
-      <label kind="assignment" x="67" y="1312">x=0, attrs = 1</label>
-    </transition>
     <transition id="id24">
       <source ref="id21"/>
       <target ref="id23"/>
       <label kind="guard" x="142" y="1537">x&gt;=22686.0</label>
       <label kind="assignment" x="142" y="1567"> event = 3</label>
+    </transition>
+    <transition id="id12">
+      <source ref="id10"/>
+      <target ref="id9"/>
+      <label kind="assignment" x="30" y="825">x=0, attrs = 1</label>
+    </transition>
+    <transition id="id34">
+      <source ref="id32"/>
+      <target ref="id13"/>
+      <label kind="assignment" x="142" y="1425">x=0, attrs = 1</label>
+    </transition>
+    <transition id="id15">
+      <source ref="id9"/>
+      <target ref="id14"/>
+      <label kind="guard" x="30" y="975">x&gt;=216.0</label>
+      <label kind="assignment" x="30" y="1005">event = 1</label>
+    </transition>
+    <transition id="id25">
+      <source ref="id23"/>
+      <target ref="id13"/>
+      <label kind="assignment" x="67" y="1312">x=0, attrs = 1</label>
     </transition>
     <transition id="id16">
       <source ref="id14"/>
@@ -145,39 +173,11 @@ Event Announce_receipt_timeout_expires---&gt; code: 3
       <target ref="id26"/>
       <label kind="probability" x="330" y="1650">0.7796</label>
     </transition>
-    <transition id="id15">
-      <source ref="id9"/>
-      <target ref="id14"/>
-      <label kind="guard" x="30" y="975">x&gt;=216.0</label>
-      <label kind="assignment" x="30" y="1005">event = 1</label>
-    </transition>
     <transition id="id18">
       <source ref="id13"/>
       <target ref="id17"/>
       <label kind="guard" x="30" y="1275">x&gt;=24.0</label>
       <label kind="assignment" x="30" y="1305">event = 2</label>
-    </transition>
-    <transition id="id3">
-      <source ref="id0"/>
-      <target ref="id2"/>
-      <label kind="guard" x="30" y="75">x&gt;=0.0</label>
-      <label kind="assignment" x="30" y="105">event = 0</label>
-    </transition>
-    <transition id="id4">
-      <source ref="id2"/>
-      <target ref="id1"/>
-      <label kind="assignment" x="30" y="225">x=0, attrs = 0</label>
-    </transition>
-    <transition id="id7">
-      <source ref="id1"/>
-      <target ref="id6"/>
-      <label kind="guard" x="30" y="375">x&gt;=15055.0</label>
-      <label kind="assignment" x="30" y="405">event = 1</label>
-    </transition>
-    <transition id="id8">
-      <source ref="id6"/>
-      <target ref="id5"/>
-      <label kind="assignment" x="30" y="525">x=0, attrs = 1</label>
     </transition>
   </template>
   <system>

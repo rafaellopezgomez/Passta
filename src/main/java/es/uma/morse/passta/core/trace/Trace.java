@@ -1,4 +1,4 @@
-package trace;
+package es.uma.morse.passta.core.trace;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

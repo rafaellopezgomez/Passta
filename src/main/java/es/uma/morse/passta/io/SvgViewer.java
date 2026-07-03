@@ -1,4 +1,4 @@
-package parser;
+package es.uma.morse.passta.io;
 
 import java.awt.Desktop;
 import java.io.IOException;

@@ -1,4 +1,5 @@
-package automaton;
+package es.uma.morse.passta.core.automaton;
+
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -8,14 +9,10 @@ import java.util.stream.Collectors;
 import org.graphper.api.Graphviz;
 import org.graphper.api.Line;
 import org.graphper.api.Node;
-
-import edge.SRTAEdge;
-import location.SRTALocation;
-
 import org.graphper.api.Graphviz.GraphvizBuilder;
 
 /**
- * This class implements the Automaton data structure (Dictionaries of states
+ * This class implements the Automaton data structure (Dictionaries of locations
  * and edges)
  * 
  * @author Rafael
@@ -29,7 +26,7 @@ public class SRTA {
 	private int edgeId; // Incremental value to identify edges. Default 0
 
 	/**
-	 * Constructor that initializes an empty automata
+	 * Constructor that initializes an empty automaton
 	 */
 	public SRTA() {
 		locations = new TreeMap<Integer, SRTALocation>();
@@ -49,9 +46,9 @@ public class SRTA {
 	}
 
 	/**
-	 * Method that returns the edge that match with the id of the input argument
+	 * Method that returns the edge which matches with the id of the input argument
 	 * 
-	 * @param id identification of the edge
+	 * @param id of the edge
 	 * @return the edge with the given id or null otherwise
 	 */
 	public SRTAEdge getEdge(int id) {
@@ -152,36 +149,5 @@ public class SRTA {
 		output += "\n ############### Edges ############### \n";
 		output += edges.values().stream().map(Object::toString).collect(Collectors.joining("\n"));
 		System.out.println(output);
-	}
-	
-	public Graphviz toDOTLayout() {
-		GraphvizBuilder g = Graphviz.digraph();
-		
-		try {
-			Map<String, Node> nodes = new TreeMap<String, Node>();
-
-			getAllLocations().stream().forEach(loc -> {
-				var id = String.valueOf(loc.getId());
-				var attrs = loc.getAttrs().toString();
-				var invariant = loc.getInvariant().toString();
-				var node = Node.builder().label(id + " " + attrs + "\n" + "<=" + invariant).build();
-				nodes.put(id, node);
-				g.addNode(node);
-			});
-
-			getAllEdges().stream().forEach(edge -> {
-				Node source = nodes.get(String.valueOf(edge.getSourceId()));
-				Node target = nodes.get(String.valueOf(edge.getTargetId()));
-				String prob = edge.getProb() == null ? "" :  new DecimalFormat("#########.####", new DecimalFormatSymbols(Locale.ENGLISH)).format(edge.getProb());
-				String probLabel = prob != null ? " Prob: { " + prob + " }" : "";
-				var line = Line.builder(source, target)
-						.label("{" + edge.getEvent() + "}" + " " + edge.getGuard().toString() + probLabel).build();
-				g.addLine(line);
-			});
-		} catch(RuntimeException e) {
-			e.printStackTrace();
-		}
-
-		return g.build();
 	}
 }

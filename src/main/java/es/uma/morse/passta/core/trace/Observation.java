@@ -1,4 +1,4 @@
-package trace;
+package es.uma.morse.passta.core.trace;
 
 import java.util.ArrayList;
 

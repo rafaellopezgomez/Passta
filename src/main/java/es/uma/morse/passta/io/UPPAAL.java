@@ -1,4 +1,4 @@
-package parser;
+package es.uma.morse.passta.io;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,9 +32,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import automaton.SRTA;
-import edge.SRTAEdge;
-import location.SRTALocation;
+import es.uma.morse.passta.core.automaton.SRTA;
+import es.uma.morse.passta.core.automaton.SRTAEdge;
+import es.uma.morse.passta.core.automaton.SRTALocation;
 
 public class UPPAAL {
 	private DocumentBuilderFactory factory;

@@ -1,4 +1,4 @@
-package location;
+package es.uma.morse.passta.core.automaton;
 
 import java.util.ArrayList;
 import java.util.List;

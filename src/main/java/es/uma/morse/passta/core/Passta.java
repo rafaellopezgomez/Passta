@@ -1,98 +1,67 @@
-package learning_algorithm;
+package es.uma.morse.passta.core;
 
-import automaton.SRTA;
-import edge.SRTAEdge;
-import location.SRTALocation;
-import parser.JsonSupport;
-import parser.Parser;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
-
-import trace.Observation;
-import trace.Trace;
-
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import org.graphper.draw.ExecuteException;
+import com.fasterxml.jackson.databind.MappingIterator;
+
+import es.uma.morse.passta.core.automaton.SRTA;
+import es.uma.morse.passta.core.automaton.SRTAEdge;
+import es.uma.morse.passta.core.automaton.SRTALocation;
+import es.uma.morse.passta.core.trace.Observation;
+import es.uma.morse.passta.core.trace.Trace;
+import es.uma.morse.passta.io.AutomatonViewer;
+import es.uma.morse.passta.io.TraceReader;
 
 public class Passta {
-	private List<Trace> traces;
 	private SRTA automaton;
 	private final int k;
-	boolean initVars; // Flag used to indicate that the variables of the initial state are correct
-	
-	
 	/**
-	 * Default constructor of the learning algorithm class
+	 * Flag used to indicate that the variables of the initial location are correct.
+	 */
+	boolean initVars;
+
+	private Path filePath;
+
+	/**
+	 * Creates a PASSTA learning algorithm instance from a source file path.
 	 *
-	 * @return LearningAlgorithm instance
+	 * @param src path to the JSON file containing the traces
+	 * @param k   algorithm parameter
 	 */
 	public Passta(String src, int k) {
-		this.k = k;
-		File resourcesFile = new File(src);
-		var traces = readTraces(resourcesFile.getAbsoluteFile());
-		learn(traces);
+		this(Path.of(Objects.requireNonNull(src, "Source path is null")), k);
 	}
 
-	public Passta(List<Trace> traces, int k) {
-		this.k = k;
-		learn(traces);
-	}
-
-	/*
-	 * public LearningAlgorithm(int k) { this.k = k; initVars = false; // learn(); }
+	/**
+	 * Creates a PASSTA learning algorithm instance from a source file path.
+	 * 
+	 * @param filePath path to the JSON file containing the traces
+	 * @param k        algorithm parameter
 	 */
+	public Passta(Path filePath, int k) {
+		this.k = k;
+		this.filePath = filePath;
+		learn();
+	}
 
-	private void learn(List<Trace> traces2) {
+	/**
+	 * Learns from a JSON file containing traces.
+	 */
+	private void learn() {
 		initVars = false;
-		this.traces = compressTraces(traces2);
+
 		phase1();
 		phase2();
 		phase3();
 	}
 
-	/*
-	 * public void learnNewTraces(ArrayList<Trace> traces) { this.traces =
-	 * compressTraces(traces); phase1(); }
-	 */
-
-	/*
-	 * public void stopLearning() { phase2(); }
-	 */
-
 	public SRTA getAutomaton() {
 		return automaton;
 	}
-
-	/**
-	 * Method to read traces from JSON
-	 *
-	 * @param source source, file in JSON format where the traces are stored
-	 * @return A list of the processed traces
-	 */
-	public static List<Trace> readTraces(File source) {
-		if (source == null) {
-			throw new IllegalArgumentException("Source file is null");
-		}
-		if (!source.isFile()) {
-			throw new IllegalArgumentException("Source is not a file: " + source.getAbsolutePath());
-		}
-
-		try {
-			return JsonSupport.tracesReader().readValue(source);
-		} catch (IOException e) {
-			throw new RuntimeException("Cannot read traces from: " + source.getAbsolutePath(), e);
-		}
-	}
-
 	/**
 	 * Method to perform a compressing operation in the input traces. The
 	 * compression operations are: 1. If consecutive observations have not an event
@@ -104,29 +73,55 @@ public class Passta {
 	 *
 	 * @return traces
 	 */
-	public static List<Trace> compressTraces(List<Trace> traces2) {
-		for (Trace trace : traces2) {
-			var obs = trace.getObs();
-			ArrayList<Observation> newObs = new ArrayList<Observation>();
-			for (int i = 0; i < obs.size(); i++) {
-				var currentOb = obs.get(i);
-				Observation lastObEq = null;
-				int j = i + 1;
-				while (j < obs.size() && lastObEq == null) {
-					var futOb = obs.get(j);
-					if (!checkEqOb(currentOb, futOb)) {
-						lastObEq = obs.get(j - 1);
-					} else {
-						j++;
-					}
-				}
+	public static List<Trace> compressTraces(List<Trace> traces) {
+		Objects.requireNonNull(traces, "traces is null");
 
-				newObs.add(currentOb);
-				i = j - 1; // Next loop iteration will start with i = j (First different Observation)
-			}
-			trace.setObs(newObs);
+		for (int idx = 0; idx < traces.size(); idx++) {
+			Trace t = traces.get(idx);
+			if (t == null)
+				continue;
+			compressTrace(t);
 		}
-		return traces2;
+		return traces;
+	}
+	
+	/**
+	 * Method to perform a compressing operation in the input trace. The
+	 * compression operations are: 1. If consecutive observations have not an event
+	 * and all have the same variable parameters, then they are fused as one that
+	 * compress all the information. 2. If there is an event observation and the
+	 * observations that come consecutively later haven´t an event and they have the
+	 * same variables as the one with the event then the same fusion operation is
+	 * performed.
+	 *
+	 * @return trace
+	 */
+	private static Trace compressTrace(Trace trace) {
+		if (trace == null)
+			return null;
+
+		List<Observation> obs = trace.getObs();
+		if (obs == null || obs.isEmpty())
+			return trace;
+
+		ArrayList<Observation> compressed = new ArrayList<>(obs.size());
+
+		for (int i = 0; i < obs.size();) {
+			Observation current = obs.get(i);
+
+			int j = i + 1;
+
+			while (j < obs.size() && checkEqOb(current, obs.get(j))) {
+				j++;
+			}
+
+			compressed.add(current);
+
+			i = j;
+		}
+
+		trace.setObs(compressed);
+		return trace;
 	}
 
 	/**
@@ -156,9 +151,21 @@ public class Passta {
 		if (automaton == null)
 			automaton = new SRTA();
 
-		for (var trace : traces) {
-			processTrace(trace);
+		processTraces();
+	}
+
+	private void processTraces() {
+
+		try (MappingIterator<Trace> traces = TraceReader.streamTraces(filePath)) {
+			while (traces.hasNext()) {
+				Trace trace = traces.next();
+				trace = compressTrace(trace);
+				processTrace(trace);
+			}
+		} catch (IOException e) {
+		    throw new RuntimeException("Cannot process traces from: " + filePath, e);
 		}
+
 	}
 
 	private void processTrace(Trace trace) {
@@ -461,11 +468,7 @@ public class Passta {
 					if (fixed) {
 						merged = true;
 					} else {
-						try {
-							Parser.show(automaton);
-						} catch (ExecuteException e) {
-							e.printStackTrace();
-						}
+						AutomatonViewer.show(automaton);
 						throw new RuntimeException("Indeterministic automaton");
 					}
 				}
