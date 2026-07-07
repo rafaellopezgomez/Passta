@@ -62,7 +62,7 @@ public final class TraceReader {
      */
     public static MappingIterator<Trace> streamTraces(Path source) throws IOException {
         Path path = validateJsonFile(source);
-        return JsonSupport.tracesReader().readValues(path.toFile());
+        return JsonSupport.traceReader().readValues(path.toFile());
     }
 
     /**

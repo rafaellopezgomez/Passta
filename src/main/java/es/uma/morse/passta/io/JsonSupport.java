@@ -37,7 +37,7 @@ public final class JsonSupport {
 
     // Reader object
     private static final ObjectWriter PRETTY = MAPPER.writerWithDefaultPrettyPrinter();
-    private static final ObjectReader TRACE_LIST_READER = MAPPER.readerFor(TRACE_LIST_TYPE);
+    private static final ObjectReader TRACES_READER = MAPPER.readerFor(TRACE_LIST_TYPE);
     private static final ObjectReader TRACE_READER = MAPPER.readerFor(Trace.class);
 
     static ObjectReader traceReader() {
@@ -54,7 +54,7 @@ public final class JsonSupport {
      * Returns an ObjectReader that reads the root as a List<Trace>.
      * Note: Using this on very large JSON will materialize the entire list in memory.
      */
-    static ObjectReader tracesReader() { return TRACE_LIST_READER; }
+    static ObjectReader tracesReader() { return TRACES_READER; }
 }
 
 

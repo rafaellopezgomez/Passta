@@ -364,7 +364,7 @@ Example:
 More examples of traces can be found in:
 
 ```text
-src/main/resources
+ptp4lv3 and ptp4lv4
 ```
 
 ## Output formats

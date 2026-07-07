@@ -159,8 +159,10 @@ public class Passta {
 		try (MappingIterator<Trace> traces = TraceReader.streamTraces(filePath)) {
 			while (traces.hasNext()) {
 				Trace trace = traces.next();
-				trace = compressTrace(trace);
-				processTrace(trace);
+				if (!trace.isEmpty()) {
+					trace = compressTrace(trace);
+					processTrace(trace);
+				}
 			}
 		} catch (IOException e) {
 		    throw new RuntimeException("Cannot process traces from: " + filePath, e);

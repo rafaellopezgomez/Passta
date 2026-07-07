@@ -13,8 +13,9 @@ import es.uma.morse.passta.io.AutomatonViewer;
 
 public final class PasstaCli {
 
-    private static final String APP_NAME = "passta";
-    private static final String VERSION = "0.2";
+    private static final String APP_NAME = "Passta";
+    private static final String VERSION = "0.3";
+    private static final String JAR = APP_NAME + "-" + VERSION + ".jar";
 
     private PasstaCli() {
     }
@@ -204,13 +205,13 @@ public final class PasstaCli {
 
     private static void printUsage() {
         System.err.println("Usage:");
-        System.err.println("  " + APP_NAME + " <traces.json> <k> [output]");
-        System.err.println("  " + APP_NAME + " export <traces.json> <k> [output]");
-        System.err.println("  " + APP_NAME + " view <traces.json> <k>");
+        System.err.println("  " + JAR + " <traces.json> <k> [output]");
+        System.err.println("  " + JAR + " export <traces.json> <k> [output]");
+        System.err.println("  " + JAR + " view <traces.json> <k>");
         System.err.println();
         System.err.println("Named options:");
-        System.err.println("  " + APP_NAME + " export --input <traces.json> --k <k> [--output <file>] [--format <format>]");
-        System.err.println("  " + APP_NAME + " view --input <traces.json> --k <k>");
+        System.err.println("  " + JAR + " export --input <traces.json> --k <k> [--output <file>] [--format <format>]");
+        System.err.println("  " + JAR + " view --input <traces.json> --k <k>");
         System.err.println();
         System.err.println("Options:");
         System.err.println("  -i, --input <file>       Input JSON traces file.");
@@ -222,11 +223,11 @@ public final class PasstaCli {
         System.err.println("      --version            Show version.");
         System.err.println();
         System.err.println("Examples:");
-        System.err.println("  " + APP_NAME + " data/traces.json 2");
-        System.err.println("  " + APP_NAME + " data/traces.json 2 out/automaton.svg");
-        System.err.println("  " + APP_NAME + " export data/traces.json 2 out/automaton.png");
-        System.err.println("  " + APP_NAME + " view data/traces.json 2");
-        System.err.println("  " + APP_NAME + " view -i data/traces.json -k 2");
+        System.err.println("  " + JAR + " data/traces.json 2");
+        System.err.println("  " + JAR + " data/traces.json 2 out/automaton.svg");
+        System.err.println("  " + JAR + " export data/traces.json 2 out/automaton.png");
+        System.err.println("  " + JAR + " view data/traces.json 2");
+        System.err.println("  " + JAR + " view -i data/traces.json -k 2");
     }
 
     private enum Command {

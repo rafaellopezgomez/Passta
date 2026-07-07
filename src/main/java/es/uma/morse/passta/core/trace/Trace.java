@@ -27,5 +27,9 @@ public class Trace {
 	public String toString() {
 		return obs.stream().map(Object::toString).collect(Collectors.joining("\n"));
 	}
+
+	public boolean isEmpty() {
+		return obs.size() == 0;
+	}
 	
 }
