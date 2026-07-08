@@ -1,8 +1,7 @@
 package es.uma.morse.passta.io;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -15,81 +14,87 @@ import es.uma.morse.passta.core.automaton.SRTA;
 import org.graphper.api.Line;
 import org.graphper.api.Node;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+
 public final class AutomatonGraphvizRenderer {
 
-    private AutomatonGraphvizRenderer() {
-    }
+	private static final MathContext CONTEXT = new MathContext(6, RoundingMode.HALF_UP);
+	private static final double ZERO_EPSILON = 1e-12;
 
-    public static Graphviz toGraphviz(SRTA automaton) {
-        Objects.requireNonNull(automaton, "Automaton is null");
+	private AutomatonGraphvizRenderer() {
+	}
 
-        GraphvizBuilder graph = Graphviz.digraph();
+	public static Graphviz toGraphviz(SRTA automaton) {
+		Objects.requireNonNull(automaton, "Automaton is null");
 
-        Map<String, Node> nodes = new TreeMap<>();
+		GraphvizBuilder graph = Graphviz.digraph();
 
-        automaton.getAllLocations().forEach(location -> {
-            String id = String.valueOf(location.getId());
-            String attrs = String.valueOf(location.getAttrs());
-            String invariant = String.valueOf(location.getInvariant());
+		Map<String, Node> nodes = new TreeMap<>();
 
-            Node node = Node.builder()
-                    .label(id + " " + attrs + "\n" + "<= " + invariant)
-                    .build();
+		automaton.getAllLocations().forEach(location -> {
+			String id = String.valueOf(location.getId());
+			String attrs = String.valueOf(location.getAttrs());
+			String invariant = String.valueOf(format(location.getInvariant()));
 
-            nodes.put(id, node);
-            graph.addNode(node);
-        });
+			Node node = Node.builder().label(id + " " + attrs + "\n" + "<= " + invariant).build();
 
-        automaton.getAllEdges().forEach(edge -> {
-            String sourceId = String.valueOf(edge.getSourceId());
-            String targetId = String.valueOf(edge.getTargetId());
+			nodes.put(id, node);
+			graph.addNode(node);
+		});
 
-            Node source = nodes.get(sourceId);
-            Node target = nodes.get(targetId);
+		automaton.getAllEdges().forEach(edge -> {
+			String sourceId = String.valueOf(edge.getSourceId());
+			String targetId = String.valueOf(edge.getTargetId());
 
-            if (source == null) {
-                throw new IllegalStateException("Unknown source location: " + sourceId);
-            }
+			Node source = nodes.get(sourceId);
+			Node target = nodes.get(targetId);
 
-            if (target == null) {
-                throw new IllegalStateException("Unknown target location: " + targetId);
-            }
+			if (source == null) {
+				throw new IllegalStateException("Unknown source location: " + sourceId);
+			}
 
-            Line line = Line.builder(source, target)
-                    .label(buildEdgeLabel(edge.getEvent(), edge.getGuard(), edge.getProb()))
-                    .build();
+			if (target == null) {
+				throw new IllegalStateException("Unknown target location: " + targetId);
+			}
 
-            graph.addLine(line);
-        });
+			Line line = Line.builder(source, target)
+					.label(buildEdgeLabel(edge.getEvent(), edge.getGuard(), edge.getProb())).build();
 
-        return graph.build();
-    }
+			graph.addLine(line);
+		});
 
-    private static String buildEdgeLabel(Object event, Object guard, Double probability) {
-        StringBuilder label = new StringBuilder();
+		return graph.build();
+	}
 
-        label.append("{")
-                .append(event)
-                .append("}");
+	private static String buildEdgeLabel(String event, List<Double> guard, Double probability) {
+		StringBuilder label = new StringBuilder();
 
-        if (guard != null) {
-            label.append(" ")
-                    .append(guard);
-        }
+		label.append("{").append(event).append("}");
 
-        if (probability != null) {
-            label.append(" Prob: { ")
-                    .append(formatProbability(probability))
-                    .append(" }");
-        }
+		if (guard != null) {
+			label.append(" [").append(format(guard.getFirst())).append("-").append(format(guard.getLast())).append("]");
+		}
 
-        return label.toString();
-    }
+		if (probability != null) {
+			label.append(" Prob: { ").append(format(probability)).append(" }");
+		}
 
-    private static String formatProbability(Double value) {
-        DecimalFormat formatter =
-                new DecimalFormat("0.####", new DecimalFormatSymbols(Locale.ENGLISH));
+		return label.toString();
+	}
 
-        return formatter.format(value);
-    }
+	private static String format(double value) {
+		if (Double.isNaN(value) || Double.isInfinite(value)) {
+			return Double.toString(value);
+		}
+
+		if (Math.abs(value) < ZERO_EPSILON) {
+			return "0";
+		}
+
+		BigDecimal decimal = BigDecimal.valueOf(value).round(CONTEXT).stripTrailingZeros();
+
+		return decimal.toPlainString();
+	}
 }

@@ -65,8 +65,8 @@ public class SRTALocation {
 	@Override
 	public String toString() {
 		String output = "";
-		if (id == 0) output += "Initial state 0 ";
-		else output += "State " + id ;
+		if (id == 0) output += "Initial location 0 ";
+		else output += "Location " + id ;
 		output += " [ attributes=" + attrs.toString() + ", ";
 		output += "Out edges id " + outEdges.toString();
 		output += " ]";

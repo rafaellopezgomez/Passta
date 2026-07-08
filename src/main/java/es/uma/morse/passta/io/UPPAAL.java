@@ -2,11 +2,6 @@ package es.uma.morse.passta.io;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,7 +11,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -45,7 +39,7 @@ public class UPPAAL {
 	private Element template;
 	private Element system;
 	private Element queries;
-	String route;
+	Path outputPath;
 	SRTA a;
 
 	private int uppaalId = 0;
@@ -62,6 +56,7 @@ public class UPPAAL {
 		private String invariant = "";
 		private int invX;
 		private int invY;
+		private int attrCode = -1;
 
 		public Location() {
 			id = "id" + uppaalId;
@@ -98,7 +93,7 @@ public class UPPAAL {
 			Location other = (Location) obj;
 			if (!getEnclosingInstance().equals(other.getEnclosingInstance()))
 				return false;
-			return id == other.id;
+			return Objects.equals(id, other.id);
 		}
 
 		public void setXY(int x, int y) {
@@ -165,6 +160,14 @@ public class UPPAAL {
 
 		private UPPAAL getEnclosingInstance() {
 			return UPPAAL.this;
+		}
+		
+		public int getAttrCode() {
+			return attrCode;
+		}
+		
+		public void setAttrCode(int attrCode) {
+			this.attrCode = attrCode;
 		}
 
 	}
@@ -237,7 +240,7 @@ public class UPPAAL {
 			Edge other = (Edge) obj;
 			if (!getEnclosingInstance().equals(other.getEnclosingInstance()))
 				return false;
-			return id == other.id;
+			return Objects.equals(id, other.id);
 		}
 
 		public String getId() {
@@ -328,12 +331,10 @@ public class UPPAAL {
 		}
 
 		public int getX() {
-			// TODO Auto-generated method stub
 			return x;
 		}
 
 		public int getY() {
-			// TODO Auto-generated method stub
 			return y;
 		}
 
@@ -343,8 +344,8 @@ public class UPPAAL {
 
 	}
 
-	public UPPAAL(String route, SRTA a) {
-		this.route = route;
+	public UPPAAL(Path outputPath, SRTA a) {
+		this.outputPath = outputPath;
 		this.a = a;
 		initialize();
 		toUppaal();
@@ -458,16 +459,14 @@ public class UPPAAL {
 
 		Map<String, Integer> events = new HashMap<String, Integer>();
 		int eventN = -1;
+		
+		Map<String, Integer> attrsList = new HashMap<>();
 
-		Map<String, Integer> attrsList = new HashMap<String, Integer>();
-		int attrCode = -1;
+		String inititalAttrs = attrsKey(a.getLocation(0));
+		attrsList.put(inititalAttrs, 0);
 
-		// Add initial system attrs
-		String inititalAttrs = a.getLocation(0).getAttrs().stream().sorted().collect(Collectors.joining(","));
-		attrsList.put(inititalAttrs, attrCode);
-
-		Map<Integer, Location> locations = new HashMap<Integer, Location>(); // Map that stores main locations (mapped
-																				// to a EDRTA state)
+		Map<Integer, Location> locationMapping = new HashMap<Integer, Location>(); // Map that stores main locations (mapped
+																				// to a SRTA locations)
 		Set<Location> locationSet = new HashSet<>();
 		Set<Edge> edgeSet = new HashSet<>();
 		Set<Branchpoint> bpSet = new HashSet<>();
@@ -475,34 +474,35 @@ public class UPPAAL {
 		int x = 0;
 		int y = 0;
 
-		for (var state : a.getAllLocations()) {
-			/* Only create if absent */
+		for (var location : a.getAllLocations()) {
+		    String sourceAttrsName = attrsKey(location);
+		    int sourceAttrCode = getOrCreateAttrCode(attrsList, sourceAttrsName);
 
-			// Create locations and set their position
-			ArrayList<SRTAEdge> edges = state.getOutEdges().stream().map(eid -> a.getEdge(eid))
-					.collect(Collectors.toCollection(ArrayList::new));
-			Location sourceL = locations.get(state.getId());
-			String invariant = "x<=" + state.getInvariant();
+		    ArrayList<SRTAEdge> edges = location.getOutEdges().stream()
+		            .map(eid -> a.getEdge(eid))
+		            .collect(Collectors.toCollection(ArrayList::new));
+
+		    Location sourceL = locationMapping.get(location.getId());
+		    String invariant = "x<=" + formatNumber(location.getInvariant());
 
 			if (sourceL == null) { // First location to be created (not has to be initial)
-				String name = "L" + String.valueOf(state.getId());
+				String name = "L" + String.valueOf(location.getId());
 				sourceL = new Location(x, y, name, x + 30, y - 10);
 
-				if (edges.size() > 1) { // If the location has many outgoing edges, then it is nameless and committed
-					sourceL.setCommitted(true);
-					sourceL.setName("", x + 30, y - 10);
-				} else { // Otherwise, the invariant is computed
-					
-					sourceL.setInvariant(invariant, x + 30, y + 10);
+				if (edges.size() > 1) {
+				    sourceL.setCommitted(true);
+				    sourceL.setName("", x + 30, y - 10);
+				} else {
+				    sourceL.setInvariant(invariant, x + 30, y + 10);
 				}
-				locations.putIfAbsent(state.getId(), sourceL);
+				locationMapping.putIfAbsent(location.getId(), sourceL);
 				locationSet.add(sourceL);
 
 			} else if (edges.size() == 1 && sourceL.getInvariant().isBlank()) { // If there is only 1 outgoing
 																				// transition and there is not
 				sourceL.setInvariant(invariant, sourceL.getX() + 30, sourceL.getY() + 10);
 			}
-
+			sourceL.setAttrCode(sourceAttrCode);
 			x = sourceL.getX();
 			y = sourceL.getY();
 
@@ -511,25 +511,21 @@ public class UPPAAL {
 										// location -> committed location -> target location
 
 				SRTAEdge edge = edges.get(0);
-				String guard = "x>=" + edge.getMin().toString();
+				String guard = "x>=" + formatNumber(edge.getMin());
 				String event = edge.getEvent();
 				if (events.get(event) == null) {
 					eventN += 1;
 					events.put(event, eventN);
 				}
 
-				Location targetL = locations.get(edge.getTargetId());
+				Location targetL = locationMapping.get(edge.getTargetId());
 				SRTALocation targetS = a.getLocation(edge.getTargetId());
 
-				String attrsName = targetS.getAttrs().stream().sorted().collect(Collectors.joining(","));
+				String attrsName = attrsKey(targetS);
+				int targetAttrCode = getOrCreateAttrCode(attrsList, attrsName);
 
-				if (attrsList.get(attrsName) == null) { // Add new attributes to the list
-					attrCode += 1;
-					attrsList.put(attrsName, attrCode);
-				}
-
-				String updateAttrs = "x=0, " + "attrs = " + attrsList.get(attrsName); // Add attributes that change in
-																						// this transition
+				String updateAttrs = "x=0, attrs = " + targetAttrCode;
+				
 				String eventArr = "event = " + events.get(event);
 
 				if (targetL == null) { // If this target location is not created yet, it is created here
@@ -546,9 +542,10 @@ public class UPPAAL {
 						targetL.setName(name, x + 30, y - 10);
 					}
 					targetL.setXY(x, y);
-					locations.putIfAbsent(targetS.getId(), targetL);
+					locationMapping.putIfAbsent(targetS.getId(), targetL);
 					locationSet.add(targetL);
 				}
+				targetL.setAttrCode(targetAttrCode);
 				
 				if (targetS.getOutEdges().size() > 1) {  // The target location is committed (more than 1 outgoing edge)
 					targetL.setCommitted(true);
@@ -583,14 +580,9 @@ public class UPPAAL {
 
 			} else if (edges.size() > 1) { // If there are many outgoing transitions
 
-				String attrsName = state.getAttrs().stream().sorted().collect(Collectors.joining(","));
+				String attrsName = attrsKey(location);
 
-				if (attrsList.get(attrsName) == null) {
-					attrCode += 1;
-					attrsList.put(attrsName, attrCode);
-				}
-
-				String updateAttrs = "x=0, " + "attrs = " + attrsList.get(attrsName);
+				String updateAttrs = "x=0, attrs = " + sourceAttrCode;
 
 				x = sourceL.getX();
 				y = sourceL.getY();
@@ -611,34 +603,33 @@ public class UPPAAL {
 				int currentX = x;
 				int currentY = y;
 
-				for (int edgeId : state.getOutEdges()) {
+				for (int edgeId : location.getOutEdges()) {
 
 					SRTAEdge edge = a.getEdge(edgeId);
 					String event = edge.getEvent();
-					invariant = "x<=" + edge.getMax();
+					invariant = "x<=" + formatNumber(edge.getMax());
 
 					if (events.get(event) == null) {
 						eventN += 1;
 						events.put(event, eventN);
 					}
 
-					//String update = "x=0," + " event = " + events.get(event);
-					String guard = "x>=" + edge.getMin().toString();
+					String guard = "x>=" + formatNumber(edge.getMin());
 
 					// Add branch location
-					String name = "L" + String.valueOf(state.getId());
+					String name = "L" + String.valueOf(location.getId());
 					name += "_" + branch;
 					Location sourceBL = new Location(currentX, currentY, name, currentX + 30, currentY - 10);
 					sourceBL.setInvariant(invariant, currentX + 30, currentY + 10);
+					sourceBL.setAttrCode(sourceAttrCode);
 					locationSet.add(sourceBL);
 
-					String prob = new DecimalFormat("#########.####", new DecimalFormatSymbols(Locale.ENGLISH))
-							.format(edge.getProb());
+					String prob = formatNumber(edge.getProb());
 					Edge eAux = new Edge(bp.getId(), sourceBL.getId());
 					eAux.setProb(prob, (bp.getX() + sourceBL.getX()) / 2 + 30, (bp.getY() + sourceBL.getY()) / 2);
 					edgeSet.add(eAux);
 
-					Location targetL = locations.get(edge.getTargetId());
+					Location targetL = locationMapping.get(edge.getTargetId());
 					SRTALocation targetS = a.getLocation(edge.getTargetId());
 
 					if (targetL == null) {
@@ -652,17 +643,17 @@ public class UPPAAL {
 							targetL.setName(name, currentX + 30, currentY - 10);
 						}
 						targetL.setXY(currentX, currentY);
-						locations.putIfAbsent(targetS.getId(), targetL);
+						locationMapping.putIfAbsent(targetS.getId(), targetL);
 						locationSet.add(targetL);
 					}
 
-					attrsName = targetS.getAttrs().stream().sorted().collect(Collectors.joining(","));
-					if (attrsList.get(attrsName) == null) {
-						attrCode += 1;
-						attrsList.put(attrsName, attrCode);
-					}
+					attrsName = attrsKey(targetS);
+					int targetAttrCode = getOrCreateAttrCode(attrsList, attrsName);
 
-					updateAttrs = "x=0, " + "attrs = " + attrsList.get(attrsName);
+					targetL.setAttrCode(targetAttrCode);
+
+					updateAttrs = "x=0, attrs = " + targetAttrCode;
+					
 					String eventArr = " event = " + events.get(event);
 
 					int auxX = (sourceBL.getX() + targetL.getX()) / 2;
@@ -684,6 +675,7 @@ public class UPPAAL {
 						eAux.setAssignment(updateAttrs, (commL.getX() + targetL.getX()) / 2 + 30,
 								((commL.getY() + targetL.getY()) / 2));
 						edgeSet.add(eAux);
+						targetL.setAttrCode(targetAttrCode);
 					} else { // The target location is committed already
 						e = new Edge(sourceBL.getId(), targetL.getId());
 						e.setGuard(guard, (sourceBL.getX() + targetL.getX()) / 2 + 30,
@@ -700,30 +692,51 @@ public class UPPAAL {
 
 			y += 150;
 		}
+		
+		StringBuilder attrsMeaning = new StringBuilder();
 
-		String attrsMeaning = "";
 		for (var kv : attrsList.entrySet()) {
-			attrsMeaning += "System attributes " + kv.getKey() + "---> code: " + kv.getValue() + "\n";
+		    attrsMeaning.append("System attributes ")
+		            .append(kv.getKey())
+		            .append(" ---> code: ")
+		            .append(kv.getValue())
+		            .append("\n");
 		}
 
 		String attrsInfo = "/*\n" + attrsMeaning + "*/\n";
+		
+		StringBuilder eventsMeaning = new StringBuilder();
+		
+		eventsMeaning.append("No event ---> code: -1 \n");
 
-		String eventsMeaning = "No event ---> code: -1 \n";
 		for (var kv : events.entrySet()) {
-			eventsMeaning += "Event " + kv.getKey() + "---> code: " + kv.getValue() + "\n";
+			eventsMeaning.append("Event ")
+		            .append(kv.getKey())
+		            .append(" ---> code: ")
+		            .append(kv.getValue())
+		            .append("\n");
 		}
 
 		String eventsInfo = "/*\n" + eventsMeaning + "*/\n";
+		
+		String locationsInfo = "/*\n"
+		        + computeLocationsLegend(locationSet, attrsList)
+		        + "*/\n";
 
-		String declaration = "\nhybrid clock x;\nint attrs = " + attrsList.get(inititalAttrs) + ";\n" + attrsInfo
-				+ "\nint event = -1;\n" + eventsInfo;
+		String declaration = "\nhybrid clock x;\n"
+		        + "int attrs = " + attrsList.get(inititalAttrs) + ";\n"
+		        + attrsInfo
+		        + "\nint event = -1;\n"
+		        + eventsInfo
+		        + "\n"
+		        + locationsInfo;
 
 		addDeclaration(declaration);
 
 		locationSet.forEach(this::addLocation);
 		bpSet.forEach(this::addBranchpoint);
 		Element init = document.createElement("init");
-		init.setAttribute("ref", locations.get(0).getId());
+		init.setAttribute("ref", locationMapping.get(0).getId());
 		template.appendChild(init);
 		edgeSet.forEach(this::addEdge);
 
@@ -739,29 +752,104 @@ public class UPPAAL {
 	private void addSystem(String systemString) {
 		system.appendChild(document.createTextNode(systemString));
 	}
+	
+	private String computeLocationsLegend(Set<Location> uppaalLocs, Map<String, Integer> attrsList) {
+	    Map<Integer, String> codeToAttrs = attrsList.entrySet().stream()
+	            .collect(Collectors.toMap(
+	                    Map.Entry::getValue,
+	                    Map.Entry::getKey
+	            ));
+
+	    StringBuilder legend = new StringBuilder();
+
+	    legend.append("Location legend:\n");
+
+	    uppaalLocs.stream()
+	            .filter(ul -> !ul.isCommitted())
+	            .filter(ul -> ul.getAttrCode() >= 0)
+	            .sorted((l1, l2) -> {
+	                String name1 = l1.getName().isBlank() ? l1.getId() : l1.getName();
+	                String name2 = l2.getName().isBlank() ? l2.getId() : l2.getName();
+
+	                return name1.compareTo(name2);
+	            })
+	            .forEach(ul -> {
+	                String attrs = codeToAttrs.getOrDefault(ul.getAttrCode(), "Unknown attributes");
+
+	                String locationName = ul.getName().isBlank()
+	                        ? ul.getId()
+	                        : ul.getName();
+
+	                legend.append("Location ")
+	                        .append(locationName)
+	                        .append(" ---> attrs code: ")
+	                        .append(ul.getAttrCode())
+	                        .append(" ---> ")
+	                        .append(attrs)
+	                        .append("\n");
+	            });
+
+	    return legend.toString();
+	}
 
 	private void save() {
-		try {
-			String pathString = Paths.get(route).getParent() == null ? "" : Paths.get(route).getParent().toString();
-			Path parent = Paths.get(route).getParent();
-			if (parent != null && Files.notExists(Paths.get(pathString))) {
-				Files.createDirectories(parent);
-			}
+	    try {
+	        Path target = outputPath.toAbsolutePath().normalize();
 
-			String filename = Paths.get(route).getFileName().toString();
-			filename = filename.endsWith(".xml") ? filename : filename + ".xml";
+	        String fileName = target.getFileName().toString();
 
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
+	        if (!fileName.toLowerCase(Locale.ROOT).endsWith(".xml")) {
+	            target = target.resolveSibling(fileName + ".xml");
+	        }
 
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+	        Path parent = target.getParent();
+	        if (parent != null) {
+	            Files.createDirectories(parent);
+	        }
 
-			DOMSource source = new DOMSource(document);
-			StreamResult result = new StreamResult(new File(Paths.get(parent.toString(), filename).toString()));
-			transformer.transform(source, result);
-		} catch (IOException | TransformerException e) {
-			e.printStackTrace(System.err);
-		}
+	        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
+	        transformer.transform(
+	                new DOMSource(document),
+	                new StreamResult(target.toFile())
+	        );
+
+	    } catch (IOException | TransformerException e) {
+	        throw new RuntimeException("Cannot save UPPAAL model to: " + outputPath, e);
+	    }
 	}
+	
+	private static String formatNumber(double value) {
+	    if (Double.isNaN(value) || Double.isInfinite(value)) {
+	        return Double.toString(value);
+	    }
+
+	    if (Math.abs(value) < 1e-12) {
+	        return "0";
+	    }
+
+	    return java.math.BigDecimal.valueOf(value)
+	            .round(new java.math.MathContext(8, java.math.RoundingMode.HALF_UP))
+	            .stripTrailingZeros()
+	            .toPlainString();
+	}
+	
+	private static String attrsKey(SRTALocation location) {
+	    String attrs = location.getAttrs().stream()
+	            .filter(Objects::nonNull)
+	            .map(String::trim)
+	            .filter(attr -> !attr.isBlank())
+	            .sorted()
+	            .collect(Collectors.joining(", "));
+
+	    return attrs.isBlank() ? "No attributes" : attrs;
+	}
+
+	private static int getOrCreateAttrCode(Map<String, Integer> attrsList, String attrsName) {
+	    return attrsList.computeIfAbsent(attrsName, ignored -> attrsList.size());
+	}
+
 }

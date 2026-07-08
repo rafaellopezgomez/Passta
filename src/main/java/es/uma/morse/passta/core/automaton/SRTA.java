@@ -1,15 +1,8 @@
 package es.uma.morse.passta.core.automaton;
 
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import org.graphper.api.Graphviz;
-import org.graphper.api.Line;
-import org.graphper.api.Node;
-import org.graphper.api.Graphviz.GraphvizBuilder;
 
 /**
  * This class implements the Automaton data structure (Dictionaries of locations

@@ -98,7 +98,7 @@ public final class AutomatonExporter {
             }
         }
 
-        new UPPAAL(normalizedTarget.toString(), automaton);
+        new UPPAAL(normalizedTarget, automaton);
     }
 
     private static String stripExtension(String name) {
