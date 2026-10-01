@@ -6,8 +6,8 @@ import java.util.List;
 public class SRTALocation {
 	private int id;
 	private List<String> attrs;
-	private ArrayList<Integer> inEdges;
-	private ArrayList<Integer> outEdges;
+	private List<Integer> inEdges;
+	private List<Integer> outEdges;
 	Double invariant;
 	
 	public SRTALocation(int id, List<String> attrs) {
@@ -30,19 +30,19 @@ public class SRTALocation {
 		this.attrs = attrs;
 	}
 	
-	public ArrayList<Integer> getInEdges() {
+	public List<Integer> getInEdges() {
 		return inEdges;
 	}
 	
-	public void setInEdges(ArrayList<Integer> inEdges) {
+	public void setInEdges(List<Integer> inEdges) {
 		this.inEdges = inEdges;
 	}
 	
-	public ArrayList<Integer> getOutEdges() {
+	public List<Integer> getOutEdges() {
 		return outEdges;
 	}
 	
-	public void setOutEdges(ArrayList<Integer> outEdges) {
+	public void setOutEdges(List<Integer> outEdges) {
 		this.outEdges = outEdges;
 	}
 

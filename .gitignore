@@ -187,3 +187,4 @@ README.html
 .DS_Store
 out/
 .micronaut/
+/dist/

@@ -1,12 +1,11 @@
 package es.uma.morse.passta.core;
 
 
-import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import com.fasterxml.jackson.databind.MappingIterator;
+import java.util.stream.Stream;
 
 import es.uma.morse.passta.core.automaton.SRTA;
 import es.uma.morse.passta.core.automaton.SRTAEdge;
@@ -16,20 +15,23 @@ import es.uma.morse.passta.core.trace.Trace;
 import es.uma.morse.passta.io.AutomatonViewer;
 import es.uma.morse.passta.io.TraceReader;
 
+
 public class Passta {
+	
 	private SRTA automaton;
 	private final int k;
+	
 	/**
 	 * Flag used to indicate that the variables of the initial location are correct.
 	 */
 	boolean initVars;
 
-	private Path filePath;
+	private Path tracesPath;
 
 	/**
 	 * Creates a PASSTA learning algorithm instance from a source file path.
 	 *
-	 * @param src path to the JSON file containing the traces
+	 * @param src tracesPath path to the file or directory where the JSON files are.
 	 * @param k   algorithm parameter
 	 */
 	public Passta(String src, int k) {
@@ -39,12 +41,12 @@ public class Passta {
 	/**
 	 * Creates a PASSTA learning algorithm instance from a source file path.
 	 * 
-	 * @param filePath path to the JSON file containing the traces
+	 * @param tracesPath path to the file or directory where the JSON files are.
 	 * @param k        algorithm parameter
 	 */
-	public Passta(Path filePath, int k) {
+	public Passta(Path tracesPath, int k) {
 		this.k = k;
-		this.filePath = filePath;
+		this.tracesPath = tracesPath;
 		learn();
 	}
 
@@ -96,7 +98,7 @@ public class Passta {
 	 *
 	 * @return trace
 	 */
-	private static Trace compressTrace(Trace trace) {
+	public static Trace compressTrace(Trace trace) {
 		if (trace == null)
 			return null;
 
@@ -156,18 +158,25 @@ public class Passta {
 
 	private void processTraces() {
 
-		try (MappingIterator<Trace> traces = TraceReader.streamTraces(filePath)) {
-			while (traces.hasNext()) {
-				Trace trace = traces.next();
-				if (!trace.isEmpty()) {
-					trace = compressTrace(trace);
-					processTrace(trace);
-				}
-			}
-		} catch (IOException e) {
-		    throw new RuntimeException("Cannot process traces from: " + filePath, e);
-		}
+	    try (Stream<Trace> traces = TraceReader.readTraces(tracesPath)) {
 
+	        Iterator<Trace> iterator = traces.iterator();
+
+	        while (iterator.hasNext()) {
+	            Trace trace = iterator.next();
+
+	            if (!trace.isEmpty()) {
+	                trace = compressTrace(trace);
+	                processTrace(trace);
+	            }
+	        }
+
+	    } catch (UncheckedIOException e) {
+	        throw new RuntimeException(
+	            "Cannot process traces from: " + tracesPath,
+	            e
+	        );
+	    }
 	}
 
 	private void processTrace(Trace trace) {

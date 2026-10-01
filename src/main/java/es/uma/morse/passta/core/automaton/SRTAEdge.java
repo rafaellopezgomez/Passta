@@ -9,7 +9,7 @@ public class SRTAEdge {
 	private int targetId;
 	private List<Double> guard;
 	private String event;
-	private List<Double> samples; // new
+	private List<Double> samples;
 	private Double prob;
 	
 	public SRTAEdge(int id, int sourceId, int targetId, double min, double max, String event) {
@@ -20,7 +20,7 @@ public class SRTAEdge {
 		guard.add(min);
 		guard.add(max);
 		this.event = event;
-		samples = new ArrayList<>(); // New
+		samples = new ArrayList<>();
 		prob = null;
 	}
 

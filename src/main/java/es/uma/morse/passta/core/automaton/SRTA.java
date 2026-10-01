@@ -99,7 +99,7 @@ public class SRTA {
 		edges.remove(id);
 	}
 
-	public SRTALocation searchLocationFromSource(SRTALocation srcLoc, String event, ArrayList<String> attrs) {
+	public SRTALocation searchLocationFromSource(SRTALocation srcLoc, String event, List<String> attrs) {
 		Optional<SRTALocation> searchedLoc = srcLoc.getOutEdges().stream().parallel().filter(indexEdge -> {
 			var edge = edges.get(indexEdge);
 			if (edge.getEvent().equals(event)) {

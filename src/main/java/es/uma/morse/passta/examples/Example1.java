@@ -2,6 +2,7 @@ package es.uma.morse.passta.examples;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
 import es.uma.morse.passta.core.Passta;
 import es.uma.morse.passta.core.automaton.SRTA;
@@ -11,73 +12,98 @@ import es.uma.morse.passta.io.AutomatonExporter;
 import es.uma.morse.passta.io.AutomatonViewer;
 import es.uma.morse.passta.io.TraceReader;
 import es.uma.morse.passta.io.TraceWriter;
+import es.uma.morse.passta.validation.ValidationResult;
 import es.uma.morse.passta.validation.Validator;
 
 public class Example1 {
 
-    public static void main(String[] args) {
-        try {
-            String directoryPath = "ptp4lv4";
-            String scenario = "st";
+	public static void main(String[] args) {
 
-            Path tracesPath = Path.of(directoryPath, scenario + "5training.json");
-            Path testPath = Path.of(directoryPath, scenario + "5validation.json");
+		try {
+			/*
+			 * Configuration
+			 */
+			Path directoryPath = Path.of("ptp4lv4");
+			String scenario = "st";
 
-            /*
-             * Learning module
-             */
-            Passta passta = new Passta(tracesPath, 2);
+			Path trainingPath = directoryPath.resolve(scenario + "5training.json");
 
-            /*
-             * Get automaton
-             */
-            SRTA automaton = passta.getAutomaton();
+			Path validationPath = directoryPath.resolve(scenario + "5validation.json");
 
-            /*
-             * Show automaton in browser
-             */
-            AutomatonViewer.show(automaton);
+			Path learningOutputPath = directoryPath.resolve(scenario + "5learning.json");
 
-            /*
-             * Export module
-             */
-            AutomatonExporter.export(
-                    automaton,
-                    Path.of(directoryPath, "test.png"),
-                    AutomatonExportFormat.PNG
-            );
+			Path rejectedTracesPath = directoryPath.resolve(scenario + "5rejected.json");
 
-            AutomatonExporter.export(
-                    automaton,
-                    Path.of(directoryPath, scenario + "-" + directoryPath + ".xml"),
-                    AutomatonExportFormat.UPPAAL
-            );
+			/*
+			 * Learning module
+			 */
+			Passta passta = new Passta(trainingPath, 2);
 
-            /*
-             * Trace processing module
-             */
-            List<Trace> trainingTraces = TraceReader.readTraces(tracesPath);
+			/*
+			 * Get learned automaton
+			 */
+			SRTA automaton = passta.getAutomaton();
 
-            TraceWriter.writeTraces(
-                    Path.of("learning.json"),
-                    trainingTraces
-            );
+			/*
+			 * Show automaton in browser
+			 */
+			AutomatonViewer.show(automaton);
 
-            /*
-             * Validation module
-             */
-            List<Trace> testTraces = TraceReader.readTraces(testPath);
+			/*
+			 * Export automaton as PNG
+			 */
+			AutomatonExporter.export(automaton,
+					directoryPath.resolve(scenario + "-" + directoryPath.getFileName() + ".png"),
+					AutomatonExportFormat.PNG);
 
-            System.out.println(
-                    Validator.nValidTraces(
-                            testTraces,
-                            automaton,
-                            Path.of(directoryPath, scenario + "Rejected").toString()
-                    )
-            );
+			/*
+			 * Export automaton in UPPAAL format
+			 */
+			AutomatonExporter.export(automaton,
+					directoryPath.resolve(scenario + "-" + directoryPath.getFileName() + ".xml"),
+					AutomatonExportFormat.UPPAAL);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			/*
+			 * Trace processing module
+			 */
+			try (Stream<Trace> trainingTraceStream = TraceReader.readTraces(trainingPath)) {
+
+				List<Trace> trainingTraces = trainingTraceStream.toList();
+
+				TraceWriter.writeTraces(learningOutputPath, trainingTraces);
+			}
+
+			/*
+			 * Validation module
+			 *
+			 * Validator processes the validation file once and returns the total number of
+			 * traces and the number of accepted traces.
+			 */
+			ValidationResult validationResult = Validator.nValidTraces(validationPath, automaton, rejectedTracesPath);
+
+			/*
+			 * Validation summary
+			 */
+			System.out.println();
+			System.out.println("Validation results");
+			System.out.println("------------------");
+
+			System.out.println("Validation traces: " + validationResult.totalTraces());
+
+			System.out.println("Accepted traces:   " + validationResult.acceptedTraces());
+
+			System.out.println("Rejected traces:   " + validationResult.rejectedTraces());
+
+			System.out.printf("Acceptance rate:   %.2f%%%n", validationResult.acceptanceRate() * 100.0);
+
+			if (validationResult.rejectedTraces() > 0) {
+				System.out.println("Rejected traces file: " + rejectedTracesPath.toAbsolutePath().normalize());
+			}
+
+		} catch (Exception e) {
+			System.err.println("Error while executing Example1: " + e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
 }

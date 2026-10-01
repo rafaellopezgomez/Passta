@@ -8,24 +8,24 @@ import es.uma.morse.passta.core.automaton.SRTA;
 
 public final class AutomatonViewer {
 
-    private AutomatonViewer() {
-    }
+	private AutomatonViewer() {
+	}
 
-    public static void show(SRTA automaton) {
-        Objects.requireNonNull(automaton, "Automaton is null");
+	public static void show(SRTA automaton) {
+		Objects.requireNonNull(automaton, "Automaton is null");
 
-        Graphviz graphviz = AutomatonGraphvizRenderer.toGraphviz(automaton);
-        openInBrowser(graphviz);
-    }
+		Graphviz graphviz = AutomatonGraphvizRenderer.toGraphviz(automaton);
+		openInBrowser(graphviz);
+	}
 
-    private static void openInBrowser(Graphviz graphviz) {
-        Objects.requireNonNull(graphviz, "Graphviz instance is null");
+	private static void openInBrowser(Graphviz graphviz) {
+		Objects.requireNonNull(graphviz, "Graphviz instance is null");
 
-        try {
-            String svg = graphviz.toSvgStr();
-            SvgViewer.openSvgInBrowser(svg);
-        } catch (Exception e) {
-            throw new RuntimeException("Cannot open automaton layout in browser", e);
-        }
-    }
+		try {
+			String svg = graphviz.toSvgStr();
+			SvgViewer.openSvgInBrowser(svg);
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot open automaton layout in browser", e);
+		}
+	}
 }

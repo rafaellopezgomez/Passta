@@ -1,5 +1,5 @@
 package es.uma.morse.passta.core.trace;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public record Observation(double time, String event,ArrayList<String> variables) {}
+public record Observation(double time, String event, List<String> variables) {}

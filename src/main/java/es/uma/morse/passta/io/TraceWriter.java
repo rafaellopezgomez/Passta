@@ -51,9 +51,14 @@ public final class TraceWriter {
     }
 
     private static Path resolveTraceFile(Path destination) {
-        String value = destination.toString().toLowerCase();
 
-        if (value.endsWith(".json")) {
+        if (Files.isDirectory(destination)) {
+            return destination.resolve(DEFAULT_TRACES_FILE_NAME);
+        }
+
+        String fileName = destination.getFileName().toString();
+
+        if (fileName.toLowerCase().endsWith(".json")) {
             return destination;
         }
 
