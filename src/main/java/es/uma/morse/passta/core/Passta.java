@@ -545,11 +545,11 @@ public class Passta {
 
 		if (!weakTimeEq) {
 			boolean strongTimeIncF1 = fs1.stream().allMatch(f1 -> {
-				return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "weak"));
+				return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "strong"));
 			});
 
 			boolean strongTimeIncF2 = fs2.stream().allMatch(f2 -> {
-				return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "weak"));
+				return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "strong"));
 			});
 
 			strongTimeInc = strongTimeIncF1 || strongTimeIncF2;
