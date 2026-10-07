@@ -1,6 +1,5 @@
 package es.uma.morse.passta.core;
 
-
 import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.util.*;
@@ -12,21 +11,22 @@ import es.uma.morse.passta.core.automaton.SRTAEdge;
 import es.uma.morse.passta.core.automaton.SRTALocation;
 import es.uma.morse.passta.core.trace.Observation;
 import es.uma.morse.passta.core.trace.Trace;
+import es.uma.morse.passta.core.matching.SimilarityType;
+import es.uma.morse.passta.core.matching.SimilarityMatcher;
 import es.uma.morse.passta.io.AutomatonViewer;
 import es.uma.morse.passta.io.TraceReader;
 
-
 public class Passta {
-	
+
 	private SRTA automaton;
 	private final int k;
-	
+
 	/**
 	 * Flag used to indicate that the variables of the initial location are correct.
 	 */
 	boolean initVars;
 
-	private Path tracesPath;
+	private final Path tracesPath;
 
 	/**
 	 * Creates a PASSTA learning algorithm instance from a source file path.
@@ -42,11 +42,17 @@ public class Passta {
 	 * Creates a PASSTA learning algorithm instance from a source file path.
 	 * 
 	 * @param tracesPath path to the file or directory where the JSON files are.
-	 * @param k        algorithm parameter
+	 * @param k          algorithm parameter
 	 */
 	public Passta(Path tracesPath, int k) {
+
+		if (k < 1) {
+			throw new IllegalArgumentException("k must be greater than zero");
+		}
+
 		this.k = k;
-		this.tracesPath = tracesPath;
+		this.tracesPath = Objects.requireNonNull(tracesPath, "tracesPath is null");
+
 		learn();
 	}
 
@@ -64,6 +70,7 @@ public class Passta {
 	public SRTA getAutomaton() {
 		return automaton;
 	}
+
 	/**
 	 * Method to perform a compressing operation in the input traces. The
 	 * compression operations are: 1. If consecutive observations have not an event
@@ -86,14 +93,14 @@ public class Passta {
 		}
 		return traces;
 	}
-	
+
 	/**
-	 * Method to perform a compressing operation in the input trace. The
-	 * compression operations are: 1. If consecutive observations have not an event
-	 * and all have the same variable parameters, then they are fused as one that
-	 * compress all the information. 2. If there is an event observation and the
-	 * observations that come consecutively later haven´t an event and they have the
-	 * same variables as the one with the event then the same fusion operation is
+	 * Method to perform a compressing operation in the input trace. The compression
+	 * operations are: 1. If consecutive observations have not an event and all have
+	 * the same variable parameters, then they are fused as one that compress all
+	 * the information. 2. If there is an event observation and the observations
+	 * that come consecutively later haven´t an event and they have the same
+	 * variables as the one with the event then the same fusion operation is
 	 * performed.
 	 *
 	 * @return trace
@@ -158,25 +165,22 @@ public class Passta {
 
 	private void processTraces() {
 
-	    try (Stream<Trace> traces = TraceReader.readTraces(tracesPath)) {
+		try (Stream<Trace> traces = TraceReader.readTraces(tracesPath)) {
 
-	        Iterator<Trace> iterator = traces.iterator();
+			Iterator<Trace> iterator = traces.iterator();
 
-	        while (iterator.hasNext()) {
-	            Trace trace = iterator.next();
+			while (iterator.hasNext()) {
+				Trace trace = iterator.next();
 
-	            if (!trace.isEmpty()) {
-	                trace = compressTrace(trace);
-	                processTrace(trace);
-	            }
-	        }
+				if (!trace.isEmpty()) {
+					trace = compressTrace(trace);
+					processTrace(trace);
+				}
+			}
 
-	    } catch (UncheckedIOException e) {
-	        throw new RuntimeException(
-	            "Cannot process traces from: " + tracesPath,
-	            e
-	        );
-	    }
+		} catch (UncheckedIOException e) {
+			throw new RuntimeException("Cannot process traces from: " + tracesPath, e);
+		}
 	}
 
 	private void processTrace(Trace trace) {
@@ -194,12 +198,12 @@ public class Passta {
 			if (ob.event().isEmpty()) {
 				qt = automaton.addLocation(ob.variables());
 				initVars = true;
-				var e = automaton.addEdge(qo, qt, 0.0, 0.0, "□"); // New
-				e.addSample(0); // New
+				var edge = automaton.addEdge(qo, qt, 0.0, 0.0, "□");
+				edge.addSample(0.0);
 			} else { // If there is an event in the first observation
 				qt = automaton.addLocation(ob.variables());
-				var e = automaton.addEdge(qo, qt, delta, delta, ob.event()); // New
-				e.addSample(delta); // New
+				var e = automaton.addEdge(qo, qt, delta, delta, ob.event());
+				e.addSample(delta);
 			}
 		} else { // In an existing automata, new traces start in the first location
 			if (ob.event().isEmpty()) {
@@ -311,17 +315,17 @@ public class Passta {
 	 */
 	private SRTALocation fastMatching(List<Observation> obsWindow, SRTALocation qo, double lastTime) {
 		// List of all states that are possible candidates to perform a merge operation
-		ArrayList<SRTALocation> pEqLocs = automaton.getAllLocations().stream().filter(state -> {
+		List<SRTALocation> pEqLocs = automaton.getAllLocations().stream().filter(state -> {
 			var attrs = state.getAttrs();
 			return obsWindow.get(0).variables().equals(attrs);
-		}).collect(Collectors.toCollection(ArrayList::new));
+		}).toList();
 
 		if (pEqLocs.isEmpty())
 			return null;
 
 		// Build the k future of the current observation given an observation window of
 		// length k
-		ArrayList<Object> obFut = new ArrayList<>(); // Future of the observation
+		List<Object> obFut = new ArrayList<>(); // Future of the observation
 		Iterator<Observation> it = obsWindow.iterator();
 		var lastObservation = it.next(); // Skip current observation to construct its future
 		double delta = getDelta(lastObservation.time(), lastTime);
@@ -341,14 +345,19 @@ public class Passta {
 		for (SRTALocation currentEqLoc : pEqLocs) {
 			var futuresOfCandidate = getKFutures(currentEqLoc);
 
-			// Search for a future that is equal to the observation future
-			Optional<ArrayList<Object>> sameFuture = futuresOfCandidate.stream().filter(future -> {
-				return fmComparison(obFut, future);
+			// Search for a future that is stucturally similar to the observation future
+			Optional<List<Object>> sameFuture = futuresOfCandidate.stream().filter(future -> {
+				return SimilarityMatcher.compareFutures(obFut, future, SimilarityType.STRUCTURAL);
 			}).findFirst();
 
 			if (sameFuture.isPresent()) { // If there is an equivalent future
-				var e = automaton.addEdge(qo, currentEqLoc, delta, delta, obsWindow.get(0).event());
-				e.addSample(delta); // New
+
+				String currentEvent = obsWindow.get(0).event().isEmpty() ? "□" : obsWindow.get(0).event();
+
+				var e = automaton.addEdge(qo, currentEqLoc, delta, delta, currentEvent);
+
+				e.addSample(delta);
+
 				Iterator<Object> itSameFuture = sameFuture.get().iterator();
 				Iterator<Object> itObservationFuture = obFut.iterator();
 				while (itSameFuture.hasNext()) {
@@ -379,8 +388,8 @@ public class Passta {
 	 *         "S0" could be [[edge0, S1, edge2, S2, edge4, S4],[edge1, S2, edge3,
 	 *         S3, edge5, S5]]
 	 */
-	private ArrayList<ArrayList<Object>> getKFutures(SRTALocation qo) {
-		ArrayList<ArrayList<Object>> futures = new ArrayList<>();
+	private List<List<Object>> getKFutures(SRTALocation qo) {
+		List<List<Object>> futures = new ArrayList<>();
 
 		for (int idEdge : qo.getOutEdges()) {
 			int idQt = automaton.getEdge(idEdge).getTargetId();
@@ -402,8 +411,8 @@ public class Passta {
 	 *         "S0" could be [[edge0, S1, edge2, S2, edge4, S4],[edge1, S2, edge3,
 	 *         S3, edge5, S5]]
 	 */
-	private ArrayList<ArrayList<Object>> getKFuturesAux(ArrayList<Object> currentPath, int level) {
-		ArrayList<ArrayList<Object>> futures = new ArrayList<>();
+	private List<List<Object>> getKFuturesAux(List<Object> currentPath, int level) {
+		List<List<Object>> futures = new ArrayList<>();
 		if (level <= k) {
 			if (((SRTALocation) currentPath.get(currentPath.size() - 1)).getOutEdges().isEmpty()) {
 				futures.add(currentPath);
@@ -424,70 +433,53 @@ public class Passta {
 		return futures;
 	}
 
-	/**
-	 * Method that performs a comparison between two future paths (trace and
-	 * automaton)
-	 *
-	 * @param future1
-	 * @param future2
-	 * @return true if both futures are equivalent (same events, variables and
-	 *         length), false otherwise
-	 */
-	private boolean fmComparison(ArrayList<Object> future1, ArrayList<Object> future2) {
-		var size1 = future1.size();
-		var size2 = future2.size();
-		if (size1 == size2) {
-			Iterator<Object> it2 = future2.iterator();
-
-			return future1.stream().allMatch(locOrEdge1 -> {
-				var locOrEdge2 = it2.next();
-				if (locOrEdge1 instanceof SRTALocation state1 && locOrEdge2 instanceof SRTALocation state2) {
-
-					return state1.getAttrs().equals(state2.getAttrs());
-
-				} else if (locOrEdge1 instanceof SRTAEdge edge1 && locOrEdge2 instanceof SRTAEdge edge2) {
-					return edge1.getEvent().equals(edge2.getEvent());
-				}
-				return false;
-			});
-		}
-		return false;
-	}
-
 	private void phase2() {
-		boolean merged = false;
-		boolean indet = false;
-		boolean fixed = true;
-		do {
 
+		automaton.getAllLocations().forEach(this::mergeEdges);
+
+		boolean merged;
+		boolean indet;
+		boolean fixed;
+
+		do {
 			var simLocs = findSim();
 
-			simLocs.ifPresent(list -> {
-				SRTALocation first = list.get(0);
-				SRTALocation second = list.get(1);
+			simLocs.ifPresent(locations -> {
+				SRTALocation first = locations.get(0);
+				SRTALocation second = locations.get(1);
 				merge(first, second);
-
 			});
 
-			merged = simLocs.isPresent() ? true : false;
+			merged = simLocs.isPresent();
 
 			do {
 				var indetEdges = indetEdges();
 				indet = indetEdges.isPresent();
+
 				if (indet) {
 					fixed = fixIndet(indetEdges.get());
+
 					if (fixed) {
 						merged = true;
 					} else {
 						AutomatonViewer.show(automaton);
-						throw new RuntimeException("Indeterministic automaton");
+						throw new RuntimeException("Cannot repair nondeterministic edges: " + indetEdges.get());
 					}
 				}
 			} while (indet);
+
 		} while (merged);
-		merged = true;
-		while (merged) {
-			merged = mergeFinalLocations();
+
+		while (mergeFinalLocations()) {
+			Optional<List<SRTAEdge>> conflict;
+
+			while ((conflict = indetEdges()).isPresent()) {
+				if (!fixIndet(conflict.get())) {
+					AutomatonViewer.show(automaton);
+					throw new RuntimeException(
+							"Cannot repair nondeterministic edges after leaf merging: " + conflict.get());
+				}
+			}
 		}
 	}
 
@@ -507,7 +499,7 @@ public class Passta {
 				if (loc.getAttrs().equals(state2.getAttrs()) && !loc.equals(state2)) {
 					var kFutures2 = getKFutures(state2);
 					if (!kFutures1.isEmpty() && !kFutures2.isEmpty()) {
-						return compareKFutures(kFutures1, kFutures2);
+						return SimilarityMatcher.compareKFutures(kFutures1, kFutures2);
 					}
 				}
 				return false;
@@ -522,90 +514,7 @@ public class Passta {
 	}
 
 	/**
-	 * Method that performs a comparison between the k-futures of two states
-	 *
-	 * @param fs1
-	 * @param fs2
-	 * @return true if both k-futures are equivalent, false otherwise
-	 */
-	private boolean compareKFutures(ArrayList<ArrayList<Object>> fs1, ArrayList<ArrayList<Object>> fs2) {
-
-		boolean weakTimeEq = false;
-		boolean strongTimeInc = false;
-
-		boolean weakTimeEqF1 = fs1.stream().allMatch(f1 -> {
-			return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "weak"));
-		});
-
-		boolean weakTimeEqF2 = fs2.stream().allMatch(f2 -> {
-			return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "weak"));
-		});
-
-		weakTimeEq = weakTimeEqF1 && weakTimeEqF2;
-
-		if (!weakTimeEq) {
-			boolean strongTimeIncF1 = fs1.stream().allMatch(f1 -> {
-				return fs2.stream().anyMatch(f2 -> compareFutures(f1, f2, "strong"));
-			});
-
-			boolean strongTimeIncF2 = fs2.stream().allMatch(f2 -> {
-				return fs1.stream().anyMatch(f1 -> compareFutures(f1, f2, "strong"));
-			});
-
-			strongTimeInc = strongTimeIncF1 || strongTimeIncF2;
-		}
-
-		boolean timeInclusion = weakTimeEq || strongTimeInc;
-
-		return timeInclusion;
-	}
-
-	/**
-	 * Method that performs a comparison between two future paths
-	 *
-	 * @param f1
-	 * @param f2
-	 * @param crit: weak or strong
-	 * @return true if both futures are equivalent (same events, attributes and
-	 *         length), false otherwise
-	 */
-	private boolean compareFutures(ArrayList<Object> f1, ArrayList<Object> f2, String crit) {
-		var size1 = f1.size();
-		var size2 = f2.size();
-		if (size1 == size2) {
-			Iterator<Object> it2 = f2.iterator();
-
-			return f1.stream().allMatch(locOrEdge1 -> {
-				var locOrEdge2 = it2.next();
-				if (locOrEdge1 instanceof SRTALocation loc1 && locOrEdge2 instanceof SRTALocation loc2) { // States
-					return loc1.getAttrs().equals(loc2.getAttrs());
-
-				} else if (locOrEdge1 instanceof SRTAEdge edge1 && locOrEdge2 instanceof SRTAEdge edge2) { // Edges
-					if (!edge1.getEvent().equals(edge2.getEvent()))
-						return false;
-					var minVal1 = edge1.getMin();
-					var minVal2 = edge2.getMin();
-					var maxVal1 = edge1.getMax();
-					var maxVal2 = edge2.getMax();
-					if (crit.equals("weak")) { // Weak time similarity
-						return ((minVal1 >= minVal2 && minVal1 <= maxVal2)
-								|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
-								|| ((minVal2 >= minVal1 && minVal2 <= maxVal1)
-										|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
-					} else if (crit.equals("strong")) { // Strong time similarity
-						return (minVal1 >= minVal2 && minVal1 <= maxVal2) && (maxVal1 >= minVal2 && maxVal1 <= maxVal2)
-								|| (minVal2 >= minVal1 && minVal2 <= maxVal1)
-										&& (maxVal2 >= minVal1 && maxVal2 <= maxVal1);
-					}
-				}
-				return false;
-			});
-		}
-		return false;
-	}
-
-	/**
-	 * Method used to merge two equivalent locations
+	 * Method used to merge two similar locations
 	 *
 	 * @param loc1
 	 * @param loc2
@@ -653,124 +562,138 @@ public class Passta {
 	}
 
 	private void mergeEdgesAux(List<List<SRTAEdge>> edgesToCheck) {
+
 		for (List<SRTAEdge> possibleEqEdges : edgesToCheck) {
+
 			while (possibleEqEdges.size() > 1) {
-				ArrayList<SRTAEdge> compared = new ArrayList<>();
-				SRTAEdge currentE = possibleEqEdges.get(0);
-				List<SRTAEdge> eqEdges = possibleEqEdges.stream().filter(e -> {
-					if (e.getId() == currentE.getId())
+
+				List<SRTAEdge> compared = new ArrayList<>();
+				SRTAEdge currentEdge = possibleEqEdges.get(0);
+				List<SRTAEdge> eqEdges = possibleEqEdges.stream().filter(otherEdge -> {
+
+					if (otherEdge.getId() == currentEdge.getId()) {
 						return false;
-					var minVal1 = currentE.getMin();
-					var minVal2 = e.getMin();
-					var maxVal1 = currentE.getMax();
-					var maxVal2 = e.getMax();
-					var source1 = currentE.getSourceId();
-					var source2 = e.getSourceId();
-					var target1 = currentE.getTargetId();
-					var target2 = e.getTargetId();
-					boolean sameSource = source1 == source2; // Same source state (same id)
-					boolean sameTarget = target1 == target2; // Same target state (same id)
-					boolean overlappingGuards = ((minVal1 >= minVal2 && minVal1 <= maxVal2)
-							|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
-							|| ((minVal2 >= minVal1 && minVal2 <= maxVal1) // Overlapping guards
-									|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
+					}
+						
+					boolean sameSource = currentEdge.getSourceId() == otherEdge.getSourceId(); // Same source location (same id)
+					boolean sameTarget = currentEdge.getTargetId() == otherEdge.getTargetId(); // Same target state (same id)
+					boolean overlappingGuards = SimilarityMatcher.intervalsOverlap(currentEdge.getMin(), currentEdge.getMax(),
+							otherEdge.getMin(), otherEdge.getMax());
 					return sameSource && sameTarget && overlappingGuards;
 				}).toList();
 
-				compared.add(currentE); // The current edge is checked
+				compared.add(currentEdge); // The current edge is checked
 
 				if (!eqEdges.isEmpty()) { // If there is equivalent edges
 					compared.addAll(eqEdges); // Add the other equivalent edges checked
-					var mergedEdge = compared.stream().min(Comparator.comparing(SRTAEdge::getId)).get(); // Only the
+					SRTAEdge mergedEdge = compared.stream().min(Comparator.comparing(SRTAEdge::getId)).orElseThrow(); // Only the
 																											// edge with
 																											// the
 																											// lowest id
 																											// (oldest)
 																											// will
 																											// remain
-					var minGuard = compared.stream().min(Comparator.comparing(SRTAEdge::getMin)).get().getMin();
-					var maxGuard = compared.stream().max(Comparator.comparing(SRTAEdge::getMax)).get().getMax();
+					double minGuard = compared.stream().mapToDouble(SRTAEdge::getMin).min().orElseThrow();
+					double maxGuard = compared.stream().mapToDouble(SRTAEdge::getMax).max().orElseThrow();
 					mergedEdge.setMin(minGuard);
 					mergedEdge.setMax(maxGuard);
-					compared.removeIf(e -> e.getId() == mergedEdge.getId()); // The edge is fused so another check is
+					compared.removeIf(edge -> edge.getId() == mergedEdge.getId()); // The edge is fused so another check is
 																				// required
-					compared.stream().forEach(edge -> {
+					compared.forEach(edge -> {
 						mergedEdge.addSamples(edge.getSamples()); // Add to the merged edge all the time samples of
-																	// the eq edges that are going to be removed
+																	// the duplicated edges that are going to be removed
 					});
 
-					compared.stream().map(SRTAEdge::getId).forEach(e -> automaton.deleteEdge(e));
+					compared.stream().map(SRTAEdge::getId).forEach(automaton::deleteEdge);
 				}
 				possibleEqEdges.removeAll(compared);
 			}
-
 		}
 	}
 
 	/**
-	 * Method used to search inconsistencies in the out edges of every state.
-	 * Inconsistencies checked: If there are two or more edges with the same event,
-	 * overlapping guard and they go to different states.
+	 * Searches for nondeterministic outgoing edges.
 	 *
-	 * @return Indeterministic edges or empty otherwise
+	 * Two distinct edges are nondeterministic if:
+	 *
+	 * 1. They leave the same location. 2. They have the same event. 3. Their guards
+	 * overlap.
+	 *
+	 * The target locations and their attributes are irrelevant.
+	 *
+	 * @return a list containing conflicting edges, or an empty Optional if the
+	 *         automaton is deterministic
 	 */
 	private Optional<List<SRTAEdge>> indetEdges() {
-		var locs = automaton.getAllLocations();
 
-		for (SRTALocation loc : locs) {
-			for (var idEdge : loc.getOutEdges()) {
-				var edge = automaton.getEdge(idEdge);
-				var event = edge.getEvent();
-				var dupEdges = loc.getOutEdges().stream().map(automaton::getEdge).filter(e -> { // Check for
-																								// inconsistencies
-					if (e.getId() == edge.getId())
-						return false;
-					if (e.getEvent().equals(event)) {
+		for (SRTALocation location : automaton.getAllLocations()) {
 
-						// // Same target location
-						var minVal1 = edge.getMin();
-						var minVal2 = e.getMin();
-						var maxVal1 = edge.getMax();
-						var maxVal2 = e.getMax();
-						boolean overlappingGuards = ((minVal1 >= minVal2 && minVal1 <= maxVal2)
-								|| (maxVal1 >= minVal2 && maxVal1 <= maxVal2))
-								|| ((minVal2 >= minVal1 && minVal2 <= maxVal1) // Overlapping guards
-										|| (maxVal2 >= minVal1 && maxVal2 <= maxVal1));
-						return overlappingGuards; // If two edges have overlapping guards and the same event
+			List<SRTAEdge> outgoingEdges = location.getOutEdges().stream().map(automaton::getEdge).toList();
+
+			for (int i = 0; i < outgoingEdges.size(); i++) {
+				SRTAEdge first = outgoingEdges.get(i);
+
+				List<SRTAEdge> conflictingEdges = new ArrayList<>();
+
+				for (int j = i + 1; j < outgoingEdges.size(); j++) {
+					SRTAEdge second = outgoingEdges.get(j);
+
+					boolean sameEvent = first.getEvent().equals(second.getEvent());
+
+					boolean overlappingGuards = SimilarityMatcher.intervalsOverlap(first.getMin(), first.getMax(),
+							second.getMin(), second.getMax());
+
+					if (sameEvent && overlappingGuards) {
+						conflictingEdges.add(second);
 					}
-					return false;
-				}).collect(Collectors.toCollection(ArrayList::new));
-				if (!dupEdges.isEmpty()) {
-					dupEdges.add(edge);
-					return Optional.of(dupEdges);
+				}
+
+				if (!conflictingEdges.isEmpty()) {
+					conflictingEdges.add(0, first);
+					return Optional.of(conflictingEdges);
 				}
 			}
 		}
+
 		return Optional.empty();
 	}
 
-	/**
-	 * Method used to merge the target locations of the indeterministic edges if
-	 * possible all edges have the same source location. If simStates if 0 means
-	 * that it is impossible to fix because the target locations have different
-	 * system attributes
-	 *
-	 * @param indetEdges
-	 * @return boolean
-	 */
 	private boolean fixIndet(List<SRTAEdge> indetEdges) {
-		var attrs = automaton.getLocation(indetEdges.get(0).getTargetId()).getAttrs();
-		var simLocs = indetEdges.stream().map(e -> automaton.getLocation(e.getTargetId()))
-				.filter(s -> s.getAttrs().equals(attrs)).distinct().toList();
-		if (simLocs.size() > 1) {
-			var newLoc = simLocs.get(0);
-			for (int i = 1; i < simLocs.size(); i++) {
-				newLoc = merge(newLoc, simLocs.get(i));
-				mergeEdges(newLoc);
-			}
+
+		if (indetEdges == null || indetEdges.size() < 2) {
+			return false;
+		}
+
+		List<SRTALocation> targetLocations = indetEdges.stream().map(edge -> automaton.getLocation(edge.getTargetId()))
+				.distinct().toList();
+
+		var expectedAttrs = targetLocations.get(0).getAttrs();
+
+		boolean sameAttributes = targetLocations.stream()
+				.allMatch(location -> location.getAttrs().equals(expectedAttrs));
+
+		if (!sameAttributes) {
+			return false;
+		}
+
+		/*
+		 * If every conflicting edge already has the same target, there are no locations
+		 * to merge. The edges themselves must be merged.
+		 */
+		if (targetLocations.size() == 1) {
+			SRTALocation source = automaton.getLocation(indetEdges.get(0).getSourceId());
+
+			mergeEdges(source);
 			return true;
 		}
-		return false;
+
+		SRTALocation mergedLocation = targetLocations.get(0);
+
+		for (int i = 1; i < targetLocations.size(); i++) {
+			mergedLocation = merge(mergedLocation, targetLocations.get(i));
+		}
+
+		return true;
 	}
 
 	/**
@@ -813,29 +736,30 @@ public class Passta {
 	}
 
 	private void phase3() {
-		computeProbs();
+		computeProbabilities();
 		computeInvariants();
 
 	}
 
 	private void computeInvariants() {
-		automaton.getAllLocations().stream().forEach(loc -> {
-			if (!loc.getOutEdges().isEmpty()) {
-				SRTAEdge edge = loc.getOutEdges().stream().map(idEdge -> automaton.getEdge(idEdge))
-						.max(Comparator.comparing(SRTAEdge::getMax)).get();
-				Double invariant = edge.getMax();
-				loc.setInvariant(invariant);
-			}
-		});
+		for (var location : automaton.getAllLocations()) {
+			location.getOutEdges().stream().map(automaton::getEdge).mapToDouble(SRTAEdge::getMax).max().ifPresent(location::setInvariant);
+		}
 	}
 
-	private void computeProbs() {
+	private void computeProbabilities() {
 
-		for (var loc : automaton.getAllLocations()) {
-			var accumSamples = loc.getOutEdges().stream().mapToDouble(e -> automaton.getEdge(e).getSamples().size())
-					.sum(); // Already casted to double
-			loc.getOutEdges().stream().map(e -> automaton.getEdge(e))
-					.forEach(e -> e.setProb(((double) e.getSamples().size()) / accumSamples));
+		for (SRTALocation location : automaton.getAllLocations()) {
+
+			List<SRTAEdge> outgoingEdges = location.getOutEdges().stream().map(automaton::getEdge).toList();
+
+			int totalSamples = outgoingEdges.stream().mapToInt(edge -> edge.getSamples().size()).sum();
+
+			if (totalSamples == 0) {
+				continue;
+			}
+
+			outgoingEdges.forEach(edge -> edge.setProb((double) edge.getSamples().size() / totalSamples));
 		}
 	}
 }

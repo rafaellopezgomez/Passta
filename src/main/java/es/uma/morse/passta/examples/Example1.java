@@ -23,7 +23,7 @@ public class Example1 {
 			/*
 			 * Configuration
 			 */
-			Path directoryPath = Path.of("ptp4lv4");
+			Path directoryPath = Path.of("ptp4lv3");
 			String scenario = "st";
 
 			Path trainingPath = directoryPath.resolve(scenario + "5training.json");
