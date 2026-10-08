@@ -16,9 +16,6 @@ images/
 
 ### Eclipse ###
 
-dist/*
-!dist/*.jar
-
 .metadata
 bin/
 tmp/
@@ -184,4 +181,7 @@ README.html
 .DS_Store
 out/
 .micronaut/
-/dist/
+
+/dist/*
+!/dist/*.jar
+
