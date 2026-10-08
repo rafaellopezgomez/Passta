@@ -22,15 +22,4 @@ public final class AutomatonViewer {
 
 		JavaFxGraphViewer.open(graphModel);
 	}
-
-	private static void openInBrowser(Graphviz graphviz) {
-		Objects.requireNonNull(graphviz, "Graphviz instance is null");
-
-		try {
-			String svg = graphviz.toSvgStr();
-			SvgViewer.openSvgInBrowser(svg);
-		} catch (Exception e) {
-			throw new RuntimeException("Cannot open automaton layout in browser", e);
-		}
-	}
 }

@@ -14,7 +14,7 @@ import es.uma.morse.passta.io.AutomatonViewer;
 public final class PasstaCli {
 
     private static final String APP_NAME = "Passta";
-    private static final String VERSION = "0.3.1";
+    private static final String VERSION = "0.4";
     private static final String JAR = APP_NAME + "-" + VERSION + ".jar";
 
     private PasstaCli() {
@@ -60,7 +60,7 @@ public final class PasstaCli {
             switch (options.command) {
                 case VIEW -> {
                     AutomatonViewer.show(automaton);
-                    System.out.println("Automaton opened in browser.");
+                    System.out.println("Automaton opened in visor");
                 }
 
                 case EXPORT -> {
