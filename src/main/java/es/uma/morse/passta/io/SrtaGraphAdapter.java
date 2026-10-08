@@ -2,16 +2,15 @@ package es.uma.morse.passta.io;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javafx.geometry.Point2D;
 
 import es.uma.morse.passta.core.automaton.SRTA;
 import es.uma.morse.passta.core.automaton.SRTAEdge;
 import es.uma.morse.passta.core.automaton.SRTALocation;
 
 public final class SrtaGraphAdapter {
-
-	private static final double CENTER_X = 600.0;
-	private static final double CENTER_Y = 400.0;
-	private static final double LAYOUT_RADIUS = 280.0;
 
 	private SrtaGraphAdapter() {
 		// Utility class
@@ -28,121 +27,114 @@ public final class SrtaGraphAdapter {
 		return new JavaFxGraphViewer.GraphModel(states, edges);
 	}
 
-	private static List<JavaFxGraphViewer.StateModel> convertLocations(SRTA automaton) {
-		List<SRTALocation> locations = new ArrayList<>(automaton.getAllLocations());
+	private static List<JavaFxGraphViewer.StateModel> convertLocations(
+		    SRTA automaton
+		) {
+		    Map<Integer, Point2D> positions =
+		        SrtaGraphLayout.calculatePositions(automaton);
 
-		List<JavaFxGraphViewer.StateModel> states = new ArrayList<>();
+		    List<JavaFxGraphViewer.StateModel> states =
+		        new ArrayList<>();
 
-		if (locations.isEmpty()) {
-			return states;
+		    for (SRTALocation location : automaton.getAllLocations()) {
+		        Point2D position = positions.get(location.getId());
+
+		        if (position == null) {
+		            throw new IllegalStateException(
+		                "No position calculated for location "
+		                    + location.getId()
+		            );
+		        }
+
+		        states.add(
+		            createStateModel(
+		                location,
+		                position.getX(),
+		                position.getY()
+		            )
+		        );
+		    }
+
+		    return states;
 		}
-
-		if (locations.size() == 1) {
-			SRTALocation location = locations.getFirst();
-
-			states.add(createStateModel(location, CENTER_X, CENTER_Y));
-
-			return states;
-		}
-
-		double angleStep = 2.0 * Math.PI / locations.size();
-
-		for (int index = 0; index < locations.size(); index++) {
-			SRTALocation location = locations.get(index);
-
-			/*
-			 * Empezamos en la parte superior del círculo.
-			 */
-			double angle = index * angleStep - Math.PI / 2.0;
-
-			double x = CENTER_X + LAYOUT_RADIUS * Math.cos(angle);
-			double y = CENTER_Y + LAYOUT_RADIUS * Math.sin(angle);
-
-			states.add(createStateModel(location, x, y));
-		}
-
-		return states;
-	}
 
 	private static JavaFxGraphViewer.StateModel createStateModel(SRTALocation location, double x, double y) {
-		String label = buildLocationLabel(location);
 
-		return new JavaFxGraphViewer.StateModel(Integer.toString(location.getId()), label, x, y);
+		String label = buildLocationLabel(location);
+		boolean initial = location.getId() == 0;
+
+		return new JavaFxGraphViewer.StateModel(Integer.toString(location.getId()), label, x, y, initial);
 	}
 
 	private static String buildLocationLabel(SRTALocation location) {
-		StringBuilder label = new StringBuilder();
+	    StringBuilder label = new StringBuilder();
 
-		label.append("L").append(location.getId());
+	    label.append("L").append(location.getId());
 
-		if (location.getAttrs() != null && !location.getAttrs().isEmpty()) {
+	    if (location.getAttrs() != null
+	            && !location.getAttrs().isEmpty()) {
+	        label.append("\n");
+	        label.append(String.join(", ", location.getAttrs()));
+	    }
 
-			label.append("\n");
-			label.append(String.join(", ", location.getAttrs()));
-		}
+	    Double invariant = location.getInvariant();
 
-		return label.toString();
+	    if (invariant != null && invariant >= 0.0) {
+	        label.append("\n");
+	        label.append("x <= ");
+	        label.append(formatNumber(invariant));
+	    }
+
+	    return label.toString();
 	}
-	
-	private static List<JavaFxGraphViewer.EdgeModel> convertEdges(
-		    SRTA automaton
-		) {
-		    List<JavaFxGraphViewer.EdgeModel> edges = new ArrayList<>();
 
-		    for (SRTAEdge edge : automaton.getAllEdges()) {
-		        edges.add(createEdgeModel(edge));
-		    }
+	private static List<JavaFxGraphViewer.EdgeModel> convertEdges(SRTA automaton) {
+		List<JavaFxGraphViewer.EdgeModel> edges = new ArrayList<>();
 
-		    return edges;
+		for (SRTAEdge edge : automaton.getAllEdges()) {
+			edges.add(createEdgeModel(edge));
 		}
 
-		private static JavaFxGraphViewer.EdgeModel createEdgeModel(
-		    SRTAEdge edge
-		) {
-		    return new JavaFxGraphViewer.EdgeModel(
-		        Integer.toString(edge.getId()),
-		        Integer.toString(edge.getSourceId()),
-		        Integer.toString(edge.getTargetId()),
-		        buildEdgeDescription(edge)
-		    );
+		return edges;
+	}
+
+	private static JavaFxGraphViewer.EdgeModel createEdgeModel(SRTAEdge edge) {
+		return new JavaFxGraphViewer.EdgeModel(Integer.toString(edge.getId()), Integer.toString(edge.getSourceId()),
+				Integer.toString(edge.getTargetId()), edge.getEvent() + "\n" + edge.getGuard().toString(),
+				buildEdgeDescription(edge));
+	}
+
+	private static String buildEdgeDescription(SRTAEdge edge) {
+		StringBuilder description = new StringBuilder();
+
+		description.append(edge.getEvent());
+		description.append("\n");
+		description.append("Interval: [");
+		description.append(formatNumber(edge.getMin()));
+		description.append(", ");
+		description.append(formatNumber(edge.getMax()));
+		description.append("]");
+
+		if (edge.getProb() != null) {
+			description.append("\n");
+			description.append("Probability: ");
+			description.append(formatNumber(edge.getProb()));
 		}
 
-		private static String buildEdgeDescription(SRTAEdge edge) {
-		    StringBuilder description = new StringBuilder();
-
-		    description.append(edge.getEvent());
-		    description.append("\n");
-		    description.append("Interval: [");
-		    description.append(formatNumber(edge.getMin()));
-		    description.append(", ");
-		    description.append(formatNumber(edge.getMax()));
-		    description.append("]");
-
-		    if (edge.getProb() != null) {
-		        description.append("\n");
-		        description.append("Probability: ");
-		        description.append(formatNumber(edge.getProb()));
-		    }
-
-		    if (edge.getSamples() != null && !edge.getSamples().isEmpty()) {
-		        description.append("\n");
-		        description.append("Samples: ");
-		        description.append(edge.getSamples().size());
-		    }
-
-		    return description.toString();
+		if (edge.getSamples() != null && !edge.getSamples().isEmpty()) {
+			description.append("\n");
+			description.append("Samples: ");
+			description.append(edge.getSamples().size());
 		}
 
-		private static String formatNumber(double value) {
-		    if (value == Math.rint(value)) {
-		        return Long.toString((long) value);
-		    }
+		return description.toString();
+	}
 
-		    return String.format(
-		        java.util.Locale.ROOT,
-		        "%.4f",
-		        value
-		    ).replaceAll("0+$", "")
-		     .replaceAll("\\.$", "");
+	private static String formatNumber(double value) {
+		if (value == Math.rint(value)) {
+			return Long.toString((long) value);
 		}
+
+		return String.format(java.util.Locale.ROOT, "%.4f", value).replaceAll("0+$", "").replaceAll("\\.$", "");
+	}
 }
