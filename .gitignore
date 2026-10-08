@@ -16,6 +16,9 @@ images/
 
 ### Eclipse ###
 
+dist/*
+!dist/*.jar
+
 .metadata
 bin/
 tmp/
