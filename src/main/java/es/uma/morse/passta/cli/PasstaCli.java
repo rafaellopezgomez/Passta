@@ -22,7 +22,10 @@ public final class PasstaCli {
 
     public static void main(String[] args) {
         int exitCode = run(args);
-        System.exit(exitCode);
+
+        if (exitCode != ExitCode.OK) {
+            System.exit(exitCode);
+        }
     }
 
     static int run(String[] args) {
@@ -60,7 +63,6 @@ public final class PasstaCli {
             switch (options.command) {
                 case VIEW -> {
                     AutomatonViewer.show(automaton);
-                    System.out.println("Automaton opened in visor");
                 }
 
                 case EXPORT -> {

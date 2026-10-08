@@ -43,60 +43,23 @@ Location L8 ---&gt; attrs code: 6 ---&gt; No attributes
 </declaration>
   <template>
     <name>Template</name>
-    <location id="id19" x="450" y="1500">
+    <location id="id5" x="0" y="600">
+      <name x="30" y="590">L2</name>
+      <label kind="invariant" x="30" y="610">x&lt;=2511</label>
+    </location>
+    <location id="id2" x="0" y="150">
       <committed/>
     </location>
     <location id="id0" x="0" y="0">
       <name x="30" y="-10">L0</name>
       <label kind="invariant" x="30" y="10">x&lt;=0</label>
     </location>
-    <location id="id2" x="0" y="150">
-      <committed/>
-    </location>
     <location id="id1" x="0" y="300">
       <name x="30" y="290">L1</name>
       <label kind="invariant" x="30" y="310">x&lt;=77516</label>
     </location>
-    <location id="id32" x="450" y="1950">
-      <name x="480" y="1940">L5_1</name>
-      <label kind="invariant" x="480" y="1960">x&lt;=58539913</label>
-    </location>
-    <location id="id43" x="600" y="1800">
-      <name x="630" y="1790">L6_1</name>
-      <label kind="invariant" x="630" y="1810">x&lt;=16052470</label>
-    </location>
-    <location id="id13" x="150" y="1050">
-      <name x="180" y="1040">L3_1</name>
-      <label kind="invariant" x="180" y="1060">x&lt;=6797574</label>
-    </location>
-    <location id="id35" x="750" y="2100">
-      <name x="780" y="2090">L5_2</name>
-      <label kind="invariant" x="780" y="2110">x&lt;=10693463</label>
-    </location>
-    <location id="id46" x="600" y="1950">
+    <location id="id19" x="450" y="1500">
       <committed/>
-    </location>
-    <location id="id23" x="300" y="1500">
-      <name x="330" y="1490">L4_1</name>
-      <label kind="invariant" x="330" y="1510">x&lt;=2317406</label>
-    </location>
-    <location id="id45" x="600" y="2100">
-      <name x="630" y="2090">L7</name>
-      <label kind="invariant" x="630" y="2110">x&lt;=107003440</label>
-    </location>
-    <location id="id15" x="150" y="1200">
-      <committed/>
-    </location>
-    <location id="id37" x="750" y="2400">
-      <name x="780" y="2390">L8</name>
-      <label kind="invariant" x="780" y="2410">x&lt;=44046334</label>
-    </location>
-    <location id="id25" x="300" y="1650">
-      <committed/>
-    </location>
-    <location id="id17" x="450" y="1350">
-      <name x="480" y="1340">L3_2</name>
-      <label kind="invariant" x="480" y="1360">x&lt;=518</label>
     </location>
     <location id="id27" x="600" y="1800">
       <name x="630" y="1790">L4_2</name>
@@ -109,27 +72,58 @@ Location L8 ---&gt; attrs code: 6 ---&gt; No attributes
       <name x="930" y="2240">L6_2</name>
       <label kind="invariant" x="930" y="2260">x&lt;=18456661</label>
     </location>
-    <location id="id6" x="0" y="450">
+    <location id="id15" x="150" y="1200">
       <committed/>
     </location>
-    <location id="id5" x="0" y="600">
-      <name x="30" y="590">L2</name>
-      <label kind="invariant" x="30" y="610">x&lt;=2511</label>
+    <location id="id37" x="750" y="2400">
+      <name x="780" y="2390">L8</name>
+      <label kind="invariant" x="780" y="2410">x&lt;=44046334</label>
+    </location>
+    <location id="id17" x="450" y="1350">
+      <name x="480" y="1340">L3_2</name>
+      <label kind="invariant" x="480" y="1360">x&lt;=518</label>
+    </location>
+    <location id="id23" x="300" y="1500">
+      <name x="330" y="1490">L4_1</name>
+      <label kind="invariant" x="330" y="1510">x&lt;=2317406</label>
+    </location>
+    <location id="id45" x="600" y="2100">
+      <name x="630" y="2090">L7</name>
+      <label kind="invariant" x="630" y="2110">x&lt;=107003440</label>
+    </location>
+    <location id="id25" x="300" y="1650">
+      <committed/>
+    </location>
+    <location id="id13" x="150" y="1050">
+      <name x="180" y="1040">L3_1</name>
+      <label kind="invariant" x="180" y="1060">x&lt;=6797574</label>
+    </location>
+    <location id="id35" x="750" y="2100">
+      <name x="780" y="2090">L5_2</name>
+      <label kind="invariant" x="780" y="2110">x&lt;=10693463</label>
+    </location>
+    <location id="id46" x="600" y="1950">
+      <committed/>
+    </location>
+    <location id="id32" x="450" y="1950">
+      <name x="480" y="1940">L5_1</name>
+      <label kind="invariant" x="480" y="1960">x&lt;=58539913</label>
+    </location>
+    <location id="id43" x="600" y="1800">
+      <name x="630" y="1790">L6_1</name>
+      <label kind="invariant" x="630" y="1810">x&lt;=16052470</label>
     </location>
     <location id="id9" x="0" y="750">
       <committed/>
     </location>
+    <location id="id6" x="0" y="450">
+      <committed/>
+    </location>
     <branchpoint id="id30" x="450" y="1800"/>
     <branchpoint id="id41" x="600" y="1650"/>
-    <branchpoint id="id11" x="150" y="900"/>
     <branchpoint id="id21" x="300" y="1350"/>
+    <branchpoint id="id11" x="150" y="900"/>
     <init ref="id0"/>
-    <transition id="id29">
-      <source ref="id27"/>
-      <target ref="id19"/>
-      <label kind="guard" x="555" y="1650">x&gt;=799700</label>
-      <label kind="assignment" x="555" y="1680"> event = 3</label>
-    </transition>
     <transition id="id4">
       <source ref="id2"/>
       <target ref="id1"/>
@@ -140,21 +134,6 @@ Location L8 ---&gt; attrs code: 6 ---&gt; No attributes
       <target ref="id2"/>
       <label kind="guard" x="30" y="75">x&gt;=0</label>
       <label kind="assignment" x="30" y="105">event = 0</label>
-    </transition>
-    <transition id="id22">
-      <source ref="id15"/>
-      <target ref="id21"/>
-      <label kind="assignment" x="255" y="1275">x=0, attrs = 3</label>
-    </transition>
-    <transition id="id44">
-      <source ref="id41"/>
-      <target ref="id43"/>
-      <label kind="probability" x="630" y="1725">0.88598782</label>
-    </transition>
-    <transition id="id24">
-      <source ref="id21"/>
-      <target ref="id23"/>
-      <label kind="probability" x="330" y="1425">0.99840256</label>
     </transition>
     <transition id="id26">
       <source ref="id23"/>
@@ -167,16 +146,114 @@ Location L8 ---&gt; attrs code: 6 ---&gt; No attributes
       <target ref="id45"/>
       <label kind="assignment" x="630" y="2025">x=0, attrs = 6</label>
     </transition>
+    <transition id="id29">
+      <source ref="id27"/>
+      <target ref="id19"/>
+      <label kind="guard" x="555" y="1650">x&gt;=799700</label>
+      <label kind="assignment" x="555" y="1680"> event = 3</label>
+    </transition>
+    <transition id="id28">
+      <source ref="id21"/>
+      <target ref="id27"/>
+      <label kind="probability" x="480" y="1575">0.0015974441</label>
+    </transition>
+    <transition id="id22">
+      <source ref="id15"/>
+      <target ref="id21"/>
+      <label kind="assignment" x="255" y="1275">x=0, attrs = 3</label>
+    </transition>
+    <transition id="id44">
+      <source ref="id41"/>
+      <target ref="id43"/>
+      <label kind="probability" x="630" y="1725">0.88598782</label>
+    </transition>
     <transition id="id47">
       <source ref="id43"/>
       <target ref="id46"/>
       <label kind="guard" x="630" y="1875">x&gt;=15812852</label>
       <label kind="assignment" x="630" y="1905"> event = 5</label>
     </transition>
-    <transition id="id28">
+    <transition id="id24">
       <source ref="id21"/>
-      <target ref="id27"/>
-      <label kind="probability" x="480" y="1575">0.0015974441</label>
+      <target ref="id23"/>
+      <label kind="probability" x="330" y="1425">0.99840256</label>
+    </transition>
+    <transition id="id52">
+      <source ref="id45"/>
+      <target ref="id9"/>
+      <label kind="guard" x="330" y="1425">x&gt;=3010335</label>
+      <label kind="assignment" x="330" y="1455">event = 1</label>
+    </transition>
+    <transition id="id51">
+      <source ref="id49"/>
+      <target ref="id9"/>
+      <label kind="guard" x="480" y="1500">x&gt;=2977849</label>
+      <label kind="assignment" x="480" y="1530"> event = 1</label>
+    </transition>
+    <transition id="id10">
+      <source ref="id5"/>
+      <target ref="id9"/>
+      <label kind="guard" x="30" y="675">x&gt;=850</label>
+      <label kind="assignment" x="30" y="705">event = 1</label>
+    </transition>
+    <transition id="id31">
+      <source ref="id25"/>
+      <target ref="id30"/>
+      <label kind="assignment" x="405" y="1725">x=0, attrs = 5</label>
+    </transition>
+    <transition id="id53">
+      <source ref="id37"/>
+      <target ref="id19"/>
+      <label kind="guard" x="630" y="1950">x&gt;=27859</label>
+      <label kind="assignment" x="630" y="1980">event = 3</label>
+    </transition>
+    <transition id="id50">
+      <source ref="id41"/>
+      <target ref="id49"/>
+      <label kind="probability" x="780" y="1950">0.11401218</label>
+    </transition>
+    <transition id="id16">
+      <source ref="id13"/>
+      <target ref="id15"/>
+      <label kind="guard" x="180" y="1125">x&gt;=257417</label>
+      <label kind="assignment" x="180" y="1155"> event = 2</label>
+    </transition>
+    <transition id="id18">
+      <source ref="id11"/>
+      <target ref="id17"/>
+      <label kind="probability" x="330" y="1125">0.12140351</label>
+    </transition>
+    <transition id="id39">
+      <source ref="id35"/>
+      <target ref="id38"/>
+      <label kind="guard" x="780" y="2175">x&gt;=4447941</label>
+      <label kind="assignment" x="780" y="2205"> event = 5</label>
+    </transition>
+    <transition id="id12">
+      <source ref="id9"/>
+      <target ref="id11"/>
+      <label kind="assignment" x="105" y="825">x=0, attrs = 2</label>
+    </transition>
+    <transition id="id34">
+      <source ref="id32"/>
+      <target ref="id19"/>
+      <label kind="guard" x="480" y="1725">x&gt;=121202</label>
+      <label kind="assignment" x="480" y="1755"> event = 3</label>
+    </transition>
+    <transition id="id33">
+      <source ref="id30"/>
+      <target ref="id32"/>
+      <label kind="probability" x="480" y="1875">0.21398834</label>
+    </transition>
+    <transition id="id14">
+      <source ref="id11"/>
+      <target ref="id13"/>
+      <label kind="probability" x="180" y="975">0.87859649</label>
+    </transition>
+    <transition id="id36">
+      <source ref="id30"/>
+      <target ref="id35"/>
+      <label kind="probability" x="630" y="1950">0.78601166</label>
     </transition>
     <transition id="id40">
       <source ref="id38"/>
@@ -204,83 +281,6 @@ Location L8 ---&gt; attrs code: 6 ---&gt; No attributes
       <target ref="id6"/>
       <label kind="guard" x="30" y="375">x&gt;=9627</label>
       <label kind="assignment" x="30" y="405">event = 1</label>
-    </transition>
-    <transition id="id18">
-      <source ref="id11"/>
-      <target ref="id17"/>
-      <label kind="probability" x="330" y="1125">0.12140351</label>
-    </transition>
-    <transition id="id33">
-      <source ref="id30"/>
-      <target ref="id32"/>
-      <label kind="probability" x="480" y="1875">0.21398834</label>
-    </transition>
-    <transition id="id10">
-      <source ref="id5"/>
-      <target ref="id9"/>
-      <label kind="guard" x="30" y="675">x&gt;=850</label>
-      <label kind="assignment" x="30" y="705">event = 1</label>
-    </transition>
-    <transition id="id12">
-      <source ref="id9"/>
-      <target ref="id11"/>
-      <label kind="assignment" x="105" y="825">x=0, attrs = 2</label>
-    </transition>
-    <transition id="id34">
-      <source ref="id32"/>
-      <target ref="id19"/>
-      <label kind="guard" x="480" y="1725">x&gt;=121202</label>
-      <label kind="assignment" x="480" y="1755"> event = 3</label>
-    </transition>
-    <transition id="id14">
-      <source ref="id11"/>
-      <target ref="id13"/>
-      <label kind="probability" x="180" y="975">0.87859649</label>
-    </transition>
-    <transition id="id36">
-      <source ref="id30"/>
-      <target ref="id35"/>
-      <label kind="probability" x="630" y="1950">0.78601166</label>
-    </transition>
-    <transition id="id39">
-      <source ref="id35"/>
-      <target ref="id38"/>
-      <label kind="guard" x="780" y="2175">x&gt;=4447941</label>
-      <label kind="assignment" x="780" y="2205"> event = 5</label>
-    </transition>
-    <transition id="id16">
-      <source ref="id13"/>
-      <target ref="id15"/>
-      <label kind="guard" x="180" y="1125">x&gt;=257417</label>
-      <label kind="assignment" x="180" y="1155"> event = 2</label>
-    </transition>
-    <transition id="id51">
-      <source ref="id49"/>
-      <target ref="id9"/>
-      <label kind="guard" x="480" y="1500">x&gt;=2977849</label>
-      <label kind="assignment" x="480" y="1530"> event = 1</label>
-    </transition>
-    <transition id="id50">
-      <source ref="id41"/>
-      <target ref="id49"/>
-      <label kind="probability" x="780" y="1950">0.11401218</label>
-    </transition>
-    <transition id="id31">
-      <source ref="id25"/>
-      <target ref="id30"/>
-      <label kind="assignment" x="405" y="1725">x=0, attrs = 5</label>
-    </transition>
-    <transition id="id53">
-      <source ref="id37"/>
-      <target ref="id19"/>
-      <label kind="guard" x="630" y="1950">x&gt;=27859</label>
-      <label kind="assignment" x="630" y="1980">event = 3</label>
-    </transition>
-    <transition id="id52">
-      <source ref="id45"/>
-      <target ref="id9"/>
-      <label kind="guard" x="330" y="1425">x&gt;=3010335</label>
-      <label kind="assignment" x="330" y="1455">event = 1</label>
     </transition>
   </template>
   <system>

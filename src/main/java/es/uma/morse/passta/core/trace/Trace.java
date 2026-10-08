@@ -1,6 +1,7 @@
 package es.uma.morse.passta.core.trace;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class Trace {
 	public String toString() {
 		return observations.stream().map(Object::toString).collect(Collectors.joining("\n"));
 	}
-
+	
+	@JsonIgnore
 	public boolean isEmpty() {
 		return observations.isEmpty();
 	}

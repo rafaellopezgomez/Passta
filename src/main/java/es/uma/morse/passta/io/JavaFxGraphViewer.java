@@ -70,10 +70,19 @@ public class JavaFxGraphViewer {
 	    startJavaFxIfNecessary();
 
 	    Platform.runLater(() -> {
-	        JavaFxGraphViewer viewer =
-	            new JavaFxGraphViewer();
+	        try {
+	            JavaFxGraphViewer viewer =
+	                new JavaFxGraphViewer();
 
-	        viewer.showGraph(graph);
+	            viewer.showGraph(graph);
+	        } catch (Throwable exception) {
+	            System.err.println(
+	                "Could not open the JavaFX viewer"
+	            );
+
+	            exception.printStackTrace(System.err);
+	            Platform.exit();
+	        }
 	    });
 	}
 	
@@ -85,11 +94,12 @@ public class JavaFxGraphViewer {
 
 	        try {
 	            Platform.startup(() -> {
-	                // JavaFX initialized
 	            });
 	        } catch (IllegalStateException exception) {
+	            // JavaFX is already initialized
 	        }
 
+	        Platform.setImplicitExit(true);
 	        javafxStarted = true;
 	    }
 	}
@@ -131,6 +141,8 @@ public class JavaFxGraphViewer {
 	    stage.setMinWidth(700.0);
 	    stage.setMinHeight(500.0);
 	    stage.show();
+	    
+        System.out.println("Automaton opened in visor");
 
 	    Platform.runLater(() -> {
 	        rootPane.applyCss();
