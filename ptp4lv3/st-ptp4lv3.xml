@@ -34,16 +34,6 @@ Location L9 ---&gt; attrs code: 4 ---&gt; Slave
 </declaration>
   <template>
     <name>Template</name>
-    <location id="id17" x="150" y="1350">
-      <name x="180" y="1340">L4_1</name>
-      <label kind="invariant" x="180" y="1360">x&lt;=1100473</label>
-    </location>
-    <location id="id28" x="225" y="1350">
-      <committed/>
-    </location>
-    <location id="id19" x="75" y="1125">
-      <committed/>
-    </location>
     <location id="id13" x="0" y="1050">
       <committed/>
     </location>
@@ -54,12 +44,15 @@ Location L9 ---&gt; attrs code: 4 ---&gt; Slave
     <location id="id25" x="450" y="1650">
       <committed/>
     </location>
-    <location id="id6" x="0" y="450">
+    <location id="id17" x="150" y="1350">
+      <name x="180" y="1340">L4_1</name>
+      <label kind="invariant" x="180" y="1360">x&lt;=1100473</label>
+    </location>
+    <location id="id28" x="225" y="1350">
       <committed/>
     </location>
-    <location id="id5" x="0" y="600">
-      <name x="30" y="590">L2</name>
-      <label kind="invariant" x="30" y="610">x&lt;=2450</label>
+    <location id="id19" x="75" y="1125">
+      <committed/>
     </location>
     <location id="id0" x="0" y="0">
       <name x="30" y="-10">L0</name>
@@ -71,6 +64,13 @@ Location L9 ---&gt; attrs code: 4 ---&gt; Slave
     <location id="id1" x="0" y="300">
       <name x="30" y="290">L1</name>
       <label kind="invariant" x="30" y="310">x&lt;=42230</label>
+    </location>
+    <location id="id6" x="0" y="450">
+      <committed/>
+    </location>
+    <location id="id5" x="0" y="600">
+      <name x="30" y="590">L2</name>
+      <label kind="invariant" x="30" y="610">x&lt;=2450</label>
     </location>
     <location id="id9" x="0" y="900">
       <name x="30" y="890">L3</name>
@@ -85,27 +85,6 @@ Location L9 ---&gt; attrs code: 4 ---&gt; Slave
     </location>
     <branchpoint id="id15" x="150" y="1200"/>
     <init ref="id0"/>
-    <transition id="id16">
-      <source ref="id13"/>
-      <target ref="id15"/>
-      <label kind="assignment" x="105" y="1125">x=0, attrs = 3</label>
-    </transition>
-    <transition id="id27">
-      <source ref="id25"/>
-      <target ref="id24"/>
-      <label kind="assignment" x="480" y="1725">x=0, attrs = 4</label>
-    </transition>
-    <transition id="id18">
-      <source ref="id15"/>
-      <target ref="id17"/>
-      <label kind="probability" x="180" y="1275">0.019830889</label>
-    </transition>
-    <transition id="id29">
-      <source ref="id24"/>
-      <target ref="id28"/>
-      <label kind="guard" x="367" y="1575">x&gt;=3283</label>
-      <label kind="assignment" x="367" y="1605">event = 3</label>
-    </transition>
     <transition id="id12">
       <source ref="id10"/>
       <target ref="id9"/>
@@ -127,6 +106,27 @@ Location L9 ---&gt; attrs code: 4 ---&gt; Slave
       <target ref="id25"/>
       <label kind="guard" x="480" y="1575">x&gt;=217</label>
       <label kind="assignment" x="480" y="1605"> event = 4</label>
+    </transition>
+    <transition id="id16">
+      <source ref="id13"/>
+      <target ref="id15"/>
+      <label kind="assignment" x="105" y="1125">x=0, attrs = 3</label>
+    </transition>
+    <transition id="id27">
+      <source ref="id25"/>
+      <target ref="id24"/>
+      <label kind="assignment" x="480" y="1725">x=0, attrs = 4</label>
+    </transition>
+    <transition id="id18">
+      <source ref="id15"/>
+      <target ref="id17"/>
+      <label kind="probability" x="180" y="1275">0.019830889</label>
+    </transition>
+    <transition id="id29">
+      <source ref="id24"/>
+      <target ref="id28"/>
+      <label kind="guard" x="367" y="1575">x&gt;=3283</label>
+      <label kind="assignment" x="367" y="1605">event = 3</label>
     </transition>
     <transition id="id4">
       <source ref="id2"/>

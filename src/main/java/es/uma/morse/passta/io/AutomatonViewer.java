@@ -1,5 +1,6 @@
 package es.uma.morse.passta.io;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.graphper.api.Graphviz;
@@ -14,8 +15,12 @@ public final class AutomatonViewer {
 	public static void show(SRTA automaton) {
 		Objects.requireNonNull(automaton, "Automaton is null");
 
-		Graphviz graphviz = AutomatonGraphvizRenderer.toGraphviz(automaton);
-		openInBrowser(graphviz);
+//		Graphviz graphviz = AutomatonGraphvizRenderer.toGraphviz(automaton);
+//		openInBrowser(graphviz);
+
+		JavaFxGraphViewer.GraphModel graphModel = SrtaGraphAdapter.convert(automaton);
+
+		JavaFxGraphViewer.open(graphModel);
 	}
 
 	private static void openInBrowser(Graphviz graphviz) {
