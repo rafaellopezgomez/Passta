@@ -1,11 +1,13 @@
 package es.uma.morse.passta.io;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.Objects;
 
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
@@ -21,13 +23,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Line;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 
 public class JavaFxGraphViewer {
@@ -47,128 +51,93 @@ public class JavaFxGraphViewer {
 
 	private final List<EdgeView> displayedEdges = new ArrayList<>();
 
+	private final List<InitialStateMarker> displayedInitialMarkers = new ArrayList<>();
+
 	private final Label detailsTitle = new Label("Details");
 	private final Label detailsContent = new Label("Select an edge");
 
 	private SelectableView selectedView;
-	
-	private static final Object JAVAFX_LOCK = new Object();
-
-	private static boolean javafxStarted;
 
 	private interface SelectableView {
+
 		void setSelected(boolean selected);
+
+		void showDetails();
 	}
 
 	public static void open(GraphModel graph) {
-	    if (graph == null) {
-	        throw new IllegalArgumentException(
-	            "The graph cannot be null"
-	        );
-	    }
+		JavaFxRuntime.runLater(() -> {
+			try {
+				JavaFxGraphViewer viewer = new JavaFxGraphViewer();
 
-	    startJavaFxIfNecessary();
+				viewer.showGraph(graph);
+			} catch (Throwable exception) {
+				System.err.println("Could not open the JavaFX viewer");
 
-	    Platform.runLater(() -> {
-	        try {
-	            JavaFxGraphViewer viewer =
-	                new JavaFxGraphViewer();
-
-	            viewer.showGraph(graph);
-	        } catch (Throwable exception) {
-	            System.err.println(
-	                "Could not open the JavaFX viewer"
-	            );
-
-	            exception.printStackTrace(System.err);
-	            Platform.exit();
-	        }
-	    });
+				exception.printStackTrace(System.err);
+				Platform.exit();
+			}
+		});
 	}
-	
-	private static void startJavaFxIfNecessary() {
-	    synchronized (JAVAFX_LOCK) {
-	        if (javafxStarted) {
-	            return;
-	        }
 
-	        try {
-	            Platform.startup(() -> {
-	            });
-	        } catch (IllegalStateException exception) {
-	            // JavaFX is already initialized
-	        }
+	public static Pane createGraphPane(GraphModel graph) {
 
-	        Platform.setImplicitExit(true);
-	        javafxStarted = true;
-	    }
+		return renderGraph(graph).pane();
 	}
-	
+
 	private void showGraph(GraphModel graph) {
-	    rootPane.setStyle(
-	        "-fx-background-color: #fafafa;"
-	    );
+		rootPane.setStyle("-fx-background-color: #fafafa;");
 
-	    graphPane.setStyle(
-	        "-fx-background-color: transparent;"
-	    );
+		graphPane.setStyle("-fx-background-color: transparent;");
 
-	    rootPane.getChildren().add(graphGroup);
+		rootPane.getChildren().add(graphGroup);
 
-	    createGraph(graph);
-	    configureZoom(rootPane);
-	    configurePan(rootPane);
+		createGraph(graph);
+		configureZoom(rootPane);
+		configurePan(rootPane);
 
-	    HBox controls = createControls();
-	    rootPane.getChildren().add(controls);
+		HBox controls = createControls();
+		rootPane.getChildren().add(controls);
 
-	    VBox detailsPanel = createDetailsPanel();
-	    rootPane.getChildren().add(detailsPanel);
+		VBox detailsPanel = createDetailsPanel();
+		rootPane.getChildren().add(detailsPanel);
 
-	    Scene scene = new Scene(
-	        rootPane,
-	        1200,
-	        800,
-	        Color.web("#fafafa")
-	    );
+		Scene scene = new Scene(rootPane, 1200, 800, Color.web("#fafafa"));
 
-	    configureKeyboard(scene);
+		configureKeyboard(scene);
 
-	    Stage stage = new Stage();
+		Stage stage = new Stage();
 
-	    stage.setTitle("PASSTA Graph Viewer");
-	    stage.setScene(scene);
-	    stage.setMinWidth(700.0);
-	    stage.setMinHeight(500.0);
-	    stage.show();
-	    
-        System.out.println("Automaton opened in visor");
+		stage.setTitle("PASSTA Graph Viewer");
+		stage.setScene(scene);
+		stage.setMinWidth(700.0);
+		stage.setMinHeight(500.0);
+		stage.show();
 
-	    Platform.runLater(() -> {
-	        rootPane.applyCss();
-	        rootPane.layout();
-	        fitGraphToWindow();
-	    });
+		System.out.println("Automaton opened in visor");
+
+		Platform.runLater(() -> {
+			rootPane.applyCss();
+			rootPane.layout();
+			fitGraphToWindow();
+		});
 	}
-	
+
 	private void configureKeyboard(Scene scene) {
-	    scene.setOnKeyPressed(event -> {
-	        if (event.isControlDown()
-	                && event.getCode()
-	                == javafx.scene.input.KeyCode.DIGIT0) {
+		scene.setOnKeyPressed(event -> {
+			if (event.isControlDown() && event.getCode() == javafx.scene.input.KeyCode.DIGIT0) {
 
-	            fitGraphToWindow();
-	            event.consume();
-	            return;
-	        }
+				fitGraphToWindow();
+				event.consume();
+				return;
+			}
 
-	        if (event.getCode()
-	                == javafx.scene.input.KeyCode.ESCAPE) {
+			if (event.getCode() == javafx.scene.input.KeyCode.ESCAPE) {
 
-	            clearSelection();
-	            event.consume();
-	        }
-	    });
+				clearSelection();
+				event.consume();
+			}
+		});
 	}
 
 	private void selectView(SelectableView view) {
@@ -189,6 +158,26 @@ public class JavaFxGraphViewer {
 		Button fitButton = new Button("Fit");
 		Button resetButton = new Button("Reset");
 
+		Button exportPngButton = new Button("PNG");
+
+		Button exportSvgButton = new Button("SVG");
+
+		exportSvgButton.setTooltip(new Tooltip("Export the automaton as SVG"));
+
+		exportPngButton.setTooltip(new Tooltip("Export the automaton as PNG"));
+
+		exportPngButton.setOnAction(event -> {
+			Window window = exportPngButton.getScene().getWindow();
+
+			chooseAndExportGraph(window, AutomatonExportFormat.PNG);
+		});
+
+		exportSvgButton.setOnAction(event -> {
+			Window window = exportSvgButton.getScene().getWindow();
+
+			chooseAndExportGraph(window, AutomatonExportFormat.SVG);
+		});
+
 		zoomInButton.setTooltip(new Tooltip("Zoom in"));
 
 		zoomOutButton.setTooltip(new Tooltip("Zoom out"));
@@ -205,7 +194,9 @@ public class JavaFxGraphViewer {
 
 		resetButton.setOnAction(event -> resetGraphLayout());
 
-		HBox controls = new HBox(6.0, zoomInButton, zoomOutButton, new Separator(), fitButton, resetButton);
+		HBox controls = new HBox(6.0, zoomInButton, zoomOutButton, new Separator(), fitButton, resetButton,
+				new Separator(), exportPngButton, exportSvgButton);
+
 		controls.setPadding(new Insets(8.0));
 
 		controls.setStyle("-fx-background-color: rgba(255, 255, 255, 0.95);" + "-fx-background-radius: 8;"
@@ -224,6 +215,111 @@ public class JavaFxGraphViewer {
 		return controls;
 	}
 
+	private void exportGraphFile(File outputFile, AutomatonExportFormat format) {
+
+		SelectableView previousSelection = selectedView;
+
+		clearSelection();
+
+		try {
+			AutomatonExporter.export(getRenderedGraph(), outputFile.toPath(), format);
+		} catch (RuntimeException exception) {
+			showExportError(outputFile, exception);
+		} finally {
+			restoreSelection(previousSelection);
+		}
+	}
+
+	private void chooseAndExportGraph(Window ownerWindow, AutomatonExportFormat format) {
+
+		String extension = switch (format) {
+		case PNG -> ".png";
+		case SVG -> ".svg";
+		case UPPAAL -> throw new IllegalArgumentException("UPPAAL is not a visual export format");
+		};
+
+		String description = switch (format) {
+		case PNG -> "PNG image";
+		case SVG -> "SVG image";
+		case UPPAAL -> throw new IllegalArgumentException("UPPAAL is not a visual export format");
+		};
+
+		FileChooser fileChooser = new FileChooser();
+
+		fileChooser.setTitle("Export automaton as " + format);
+
+		fileChooser.setInitialFileName("automaton" + extension);
+
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(description, "*" + extension));
+
+		File selectedFile = fileChooser.showSaveDialog(ownerWindow);
+
+		if (selectedFile == null) {
+			return;
+		}
+
+		File outputFile = ensureExtension(selectedFile, extension);
+
+		exportGraphFile(outputFile, format);
+	}
+
+	private void showExportError(File outputFile, RuntimeException exception) {
+
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+
+		alert.setTitle("Export error");
+
+		alert.setHeaderText("The automaton could not be exported");
+
+		String message = exception.getMessage();
+
+		Throwable cause = exception.getCause();
+
+		if (cause != null && cause.getMessage() != null) {
+
+			message = cause.getMessage();
+		}
+
+		if (message == null || message.isBlank()) {
+			message = exception.getClass().getSimpleName();
+		}
+
+		alert.setContentText(
+				"File: " + outputFile.getAbsolutePath() + System.lineSeparator() + System.lineSeparator() + message);
+
+		alert.showAndWait();
+	}
+
+	private File ensureExtension(File file, String extension) {
+
+		Objects.requireNonNull(file, "File is null");
+
+		Objects.requireNonNull(extension, "Extension is null");
+
+		if (extension.isBlank()) {
+			throw new IllegalArgumentException("Extension is blank");
+		}
+
+		String normalizedExtension = extension.startsWith(".") ? extension : "." + extension;
+
+		String lowerCaseFileName = file.getName().toLowerCase(java.util.Locale.ROOT);
+
+		String lowerCaseExtension = normalizedExtension.toLowerCase(java.util.Locale.ROOT);
+
+		if (lowerCaseFileName.endsWith(lowerCaseExtension)) {
+
+			return file;
+		}
+
+		File parent = file.getParentFile();
+
+		if (parent == null) {
+			return new File(file.getName() + normalizedExtension);
+		}
+
+		return new File(parent, file.getName() + normalizedExtension);
+	}
+
 	private void clearSelection() {
 		if (selectedView != null) {
 			selectedView.setSelected(false);
@@ -232,6 +328,16 @@ public class JavaFxGraphViewer {
 
 		detailsTitle.setText("Details");
 		detailsContent.setText("Select one location or edge.");
+	}
+
+	private void restoreSelection(SelectableView previousSelection) {
+
+		if (previousSelection == null) {
+			return;
+		}
+
+		selectView(previousSelection);
+		previousSelection.showDetails();
 	}
 
 	private void zoomAtCenter(double factor) {
@@ -345,9 +451,8 @@ public class JavaFxGraphViewer {
 			StateView view = new StateView(state.id(), state.label(), state.x(), state.y(), state.initial(),
 					selectedState -> {
 						selectView(selectedState);
-
-						showStateDetails(state.id(), state.label(), state.initial());
-					});
+						selectedState.showDetails();
+					}, () -> showStateDetails(state.id(), state.label(), state.initial()));
 			displayedStates.add(view);
 			stateViews.put(state.id(), view);
 		}
@@ -378,10 +483,11 @@ public class JavaFxGraphViewer {
 
 				EdgeView edgeView = new EdgeView(edge.id(), source, target, edge.label(), edge.description(),
 						parallelIndex, parallelCount, () -> {
-							selectView(edgeViewReference[0]);
+							EdgeView selectedEdge = edgeViewReference[0];
 
-							showEdgeDetails(edge.id(), edge.description());
-						});
+							selectView(selectedEdge);
+							selectedEdge.showDetails();
+						}, () -> showEdgeDetails(edge.id(), edge.description()));
 				edgeViewReference[0] = edgeView;
 				displayedEdges.add(edgeView);
 				graphPane.getChildren().add(edgeView);
@@ -392,6 +498,7 @@ public class JavaFxGraphViewer {
 			if (stateView.isInitial()) {
 				InitialStateMarker marker = new InitialStateMarker(stateView);
 
+				displayedInitialMarkers.add(marker);
 				graphPane.getChildren().add(marker);
 			}
 		}
@@ -454,7 +561,15 @@ public class JavaFxGraphViewer {
 
 			state.layoutYProperty().addListener((observable, oldValue, newValue) -> updateMarker.run());
 
-			Platform.runLater(updateMarker);
+			updateMarker.run();
+		}
+
+		public Line getLine() {
+			return line;
+		}
+
+		public Polygon getArrow() {
+			return arrow;
 		}
 
 		private void updatePosition(StateView state) {
@@ -579,24 +694,28 @@ public class JavaFxGraphViewer {
 		private final double initialY;
 
 		private final Circle circle = new Circle();
+		private final Label label = new Label();
 
 		private boolean dragged;
 
+		private final Runnable showDetailsAction;
+
 		public StateView(String stateId, String labelText, double x, double y, boolean initial,
-				Consumer<StateView> onSelected) {
+				Consumer<StateView> onSelected, Runnable showDetailsAction) {
 
 			this.stateId = stateId;
 			this.radius = calculateRadius(labelText);
 			this.initial = initial;
 			this.initialX = x;
 			this.initialY = y;
+			this.showDetailsAction = showDetailsAction;
 
 			circle.setRadius(radius);
 			circle.setFill(Color.WHITE);
 			circle.setStroke(Color.web("#2f4f6f"));
 			circle.setStrokeWidth(2.0);
 
-			Label label = new Label(labelText);
+			label.setText(labelText);
 			label.setMouseTransparent(true);
 			label.setWrapText(true);
 			label.setMaxWidth(radius * 1.6);
@@ -640,6 +759,11 @@ public class JavaFxGraphViewer {
 					event.consume();
 				}
 			});
+		}
+
+		@Override
+		public void showDetails() {
+			showDetailsAction.run();
 		}
 
 		public void resetPosition() {
@@ -719,6 +843,14 @@ public class JavaFxGraphViewer {
 				event.consume();
 			});
 		}
+
+		public String getLabelText() {
+			return label.getText();
+		}
+
+		public Circle getCircle() {
+			return circle;
+		}
 	}
 
 	private void showStateDetails(String stateId, String label, boolean initial) {
@@ -772,6 +904,8 @@ public class JavaFxGraphViewer {
 		private final String edgeId;
 		private final Label edgeLabel = new Label();
 
+		private final Runnable showDetailsAction;
+
 		private final int parallelIndex;
 		private final int parallelCount;
 
@@ -783,28 +917,42 @@ public class JavaFxGraphViewer {
 		private double loopOffsetX = 0.0;
 		private double loopOffsetY = 0.0;
 
+		private double labelOffsetX = 0.0;
+		private double labelOffsetY = 0.0;
+
+		private double dragStartLabelOffsetX;
+		private double dragStartLabelOffsetY;
+
+		private Point2D labelDragStartPoint;
+		private boolean labelDragged;
+
 		private double dragStartLoopOffsetX;
 		private double dragStartLoopOffsetY;
 
 		private double dragStartOffset;
 		private Point2D dragStartPoint;
 
+		private final StateView source;
+		private final StateView target;
+
 		private boolean selected;
 
 		public EdgeView(String edgeId, StateView source, StateView target, String label, String description,
-				int parallelIndex, int parallelCount, Runnable onSelected) {
+				int parallelIndex, int parallelCount, Runnable onSelected, Runnable showDetailsAction) {
 
 			this.edgeId = edgeId;
+			this.source = source;
+			this.target = target;
+			this.showDetailsAction = showDetailsAction;
 			this.parallelIndex = parallelIndex;
 			this.parallelCount = parallelCount;
 
 			edgeLabel.setText(label);
 			edgeLabel.setWrapText(true);
 			edgeLabel.setMaxWidth(220.0);
-			edgeLabel.setMouseTransparent(true);
+			edgeLabel.setMouseTransparent(false);
 
-			edgeLabel.setStyle("-fx-background-color: rgba(255, 255, 255, 0.90);" + "-fx-background-radius: 4;"
-					+ "-fx-padding: 3 5 3 5;" + "-fx-font-size: 11px;" + "-fx-text-fill: #333333;");
+			setEdgeLabelDragging(false);
 
 			hoverCurve.setFill(Color.TRANSPARENT);
 			hoverCurve.setStroke(Color.TRANSPARENT);
@@ -833,25 +981,16 @@ public class JavaFxGraphViewer {
 
 			getChildren().addAll(hoverCurve, curve, arrow, edgeLabel);
 
-			Runnable updateEdge = () -> {
-				if (source == target) {
-					updateLoop(source);
-				} else {
-					updateNormalEdge(source, target);
-				}
+			Runnable updateEdgeAction = this::updateEdge;
 
-				updateArrowHead();
-				updateEdgeLabel();
-			};
+			source.layoutXProperty().addListener((observable, oldValue, newValue) -> updateEdgeAction.run());
 
-			source.layoutXProperty().addListener((observable, oldValue, newValue) -> updateEdge.run());
-
-			source.layoutYProperty().addListener((observable, oldValue, newValue) -> updateEdge.run());
+			source.layoutYProperty().addListener((observable, oldValue, newValue) -> updateEdgeAction.run());
 
 			if (source != target) {
-				target.layoutXProperty().addListener((observable, oldValue, newValue) -> updateEdge.run());
+				target.layoutXProperty().addListener((observable, oldValue, newValue) -> updateEdgeAction.run());
 
-				target.layoutYProperty().addListener((observable, oldValue, newValue) -> updateEdge.run());
+				target.layoutYProperty().addListener((observable, oldValue, newValue) -> updateEdgeAction.run());
 			}
 
 			Tooltip tooltip = new Tooltip(description);
@@ -864,9 +1003,10 @@ public class JavaFxGraphViewer {
 			Tooltip.install(arrow, tooltip);
 
 			configureHover();
-			configureEdgeDragging(source, target, onSelected);
+			configureEdgeDragging(onSelected);
+			configureLabelDragging(onSelected);
 
-			Platform.runLater(updateEdge);
+			updateEdge();
 		}
 
 		public String getEdgeId() {
@@ -877,6 +1017,11 @@ public class JavaFxGraphViewer {
 		public void setSelected(boolean selected) {
 			this.selected = selected;
 			updateEdgeStyle();
+		}
+
+		@Override
+		public void showDetails() {
+			showDetailsAction.run();
 		}
 
 		private void updateEdgeStyle() {
@@ -893,8 +1038,14 @@ public class JavaFxGraphViewer {
 
 		public void resetShape() {
 			userOffset = 0.0;
+
 			loopOffsetX = 0.0;
 			loopOffsetY = 0.0;
+
+			labelOffsetX = 0.0;
+			labelOffsetY = 0.0;
+
+			updateEdge();
 		}
 
 		private void updateEdgeLabel() {
@@ -907,9 +1058,20 @@ public class JavaFxGraphViewer {
 			edgeLabel.applyCss();
 			edgeLabel.autosize();
 
-			edgeLabel.setLayoutX(x - edgeLabel.getWidth() / 2.0);
+			edgeLabel.setLayoutX(x - edgeLabel.getWidth() / 2.0 + labelOffsetX);
 
-			edgeLabel.setLayoutY(y - edgeLabel.getHeight() - 8.0);
+			edgeLabel.setLayoutY(y - edgeLabel.getHeight() - 8.0 + labelOffsetY);
+		}
+
+		private void updateEdge() {
+			if (source == target) {
+				updateLoop(source);
+			} else {
+				updateNormalEdge(source, target);
+			}
+
+			updateArrowHead();
+			updateEdgeLabel();
 		}
 
 		private double cubicValue(double start, double control1, double control2, double end, double t) {
@@ -919,7 +1081,79 @@ public class JavaFxGraphViewer {
 					+ 3.0 * inverseT * t * t * control2 + t * t * t * end;
 		}
 
-		private void configureEdgeDragging(StateView source, StateView target, Runnable onSelected) {
+		private void configureLabelDragging(Runnable onSelected) {
+
+			edgeLabel.setOnMousePressed(event -> {
+				if (event.getButton() != MouseButton.PRIMARY) {
+
+					return;
+				}
+
+				labelDragged = false;
+
+				labelDragStartPoint = getParent().sceneToLocal(event.getSceneX(), event.getSceneY());
+
+				dragStartLabelOffsetX = labelOffsetX;
+				dragStartLabelOffsetY = labelOffsetY;
+
+				setEdgeLabelDragging(true);
+
+				event.consume();
+			});
+
+			edgeLabel.setOnMouseDragged(event -> {
+				if (!event.isPrimaryButtonDown() || labelDragStartPoint == null) {
+
+					return;
+				}
+
+				labelDragged = true;
+
+				Point2D currentPoint = getParent().sceneToLocal(event.getSceneX(), event.getSceneY());
+
+				labelOffsetX = dragStartLabelOffsetX + currentPoint.getX() - labelDragStartPoint.getX();
+
+				labelOffsetY = dragStartLabelOffsetY + currentPoint.getY() - labelDragStartPoint.getY();
+
+				updateEdgeLabel();
+
+				event.consume();
+			});
+
+			edgeLabel.setOnMouseReleased(event -> {
+				labelDragStartPoint = null;
+
+				setEdgeLabelDragging(false);
+
+				event.consume();
+			});
+
+			edgeLabel.setOnMouseClicked(event -> {
+				if (labelDragged) {
+					labelDragged = false;
+					event.consume();
+					return;
+				}
+
+				if (event.getClickCount() == 2) {
+					labelOffsetX = 0.0;
+					labelOffsetY = 0.0;
+
+					updateEdgeLabel();
+					onSelected.run();
+
+					event.consume();
+					return;
+				}
+
+				if (event.getClickCount() == 1) {
+					onSelected.run();
+					event.consume();
+				}
+			});
+		}
+
+		private void configureEdgeDragging(Runnable onSelected) {
 
 			hoverCurve.setOnMouseClicked(event -> {
 				if (event.getClickCount() == 1) {
@@ -933,13 +1167,7 @@ public class JavaFxGraphViewer {
 					loopOffsetX = 0.0;
 					loopOffsetY = 0.0;
 
-					if (source == target) {
-						updateLoop(source);
-					} else {
-						updateNormalEdge(source, target);
-					}
-
-					updateArrowHead();
+					updateEdge();
 					onSelected.run();
 
 					event.consume();
@@ -981,13 +1209,11 @@ public class JavaFxGraphViewer {
 					loopOffsetX = dragStartLoopOffsetX + movementX;
 
 					loopOffsetY = dragStartLoopOffsetY + movementY;
-
-					updateLoop(source);
 				} else {
 					updateNormalEdgeDragging(source, target, movementX, movementY);
 				}
 
-				updateArrowHead();
+				updateEdge();
 
 				event.consume();
 			});
@@ -1000,6 +1226,7 @@ public class JavaFxGraphViewer {
 		}
 
 		private void updateNormalEdgeDragging(StateView source, StateView target, double movementX, double movementY) {
+
 			double edgeX = target.getCenterX() - source.getCenterX();
 
 			double edgeY = target.getCenterY() - source.getCenterY();
@@ -1017,12 +1244,11 @@ public class JavaFxGraphViewer {
 			double perpendicularMovement = movementX * perpendicularX + movementY * perpendicularY;
 
 			if (source.getStateId().compareTo(target.getStateId()) > 0) {
+
 				perpendicularMovement = -perpendicularMovement;
 			}
 
 			userOffset = dragStartOffset + perpendicularMovement;
-
-			updateNormalEdge(source, target);
 		}
 
 		private void updateNormalEdge(StateView source, StateView target) {
@@ -1079,9 +1305,6 @@ public class JavaFxGraphViewer {
 
 			double loopHeight = LOOP_HEIGHT + automaticLoopOffset - loopOffsetY;
 
-			/*
-			 * Evita que el bucle se haga demasiado pequeño al arrastrarlo hacia abajo.
-			 */
 			loopHeight = Math.max(radius + 25.0, loopHeight);
 
 			double connectionFactor = Math.min(0.65 + parallelIndex * 0.08, 0.9);
@@ -1184,6 +1407,57 @@ public class JavaFxGraphViewer {
 				arrow.setFill(NORMAL_COLOR);
 			}
 		}
+
+		private void setEdgeLabelDragging(boolean dragging) {
+
+			String cursor = dragging ? "closed-hand" : "hand";
+
+			String opacity = dragging ? "0.95" : "0.90";
+
+			edgeLabel.setStyle("-fx-background-color: rgba(" + "255, 255, 255, " + opacity + ");"
+					+ "-fx-background-radius: 4;" + "-fx-padding: 3 5 3 5;" + "-fx-font-size: 11px;"
+					+ "-fx-text-fill: #333333;" + "-fx-cursor: " + cursor + ";");
+		}
+
+		public CubicCurve getCurve() {
+			return curve;
+		}
+
+		public Polygon getArrow() {
+			return arrow;
+		}
+
+		public Label getEdgeLabel() {
+			return edgeLabel;
+		}
+
+		public String getLabelText() {
+			return edgeLabel.getText();
+		}
+
+	}
+
+	public static RenderedGraph renderGraph(GraphModel graph) {
+
+		Objects.requireNonNull(graph, "Graph is null");
+
+		if (!Platform.isFxApplicationThread()) {
+			throw new IllegalStateException("The graph must be created on " + "the JavaFX Application Thread");
+		}
+
+		JavaFxGraphViewer viewer = new JavaFxGraphViewer();
+
+		viewer.graphPane.setStyle("-fx-background-color: white;");
+
+		viewer.createGraph(graph);
+
+		return new RenderedGraph(viewer.graphPane, List.copyOf(viewer.displayedStates),
+				List.copyOf(viewer.displayedEdges), List.copyOf(viewer.displayedInitialMarkers));
+	}
+
+	private RenderedGraph getRenderedGraph() {
+		return new RenderedGraph(graphPane, List.copyOf(displayedStates), List.copyOf(displayedEdges),
+				List.copyOf(displayedInitialMarkers));
 	}
 
 	public record StateModel(String id, String label, double x, double y, boolean initial) {
@@ -1193,5 +1467,9 @@ public class JavaFxGraphViewer {
 	}
 
 	public record GraphModel(List<StateModel> states, List<EdgeModel> edges) {
+	}
+
+	public record RenderedGraph(Pane pane, List<StateView> states, List<EdgeView> edges,
+			List<InitialStateMarker> initialMarkers) {
 	}
 }

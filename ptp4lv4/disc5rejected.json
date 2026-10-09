@@ -115,8 +115,7 @@
     "time" : 2.95027995E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -238,8 +237,7 @@
     "time" : 2.36622746E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -357,8 +355,7 @@
     "time" : 2.77369675E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -472,8 +469,7 @@
     "time" : 2.73512495E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -627,8 +623,7 @@
     "time" : 2.97764406E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -714,8 +709,7 @@
     "time" : 2.52345231E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -825,8 +819,7 @@
     "time" : 2.74983241E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -972,8 +965,7 @@
     "time" : 2.8796421E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave", "Error: the automaton recognizes the event but not the time delta 289644.0. Guards of outgoing edges from state Location 14 [ attributes=[], Out edges id [18] ], that have the same event: [375151.0, 1382420.0]" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1071,8 +1063,7 @@
     "time" : 2.23071878E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1170,8 +1161,7 @@
     "time" : 2.94343626E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1249,8 +1239,7 @@
     "time" : 2.52764478E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1348,6 +1337,5 @@
     "time" : 2.79898585E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave", "Error: the automaton recognizes the event but not the time delta 1556890.0. Guards of outgoing edges from state Location 14 [ attributes=[], Out edges id [18] ], that have the same event: [375151.0, 1382420.0]" ]
-  } ],
-  "empty" : false
+  } ]
 } ]

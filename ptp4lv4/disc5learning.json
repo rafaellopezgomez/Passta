@@ -83,8 +83,7 @@
     "time" : 2.69866734E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -162,8 +161,7 @@
     "time" : 2.64152829E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -249,8 +247,7 @@
     "time" : 2.82351487E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -356,8 +353,7 @@
     "time" : 2.69695848E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -443,8 +439,7 @@
     "time" : 1.99555083E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -562,8 +557,7 @@
     "time" : 2.9953751E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -649,8 +643,7 @@
     "time" : 2.16146764E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -728,8 +721,7 @@
     "time" : 2.29318629E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -827,8 +819,7 @@
     "time" : 2.53926585E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -914,8 +905,7 @@
     "time" : 2.19283159E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -993,8 +983,7 @@
     "time" : 2.76329276E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1092,8 +1081,7 @@
     "time" : 2.2768701E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1219,8 +1207,7 @@
     "time" : 2.86322834E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1330,8 +1317,7 @@
     "time" : 2.95667968E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1469,8 +1455,7 @@
     "time" : 2.51025237E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1580,8 +1565,7 @@
     "time" : 2.65696544E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1687,8 +1671,7 @@
     "time" : 2.7018141E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1778,8 +1761,7 @@
     "time" : 2.953517E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1877,8 +1859,7 @@
     "time" : 2.6864956E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -1976,8 +1957,7 @@
     "time" : 2.82009654E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -2083,8 +2063,7 @@
     "time" : 2.56805691E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -2182,8 +2161,7 @@
     "time" : 2.87038641E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -2273,8 +2251,7 @@
     "time" : 2.8136674E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -2404,8 +2381,7 @@
     "time" : 2.58473831E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -2511,8 +2487,7 @@
     "time" : 2.80004478E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -2618,8 +2593,7 @@
     "time" : 2.48053682E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -2697,8 +2671,7 @@
     "time" : 2.84098515E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -2804,8 +2777,7 @@
     "time" : 2.17079801E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -2927,8 +2899,7 @@
     "time" : 2.75495089E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -3038,8 +3009,7 @@
     "time" : 2.87797053E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -3185,8 +3155,7 @@
     "time" : 2.82153065E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -3284,8 +3253,7 @@
     "time" : 2.91575657E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -3387,8 +3355,7 @@
     "time" : 2.81055829E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -3506,8 +3473,7 @@
     "time" : 2.76105029E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -3625,8 +3591,7 @@
     "time" : 2.86664993E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -3712,8 +3677,7 @@
     "time" : 2.52898165E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -3831,8 +3795,7 @@
     "time" : 2.93318724E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -3942,8 +3905,7 @@
     "time" : 2.4646725E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4021,8 +3983,7 @@
     "time" : 2.10035019E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4124,8 +4085,7 @@
     "time" : 2.52382616E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4223,8 +4183,7 @@
     "time" : 2.84375773E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4330,8 +4289,7 @@
     "time" : 2.91797417E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4417,8 +4375,7 @@
     "time" : 2.32153761E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4536,8 +4493,7 @@
     "time" : 2.59823896E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4623,8 +4579,7 @@
     "time" : 2.41807048E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4730,8 +4685,7 @@
     "time" : 2.98396665E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4829,8 +4783,7 @@
     "time" : 2.96790267E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -4936,8 +4889,7 @@
     "time" : 2.66585133E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -5047,8 +4999,7 @@
     "time" : 2.85943954E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -5162,8 +5113,7 @@
     "time" : 2.96231793E8,
     "event" : "Init_complete",
     "variables" : [ "Listening" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -5273,8 +5223,7 @@
     "time" : 2.46355767E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -5364,8 +5313,7 @@
     "time" : 2.57896494E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -5455,8 +5403,7 @@
     "time" : 2.80629871E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -5562,8 +5509,7 @@
     "time" : 2.42715629E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -5697,8 +5643,7 @@
     "time" : 2.92033765E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -5800,8 +5745,7 @@
     "time" : 2.89265139E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -5919,8 +5863,7 @@
     "time" : 2.52819818E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -6026,8 +5969,7 @@
     "time" : 2.65123213E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -6133,8 +6075,7 @@
     "time" : 2.94481394E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -6240,8 +6181,7 @@
     "time" : 2.7065191E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -6371,8 +6311,7 @@
     "time" : 2.84637742E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -6466,8 +6405,7 @@
     "time" : 2.5741132E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -6573,8 +6511,7 @@
     "time" : 2.9047666E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -6708,8 +6645,7 @@
     "time" : 2.94398179E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -6831,8 +6767,7 @@
     "time" : 2.99318331E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -6938,8 +6873,7 @@
     "time" : 2.64363231E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7049,8 +6983,7 @@
     "time" : 2.88222312E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7128,8 +7061,7 @@
     "time" : 2.62241085E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7231,8 +7163,7 @@
     "time" : 2.86356566E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7330,8 +7261,7 @@
     "time" : 2.65500191E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7409,8 +7339,7 @@
     "time" : 2.4392368E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7528,8 +7457,7 @@
     "time" : 2.95970109E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7615,8 +7543,7 @@
     "time" : 2.47015684E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7714,8 +7641,7 @@
     "time" : 2.41372188E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7813,8 +7739,7 @@
     "time" : 2.32292563E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7912,8 +7837,7 @@
     "time" : 2.61340484E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -7999,8 +7923,7 @@
     "time" : 2.58342336E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -8138,8 +8061,7 @@
     "time" : 2.92304649E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -8269,8 +8191,7 @@
     "time" : 2.98597531E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -8356,8 +8277,7 @@
     "time" : 2.34599568E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -8447,8 +8367,7 @@
     "time" : 2.40307681E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -8546,8 +8465,7 @@
     "time" : 2.9875713E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -8637,8 +8555,7 @@
     "time" : 2.65338892E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -8756,8 +8673,7 @@
     "time" : 2.50099282E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -8871,8 +8787,7 @@
     "time" : 2.79397706E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -8970,8 +8885,7 @@
     "time" : 2.79502074E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -9069,8 +8983,7 @@
     "time" : 2.88050206E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -9216,8 +9129,7 @@
     "time" : 2.77531654E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -9335,8 +9247,7 @@
     "time" : 2.55764038E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -9434,8 +9345,7 @@
     "time" : 2.8283323E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -9533,8 +9443,7 @@
     "time" : 2.88999647E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -9620,8 +9529,7 @@
     "time" : 2.64417158E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -9731,8 +9639,7 @@
     "time" : 2.66214285E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -9878,8 +9785,7 @@
     "time" : 2.97383671E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -9977,8 +9883,7 @@
     "time" : 2.58244056E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10068,8 +9973,7 @@
     "time" : 2.93385329E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10167,8 +10071,7 @@
     "time" : 2.97271266E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10266,8 +10169,7 @@
     "time" : 2.82314447E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10373,8 +10275,7 @@
     "time" : 2.48546727E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10488,8 +10389,7 @@
     "time" : 2.99491533E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10555,8 +10455,7 @@
     "time" : 2.14191629E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10646,8 +10545,7 @@
     "time" : 2.55452033E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10725,8 +10623,7 @@
     "time" : 2.20310891E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10804,8 +10701,7 @@
     "time" : 2.34108133E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10903,8 +10799,7 @@
     "time" : 2.32155686E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -10982,8 +10877,7 @@
     "time" : 2.52392145E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11089,8 +10983,7 @@
     "time" : 2.95998889E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11196,8 +11089,7 @@
     "time" : 2.80044528E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11315,8 +11207,7 @@
     "time" : 2.71778814E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11422,8 +11313,7 @@
     "time" : 2.7069611E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11521,8 +11411,7 @@
     "time" : 2.89954453E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11628,8 +11517,7 @@
     "time" : 2.68223465E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11707,8 +11595,7 @@
     "time" : 2.55863921E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11806,8 +11693,7 @@
     "time" : 2.53411761E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11885,8 +11771,7 @@
     "time" : 2.61959751E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -11964,8 +11849,7 @@
     "time" : 2.56879688E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12059,8 +11943,7 @@
     "time" : 2.58414519E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12198,8 +12081,7 @@
     "time" : 2.62470974E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12297,8 +12179,7 @@
     "time" : 2.47019164E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12396,8 +12277,7 @@
     "time" : 2.67017641E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12475,8 +12355,7 @@
     "time" : 2.33045278E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12558,8 +12437,7 @@
     "time" : 2.72277717E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12637,8 +12515,7 @@
     "time" : 2.41697834E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12736,8 +12613,7 @@
     "time" : 2.38035431E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12835,8 +12711,7 @@
     "time" : 2.39493844E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12914,8 +12789,7 @@
     "time" : 2.16661971E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -12993,8 +12867,7 @@
     "time" : 2.09082246E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13100,8 +12973,7 @@
     "time" : 2.85252199E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13191,8 +13063,7 @@
     "time" : 2.58341976E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13270,8 +13141,7 @@
     "time" : 2.32157382E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13401,8 +13271,7 @@
     "time" : 2.87765328E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13508,8 +13377,7 @@
     "time" : 2.81687336E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13595,8 +13463,7 @@
     "time" : 2.29794415E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13714,8 +13581,7 @@
     "time" : 2.75152055E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13813,8 +13679,7 @@
     "time" : 2.43144833E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13888,8 +13753,7 @@
     "time" : 2.55322856E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -13999,8 +13863,7 @@
     "time" : 2.49460946E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14114,8 +13977,7 @@
     "time" : 2.80462075E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14193,8 +14055,7 @@
     "time" : 2.0595869E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14308,8 +14169,7 @@
     "time" : 2.7831885E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14407,8 +14267,7 @@
     "time" : 2.61302794E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14506,8 +14365,7 @@
     "time" : 2.38036848E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14609,8 +14467,7 @@
     "time" : 2.84409187E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14708,8 +14565,7 @@
     "time" : 2.59377586E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14807,8 +14663,7 @@
     "time" : 2.85612275E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14866,8 +14721,7 @@
     "time" : 2.18941166E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -14973,8 +14827,7 @@
     "time" : 2.62094041E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -15080,8 +14933,7 @@
     "time" : 2.7401244E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -15211,8 +15063,7 @@
     "time" : 2.85619219E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -15318,8 +15169,7 @@
     "time" : 2.70913404E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -15425,8 +15275,7 @@
     "time" : 2.86019664E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -15512,8 +15361,7 @@
     "time" : 2.2962993E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -15623,8 +15471,7 @@
     "time" : 2.89238215E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -15730,8 +15577,7 @@
     "time" : 2.51718802E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -15809,8 +15655,7 @@
     "time" : 2.31640718E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -15948,8 +15793,7 @@
     "time" : 2.68559565E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16027,8 +15871,7 @@
     "time" : 2.5642385E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16118,8 +15961,7 @@
     "time" : 2.61381409E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16217,8 +16059,7 @@
     "time" : 2.37714415E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16296,8 +16137,7 @@
     "time" : 2.51071727E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16415,8 +16255,7 @@
     "time" : 2.91343867E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16522,8 +16361,7 @@
     "time" : 2.48599485E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16621,8 +16459,7 @@
     "time" : 2.45832102E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16732,8 +16569,7 @@
     "time" : 2.89347829E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16851,8 +16687,7 @@
     "time" : 2.82177128E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -16958,8 +16793,7 @@
     "time" : 2.64783161E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17065,8 +16899,7 @@
     "time" : 2.37516589E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17152,8 +16985,7 @@
     "time" : 2.2953273E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17267,8 +17099,7 @@
     "time" : 2.95452521E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17354,8 +17185,7 @@
     "time" : 2.88352586E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17461,8 +17291,7 @@
     "time" : 2.81404301E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17568,8 +17397,7 @@
     "time" : 2.83699298E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17655,8 +17483,7 @@
     "time" : 2.34931117E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17742,8 +17569,7 @@
     "time" : 2.62102826E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17837,8 +17663,7 @@
     "time" : 2.55836326E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -17948,8 +17773,7 @@
     "time" : 2.87320342E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18055,8 +17879,7 @@
     "time" : 2.51550645E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18174,8 +17997,7 @@
     "time" : 2.9784778E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18285,8 +18107,7 @@
     "time" : 2.8901711E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18392,8 +18213,7 @@
     "time" : 2.88893075E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18479,8 +18299,7 @@
     "time" : 2.71688035E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18558,8 +18377,7 @@
     "time" : 2.71235022E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18665,8 +18483,7 @@
     "time" : 2.72090529E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18772,8 +18589,7 @@
     "time" : 2.62387114E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18859,8 +18675,7 @@
     "time" : 2.59343706E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -18946,8 +18761,7 @@
     "time" : 2.63292811E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19065,8 +18879,7 @@
     "time" : 2.91023825E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19156,8 +18969,7 @@
     "time" : 2.83381256E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19247,8 +19059,7 @@
     "time" : 2.81334285E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19334,8 +19145,7 @@
     "time" : 2.20749054E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19433,8 +19243,7 @@
     "time" : 2.84039723E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19540,8 +19349,7 @@
     "time" : 2.24960077E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19639,8 +19447,7 @@
     "time" : 2.67634247E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19726,8 +19533,7 @@
     "time" : 2.32305213E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19825,8 +19631,7 @@
     "time" : 2.92791014E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -19952,8 +19757,7 @@
     "time" : 2.82709134E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -20099,8 +19903,7 @@
     "time" : 2.70322449E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -20186,8 +19989,7 @@
     "time" : 2.9736735E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -20293,8 +20095,7 @@
     "time" : 2.8716322E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -20388,8 +20189,7 @@
     "time" : 2.63399523E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -20491,8 +20291,7 @@
     "time" : 2.84427477E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -20594,8 +20393,7 @@
     "time" : 2.61442476E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -20713,8 +20511,7 @@
     "time" : 2.61675499E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -20824,8 +20621,7 @@
     "time" : 2.54354161E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -20931,8 +20727,7 @@
     "time" : 2.93704624E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21038,8 +20833,7 @@
     "time" : 2.5881082E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21157,8 +20951,7 @@
     "time" : 2.77358642E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21252,8 +21045,7 @@
     "time" : 2.9939021E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21371,8 +21163,7 @@
     "time" : 2.95076068E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21458,8 +21249,7 @@
     "time" : 2.72744015E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21569,8 +21359,7 @@
     "time" : 2.75289566E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21696,8 +21485,7 @@
     "time" : 2.70501887E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21775,8 +21563,7 @@
     "time" : 2.60079072E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21882,8 +21669,7 @@
     "time" : 2.48502248E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -21981,8 +21767,7 @@
     "time" : 2.96361762E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -22120,8 +21905,7 @@
     "time" : 2.5321637E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -22199,8 +21983,7 @@
     "time" : 2.54201577E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -22278,8 +22061,7 @@
     "time" : 2.00186095E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -22385,8 +22167,7 @@
     "time" : 2.42290316E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -22484,8 +22265,7 @@
     "time" : 2.82523509E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -22591,8 +22371,7 @@
     "time" : 2.56443903E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -22706,8 +22485,7 @@
     "time" : 2.71308651E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -22813,8 +22591,7 @@
     "time" : 2.65583859E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -22932,8 +22709,7 @@
     "time" : 2.9020109E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -23071,8 +22847,7 @@
     "time" : 2.95598927E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -23178,8 +22953,7 @@
     "time" : 2.9201841E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -23265,8 +23039,7 @@
     "time" : 2.73376954E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -23364,8 +23137,7 @@
     "time" : 2.94797596E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -23471,8 +23243,7 @@
     "time" : 2.83031575E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -23538,8 +23309,7 @@
     "time" : 2.24265877E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -23649,8 +23419,7 @@
     "time" : 2.9425013E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -23772,8 +23541,7 @@
     "time" : 2.67400259E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -23899,8 +23667,7 @@
     "time" : 2.55491416E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24006,8 +23773,7 @@
     "time" : 2.90448072E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24125,8 +23891,7 @@
     "time" : 2.85058823E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24204,8 +23969,7 @@
     "time" : 2.5149648E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24327,8 +24091,7 @@
     "time" : 2.72432324E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24426,8 +24189,7 @@
     "time" : 2.95714251E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24553,8 +24315,7 @@
     "time" : 2.98446479E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24640,8 +24401,7 @@
     "time" : 2.6280303E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24751,8 +24511,7 @@
     "time" : 2.56662307E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24838,8 +24597,7 @@
     "time" : 2.31894923E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -24957,8 +24715,7 @@
     "time" : 2.92193802E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25048,8 +24805,7 @@
     "time" : 2.43386675E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25167,8 +24923,7 @@
     "time" : 2.8796959E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25262,8 +25017,7 @@
     "time" : 2.67413127E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25361,8 +25115,7 @@
     "time" : 2.49328938E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25448,8 +25201,7 @@
     "time" : 2.61874861E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25559,8 +25311,7 @@
     "time" : 2.80989325E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25686,8 +25437,7 @@
     "time" : 2.98653845E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25797,8 +25547,7 @@
     "time" : 2.66449329E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25884,8 +25633,7 @@
     "time" : 2.75183093E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -25963,8 +25711,7 @@
     "time" : 2.92229626E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26070,8 +25817,7 @@
     "time" : 2.93085585E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26169,8 +25915,7 @@
     "time" : 2.54820154E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26248,8 +25993,7 @@
     "time" : 2.11115029E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26355,8 +26099,7 @@
     "time" : 2.94774152E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26454,8 +26197,7 @@
     "time" : 2.5659863E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26561,8 +26303,7 @@
     "time" : 2.95956619E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26648,8 +26389,7 @@
     "time" : 2.35125457E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26727,8 +26467,7 @@
     "time" : 2.15609269E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26806,8 +26545,7 @@
     "time" : 2.29341864E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -26925,8 +26663,7 @@
     "time" : 2.77200413E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27000,8 +26737,7 @@
     "time" : 2.68413993E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27135,8 +26871,7 @@
     "time" : 2.88604849E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27242,8 +26977,7 @@
     "time" : 2.98898544E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27329,8 +27063,7 @@
     "time" : 2.74630577E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27416,8 +27149,7 @@
     "time" : 2.40197083E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27523,8 +27255,7 @@
     "time" : 2.78990427E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27630,8 +27361,7 @@
     "time" : 2.67659729E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27729,8 +27459,7 @@
     "time" : 2.68704856E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27828,8 +27557,7 @@
     "time" : 2.6525013E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -27935,8 +27663,7 @@
     "time" : 2.6085796E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28046,8 +27773,7 @@
     "time" : 2.38466427E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28161,8 +27887,7 @@
     "time" : 2.9647293E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28268,8 +27993,7 @@
     "time" : 2.98120479E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28379,8 +28103,7 @@
     "time" : 2.99392989E8,
     "event" : "Init_complete",
     "variables" : [ "Listening" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28466,8 +28189,7 @@
     "time" : 2.44838861E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28565,8 +28287,7 @@
     "time" : 2.94306721E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28648,8 +28369,7 @@
     "time" : 2.68319E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28739,8 +28459,7 @@
     "time" : 2.99197907E8,
     "event" : "Fault_cleared",
     "variables" : [ "" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28870,8 +28589,7 @@
     "time" : 2.98601263E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -28969,8 +28687,7 @@
     "time" : 2.8395966E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29048,8 +28765,7 @@
     "time" : 2.25130665E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29151,8 +28867,7 @@
     "time" : 2.51862981E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29250,8 +28965,7 @@
     "time" : 2.86096082E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29357,8 +29071,7 @@
     "time" : 2.9320581E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29444,8 +29157,7 @@
     "time" : 2.36000688E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29543,8 +29255,7 @@
     "time" : 2.46675831E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29662,8 +29373,7 @@
     "time" : 2.63974352E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29741,8 +29451,7 @@
     "time" : 2.31782234E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29824,8 +29533,7 @@
     "time" : 2.80275466E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -29907,8 +29615,7 @@
     "time" : 2.7932375E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -30026,8 +29733,7 @@
     "time" : 2.8360586E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -30113,8 +29819,7 @@
     "time" : 2.4752609E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -30196,8 +29901,7 @@
     "time" : 2.45282987E8,
     "event" : "Fault_detected",
     "variables" : [ "Faulty" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -30275,8 +29979,7 @@
     "time" : 2.19492091E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -30386,8 +30089,7 @@
     "time" : 2.52038196E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -30485,8 +30187,7 @@
     "time" : 2.88647051E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 }, {
   "obs" : [ {
     "time" : 0.0,
@@ -30584,6 +30285,5 @@
     "time" : 2.30193043E8,
     "event" : "Master_clock_selected",
     "variables" : [ "Slave" ]
-  } ],
-  "empty" : false
+  } ]
 } ]
