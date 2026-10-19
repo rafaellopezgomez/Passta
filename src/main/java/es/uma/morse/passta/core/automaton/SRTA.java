@@ -100,7 +100,7 @@ public class SRTA {
 	}
 
 	public SRTALocation searchLocationFromSource(SRTALocation srcLoc, String event, List<String> attrs) {
-		Optional<SRTALocation> searchedLoc = srcLoc.getOutEdges().stream().parallel().filter(indexEdge -> {
+		Optional<SRTALocation> searchedLoc = srcLoc.getOutEdges().stream().filter(indexEdge -> {
 			var edge = edges.get(indexEdge);
 			if (edge.getEvent().equals(event)) {
 				var targLoc = locations.get(edge.getTargetId());
@@ -112,7 +112,7 @@ public class SRTA {
 	}
 
 	public Optional<SRTAEdge> searchEdge(SRTALocation srcLoc, SRTALocation nextLoc, String event) {
-        return srcLoc.getOutEdges().stream().parallel()
+        return srcLoc.getOutEdges().stream()
 				.map(indexEdge -> edges.get(indexEdge)).filter(e -> {
 					return e.getTargetId() == nextLoc.getId() && e.getEvent().equals(event);
 				}).findFirst();
