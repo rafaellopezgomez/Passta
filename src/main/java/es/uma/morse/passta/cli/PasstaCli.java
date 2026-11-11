@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 import es.uma.morse.passta.core.Passta;
 import es.uma.morse.passta.core.automaton.SRTA;
-import es.uma.morse.passta.io.AutomatonExportFormat;
-import es.uma.morse.passta.io.AutomatonExporter;
-import es.uma.morse.passta.io.AutomatonViewer;
-import es.uma.morse.passta.io.JavaFxRuntime;
+import es.uma.morse.passta.export.AutomatonExportFormat;
+import es.uma.morse.passta.export.AutomatonExporter;
+import es.uma.morse.passta.visualization.javafx.AutomatonViewer;
+import es.uma.morse.passta.visualization.javafx.JavaFxRuntime;
 
 public final class PasstaCli {
 

@@ -13,8 +13,8 @@ import es.uma.morse.passta.core.trace.Observation;
 import es.uma.morse.passta.core.trace.Trace;
 import es.uma.morse.passta.core.matching.SimilarityType;
 import es.uma.morse.passta.core.matching.SimilarityMatcher;
-import es.uma.morse.passta.io.AutomatonViewer;
-import es.uma.morse.passta.io.TraceReader;
+import es.uma.morse.passta.trace.io.TraceReader;
+import es.uma.morse.passta.visualization.javafx.AutomatonViewer;
 
 public class Passta {
 
@@ -27,16 +27,6 @@ public class Passta {
 	boolean initVars;
 
 	private final Path tracesPath;
-
-	/**
-	 * Creates a PASSTA learning algorithm instance from a source file path.
-	 *
-	 * @param src tracesPath path to the file or directory where the JSON files are.
-	 * @param k   algorithm parameter
-	 */
-	public Passta(String src, int k) {
-		this(Path.of(Objects.requireNonNull(src, "Source path is null")), k);
-	}
 
 	/**
 	 * Creates a PASSTA learning algorithm instance from a source file path.

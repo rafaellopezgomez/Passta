@@ -12,8 +12,8 @@ import es.uma.morse.passta.core.automaton.SRTA;
 import es.uma.morse.passta.core.automaton.SRTALocation;
 import es.uma.morse.passta.core.trace.Observation;
 import es.uma.morse.passta.core.trace.Trace;
-import es.uma.morse.passta.io.TraceReader;
-import es.uma.morse.passta.io.TraceWriter;
+import es.uma.morse.passta.trace.io.TraceReader;
+import es.uma.morse.passta.trace.io.TraceWriter;
 
 public final class Validator {
 
