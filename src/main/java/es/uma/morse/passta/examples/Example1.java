@@ -7,13 +7,13 @@ import java.util.stream.Stream;
 import es.uma.morse.passta.core.Passta;
 import es.uma.morse.passta.core.automaton.SRTA;
 import es.uma.morse.passta.core.trace.Trace;
-import es.uma.morse.passta.io.AutomatonExportFormat;
-import es.uma.morse.passta.io.AutomatonExporter;
-import es.uma.morse.passta.io.AutomatonViewer;
-import es.uma.morse.passta.io.TraceReader;
-import es.uma.morse.passta.io.TraceWriter;
+import es.uma.morse.passta.export.AutomatonExportFormat;
+import es.uma.morse.passta.export.AutomatonExporter;
+import es.uma.morse.passta.trace.io.TraceReader;
+import es.uma.morse.passta.trace.io.TraceWriter;
 import es.uma.morse.passta.validation.ValidationResult;
 import es.uma.morse.passta.validation.Validator;
+import es.uma.morse.passta.visualization.javafx.AutomatonViewer;
 
 public class Example1 {
 
