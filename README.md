@@ -46,6 +46,7 @@ passta-0.4.0-linux-x64.jar
 passta-0.4.0-windows-x64.jar
 passta-0.4.0-macos-arm64.jar
 passta-0.4.0-macos-x64.jar
+```
 
 ## Table of contents
 
