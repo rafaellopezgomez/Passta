@@ -12,7 +12,7 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import com.fasterxml.jackson.databind.MappingIterator;
+import tools.jackson.databind.MappingIterator;
 
 import es.uma.morse.passta.core.trace.Trace;
 
@@ -31,6 +31,11 @@ public final class TraceReader {
 	 * {@link #readTracesFromDirectory(Path)}.
 	 * </p>
 	 *
+	 * <p>
+	 * The returned stream holds I/O resources and must be closed, preferably using
+	 * a try-with-resources statement.
+	 * </p>
+	 *
 	 * @param source path to a JSON file or to a directory containing JSON files
 	 * @return a sequential stream yielding the traces found in the source
 	 * @throws NullPointerException     if {@code source} is {@code null}
@@ -38,7 +43,6 @@ public final class TraceReader {
 	 *                                  a directory
 	 */
 	public static Stream<Trace> readTraces(Path source) {
-
 		Objects.requireNonNull(source, "Source path is null");
 
 		Path path = source.toAbsolutePath().normalize();
@@ -58,95 +62,59 @@ public final class TraceReader {
 	 * Streams traces from a JSON file without loading the full list into memory
 	 * simultaneously.
 	 *
-	 * The input JSON file is expected to contain an array of Trace objects at the
+	 * <p>
+	 * The input JSON file must to contain an array of {@link Trace} objects at its
 	 * root.
+	 * <p>
 	 *
 	 * @param source path to the JSON file containing the traces
 	 * @return a sequential stream yielding one trace at a time
-	 * @throws UncheckedIOException if the file cannot be opened, read or closed
-	 * 
 	 */
 	private static Stream<Trace> readTracesFromFile(Path source) {
-
 		Path path = validateJsonFile(source);
 
-		final MappingIterator<Trace> mappingIterator;
-
-		try {
-
-			mappingIterator = TraceJsonSupport.traceReader().readValues(path.toFile());
-
-		} catch (IOException e) {
-			throw new UncheckedIOException("Cannot open traces file; " + path, e);
-		}
+		MappingIterator<Trace> mappingIterator = TraceJsonSupport.traceReader().readValues(path.toFile());
 
 		Iterator<Trace> iterator = new Iterator<>() {
 
 			@Override
 			public boolean hasNext() {
-
-				try {
-					return mappingIterator.hasNextValue();
-				} catch (IOException e) {
-					throw new UncheckedIOException("Cannot read traces from: " + path, e);
-				}
+				return mappingIterator.hasNextValue();
 			}
 
 			@Override
 			public Trace next() {
-
-				try {
-					return mappingIterator.nextValue();
-				} catch (IOException e) {
-					throw new UncheckedIOException("Cannot read trace from: " + path, e);
-				}
+				return mappingIterator.nextValue();
 			}
 		};
 
-		Spliterator<Trace> spliterator = Spliterators.spliteratorUnknownSize(iterator,
-				Spliterator.ORDERED | Spliterator.NONNULL);
+		Spliterator<Trace> spliterator = Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED);
 
-		return StreamSupport.stream(spliterator, false).onClose(() -> closeMappingIterator(mappingIterator, path));
+		return StreamSupport.stream(spliterator, false).onClose(mappingIterator::close);
 	}
 
 	/**
 	 * Streams all traces from the JSON files contained directly in a directory.
 	 * 
-	 * Only regular files with a .json extension are processed.
+     * <p>Only regular files with a {@code .json} extension are processed.
+     * Files are processed in lexicographical order by file name.</p>
 	 * 
-	 * @param sourceDirectory path to the directory containing JSON files
+	 * @param sourceDirectory directory containing the JSON files
 	 * @return a sequential stream yielding the traces found in the directory
 	 */
 	private static Stream<Trace> readTracesFromDirectory(Path sourceDirectory) {
-
 		Path directory = validateDirectory(sourceDirectory);
 
-		final Stream<Path> files;
-
 		try {
-			files = Files.list(directory);
+			Stream<Path> files = Files.list(directory);
+			
+			return files.filter(Files::isRegularFile).filter(TraceJsonSupport::isJsonFile).sorted(Comparator.comparing(path -> path.getFileName().toString())).flatMap(TraceReader::readTracesFromFile).onClose(files::close);
 		} catch (IOException e) {
 			throw new UncheckedIOException("Cannot list traces directory: " + directory, e);
-		}
-
-		Stream<Trace> traces = files.filter(Files::isRegularFile).filter(TraceReader::isJsonFile)
-				.sorted(Comparator.comparing(path -> path.getFileName().toString()))
-				.flatMap(TraceReader::readTracesFromFile);
-
-		return traces.onClose(files::close);
-	}
-
-	private static void closeMappingIterator(MappingIterator<Trace> iterator, Path source) {
-
-		try {
-			iterator.close();
-		} catch (IOException e) {
-			throw new UncheckedIOException("Cannot close traces file; " + source, e);
 		}
 	}
 
 	private static Path validateDirectory(Path sourceDirectory) {
-
 		Objects.requireNonNull(sourceDirectory, "Source directory is null");
 
 		Path directory = sourceDirectory.toAbsolutePath().normalize();
@@ -158,13 +126,6 @@ public final class TraceReader {
 		return directory;
 	}
 
-	private static boolean isJsonFile(Path file) {
-
-		String fileName = file.getFileName().toString().toLowerCase();
-
-		return fileName.endsWith(".json");
-	}
-
 	private static Path validateJsonFile(Path source) {
 		Objects.requireNonNull(source, "Source path is null");
 
@@ -174,7 +135,7 @@ public final class TraceReader {
 			throw new IllegalArgumentException("Source is not a regular file: " + path);
 		}
 
-		if (!isJsonFile(path)) {
+		if (!TraceJsonSupport.isJsonFile(path)) {
 			throw new IllegalArgumentException("Source file must have .json extension: " + path);
 		}
 

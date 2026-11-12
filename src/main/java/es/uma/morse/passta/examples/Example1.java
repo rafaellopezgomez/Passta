@@ -19,86 +19,98 @@ public class Example1 {
 
 	public static void main(String[] args) {
 
+		Path directory = Path.of("ptp4lv4");
+		String scenario = "disc";
+		int k = 2;
+
+		Path trainingPath = directory.resolve(scenario + "5training.json");
+
+		Path validationPath = directory.resolve(scenario + "5validation.json");
+
+		Path trainingCopyPath = directory.resolve(scenario + "training-copy.json");
+
+		Path rejectedTracesPath = directory.resolve(scenario + "5rejected.json");
+
+		Path pngOutputPath = directory.resolve(scenario + "-ptp4lv4.png");
+
+		Path uppaalOutputPath = directory.resolve(scenario + "-ptp4lv4.xml");
+		
 		try {
-			/*
-			 * Configuration
-			 */
-			Path directoryPath = Path.of("ptp4lv4");
-			String scenario = "disc";
-
-			Path trainingPath = directoryPath.resolve(scenario + "5training.json");
-
-			Path validationPath = directoryPath.resolve(scenario + "5validation.json");
-
-			Path learningOutputPath = directoryPath.resolve(scenario + "5learning.json");
-
-			Path rejectedTracesPath = directoryPath.resolve(scenario + "5rejected.json");
-
-			/*
-			 * Learning module
-			 */
-			Passta passta = new Passta(trainingPath, 2);
-
-			/*
-			 * Get learned automaton
-			 */
+            /*
+             * Learn the automaton.
+             */
+			Passta passta = new Passta(trainingPath, k);
 			SRTA automaton = passta.getAutomaton();
 
 			/*
-			 * Show automaton in browser
+			 * Show automaton
 			 */
 			AutomatonViewer.show(automaton);
 
-			/*
-			 * Export automaton as PNG
-			 */
-			AutomatonExporter.export(automaton,
-					directoryPath.resolve(scenario + "-" + directoryPath.getFileName() + ".png"),
-					AutomatonExportFormat.PNG);
+            /*
+             * Export the automaton.
+             */
+            AutomatonExporter.export(
+                automaton,
+                pngOutputPath,
+                AutomatonExportFormat.PNG
+            );
 
-			/*
-			 * Export automaton in UPPAAL format
-			 */
-			AutomatonExporter.export(automaton,
-					directoryPath.resolve(scenario + "-" + directoryPath.getFileName() + ".xml"),
-					AutomatonExportFormat.UPPAAL);
+            AutomatonExporter.export(
+                automaton,
+                uppaalOutputPath,
+                AutomatonExportFormat.UPPAAL
+            );
 
-			/*
-			 * Trace processing module
-			 */
-			try (Stream<Trace> trainingTraceStream = TraceReader.readTraces(trainingPath)) {
+            /*
+             * Read and write the training traces.
+             */
+            try (Stream<Trace> traceStream =
+                    TraceReader.readTraces(trainingPath)) {
 
-				List<Trace> trainingTraces = trainingTraceStream.toList();
+                List<Trace> traces = traceStream.toList();
 
-				TraceWriter.writeTraces(learningOutputPath, trainingTraces);
-			}
+                TraceWriter.writeTraces(
+                    trainingCopyPath,
+                    traces
+                );
+            }
 
-			/*
-			 * Validation module
-			 *
-			 * Validator processes the validation file once and returns the total number of
-			 * traces and the number of accepted traces.
-			 */
-			ValidationResult validationResult = Validator.nValidTraces(validationPath, automaton, rejectedTracesPath);
+            /*
+             * Validate additional traces.
+             */
+            ValidationResult result =
+                Validator.nValidTraces(
+                    validationPath,
+                    automaton,
+                    rejectedTracesPath
+                );
 
-			/*
-			 * Validation summary
-			 */
-			System.out.println();
-			System.out.println("Validation results");
-			System.out.println("------------------");
+            System.out.println();
+            System.out.println("Validation results");
+            System.out.println("------------------");
+            System.out.println(
+                "Validation traces: " + result.totalTraces()
+            );
+            System.out.println(
+                "Accepted traces:   " + result.acceptedTraces()
+            );
+            System.out.println(
+                "Rejected traces:   " + result.rejectedTraces()
+            );
+            System.out.printf(
+                "Acceptance rate:   %.2f%%%n",
+                result.acceptanceRate() * 100.0
+            );
 
-			System.out.println("Validation traces: " + validationResult.totalTraces());
-
-			System.out.println("Accepted traces:   " + validationResult.acceptedTraces());
-
-			System.out.println("Rejected traces:   " + validationResult.rejectedTraces());
-
-			System.out.printf("Acceptance rate:   %.2f%%%n", validationResult.acceptanceRate() * 100.0);
-
-			if (validationResult.rejectedTraces() > 0) {
-				System.out.println("Rejected traces file: " + rejectedTracesPath.toAbsolutePath().normalize());
-			}
+            if (result.rejectedTraces() > 0) {
+                System.out.println(
+                    "Rejected traces: "
+                        + rejectedTracesPath
+                            .toAbsolutePath()
+                            .normalize()
+                );
+            }
 
 		} catch (Exception e) {
 			System.err.println("Error while executing Example1: " + e.getMessage());

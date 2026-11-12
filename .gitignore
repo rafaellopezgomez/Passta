@@ -185,3 +185,4 @@ out/
 /dist/*
 !/dist/*.jar
 
+/dist/

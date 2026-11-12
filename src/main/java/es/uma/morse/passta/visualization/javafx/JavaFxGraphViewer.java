@@ -174,13 +174,13 @@ public class JavaFxGraphViewer {
 
 		exportPngButton.setTooltip(new Tooltip("Export the automaton as PNG"));
 
-		exportPngButton.setOnAction(event -> {
+		exportPngButton.setOnAction(_ -> {
 			Window window = exportPngButton.getScene().getWindow();
 
 			chooseAndExportGraph(window, AutomatonExportFormat.PNG);
 		});
 
-		exportSvgButton.setOnAction(event -> {
+		exportSvgButton.setOnAction(_ -> {
 			Window window = exportSvgButton.getScene().getWindow();
 
 			chooseAndExportGraph(window, AutomatonExportFormat.SVG);
@@ -192,15 +192,15 @@ public class JavaFxGraphViewer {
 
 		fitButton.setTooltip(new Tooltip("Adjust the automaton to fit the window"));
 
-		zoomInButton.setOnAction(event -> zoomAtCenter(ZOOM_FACTOR));
+		zoomInButton.setOnAction(_ -> zoomAtCenter(ZOOM_FACTOR));
 
-		zoomOutButton.setOnAction(event -> zoomAtCenter(1.0 / ZOOM_FACTOR));
+		zoomOutButton.setOnAction(_ -> zoomAtCenter(1.0 / ZOOM_FACTOR));
 
-		fitButton.setOnAction(event -> fitGraphToWindow());
+		fitButton.setOnAction(_ -> fitGraphToWindow());
 
 		resetButton.setTooltip(new Tooltip("Reset positions"));
 
-		resetButton.setOnAction(event -> resetGraphLayout());
+		resetButton.setOnAction(_ -> resetGraphLayout());
 
 		HBox controls = new HBox(6.0, zoomInButton, zoomOutButton, new Separator(), fitButton, resetButton,
 				new Separator(), exportPngButton, exportSvgButton);
@@ -470,7 +470,7 @@ public class JavaFxGraphViewer {
 		for (EdgeModel edge : graph.edges()) {
 			String groupKey = createEdgeGroupKey(edge);
 
-			edgeGroups.computeIfAbsent(groupKey, key -> new ArrayList<>()).add(edge);
+			edgeGroups.computeIfAbsent(groupKey, _ -> new ArrayList<>()).add(edge);
 		}
 
 		for (List<EdgeModel> group : edgeGroups.values()) {
@@ -565,9 +565,9 @@ public class JavaFxGraphViewer {
 
 			Runnable updateMarker = () -> updatePosition(state);
 
-			state.layoutXProperty().addListener((observable, oldValue, newValue) -> updateMarker.run());
+			state.layoutXProperty().addListener((_, _, _) -> updateMarker.run());
 
-			state.layoutYProperty().addListener((observable, oldValue, newValue) -> updateMarker.run());
+			state.layoutYProperty().addListener((_, _, _) -> updateMarker.run());
 
 			updateMarker.run();
 		}
@@ -675,7 +675,7 @@ public class JavaFxGraphViewer {
 			event.consume();
 		});
 
-		root.setOnMouseReleased(event -> {
+		root.setOnMouseReleased(_ -> {
 			root.setStyle("-fx-cursor: default;");
 		});
 	}
@@ -991,14 +991,14 @@ public class JavaFxGraphViewer {
 
 			Runnable updateEdgeAction = this::updateEdge;
 
-			source.layoutXProperty().addListener((observable, oldValue, newValue) -> updateEdgeAction.run());
+			source.layoutXProperty().addListener((_, _, _) -> updateEdgeAction.run());
 
-			source.layoutYProperty().addListener((observable, oldValue, newValue) -> updateEdgeAction.run());
+			source.layoutYProperty().addListener((_, _, _) -> updateEdgeAction.run());
 
 			if (source != target) {
-				target.layoutXProperty().addListener((observable, oldValue, newValue) -> updateEdgeAction.run());
+				target.layoutXProperty().addListener((_, _, _) -> updateEdgeAction.run());
 
-				target.layoutYProperty().addListener((observable, oldValue, newValue) -> updateEdgeAction.run());
+				target.layoutYProperty().addListener((_, _, _) -> updateEdgeAction.run());
 			}
 
 			Tooltip tooltip = new Tooltip(description);
@@ -1386,17 +1386,17 @@ public class JavaFxGraphViewer {
 		}
 
 		private void configureHover() {
-			hoverCurve.setOnMouseEntered(event -> setHighlighted(true));
+			hoverCurve.setOnMouseEntered(_ -> setHighlighted(true));
 
-			hoverCurve.setOnMouseExited(event -> setHighlighted(false));
+			hoverCurve.setOnMouseExited(_ -> setHighlighted(false));
 
-			curve.setOnMouseEntered(event -> setHighlighted(true));
+			curve.setOnMouseEntered(_ -> setHighlighted(true));
 
-			curve.setOnMouseExited(event -> setHighlighted(false));
+			curve.setOnMouseExited(_ -> setHighlighted(false));
 
-			arrow.setOnMouseEntered(event -> setHighlighted(true));
+			arrow.setOnMouseEntered(_ -> setHighlighted(true));
 
-			arrow.setOnMouseExited(event -> setHighlighted(false));
+			arrow.setOnMouseExited(_ -> setHighlighted(false));
 		}
 
 		private void setHighlighted(boolean highlighted) {

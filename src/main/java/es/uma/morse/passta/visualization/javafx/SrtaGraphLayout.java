@@ -105,7 +105,7 @@ public final class SrtaGraphLayout {
 		for (SRTALocation location : locations) {
 			int level = levels.get(location.getId());
 
-			result.computeIfAbsent(level, ignored -> new ArrayList<>()).add(location);
+			result.computeIfAbsent(level, _ -> new ArrayList<>()).add(location);
 		}
 
 		return result;
