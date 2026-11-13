@@ -27,27 +27,6 @@
 
 PASSTA is currently under active development. APIs, command-line options, parser configuration, visualization behavior, and internal packages may change between versions.
 
-### Platform-specific builds
-
-PASSTA source code is cross-platform. However, JavaFX uses native libraries
-that depend on the operating system and processor architecture.
-
-The automated build produces separate executable JARs for:
-
-- Linux x64;
-- Windows x64;
-- macOS ARM64;
-- macOS Intel.
-
-Use the artifact corresponding to the target platform:
-
-```text
-passta-0.4.0-linux-x64.jar
-passta-0.4.0-windows-x64.jar
-passta-0.4.0-macos-arm64.jar
-passta-0.4.0-macos-x64.jar
-```
-
 ## Table of contents
 
 - [Quick start](#quick-start)
