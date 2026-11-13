@@ -849,7 +849,7 @@ public class AutomatonUppaalExporter {
 	}
 
 	private static int getOrCreateAttrCode(Map<String, Integer> attrsList, String attrsName) {
-	    return attrsList.computeIfAbsent(attrsName, ignored -> attrsList.size());
+	    return attrsList.computeIfAbsent(attrsName, _ -> attrsList.size());
 	}
 
 }

@@ -9,10 +9,11 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
-  <img src="https://img.shields.io/badge/JavaFX-21-007396?style=for-the-badge" alt="JavaFX 21" />
+  <img src="https://img.shields.io/badge/Java-25-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 25" />
+  <img src="https://img.shields.io/badge/JavaFX-25-007396?style=for-the-badge" alt="JavaFX 25" />
+  <img src="https://img.shields.io/badge/Jackson-3-2E7D32?style=for-the-badge" alt="Jackson 3" />
   <img src="https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white" alt="Apache Maven" />
-  <img src="https://img.shields.io/badge/version-0.4-red?style=for-the-badge" alt="Version 0.4" />
+  <img src="https://img.shields.io/badge/version-0.4.0-red?style=for-the-badge" alt="Version 0.4.0" />
   <img src="https://img.shields.io/badge/status-in%20development-orange?style=for-the-badge" alt="In development" />
   <img src="https://img.shields.io/badge/platform-cross--platform-lightgrey?style=for-the-badge" alt="Cross-platform" />
   <img src="https://img.shields.io/badge/Licence-Affero_GPL3-blue?style=for-the-badge" alt="AGPL-3.0 License" />
@@ -24,381 +25,152 @@
 
 ## Status
 
-PASSTA is currently under active development. APIs, command-line options, visualization behaviour, and internal packages may change between versions.
+PASSTA is currently under active development. APIs, command-line options, parser configuration, visualization behavior, and internal packages may change between versions.
 
-## Quick start
+### Platform-specific builds
 
-The executable JAR is generated in the `dist/` directory:
+PASSTA source code is cross-platform. However, JavaFX uses native libraries
+that depend on the operating system and processor architecture.
 
-```text
-dist/Passta-0.4.jar
-```
+The automated build produces separate executable JARs for:
 
-Move into the `dist/` directory:
+- Linux x64;
+- Windows x64;
+- macOS ARM64;
+- macOS Intel.
 
-```bash
-cd dist
-```
-
-Open the learned automaton in the JavaFX viewer:
-
-```bash
-java -jar Passta-0.4.jar view data/traces.json 2
-```
-
-Export an automaton to SVG:
-
-```bash
-java -jar Passta-0.4.jar export data/traces.json 2 out/automaton.svg
-```
-
-Export an automaton to PNG:
-
-```bash
-java -jar Passta-0.4.jar export data/traces.json 2 out/automaton.png
-```
-
-Export an automaton to UPPAAL:
-
-```bash
-java -jar Passta-0.4.jar export data/traces.json 2 out/model.xml
-```
-
-The value of `k` must be greater than or equal to `1`.
-
-## Features
-
-- Learns **Stochastic Real-Time Automata (SRTA)** from JSON execution traces.
-- Reads traces lazily through `Stream<Trace>`, avoiding the need to load the complete input into memory.
-- Uses a central `TraceReader.readTraces(...)` entry point for JSON files and directories containing JSON files.
-- Provides a command-line interface for learning, visualization, and export.
-- Includes an interactive JavaFX automaton viewer.
-- Exports the current viewer layout to `PNG` or vector `SVG`.
-- Exports to `PNG` and `SVG` from the command line without opening the viewer window.
-- Exports learned automata to `UPPAAL` XML.
-- Supports trace validation against learned automata.
-- Returns validation statistics through `ValidationResult`, including total, accepted, and rejected traces.
-- Can save rejected traces together with the reason for their rejection.
-
-## Changelog
-
-### 2026-10-09 - Version 0.4
-
-- Replaced the previous browser-oriented visualization with an interactive JavaFX viewer.
-- Added interactive movement of automaton locations.
-- Added interactive adjustment of transitions, parallel edges, and self-loops.
-- Added independently movable transition labels that preserve their relative displacement when transitions or locations move.
-- Added zoom, panning, fit-to-window, and layout reset controls.
-- Added location and transition selection with a details panel.
-- Added PNG and SVG export from the JavaFX viewer while preserving the current manual layout.
-- Added headless-style PNG and SVG export from the CLI without opening a JavaFX window.
-- Removed the Graphviz/Graphper dependency from graphical export.
-- Refactored the merge methods to clarify their responsibilities and reduce duplicated merge logic.
-- Updated the CLI for `view`, `PNG`, `SVG`, and `UPPAAL` workflows.
-- Enforced `k >= 1` in positional and named CLI arguments.
-- Updated the executable artifact name to `Passta-0.4.jar`.
-
-### 2026-10-01 - Version 0.3.1
-
-- `TraceReader.readTraces(...)` now returns a lazy `Stream<Trace>` instead of a materialized `List<Trace>`.
-- Trace reading has been centralized in `TraceReader.readTraces(...)`, which accepts either a JSON file or a directory containing JSON files.
-- Input streams and Jackson iterators are closed through the stream `onClose` mechanism and should be consumed using `try-with-resources`.
-- The previous public streaming-specific usage based on `MappingIterator` has been replaced by the standard Java Stream API.
-- Validation entry points have been refactored to accept a source `Path` or `String` directly, instead of requiring callers to load traces beforehand.
-- Validation now processes traces incrementally and compresses each trace before checking it against the automaton.
-- `Validator.nValidTraces(...)` now returns a `ValidationResult` containing the total and accepted trace counts. The rejected count and acceptance rate are derived from these values.
-- Rejected traces can still be written to a JSON destination, including diagnostic information explaining the rejection.
-- Java API examples and documentation have been updated for the stream-based trace-reading and validation APIs.
-
-### 2026-07-03 - Version 0.3
-
-- Project refactored into clearer core, I/O, automaton, trace, validation, and CLI packages.
-- JSON trace processing was updated to reduce memory usage for large trace files.
-- Edge labels in the browser-based automaton visualization were improved.
-- Command-line interface mode added.
-- Browser visualization command added.
-- Location legend added to the UPPAAL export.
-
-### 2026-01-12
-
-- Parser `show()` method improved to work with all operating systems and browsers.
-- The validation module was extended with methods that save rejected traces together with the reason for their rejection.
-
-### 2025-10-15
-
-- Adjustments in the merge algorithm to fix indeterminism as soon as possible in the in-out edges of the resulting merged location.
-
-### 2025-07-16
-
-- New custom UPPAAL parser developed.
-- UPPAAL API dependency removed.
-
-## Description
-
-PASSTA is a tool that integrates an automata learning algorithm to automatically construct abstract models, **Stochastic Real-Time Automata (SRTA)**, from observations of real systems, such as execution traces.
-
-PASSTA can be used in two ways:
-
-- as a **command-line tool** through the provided CLI;
-- as a **Java API** from another Java program.
-
-## Architecture overview
+Use the artifact corresponding to the target platform:
 
 ```text
-JSON trace file or directory
-    │
-    ▼
-TraceReader.readTraces(...)
-    │
-    ▼
-Stream<Trace>
-    │
-    ├── PASSTA learning algorithm
-    │       │
-    │       ▼
-    │    SRTA automaton
-    │       │
-    │       ▼
-    │    SrtaGraphAdapter
-    │       │
-    │       ▼
-    │    JavaFX graph model and layout
-    │       │
-    │       ├── Interactive JavaFX viewer
-    │       ├── PNG export
-    │       └── Vector SVG export
-    │
-    │    SRTA automaton
-    │       └── UPPAAL export
-    │
-    └── Validator
-            │
-            ├── ValidationResult
-            └── Rejected traces JSON
+passta-0.4.0-linux-x64.jar
+passta-0.4.0-windows-x64.jar
+passta-0.4.0-macos-arm64.jar
+passta-0.4.0-macos-x64.jar
 ```
 
 ## Table of contents
 
-- [Status](#status)
 - [Quick start](#quick-start)
 - [Features](#features)
-- [Changelog](#changelog)
 - [Description](#description)
+  - [Learning workflow](#learning-workflow)
+  - [Trace model](#trace-model)
+  - [Learned automata](#learned-automata)
+  - [Visualization and export](#visualization-and-export)
+  - [Validation](#validation)
+  - [Usage modes](#usage-modes)
+  - [Scope and limitations](#scope-and-limitations)
 - [Architecture overview](#architecture-overview)
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Command-line usage](#command-line-usage)
-- [CLI examples](#cli-examples)
-- [Input traces format](#input-traces-format)
-- [Output formats](#output-formats)
+  - [General syntax](#general-syntax)
+  - [CLI examples](#cli-examples)
 - [Java API usage](#java-api-usage)
-- [Trace processing](#trace-processing)
-- [Learning](#learning)
-- [Visualization](#visualization)
-- [Exporting automata](#exporting-automata)
-- [Validation](#validation)
 - [Project structure](#project-structure)
+- [Experimental data and reproducibility](#experimental-data-and-reproducibility)
+- [Changelog](#changelog)
 - [Citation](#citation)
 - [License](#license)
 
-## Technologies
+## Quick start
 
-PASSTA depends on:
-
-- [OpenJDK 21 or higher](https://openjdk.org/)
-- [JavaFX 21](https://openjfx.io/)
-- [Apache Maven](https://maven.apache.org/)
-- [Jackson](https://github.com/FasterXML/jackson)
-- [Jackson Blackbird module](https://github.com/FasterXML/jackson-modules-base/tree/2.18/blackbird)
-- [Apache Commons IO](https://commons.apache.org/proper/commons-io/)
-- [SLF4J](https://www.slf4j.org/)
-
-Graphviz and Graphper are not required for visualization or graphical export in version 0.4.
-
-## Installation
-
-### Requirements
-
-- Java Development Kit, JDK 21 or higher.
-- Apache Maven, only required when building from source.
-- A graphical desktop environment for the interactive JavaFX viewer.
-
-The `export` command does not open a viewer window. On Linux systems without a display server, JavaFX may still require a virtual display such as Xvfb, depending on the runtime configuration.
-
-### JAR file
-
-The executable JAR file is generated in the `dist/` directory:
-
-```text
-dist/Passta-0.4.jar
-```
-
-It is a shaded, or fat, JAR that includes the project dependencies.
-
-To run the README examples as written, first move into the `dist/` directory:
-
-```bash
-cd dist
-```
-
-Then execute PASSTA with:
-
-```bash
-java -jar Passta-0.4.jar --help
-```
-
-Recent Java versions may display native-access or unnamed-module warnings when JavaFX is loaded from the shaded JAR. If required by the installed Java runtime, native access can be enabled with:
-
-```bash
-java --enable-native-access=ALL-UNNAMED -jar Passta-0.4.jar --help
-```
-
-### From source code
-
-Build the project from the project root:
+Build PASSTA from the project root:
 
 ```bash
 mvn clean package
 ```
 
-The compiled JAR is generated in the `dist/` directory.
+The executable shaded JAR is generated in:
 
-## Command-line usage
+```text
+dist/passta-0.4.0.jar
+```
 
-PASSTA 0.4 provides a command-line interface.
-
-### General syntax
+Show the available commands:
 
 ```bash
-java -jar Passta-0.4.jar <command> [options]
+java -jar dist/passta-0.4.0.jar --help
+```
+
+Open a learned automaton in the JavaFX viewer:
+
+```bash
+java -jar dist/passta-0.4.0.jar \
+    view data/traces.json 2
+```
+
+Export an automaton to SVG:
+
+```bash
+java -jar dist/passta-0.4.0.jar \
+    export data/traces.json 2 out/automaton.svg
+```
+
+Export an automaton to PNG:
+
+```bash
+java -jar dist/passta-0.4.0.jar \
+    export data/traces.json 2 out/automaton.png
+```
+
+Export an automaton to UPPAAL:
+
+```bash
+java -jar dist/passta-0.4.0.jar \
+    export data/traces.json 2 out/model.xml
 ```
 
 The value of `k` must be an integer greater than or equal to `1`.
 
-### Available commands
+## Features
 
-- `view`: learns an automaton and opens it in the JavaFX viewer.
-- `export`: learns an automaton and exports it to a file.
-- `--help`: shows CLI help.
-- `--version`: shows the current version.
+- Learns **Stochastic Real-Time Automata (SRTA)** from JSON execution traces.
+- Reads traces lazily through `Stream<Trace>`.
+- Accepts a JSON file or a directory of JSON files as a trace source.
+- Provides a command-line interface for learning, visualization, and export.
+- Includes an interactive JavaFX automaton viewer.
+- Supports movement of locations, edges, self-loops, and labels.
+- Exports automata to PNG, SVG, and UPPAAL XML.
+- Preserves manually adjusted layouts when exporting from the viewer.
+- Validates additional traces against learned automata.
+- Reports accepted and rejected traces through `ValidationResult`.
+- Can save rejected traces together with diagnostic information.
 
-### Show help
+## Description
 
-```bash
-java -jar Passta-0.4.jar --help
-```
+PASSTA is a Java-based tool for learning **Stochastic Real-Time Automata (SRTA)** from execution traces collected from real or simulated systems.
 
-### Show version
+PASSTA is intended for workflows involving:
 
-```bash
-java -jar Passta-0.4.jar --version
-```
+- behavioral model inference;
+- analysis of event-driven and time-sensitive systems;
+- formal digital twins;
+- protocol analysis;
+- model-based validation;
+- anomaly and rejection analysis;
+- preparation of learned models for formal verification.
 
-### View an automaton with JavaFX
+### Learning workflow
 
-```bash
-java -jar Passta-0.4.jar view data/traces.json 2
-```
+The standard PASSTA workflow consists of the following steps:
 
-Named options are also supported:
+1. Collect execution traces from a real system, simulator, test environment, or monitoring infrastructure.
+2. Represent the observations using PASSTA's JSON trace format.
+3. Select the learning parameter `k`.
+4. Run the PASSTA learning algorithm.
+5. Obtain a learned `SRTA` model.
+6. Inspect the automaton using the interactive JavaFX viewer.
+7. Export the model to PNG, SVG, or UPPAAL XML.
+8. Validate additional traces against the learned automaton.
 
-```bash
-java -jar Passta-0.4.jar view --input data/traces.json --k 2
-```
+The input source may be either a single JSON file or a directory containing multiple JSON files. Directory inputs are processed in filename order.
 
-The JavaFX viewer supports:
+Trace reading is performed lazily through `Stream<Trace>`. This allows PASSTA to process traces incrementally instead of materializing the complete input in memory before learning or validation.
 
-- zooming with the mouse wheel or the toolbar;
-- panning the canvas;
-- fitting the automaton to the current window;
-- resetting the initial layout;
-- moving locations by dragging them;
-- adjusting edges and self-loops;
-- moving edge labels independently;
-- selecting locations and edges to inspect their details;
-- exporting the current layout to PNG or SVG.
+Streams returned by `TraceReader.readTraces(...)` retain I/O resources while they are consumed and must therefore be closed using try-with-resources.
 
-### Export an automaton
-
-The default export format is inferred from the output file extension:
-
-```bash
-java -jar Passta-0.4.jar export data/traces.json 2 out/automaton.svg
-```
-
-The shorthand form is also supported:
-
-```bash
-java -jar Passta-0.4.jar data/traces.json 2 out/automaton.svg
-```
-
-If no output file or format is provided, PASSTA exports to:
-
-```text
-automaton.svg
-```
-
-Example:
-
-```bash
-java -jar Passta-0.4.jar data/traces.json 2
-```
-
-### Export as PNG
-
-```bash
-java -jar Passta-0.4.jar export data/traces.json 2 out/automaton.png
-```
-
-Using named options:
-
-```bash
-java -jar Passta-0.4.jar export --input data/traces.json --k 2 --output out/automaton.png
-```
-
-### Export as SVG
-
-```bash
-java -jar Passta-0.4.jar export data/traces.json 2 out/automaton.svg
-```
-
-### Export to UPPAAL
-
-```bash
-java -jar Passta-0.4.jar export data/traces.json 2 out/model.xml
-```
-
-Or explicitly:
-
-```bash
-java -jar Passta-0.4.jar export --input data/traces.json --k 2 --format UPPAAL --output out/model.xml
-```
-
-### Verbose mode
-
-Use `--verbose` to print additional execution information:
-
-```bash
-java -jar Passta-0.4.jar export data/traces.json 2 out/automaton.svg --verbose
-```
-
-## CLI examples
-
-```bash
-# Open the learned automaton in the JavaFX viewer
-java -jar Passta-0.4.jar view data/traces.json 2
-
-# Export to SVG without opening the viewer
-java -jar Passta-0.4.jar export data/traces.json 2 out/automaton.svg
-
-# Export to PNG without opening the viewer
-java -jar Passta-0.4.jar export data/traces.json 2 out/automaton.png
-
-# Export to UPPAAL
-java -jar Passta-0.4.jar export data/traces.json 2 out/model.xml
-```
-
-## Input traces format
+### Trace model
 
 PASSTA expects JSON files whose root element is an array of traces. Each trace contains a list of observations.
 
@@ -439,330 +211,515 @@ Example:
 ]
 ```
 
-`TraceReader.readTraces(...)` accepts either:
+PASSTA uses the ordering, timing, events, and observed variables to construct the automaton. Repeated behaviors across traces contribute to the learned structure and to the statistical information associated with transitions.
 
-- a regular `.json` file;
-- a directory whose directly contained `.json` files are processed in filename order.
+### Learned automata
 
-Subdirectories are not traversed recursively.
+The learned model is represented by the `SRTA` class. It contains locations and edges derived from the observations in the training traces.
 
-## Output formats
+A location may contain:
 
-PASSTA supports:
+- a unique identifier;
+- observed attributes;
+- timing information or invariants;
 
-- interactive JavaFX visualization;
-- `SVG` vector graphics;
-- `PNG` raster images;
-- `UPPAAL` XML models;
-- rejected-trace JSON files with validation diagnostics.
+An edge may contain:
 
-PNG and SVG exports from the CLI use the JavaFX renderer in memory and do not open a viewer window. Exports initiated from the viewer preserve the current positions of locations, transitions, loops, and labels.
+- its source and target locations;
+- the event that triggers it;
+- a timing interval or guard;
+- the samples from which it was inferred;
+- an estimated probability when available.
+
+The learning parameter `k` controls part of the model-generation and location-merging process. It must be an integer greater than or equal to `1`.
+
+Different values of `k` can produce models with different levels of abstraction.
+
+### Visualization and export
+
+PASSTA includes an interactive JavaFX viewer for exploring learned automata.
+
+The viewer supports:
+
+- zooming and panning;
+- fitting the complete graph to the window;
+- resetting the initial layout;
+- dragging locations;
+- adjusting edges and self-loops;
+- moving edge labels independently;
+- selecting locations and edges;
+- inspecting model details;
+- exporting the current layout to PNG or SVG.
+
+Moving graphical elements changes only the displayed layout. It does not modify the underlying `SRTA` model.
+
+PASSTA supports the following output formats:
+
+- **PNG**, for raster images suitable for reports and presentations;
+- **SVG**, for scalable vector graphics and further editing;
+- **UPPAAL XML**, for analysis with UPPAAL-compatible workflows.
+
+PNG and SVG exports use the JavaFX renderer.
+
+Exports initiated from the interactive viewer preserve the manually adjusted positions of locations, edges, self-loops, and labels.
+
+Exports performed directly from an `SRTA` through `AutomatonExporter` use the automatically generated layout.
+
+Command-line graphical exports create the visual representation in memory without opening the interactive viewer.
+
+### Validation
+
+A learned automaton can be used to validate additional execution traces.
+
+Validation determines whether each trace follows behavior accepted by the learned model. Before validation, PASSTA compresses the trace using its trace-processing logic and checks the resulting sequence against the automaton.
+
+Validation produces a `ValidationResult` containing:
+
+- the total number of processed traces;
+- the number of accepted traces;
+- the number of rejected traces;
+- the acceptance rate.
+
+Rejected traces can be written to JSON together with diagnostic information explaining why they were not accepted. This supports the investigation of unexpected behavior, incomplete training data, implementation changes, configuration differences, and possible anomalies.
+
+A rejected trace does not automatically indicate a system fault. It may represent valid behavior that was absent from the traces used to learn the model.
+
+
+### Usage modes
+
+PASSTA can be used in two main ways:
+
+- as a **command-line application** for experiments, scripts, automated processing, and reproducible workflows;
+- as a **Java API** embedded in another application.
+
+The Java API exposes components for:
+
+- reading and writing traces;
+- executing the learning algorithm;
+- accessing the learned `SRTA`;
+- displaying an automaton;
+- exporting graphical and UPPAAL representations;
+- validating additional traces.
+
+### Scope and limitations
+
+PASSTA learns from the behavior represented in the supplied traces. The resulting automaton is influenced by:
+
+- the quality of the collected observations;
+- the number and diversity of the traces;
+- the selected variables;
+- timestamp precision;
+- event extraction;
+- the value of `k`;
+- the coverage of valid system behavior in the training data.
+
+The learned model should not be interpreted as a complete specification of the original system unless the input data and experimental methodology justify that conclusion.
+
+## Architecture overview
+
+```text
+JSON trace file or directory
+    │
+    ▼
+TraceReader.readTraces(...)
+    │
+    ▼
+Stream<Trace>
+    │
+    ├── PASSTA learning algorithm
+    │       │
+    │       ▼
+    │    SRTA automaton
+    │       │
+    │       ├── JavaFX visualization
+    │       │       ├── Interactive viewer
+    │       │       ├── PNG export
+    │       │       └── SVG export
+    │       │
+    │       └── UPPAAL export
+    │
+    └── Validator
+            ├── ValidationResult
+            └── Rejected traces JSON
+```
+
+## Technologies
+
+PASSTA currently uses:
+
+- [OpenJDK 25](https://openjdk.org/)
+- [JavaFX 25](https://openjfx.io/)
+- [Apache Maven](https://maven.apache.org/)
+- [Jackson 3](https://github.com/FasterXML/jackson/wiki/Jackson-Release-3.0)
+
+## Installation
+
+### Requirements
+
+- JDK 25.
+- Apache Maven to build PASSTA from source.
+- A graphical desktop environment to use the interactive JavaFX viewer.
+
+### Building from source
+
+From the project root:
+
+```bash
+mvn clean package
+```
+
+Generated files are placed in:
+
+```text
+dist/
+```
+
+### Executable JAR
+
+Run the generated JAR with:
+
+```bash
+java -jar dist/passta-0.4.0.jar --help
+```
+
+## Command-line usage
+
+### General syntax
+
+```bash
+java -jar dist/passta-0.4.0.jar <command> [options]
+```
+
+The value of `k` must be an integer greater than or equal to `1`.
+
+- `view`: learns an automaton and opens it in the JavaFX viewer.
+- `export`: learns an automaton and exports it to a file.
+- `--help`: shows CLI help.
+- `--version`: shows the current version.
+
+#### CLI examples
+
+```bash
+# Show the available commands
+java -jar dist/passta-0.4.0.jar --help
+
+# Show the current version
+java -jar dist/passta-0.4.0.jar --version
+
+# Open the learned automaton in the JavaFX viewer
+java -jar dist/passta-0.4.0.jar \
+    view data/traces.json 2
+
+# Export to SVG without opening the viewer
+java -jar dist/passta-0.4.0.jar \
+    export data/traces.json 2 out/automaton.svg
+
+# Export to PNG without opening the viewer
+java -jar dist/passta-0.4.0.jar \
+    export data/traces.json 2 out/automaton.png
+
+# Export to UPPAAL
+java -jar dist/passta-0.4.0.jar \
+    export data/traces.json 2 out/model.xml
+```
 
 ## Java API usage
 
 PASSTA can also be used programmatically from Java.
 
-A minimal example that learns an automaton and exports it to SVG:
+The following example demonstrates the complete workflow:
+
+1. Learn an `SRTA` from training traces.
+2. Export the automaton to PNG and UPPAAL XML.
+3. Read and write traces using the trace I/O API.
+4. Validate an additional trace set.
+5. Save rejected traces with diagnostic information.
+6. Display the automaton using the JavaFX viewer.
 
 ```java
+package es.uma.morse.passta.examples;
+
 import java.nio.file.Path;
-
-import es.uma.morse.passta.core.Passta;
-import es.uma.morse.passta.core.automaton.SRTA;
-import es.uma.morse.passta.io.AutomatonExportFormat;
-import es.uma.morse.passta.io.AutomatonExporter;
-import es.uma.morse.passta.io.JavaFxRuntime;
-
-public class Example {
-
-    public static void main(String[] args) {
-        Passta passta = new Passta(
-            Path.of("data/traces.json"),
-            2
-        );
-
-        SRTA automaton = passta.getAutomaton();
-
-        try {
-            AutomatonExporter.export(
-                automaton,
-                Path.of("out/automaton.svg"),
-                AutomatonExportFormat.SVG
-            );
-        } finally {
-            JavaFxRuntime.shutdown();
-        }
-    }
-}
-```
-
-The explicit `JavaFxRuntime.shutdown()` call is appropriate for short-lived command-line programs that export PNG or SVG and then terminate. Do not call it after an export performed from an active JavaFX viewer.
-
-## Trace processing
-
-The central entry point for reading traces is `TraceReader.readTraces(...)`. It returns a sequential `Stream<Trace>` and accepts either a JSON file or a directory containing JSON files.
-
-Because the stream may keep input files open while it is consumed, close it using `try-with-resources`:
-
-```java
-import java.nio.file.Path;
+import java.util.List;
 import java.util.stream.Stream;
 
-import es.uma.morse.passta.core.trace.Trace;
-import es.uma.morse.passta.io.TraceReader;
-
-public class TraceReaderExample {
-
-    public static void main(String[] args) {
-        Path source = Path.of(
-            "src/main/resources/traces.json"
-        );
-
-        try (Stream<Trace> traces =
-                TraceReader.readTraces(source)) {
-
-            traces.forEach(System.out::println);
-        }
-    }
-}
-```
-
-The same method can read all JSON files directly contained in a directory:
-
-```java
-Path sourceDirectory = Path.of(
-    "src/main/resources/traces"
-);
-
-try (Stream<Trace> traces =
-        TraceReader.readTraces(sourceDirectory)) {
-
-    long numberOfTraces = traces.count();
-
-    System.out.println(
-        "Loaded traces: " + numberOfTraces
-    );
-}
-```
-
-A stream is single-use. After a terminal operation such as `count()`, `forEach(...)`, `toList()`, or `collect(...)`, open a new stream if the traces must be processed again.
-
-If a component requires a list, materialize the stream explicitly:
-
-```java
-try (Stream<Trace> traceStream =
-        TraceReader.readTraces(source)) {
-
-    List<Trace> traces = traceStream.toList();
-
-    TraceWriter.writeTraces(
-        destination,
-        traces
-    );
-}
-```
-
-## Learning
-
-Create a `Passta` instance from a JSON trace source and a value for `k`. The value of `k` must be at least `1`.
-
-```java
-import java.nio.file.Path;
-
 import es.uma.morse.passta.core.Passta;
 import es.uma.morse.passta.core.automaton.SRTA;
+import es.uma.morse.passta.core.trace.Trace;
+import es.uma.morse.passta.export.AutomatonExportFormat;
+import es.uma.morse.passta.export.AutomatonExporter;
+import es.uma.morse.passta.trace.io.TraceReader;
+import es.uma.morse.passta.trace.io.TraceWriter;
+import es.uma.morse.passta.validation.ValidationResult;
+import es.uma.morse.passta.validation.Validator;
+import es.uma.morse.passta.visualization.javafx.AutomatonViewer;
 
-public class LearningExample {
+public class Example1 {
 
     public static void main(String[] args) {
-        Path tracesPath = Path.of(
-            "src/main/resources/traces.json"
-        );
+        Path directory = Path.of("ptp4lv4");
+        String scenario = "disc";
+        String dataset = directory
+            .getFileName()
+            .toString();
 
         int k = 2;
 
-        Passta passta = new Passta(
-            tracesPath,
-            k
-        );
-
-        SRTA automaton = passta.getAutomaton();
-
-        System.out.println(automaton);
-    }
-}
-```
-
-## Visualization
-
-Automata can be shown in the JavaFX viewer using `AutomatonViewer`:
-
-```java
-import java.nio.file.Path;
-
-import es.uma.morse.passta.core.Passta;
-import es.uma.morse.passta.core.automaton.SRTA;
-import es.uma.morse.passta.io.AutomatonViewer;
-
-public class JavaFxVisualizationExample {
-
-    public static void main(String[] args) {
-        Passta passta = new Passta(
-            Path.of("src/main/resources/traces.json"),
-            2
-        );
-
-        SRTA automaton = passta.getAutomaton();
-
-        AutomatonViewer.show(automaton);
-    }
-}
-```
-
-The viewer supports interactive editing of the displayed layout. These changes affect exports initiated from the viewer but do not modify the underlying learned `SRTA` model.
-
-## Exporting automata
-
-Automata can be exported using `AutomatonExporter`.
-
-### Export to SVG
-
-```java
-AutomatonExporter.export(
-    automaton,
-    Path.of("out/automaton.svg"),
-    AutomatonExportFormat.SVG
-);
-```
-
-### Export to PNG
-
-```java
-AutomatonExporter.export(
-    automaton,
-    Path.of("out/automaton.png"),
-    AutomatonExportFormat.PNG
-);
-```
-
-### Export to UPPAAL
-
-```java
-AutomatonExporter.export(
-    automaton,
-    Path.of("out/model.xml"),
-    AutomatonExportFormat.UPPAAL
-);
-```
-
-PNG and SVG export initialize JavaFX internally. A standalone Java process that performs a graphical export and then ends should close the runtime with `JavaFxRuntime.shutdown()`.
-
-## Validation
-
-The validation module checks whether traces are accepted by a learned automaton. Callers pass the validation source directly to `Validator`, so validation traces do not need to be loaded into a list beforehand.
-
-`Validator.nValidTraces(...)` returns a `ValidationResult` with:
-
-- `totalTraces()`: total number of processed traces;
-- `acceptedTraces()`: number of traces accepted by the automaton;
-- `rejectedTraces()`: number of rejected traces;
-- `acceptanceRate()`: accepted proportion from `0.0` to `1.0`.
-
-```java
-import java.nio.file.Path;
-
-import es.uma.morse.passta.core.Passta;
-import es.uma.morse.passta.core.automaton.SRTA;
-import es.uma.morse.passta.validation.ValidationResult;
-import es.uma.morse.passta.validation.Validator;
-
-public class ValidationExample {
-
-    public static void main(String[] args) {
-        Path trainingSource = Path.of(
-            "src/main/resources/training-traces.json"
-        );
-
-        Path validationSource = Path.of(
-            "src/main/resources/validation-traces.json"
-        );
-
-        Passta passta = new Passta(
-            trainingSource,
-            2
-        );
-
-        SRTA automaton = passta.getAutomaton();
-
-        ValidationResult result =
-            Validator.nValidTraces(
-                validationSource,
-                automaton
+        Path trainingPath =
+            directory.resolve(
+                scenario + "5training.json"
             );
 
-        System.out.println(
-            "Total traces: "
-                + result.totalTraces()
-        );
+        Path validationPath =
+            directory.resolve(
+                scenario + "5validation.json"
+            );
 
-        System.out.println(
-            "Accepted traces: "
-                + result.acceptedTraces()
-        );
+        Path trainingCopyPath =
+            directory.resolve(
+                scenario + "5training-copy.json"
+            );
 
-        System.out.println(
-            "Rejected traces: "
-                + result.rejectedTraces()
-        );
+        Path rejectedTracesPath =
+            directory.resolve(
+                scenario + "5rejected.json"
+            );
 
-        System.out.printf(
-            "Acceptance rate: %.2f%%%n",
-            result.acceptanceRate() * 100.0
-        );
+        Path pngOutputPath =
+            directory.resolve(
+                scenario + "-" + dataset + ".png"
+            );
+
+        Path uppaalOutputPath =
+            directory.resolve(
+                scenario + "-" + dataset + ".xml"
+            );
+
+        try {
+            /*
+             * Learn the automaton.
+             */
+            Passta passta =
+                new Passta(trainingPath, k);
+
+            SRTA automaton =
+                passta.getAutomaton();
+
+            /*
+             * Export the automaton as PNG.
+             */
+            AutomatonExporter.export(
+                automaton,
+                pngOutputPath,
+                AutomatonExportFormat.PNG
+            );
+
+            /*
+             * Export the automaton to UPPAAL XML.
+             */
+            AutomatonExporter.export(
+                automaton,
+                uppaalOutputPath,
+                AutomatonExportFormat.UPPAAL
+            );
+
+            /*
+             * Read and write the training traces.
+             */
+            try (Stream<Trace> traceStream =
+                    TraceReader.readTraces(
+                        trainingPath
+                    )) {
+
+                List<Trace> traces =
+                    traceStream.toList();
+
+                TraceWriter.writeTraces(
+                    trainingCopyPath,
+                    traces
+                );
+            }
+
+            /*
+             * Validate an additional trace set.
+             */
+            ValidationResult result =
+                Validator.nValidTraces(
+                    validationPath,
+                    automaton,
+                    rejectedTracesPath
+                );
+
+            /*
+             * Print the validation summary.
+             */
+            System.out.println();
+            System.out.println(
+                "Validation results"
+            );
+            System.out.println(
+                "------------------"
+            );
+
+            System.out.println(
+                "Validation traces: "
+                    + result.totalTraces()
+            );
+
+            System.out.println(
+                "Accepted traces:   "
+                    + result.acceptedTraces()
+            );
+
+            System.out.println(
+                "Rejected traces:   "
+                    + result.rejectedTraces()
+            );
+
+            System.out.printf(
+                "Acceptance rate:   %.2f%%%n",
+                result.acceptanceRate() * 100.0
+            );
+
+            if (result.rejectedTraces() > 0) {
+                System.out.println(
+                    "Rejected traces file: "
+                        + rejectedTracesPath
+                            .toAbsolutePath()
+                            .normalize()
+                );
+            }
+
+            /*
+             * Open the interactive viewer last.
+             */
+            AutomatonViewer.show(automaton);
+
+        } catch (RuntimeException exception) {
+            System.err.println(
+                "Error while executing Example1: "
+                    + exception.getMessage()
+            );
+
+            exception.printStackTrace(System.err);
+        }
     }
 }
-```
-
-Rejected traces can be saved with their rejection reason:
-
-```java
-Path rejectedOutput = Path.of(
-    "out/rejected-traces.json"
-);
-
-ValidationResult result = Validator.nValidTraces(
-    validationSource,
-    automaton,
-    rejectedOutput
-);
-```
-
-During validation, each trace is compressed using `Passta.compressTrace(...)` before it is checked against the automaton. For direct validation of a single trace, use:
-
-```java
-boolean accepted = Validator.checkTrace(
-    trace,
-    automaton
-);
 ```
 
 ## Project structure
 
 ```text
 src/main/java/es/uma/morse/passta
-├── cli               Command-line interface
-├── core              PASSTA learning algorithm and core model
-├── core/automaton    SRTA locations, transitions, and automata
-├── core/trace        Trace and observation model
-├── io                Readers, writers, JavaFX viewer, exporters, and UPPAAL output
-└── validation        Trace validation and ValidationResult
+├── cli
+│   └── Command-line interface
+│
+├── core
+│   ├── PASSTA learning algorithm
+│   ├── automaton
+│   │   └── SRTA model, locations, and transitions
+│   └── trace
+│       └── Trace and observation model
+│
+├── examples
+│   └── Java API usage examples
+│
+├── export
+│   ├── Automaton export facade
+│   ├── PNG and SVG exporters
+│   ├── Export path resolution
+│   └── UPPAAL export
+│
+├── trace
+│   └── io
+│       ├── TraceReader
+│       ├── TraceWriter
+│       └── Internal Jackson support
+│
+├── validation
+│   └── Trace validation and ValidationResult
+│
+└── visualization
+    └── javafx
+        ├── Interactive automaton viewer
+        ├── JavaFX runtime management
+        ├── SRTA graph adapter
+        └── Graph layout
 ```
 
-The graphical export implementation is separated into runtime, preparation, path-resolution, PNG, and SVG components so that the viewer and command-line exports share the same rendered geometry.
+## Experimental data and reproducibility
+
+The following directories contain the input data used in the experiments reported in the associated research article:
+
+```text
+ptp4lv3/
+ptp4lv4/
+```
+
+## Changelog
+
+### 2026-11-12 – Version 0.4.0
+
+- Reorganized the former general-purpose `io` package into responsibility-specific packages.
+- Moved automaton export classes to `es.uma.morse.passta.export`.
+- Moved the UPPAAL export implementation to the export package.
+- Moved JavaFX visualization and graph-layout classes to `es.uma.morse.passta.visualization.javafx`.
+- Moved trace reading and writing classes to `es.uma.morse.passta.trace.io`.
+- Updated the project to Java 25 and JavaFX 25.
+- Migrated JSON processing to Jackson 3.
+
+### 2026-10-09 – Version 0.4.0 development
+
+- Replaced the previous browser-oriented visualization with an interactive JavaFX viewer.
+- Added interactive movement of automaton locations.
+- Added interactive adjustment of transitions, parallel edges, and self-loops.
+- Added independently movable edge labels that preserve their relative displacement.
+- Added zoom, panning, fit-to-window, and layout reset controls.
+- Added location and transition selection with a details panel.
+- Added PNG and SVG export from the JavaFX viewer while preserving the current layout.
+- Added PNG and SVG export from the CLI without opening an interactive window.
+- Removed the Graphviz and Graphper dependency from graphical export.
+- Refactored merge methods to clarify their responsibilities and reduce duplicated logic.
+- Updated the CLI for `view`, PNG, SVG, and UPPAAL workflows.
+
+### 2026-10-01 – Version 0.3.1
+
+- Changed `TraceReader.readTraces(...)` to return a lazy `Stream<Trace>` instead of a materialized `List<Trace>`.
+- Centralized trace reading through `TraceReader.readTraces(...)`.
+- Added support for JSON files and directories containing JSON files.
+- Closed input streams and Jackson iterators through the stream `onClose` mechanism.
+- Replaced public `MappingIterator` usage with the Java Stream API.
+- Refactored validation entry points to accept a source `Path` or `String`.
+- Updated validation to process traces incrementally.
+- Added `ValidationResult`.
+- Preserved diagnostic output for rejected traces.
+
+### 2026-07-03 – Version 0.3
+
+- Refactored the project into clearer core, I/O, automaton, trace, validation, and CLI packages.
+- Reduced memory use when processing large trace files.
+- Improved edge labels in the former browser-based visualization.
+- Added the command-line interface.
+- Added the browser visualization command.
+- Added a location legend to the UPPAAL export.
+
+### 2026-01-12 - Version 0.2.2
+
+- Improved the parser `show()` method across operating systems and browsers.
+- Extended validation with methods that save rejected traces and their rejection reason.
+
+### 2025-10-15 - Version 0.2.1
+
+- Adjusted the merge algorithm to resolve indeterminism earlier in the incoming and outgoing edges of merged locations.
+
+### 2025-07-16 - Version 0.2.0
+
+- Added a custom UPPAAL exporter.
+- Removed the external UPPAAL API dependency.
 
 ## Citation
 
-If you use PASSTA in academic work, please cite the following article:
+If you use PASSTA in academic work, please cite:
 
 ```bibtex
 @article{LOPEZGOMEZ2026101142,
