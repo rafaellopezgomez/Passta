@@ -183,6 +183,4 @@ out/
 .micronaut/
 
 /dist/*
-!/dist/*.jar
-
-/dist/
+!/dist/passta*.jar
