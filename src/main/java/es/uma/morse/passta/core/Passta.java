@@ -96,9 +96,10 @@ public class Passta {
 	 * @return trace
 	 */
 	public static Trace compressTrace(Trace trace) {
+		
 		if (trace == null)
 			return null;
-
+		
 		List<Observation> obs = trace.getObs();
 		if (obs == null || obs.isEmpty())
 			return trace;
@@ -118,9 +119,7 @@ public class Passta {
 
 			i = j;
 		}
-
-		trace.setObs(compressed);
-		return trace;
+		return new Trace(compressed);
 	}
 
 	/**

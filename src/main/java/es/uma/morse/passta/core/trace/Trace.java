@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Trace {
+public final class Trace {
 	
-	private List<Observation> observations;
+	private final List<Observation> observations;
 	
 	@JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
 	public Trace(@JsonProperty("obs") List<Observation> observations) {
@@ -20,10 +20,6 @@ public class Trace {
 	@JsonProperty("obs")
 	public List<Observation> getObs() {
 		return observations;
-	}
-
-	public void setObs(List<Observation> observations) {
-		this.observations = Objects.requireNonNull(observations, "Observations list is null");
 	}
 
 	@Override
